@@ -1,0 +1,12 @@
+.swatchRow { display: flex; gap: 10px; }
+.swatch {
+  width: 64px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  display: flex;
+  overflow: hidden;
+  padding: 0;
+}
+.swatch[data-active="true"] { border-color: var(--accent); }
+.swatchHalf { flex: 1; }

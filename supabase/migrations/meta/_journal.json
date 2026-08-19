@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1778962024327,
+      "tag": "0000_warm_bruce_banner",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780070582573,
+      "tag": "0001_add_leads",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783464409384,
+      "tag": "0002_add_push_subscriptions",
+      "breakpoints": true
+    }
+  ]
+}

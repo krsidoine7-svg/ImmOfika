@@ -1,0 +1,42 @@
+.bar {
+  position: sticky;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--ink);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px 14px 20px;
+  box-shadow: var(--shadow-soft);
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.bar[data-hidden="true"] {
+  transform: translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+}
+.msg { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pro); flex-shrink: 0; }
+.actions { display: flex; gap: 8px; }
+.btn {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+.discard {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: rgba(245, 244, 241, 0.2);
+}
+.discard:hover { background: rgba(245, 244, 241, 0.08); }
+.save {
+  background: var(--accent);
+  color: var(--text-on-dark);
+}
+.save:hover { background: var(--accent-strong); }

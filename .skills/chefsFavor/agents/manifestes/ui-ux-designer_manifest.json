@@ -1,0 +1,6 @@
+{
+  "id": "ui-ux-designer",
+  "manager": "Chefskrsidoine7",
+  "skills": ["ui_design", "ux_research", "ergonomics"],
+  "delegation_policy": "require_manager_approval"
+}

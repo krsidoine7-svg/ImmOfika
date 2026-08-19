@@ -1,0 +1,10 @@
+{
+  "skill_name": "skill-markitdown-master",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prends ce document Word de résumé du cours CCNA et génère un Markdown structuré avec les tags pour mon quiz.",
+      "expected_output": "Un fichier Markdown contenant le YAML Frontmatter (Date, Thème, Mots-clés) en haut, un Markdown propre sans HTML parasite, et les tags [IMPORTANT: Concept Clé], [EXEMPLE], [SCÉNARIO] correctement placés autour des notions réseaux pertinentes."
+    }
+  ]
+}

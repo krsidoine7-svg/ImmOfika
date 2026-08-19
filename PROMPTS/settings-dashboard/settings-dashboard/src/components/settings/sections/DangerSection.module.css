@@ -1,0 +1,13 @@
+.section {
+  border: 1px solid var(--danger-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.header { padding: 20px 28px; border-bottom: 1px solid var(--danger-soft); background: var(--danger-soft); }
+.title { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--danger); margin: 0; }
+.desc { font-size: 13px; color: var(--text-secondary); margin: 6px 0 0; }
+.row { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; }
+.rowLabel { font-size: 14px; font-weight: 500; }
+.rowDesc { font-size: 13px; color: var(--text-secondary); margin-top: 2px; max-width: 46ch; }
+.btn { font-size: 13px; font-weight: 500; padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--danger); color: var(--danger); background: var(--surface); flex-shrink: 0; }
+.btn:hover { background: var(--danger); color: var(--text-on-dark); }

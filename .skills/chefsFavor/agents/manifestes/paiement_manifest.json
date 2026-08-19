@@ -1,0 +1,6 @@
+{
+  "id": "paiement",
+  "manager": "chefs-favor",
+  "skills": ["supabase", "immo-ci", "skills-main/pdf"],
+  "delegation_policy": "require_manager_approval"
+}

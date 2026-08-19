@@ -1,0 +1,6 @@
+{
+  "id": "architecte",
+  "manager": "chefs-favor",
+  "skills": ["skill-mermaid-h", "supabase-postgres-best-practices"],
+  "delegation_policy": "require_manager_approval"
+}

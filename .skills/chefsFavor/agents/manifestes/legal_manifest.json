@@ -1,0 +1,6 @@
+{
+  "id": "legal",
+  "manager": "chefs-favor",
+  "skills": ["immo-ci", "securite-favor"],
+  "delegation_policy": "require_manager_approval"
+}

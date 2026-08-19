@@ -1,0 +1,6 @@
+{
+  "id": "devops",
+  "manager": "chefs-favor",
+  "skills": ["skills-main/mcp-builder", "securite-favor"],
+  "delegation_policy": "require_manager_approval"
+}

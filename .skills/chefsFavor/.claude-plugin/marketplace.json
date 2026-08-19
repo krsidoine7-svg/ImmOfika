@@ -1,0 +1,86 @@
+{
+  "name": "favor-company-suite",
+  "owner": {
+    "name": "Favor Company International",
+    "email": "tech@favorcompany.com"
+  },
+  "metadata": {
+    "description": "Custom AI Skills and Management Suite for Favor Company International",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "favor-memory",
+      "description": "External persistent memory for Favor Company: logs everything in fourtour/ (raw chronological) and organizes in wiki/ (structured navigation). Auto-masks all sensitive data.",
+      "source": "../",
+      "strict": true,
+      "skills": [
+        "./memoire-favor"
+      ]
+    },
+    {
+      "name": "favor-management",
+      "description": "Master AI Project Manager, local real estate regulations and high-conversion copywriting",
+      "source": "../../",
+      "strict": true,
+      "skills": [
+        "./chefsFavor",
+        "./immo-ci",
+        "./copywriting"
+      ]
+    },
+    {
+      "name": "favor-technical",
+      "description": "Database management, transaction emailing, performance SQL and SEO diagnostics",
+      "source": "../../",
+      "strict": true,
+      "skills": [
+        "./react-email",
+        "./seo-audit",
+        "./supabase",
+        "./supabase-postgres-best-practices"
+      ]
+    },
+    {
+      "name": "document-skills",
+      "description": "Collection of document processing suite including Excel, Word, PowerPoint, and PDF capabilities",
+      "source": "../../skills-main/",
+      "strict": false,
+      "skills": [
+        "./skills/xlsx",
+        "./skills/docx",
+        "./skills/pptx",
+        "./skills/pdf"
+      ]
+    },
+    {
+      "name": "utility-skills",
+      "description": "Collection of utility skills including skill creation, MCP building, visual design, algorithmic art, internal communications, web testing, artifact building, Slack GIFs, and theme styling",
+      "source": "../../skills-main/",
+      "strict": false,
+      "skills": [
+        "./skills/algorithmic-art",
+        "./skills/brand-guidelines",
+        "./skills/canvas-design",
+        "./skills/doc-coauthoring",
+        "./skills/frontend-design",
+        "./skills/internal-comms",
+        "./skills/mcp-builder",
+        "./skills/skill-creator",
+        "./skills/slack-gif-creator",
+        "./skills/theme-factory",
+        "./skills/web-artifacts-builder",
+        "./skills/webapp-testing"
+      ]
+    },
+    {
+      "name": "claude-api",
+      "description": "Claude API and SDK documentation skill for building LLM-powered applications",
+      "source": "../../skills-main/",
+      "strict": false,
+      "skills": [
+        "./skills/claude-api"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "dev-backend",
+  "manager": "chefs-favor",
+  "skills": ["supabase", "supabase-postgres-best-practices", "react-email"],
+  "delegation_policy": "require_manager_approval"
+}

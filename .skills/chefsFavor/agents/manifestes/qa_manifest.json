@@ -1,0 +1,6 @@
+{
+  "id": "qa",
+  "manager": "chefs-favor",
+  "skills": ["skills-main/webapp-testing"],
+  "delegation_policy": "require_manager_approval"
+}

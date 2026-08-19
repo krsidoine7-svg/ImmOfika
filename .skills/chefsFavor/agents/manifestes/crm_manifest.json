@@ -1,0 +1,6 @@
+{
+  "id": "crm",
+  "manager": "chefs-favor",
+  "skills": ["supabase", "securite-favor"],
+  "delegation_policy": "require_manager_approval"
+}

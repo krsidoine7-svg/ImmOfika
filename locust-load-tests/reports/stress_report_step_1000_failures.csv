@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+POST,Supabase Auth Sign-In,HTTPError('429 Client Error: Too Many Requests for url: Supabase Auth Sign-In'),3,2026-07-08T23:24:35Z,2026-07-08T23:24:40Z
+POST,Supabase Auth Sign-In (Agent),HTTPError('429 Client Error: Too Many Requests for url: Supabase Auth Sign-In (Agent)'),10,2026-07-08T23:24:30Z,2026-07-08T23:24:44Z
+GET,/admin/leads,"ConnectionResetError(10054, 'Une connexion existante a dû être fermée par l’hôte distant', None, 10054, None)",3,2026-07-08T23:24:28Z,2026-07-08T23:27:35Z

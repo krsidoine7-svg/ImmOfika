@@ -1,0 +1,18 @@
+.row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.row:last-child { border-bottom: none; }
+.info { display: flex; flex-direction: column; gap: 4px; padding-top: 9px; }
+.label { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; max-width: 32ch; }
+.control { display: flex; align-items: center; min-width: 0; }
+.controlStack { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 380px; }
+
+@media (max-width: 720px) {
+  .row { grid-template-columns: 1fr; gap: 10px; }
+  .info { padding-top: 0; }
+}
