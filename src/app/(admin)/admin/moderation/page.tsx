@@ -4,7 +4,7 @@ import { runSystemHealthCheckAction, getModerationFeedAction } from '@/app/actio
 import SuperAdminModerationHub from '@/components/admin/SuperAdminModerationHub'
 
 export const metadata = {
-  title: 'Supervision, Modération & Sécurité LBC-FT — Admin Favor Company',
+  title: 'Supervision, Modération & Sécurité LBC-FT — Admin ImmOfika',
   description: 'Centre de contrôle d\'État pour le Super Administrateur : modération des flux, diagnostic de santé serveur et prévention LBC-FT.',
 }
 

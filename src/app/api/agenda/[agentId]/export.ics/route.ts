@@ -23,7 +23,7 @@ export async function GET(
       .from(profiles)
       .where(eq(profiles.id, agentId))
 
-    const calendarName = agent ? `Visites — ${agent.fullName}` : "Visites Favor Company"
+    const calendarName = agent ? `Visites — ${agent.fullName}` : "Visites ImmOfika"
 
     // Récupérer les visites de l'agent
     const visitesList = await db

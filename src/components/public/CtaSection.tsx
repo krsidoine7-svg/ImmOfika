@@ -10,7 +10,7 @@ interface CtaSectionProps {
 }
 
 export default function CtaSection({ data }: CtaSectionProps) {
-  const tag = data?.tag || "Contactez Immo Pro"
+  const tag = data?.tag || "Contactez ImmOfika"
   const title = data?.title || "Prêt à concrétiser votre projet immobilier ?"
   const description = data?.description || "Bénéficiez de l'accompagnement d'experts agréés pour l'achat, la vente ou la mise en gestion de vos biens."
   const button_label = data?.button_label || "Explorer nos biens disponibles"

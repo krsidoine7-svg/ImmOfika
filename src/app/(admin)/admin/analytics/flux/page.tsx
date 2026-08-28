@@ -9,7 +9,7 @@ import {
 import AnalyticsDashboardClient from '@/components/admin/analytics/AnalyticsDashboardClient'
 
 export const metadata = {
-  title: 'Flux de Pages & Liens — Favor Company',
+  title: 'Flux de Pages & Liens — ImmOfika',
 }
 
 export default async function FluxPage() {

@@ -14,9 +14,9 @@ export default function ExplainerVideoSection({ data }: ExplainerVideoSectionPro
   const enabled = data?.enabled === true
   if (!enabled) return null
 
-  const tag = data?.tag || "Présentation Immo Pro"
-  const title = data?.title || "Découvrez notre expertise en action."
-  const description = data?.description || "En tant que Promoteur Immobilier Agréé, Immo Pro s'engage à vous offrir des projets d'aménagement foncier et de construction d'exception."
+  const tag = data?.tag || "Présentation ImmOfika"
+  const title = data?.title || "Découvrez notre expertise en vidéo"
+  const description = data?.description || "En tant que Promoteur Immobilier Agréé, ImmOfika s'engage à vous offrir des projets d'aménagement foncier et de construction d'exception."
 
   return (
     <section id="explainer-video" className="py-20 bg-white">

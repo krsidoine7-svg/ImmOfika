@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
 
       if (resendInstance && profileInfo?.email) {
         await resendInstance.emails.send({
-          from: 'Favor Company <noreply@favorcompany.ci>',
+          from: 'ImmOfika <noreply@immofika.ci>',
           to: profileInfo.email,
           subject: `Rappel : Votre réservation expire bientôt`,
           html: `

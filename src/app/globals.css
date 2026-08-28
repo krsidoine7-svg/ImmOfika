@@ -146,6 +146,30 @@
   scrollbar-color: #cbd5e1 transparent;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 .dark * {
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Utilitaires pour masquer totalement la barre de défilement */
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+/* Utilitaire 3D Perspective */
+.perspective-1000 {
+  perspective: 1000px;
 }

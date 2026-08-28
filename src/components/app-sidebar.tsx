@@ -16,7 +16,8 @@ import {
   BellIcon,
   ShieldAlertIcon,
   SlidersIcon,
-  ActivityIcon
+  ActivityIcon,
+  TableIcon,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -39,6 +40,18 @@ const favorData = {
       url: "/admin",
       icon: <HomeIcon />,
       isActive: true,
+    },
+    {
+      title: "Base de Données Visuelle",
+      url: "/admin/database",
+      icon: <TableIcon />,
+      permission: "view:biens",
+    },
+    {
+      title: "Formulaires (Tally)",
+      url: "/admin/formulaires",
+      icon: <BookOpenIcon />,
+      permission: "view:biens",
     },
     {
       title: "Biens Immobiliers",

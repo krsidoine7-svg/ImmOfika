@@ -6,7 +6,7 @@ import { cookies } from "next/headers"
 import { AdminUsersClient } from "@/components/admin/AdminUsersClient"
 
 export const metadata = {
-  title: "Gestion des Utilisateurs - Admin Favor Company",
+  title: "Gestion des Utilisateurs - Admin ImmOfika",
 }
 
 export default async function AdminUsersPage() {

@@ -5,7 +5,7 @@ import { updateReservationStatusAction } from "@/app/actions/adminReservations"
 import { AdminReservationsClient } from "@/components/admin/AdminReservationsClient"
 
 export const metadata = {
-  title: "Gestion des Réservations & Contrats - Admin Favor Company",
+  title: "Gestion des Réservations & Contrats - Admin ImmOfika",
 }
 
 export default async function AdminReservationsPage() {

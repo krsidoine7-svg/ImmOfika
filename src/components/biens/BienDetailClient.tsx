@@ -243,12 +243,12 @@ export default function BienDetailClient({ bien, images, isFavori: initialFavori
     <div className="max-w-7xl mx-auto px-4 py-8">
 
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-        <Link href="/" className="hover:text-[#C9A84C] transition-colors">Accueil</Link>
+      <nav className="flex items-center gap-2 text-sm text-slate-400 mb-6">
+        <Link href="/" className="hover:text-emerald-600 transition-colors font-medium">Accueil</Link>
         <span>/</span>
-        <Link href="/biens" className="hover:text-[#C9A84C] transition-colors">Biens</Link>
+        <Link href="/biens" className="hover:text-emerald-600 transition-colors font-medium">Biens</Link>
         <span>/</span>
-        <span className="text-[#1A2A4A] font-medium truncate max-w-[200px]">{bien.titre}</span>
+        <span className="text-slate-900 font-bold truncate max-w-[200px]">{bien.titre}</span>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -511,7 +511,7 @@ export default function BienDetailClient({ bien, images, isFavori: initialFavori
                   href={`/client/reserver/${bien.slug}`}
                   className={cn(
                     buttonVariants(),
-                    'flex-1 py-3 rounded-xl bg-[#C9A84C] hover:bg-[#b8943d] text-white text-sm font-medium text-center'
+                    'flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold text-center shadow-lg shadow-emerald-500/20'
                   )}
                 >
                   Continuer →

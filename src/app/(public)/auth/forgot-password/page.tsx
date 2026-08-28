@@ -3,19 +3,19 @@
 import Link from "next/link"
 import { useState } from "react"
 import { motion } from "framer-motion"
+import Logo from "@/components/shared/Logo"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client"
-import { Loader2, MailCheck } from "lucide-react"
+import { Loader2, MailCheck, ArrowLeft } from "lucide-react"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -44,25 +44,25 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1] p-6 md:p-10">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6 md:p-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
           className="flex w-full max-w-md flex-col gap-6"
         >
-          <Link href="/" className="flex items-center gap-2 self-center font-bold text-2xl text-[#1A2A4A] tracking-wider">
-            FAVOR COMPANY
-          </Link>
+          <div className="flex justify-center mb-1">
+            <Logo />
+          </div>
 
-          <Card className="shadow-xl border border-gray-100/50 bg-white rounded-2xl p-4">
+          <Card className="shadow-xl border border-slate-100 bg-white rounded-3xl p-4">
             <CardHeader className="text-center">
-              <div className="h-16 w-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto mb-4 border border-emerald-100">
+              <div className="h-16 w-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4 border border-emerald-100">
                 <MailCheck className="h-8 w-8" />
               </div>
-              <CardTitle className="text-2xl font-bold text-[#1A2A4A]">Email Envoyé</CardTitle>
-              <CardDescription className="text-sm text-gray-500 mt-2">
-                Si un compte existe pour <strong className="text-[#1A2A4A] font-semibold">{email}</strong>, un lien de réinitialisation vous a été envoyé.
+              <CardTitle className="text-2xl font-extrabold text-slate-900">Email Envoyé</CardTitle>
+              <CardDescription className="text-xs text-slate-500 font-medium mt-2">
+                Si un compte existe pour <strong className="text-slate-900 font-semibold">{email}</strong>, un lien de réinitialisation vous a été envoyé.
               </CardDescription>
             </CardHeader>
             <CardFooter className="pt-4">
@@ -70,9 +70,10 @@ export default function ForgotPasswordPage() {
                 href="/auth/login"
                 className={cn(
                   buttonVariants({ variant: "outline" }),
-                  "w-full h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 font-bold transition-all flex items-center justify-center"
+                  "w-full h-12 rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 font-bold transition-all flex items-center justify-center gap-2"
                 )}
               >
+                <ArrowLeft className="h-4 w-4" />
                 Retour à la connexion
               </Link>
             </CardFooter>
@@ -83,21 +84,21 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1] p-6 md:p-10">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6 md:p-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="flex w-full max-w-md flex-col gap-6"
       >
-        <Link href="/" className="flex items-center gap-2 self-center font-bold text-2xl text-[#1A2A4A] tracking-wider hover:opacity-85 transition-opacity">
-          FAVOR COMPANY
-        </Link>
+        <div className="flex justify-center mb-1">
+          <Logo />
+        </div>
 
-        <Card className="shadow-xl border border-gray-100/50 bg-white/95 backdrop-blur-md rounded-2xl">
+        <Card className="shadow-xl border border-slate-100 bg-white rounded-3xl">
           <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl font-bold tracking-tight text-[#1A2A4A]">Mot de passe oublié</CardTitle>
-            <CardDescription className="text-sm text-gray-500">
+            <CardTitle className="text-2xl font-extrabold tracking-tight text-slate-900">Mot de passe oublié</CardTitle>
+            <CardDescription className="text-xs text-slate-500 font-medium">
               Entrez votre email pour recevoir un lien de réinitialisation.
             </CardDescription>
           </CardHeader>
@@ -111,7 +112,7 @@ export default function ForgotPasswordPage() {
                 )}
 
                 <Field>
-                  <FieldLabel htmlFor="email" className="text-sm font-semibold text-[#1A2A4A]">Email</FieldLabel>
+                  <FieldLabel htmlFor="email" className="text-sm font-bold text-slate-900">Email</FieldLabel>
                   <Input
                     id="email"
                     type="email"
@@ -120,7 +121,7 @@ export default function ForgotPasswordPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={loading}
-                    className="h-12 rounded-xl bg-gray-50/50 border-gray-200 focus-visible:ring-[#C9A84C] text-[#1A2A4A] placeholder:text-gray-400"
+                    className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 placeholder:text-slate-400"
                   />
                 </Field>
 
@@ -128,7 +129,7 @@ export default function ForgotPasswordPage() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 rounded-xl font-bold bg-[#C9A84C] hover:bg-[#b8943d] text-white shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full h-12 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <>
@@ -140,9 +141,9 @@ export default function ForgotPasswordPage() {
                     )}
                   </Button>
                 </Field>
-                <div className="w-full text-center text-sm text-gray-500 mt-2">
+                <div className="w-full text-center text-xs text-slate-500 font-medium mt-2">
                   Retour à la{" "}
-                  <Link href="/auth/login" className="text-[#C9A84C] font-semibold hover:underline">
+                  <Link href="/auth/login" className="text-emerald-600 font-bold hover:underline">
                     connexion
                   </Link>
                 </div>
@@ -154,3 +155,4 @@ export default function ForgotPasswordPage() {
     </div>
   )
 }
+

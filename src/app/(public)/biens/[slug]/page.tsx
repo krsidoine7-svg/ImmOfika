@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const formattedPrix = typeof bien.prix === 'number' ? new Intl.NumberFormat('fr-FR').format(bien.prix) : bien.prix
   const seoTitle = `${bien.titre} à ${bien.ville || 'Côte d\'Ivoire'} (${formattedPrix} FCFA)`
-  const seoDescription = `${bien.titre} à ${bien.ville || 'Côte d\'Ivoire'} — ${bien.description.slice(0, 120)}... Offre certifiée par Favor Company International, Promoteur Immobilier Agréé pour l'aménagement foncier et la construction.`
+  const seoDescription = `${bien.titre} à ${bien.ville || 'Côte d\'Ivoire'} — ${bien.description.slice(0, 120)}... Offre certifiée par ImmOfika, Promoteur Immobilier Agréé pour l'aménagement foncier et la construction.`
 
   return {
     title: seoTitle,

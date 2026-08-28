@@ -47,7 +47,7 @@ export default function Navbar() {
         )}
       >
         <div className="flex items-center justify-between">
-          {/* Logo Immo Pro */}
+          {/* Logo ImmOfika */}
           <Logo />
 
           {/* Navigation Desktop */}
@@ -85,7 +85,7 @@ export default function Navbar() {
 
               <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 w-[260px] bg-white backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 transition-all duration-200 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
                 <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 py-1.5 border-b border-slate-100">
-                  Expertises Immo Pro
+                  Expertises ImmOfika
                 </p>
                 {dropdownServices.map((svc) => (
                   <Link

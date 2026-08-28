@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: 'Espace Restreint — Favor Company International',
+  title: 'Espace Restreint — ImmOfika International',
   description: 'Votre compte a été temporairement suspendu par la direction administrative.',
 }
 
@@ -46,8 +46,8 @@ export default async function SuspendedPage() {
         
         {/* Branding header */}
         <div className="space-y-2">
-          <span className="text-sm font-bold tracking-[0.2em] text-[#C9A84C] uppercase block">
-            Favor Company International
+          <span className="text-sm font-bold tracking-[0.2em] text-[#10B981] uppercase block">
+            ImmOfika International
           </span>
           <div className="h-[1px] w-12 bg-[#C9A84C]/40 mx-auto" />
         </div>

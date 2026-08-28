@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: "ImmOfika",
   shortName: "ImmOfika",
-  tagline: "Plateforme Immobilière & Promotion Agréée",
+  tagline: "Ton chez-toi garanti, zéro palabre !",
   description: "Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
   url: process.env.NEXT_PUBLIC_APP_URL || "https://immofika.ci",
   company: {
-    name: "ImmOfika International",
+    name: "ImmOfika",
     legalStatus: "Promoteur Immobilier Agréé",
-    email: "contact@immofika.ci",
-    phone: "+225 27 24 00 00 00",
-    address: "Abidjan, Côte d'Ivoire",
+    email: "ImmOfika@gmail.com",
+    phone: "+225 07 47 63 17 06",
+    address: "Yahou, immeuble en face de la maison blanche, au 2ie",
     rccm: "CI-ABJ-202X-B-XXXX",
     cc: "0000000X",
   },
@@ -22,7 +22,7 @@ export const siteConfig = {
   social: {
     facebook: "https://facebook.com/immofika",
     linkedin: "https://linkedin.com/company/immofika",
-    whatsapp: "https://wa.me/2250700000000",
+    whatsapp: "https://wa.me/2250103132878",
   }
 }
 

@@ -55,7 +55,7 @@ export function DonnerAvisVisiteModal({ isOpen, onClose, visite, clientId }: Don
         <DialogHeader className="space-y-2 border-b border-gray-100 pb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold w-fit">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Votre Avis Compte — Immo Pro</span>
+            <span>Votre Avis Compte — ImmOfika</span>
           </div>
           <DialogTitle className="text-xl font-extrabold text-[#1A2A4A]">
             Évaluer votre Visite & Conseiller

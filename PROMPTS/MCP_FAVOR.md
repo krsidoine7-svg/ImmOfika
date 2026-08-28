@@ -1,5 +1,5 @@
-# MCP_FAVOR.md — Model Context Protocol
-## Favor Company International
+# MCP_IMMOFIKA.md — Model Context Protocol
+## ImmOfika International
 
 > **MCP :** Protocole qui permet à l'IA d'accéder à des outils et sources de données externes en temps réel  
 > **Usage :** Connecter l'IA à la base de données, aux fichiers du projet, et aux APIs tierces pendant le développement
@@ -14,7 +14,7 @@ MCP (Model Context Protocol) est un standard ouvert qui permet à un assistant I
 - Appeler des APIs
 - Utiliser des outils de développement
 
-En pratique pour Favor Company : l'IA peut lire ton code, ta DB Supabase, tes fichiers de config, et t'aider de façon beaucoup plus précise et contextualisée.
+En pratique pour ImmOfika : l'IA peut lire ton code, ta DB Supabase, tes fichiers de config, et t'aider de façon beaucoup plus précise et contextualisée.
 
 ---
 
@@ -29,7 +29,7 @@ En pratique pour Favor Company : l'IA peut lire ton code, ta DB Supabase, tes fi
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/chemin/vers/favor-company"
+        "/chemin/vers/immofika"
       ]
     }
   }
@@ -78,7 +78,7 @@ En pratique pour Favor Company : l'IA peut lire ton code, ta DB Supabase, tes fi
       "args": [
         "-y",
         "@modelcontextprotocol/server-postgres",
-        "postgresql://user:password@host:5432/favor_company"
+        "postgresql://user:password@host:5432/immofika_db"
       ]
     }
   }
@@ -100,7 +100,7 @@ Fichier de configuration : `~/Library/Application Support/Claude/claude_desktop_
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/Users/ton-nom/projets/favor-company"
+        "/Users/ton-nom/projets/immofika"
       ]
     },
     "supabase": {
@@ -123,7 +123,7 @@ Fichier de configuration : `~/Library/Application Support/Claude/claude_desktop_
 
 ---
 
-## 4. Prompts MCP Optimisés pour Favor Company
+## 4. Prompts MCP Optimisés pour ImmOfika
 
 ### Analyser un bug avec accès aux fichiers
 ```
@@ -169,7 +169,7 @@ listées dans SECURITY.md.
 
 ---
 
-## 5. Architecture MCP Favor Company (Futur)
+## 5. Architecture MCP ImmOfika (Futur)
 
 Pour une utilisation avancée en production, voici comment MCP pourrait s'intégrer dans la plateforme :
 
@@ -182,7 +182,7 @@ Next.js API Route (/api/ai/chat)
      ▼
 MCP Client (dans le serveur)
      │
-     ├──▶ MCP Supabase Server → DB Favor Company
+     ├──▶ MCP Supabase Server → DB ImmOfika
      │         └── Liste des biens disponibles
      │         └── Statuts des réservations
      │         └── Historique client
@@ -260,4 +260,4 @@ GRANT SELECT ON visites TO mcp_dev_user;
 
 ---
 
-*MCP_FAVOR.md v1.0 — Mai 2026*
+*MCP_IMMOFIKA.md v1.0 — Mai 2026*

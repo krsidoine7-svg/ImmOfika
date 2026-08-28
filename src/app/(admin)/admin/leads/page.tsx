@@ -8,7 +8,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: 'Gestion des Leads - Admin Favor Company',
+  title: 'Gestion des Leads - Admin ImmOfika',
 }
 
 export default async function AdminLeadsPage() {

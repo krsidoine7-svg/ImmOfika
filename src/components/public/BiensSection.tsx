@@ -115,7 +115,7 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
   }
 
   return (
-    <section id="biens" className="relative py-20 md:py-28 bg-slate-50/50">
+    <section id="biens" className="relative py-20 md:py-28 bg-slate-50/50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         
         {/* En-tête de section */}
@@ -140,7 +140,7 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
             <button
               type="button"
               onClick={scrollLeft}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white text-slate-700 border border-slate-200 shadow-md flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all cursor-pointer hidden md:flex"
+              className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white text-slate-700 border border-slate-200 shadow-md flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all cursor-pointer hidden md:flex"
               aria-label="Gauche"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -149,7 +149,7 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
             <button
               type="button"
               onClick={scrollRight}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white text-slate-700 border border-slate-200 shadow-md flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all cursor-pointer hidden md:flex"
+              className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white text-slate-700 border border-slate-200 shadow-md flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all cursor-pointer hidden md:flex"
               aria-label="Droite"
             >
               <ChevronRight className="w-5 h-5" />
@@ -159,6 +159,10 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
             <div
               ref={scrollContainerRef}
               className="flex overflow-x-auto gap-6 pb-6 pt-2 snap-x snap-mandatory scrollbar-none scroll-smooth"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+              }}
             >
               {filteredProperties.map((item) => (
                 <div

@@ -620,7 +620,7 @@ export default function LeadsManagerClient({ leads: initialLeads, agents, biens 
   }
 
   const handleCopyContactLink = () => {
-    const contactUrl = typeof window !== 'undefined' ? `${window.location.origin}/contact` : 'https://favorcompany.ci/contact'
+    const contactUrl = typeof window !== 'undefined' ? `${window.location.origin}/contact` : 'https://immofika.ci/contact'
     navigator.clipboard.writeText(contactUrl)
       .then(() => {
         toast.success('Lien de capture copié ! Envoyez-le par WhatsApp ou E-mail.')

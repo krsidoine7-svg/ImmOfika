@@ -19,7 +19,7 @@ export default function FaqSection({ data }: FaqSectionProps) {
 
   const defaultFaqs = [
     {
-      question: "Quels sont les frais et les prestations d'Immo Pro ?",
+      question: "Quels sont les frais et les prestations d'ImmOfika ?",
       answer: "En tant que plateforme et promoteur agréé, nos honoraires et frais d'accompagnement sont transparents. Ils incluent la vérification administrative, la sécurisation juridique et le suivi des visites."
     },
     {

@@ -10,8 +10,8 @@ interface AboutSectionProps {
 
 export default function AboutSection({ data }: AboutSectionProps) {
   const tag = data?.tag || "À propos de nous"
-  const title = data?.title || "Immo Pro — L'excellence immobilière à votre service"
-  const description = data?.description || "Acteur majeur et promoteur immobilier agréé, Immo Pro offre une plateforme réplicable et sécurisée pour la gestion, la vente, la location et l'aménagement foncier avec titres ACD certifiés."
+  const title = data?.title || "ImmOfika — L'excellence immobilière à votre service"
+  const description = data?.description || "Acteur majeur et promoteur immobilier agréé, ImmOfika offre une plateforme réplicable et sécurisée pour la gestion, la vente, la location et l'aménagement foncier avec titres ACD certifiés."
 
   const features = [
     { title: "Agrément Officiel d'État", description: "Entreprise certifiée pour l'aménagement foncier et la promotion immobilière.", icon: ShieldCheck },
@@ -35,7 +35,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-white p-2">
               <img 
                 src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" 
-                alt="Immo Pro" 
+                alt="ImmOfika" 
                 className="rounded-2xl w-full h-80 md:h-[400px] object-cover"
               />
             </div>

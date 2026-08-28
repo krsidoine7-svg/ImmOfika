@@ -4,6 +4,7 @@
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { RefreshCw } from "lucide-react"
+import { siteConfig } from "@/config/site"
 
 export default function UpdateDetector() {
   const [hasUpdate, setHasUpdate] = React.useState(false)
@@ -59,17 +60,17 @@ export default function UpdateDetector() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-6 left-6 z-50 bg-[#1A2A4A] text-white border border-[#C9A84C]/30 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-4 max-w-sm"
+          className="fixed bottom-6 left-6 z-50 bg-slate-900/95 backdrop-blur-md text-white border border-emerald-500/30 px-5 py-4 rounded-2xl shadow-2xl shadow-emerald-950/40 flex items-center gap-4 max-w-sm"
         >
           <div className="flex-1 space-y-1">
-            <h4 className="text-sm font-bold text-[#C9A84C]">Mise à jour disponible</h4>
-            <p className="text-xs text-gray-300 leading-relaxed">
-              Une nouvelle version de Favor Company est prête pour améliorer votre expérience.
+            <h4 className="text-sm font-bold text-emerald-400">Mise à jour disponible</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Une nouvelle version de {siteConfig.name} est prête pour améliorer votre expérience.
             </p>
           </div>
           <button 
             onClick={reloadApp}
-            className="bg-[#C9A84C] hover:bg-[#b8943d] active:scale-95 transition-all text-[#1A2A4A] font-bold text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer shrink-0"
+            className="bg-emerald-500 hover:bg-emerald-600 active:scale-95 transition-all text-white font-bold text-xs px-3 py-2 rounded-xl shadow-md shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer shrink-0"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Actualiser
@@ -79,3 +80,4 @@ export default function UpdateDetector() {
     </AnimatePresence>
   )
 }
+

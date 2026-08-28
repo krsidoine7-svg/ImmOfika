@@ -31,7 +31,7 @@ export async function rembourserClient(
         transaction: paystackReference,
         amount: montantRembourse * 100, // Convert to cents
         currency: 'XOF',
-        merchant_note: 'Remboursement réservation expirée (87%) — Favor Company International',
+        merchant_note: 'Remboursement réservation expirée (87%) — ImmOfika',
       }),
     })
 

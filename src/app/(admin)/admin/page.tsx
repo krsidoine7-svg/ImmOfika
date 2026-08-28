@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server"
 import { cookies } from "next/headers"
 
 export const metadata = {
-  title: "Tableau de Bord - Favor Company",
+  title: "Tableau de Bord - ImmOfika",
 }
 
 export default async function AdminDashboardPage() {

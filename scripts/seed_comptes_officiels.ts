@@ -18,7 +18,7 @@ const accounts: AccountToSeed[] = [
   // 👑 2 COMPTES ADMINS
   {
     email: 'admin.general@favorcompany.ci',
-    pass: 'FavorAdmin2026!#1',
+    pass: 'Admin!',
     name: 'Kouassi Jean-Baptiste',
     phone: '+225 0701020304',
     role: 'admin',
@@ -26,7 +26,7 @@ const accounts: AccountToSeed[] = [
   },
   {
     email: 'admin.juridique@favorcompany.ci',
-    pass: 'FavorAdmin2026!#2',
+    pass: 'Admin123!',
     name: 'Me Koné Aminata',
     phone: '+225 0705060708',
     role: 'admin',

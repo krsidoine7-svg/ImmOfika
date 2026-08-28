@@ -4,9 +4,10 @@ import { confirmerPaiementEnBase } from '@/lib/paystack/db-confirm'
 import Navbar from '@/components/shared/Navbar'
 import { CheckCircle, AlertTriangle, Home, Calendar, CreditCard, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Confirmation de Paiement — Favor Company International',
+export const metadata: Metadata = {
+  title: 'Confirmation de Paiement — ImmOfika',
 }
 
 interface PageProps {

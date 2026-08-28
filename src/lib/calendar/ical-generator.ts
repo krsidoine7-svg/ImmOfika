@@ -1,5 +1,5 @@
 /**
- * Générateur de flux iCalendar (.ics) pour Favor Company International
+ * Générateur de flux iCalendar (.ics) pour ImmOfika International
  * Permet aux agents d'exporter leurs visites planifiées et de les synchroniser
  * dans Google Calendar, Outlook ou Apple Calendar.
  */
@@ -43,13 +43,13 @@ function escapeICalText(text: string | undefined): string {
 /**
  * Génère le contenu d'un fichier .ics à partir d'une liste d'événements
  */
-export function generateICalFeed(events: ICalExportEvent[], calendarName = "Visites Favor Company"): string {
+export function generateICalFeed(events: ICalExportEvent[], calendarName = "Visites ImmOfika"): string {
   const nowUtc = formatICalDateUTC(new Date())
   
   const lines: string[] = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Favor Company International//Immobilier CI//FR',
+    'PRODID:-//ImmOfika International//Immobilier CI//FR',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${escapeICalText(calendarName)}`,
@@ -66,7 +66,7 @@ export function generateICalFeed(events: ICalExportEvent[], calendarName = "Visi
 
     lines.push(
       'BEGIN:VEVENT',
-      `UID:visite-${event.id}@favorcompany.ci`,
+      `UID:visite-${event.id}@immofika.ci`,
       `DTSTAMP:${nowUtc}`,
       `DTSTART:${startUtc}`,
       `DTEND:${endUtc}`,
@@ -81,3 +81,4 @@ export function generateICalFeed(events: ICalExportEvent[], calendarName = "Visi
   lines.push('END:VCALENDAR')
   return lines.join('\r\n')
 }
+

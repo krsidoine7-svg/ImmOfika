@@ -8,7 +8,7 @@ const vapidKeys = {
 // Configurer les détails VAPID si les clés sont disponibles
 if (vapidKeys.publicKey && vapidKeys.privateKey) {
   webpush.setVapidDetails(
-    'mailto:contact@favorcompany.ci',
+    'mailto:contact@immofika.ci',
     vapidKeys.publicKey,
     vapidKeys.privateKey
   )

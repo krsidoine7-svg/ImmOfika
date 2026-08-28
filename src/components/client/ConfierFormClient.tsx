@@ -190,7 +190,7 @@ export default function ConfierFormClient() {
         ) : (
           <Send className="h-4 w-4 text-emerald-400" />
         )}
-        Confier mon bien à Immo Pro
+        Confier mon bien à ImmOfika
       </Button>
     </form>
   )

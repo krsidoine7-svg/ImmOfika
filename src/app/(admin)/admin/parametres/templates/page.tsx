@@ -5,7 +5,7 @@ import { TemplatesManagerClient } from "@/components/admin/TemplatesManagerClien
 import { requireAdminAccess } from "@/lib/auth/permissions"
 
 export const metadata = {
-  title: "Modèles de Contrats Word (.docx) - Admin Favor Company",
+  title: "Modèles de Contrats Word (.docx) - Admin ImmOfika",
 }
 
 export default async function ContractTemplatesPage() {

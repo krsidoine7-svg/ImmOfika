@@ -181,11 +181,11 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
         {/* Header */}
         <View style={styles.headerContainer}>
           <View style={styles.logoSection}>
-            <Text style={styles.companyName}>IMMO PRO INTERNATIONAL</Text>
+            <Text style={styles.companyName}>IMMOFIKA</Text>
             <Text style={styles.companyBadge}>PROMOTEUR IMMOBILIER AGRÉÉ PAR L'ÉTAT</Text>
             <Text style={styles.companyDetails}>Agrément Ministériel | Droit OHADA</Text>
             <Text style={styles.companyDetails}>Siège Social : Abidjan, Côte d'Ivoire | Tél : +225 27 24 00 00 00</Text>
-            <Text style={styles.companyDetails}>Email : contact@immopro.ci | Web : www.immopro.ci</Text>
+            <Text style={styles.companyDetails}>Email : contact@immofika.ci | Web : www.immofika.ci</Text>
           </View>
           <View style={styles.titleSection}>
             <Text style={styles.receiptTitle}>REÇU DE PAIEMENT</Text>
@@ -269,7 +269,7 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
             <View style={styles.signatureLine} />
           </View>
           <View style={styles.signatureBox}>
-            <Text style={styles.signatureTitle}>POUR IMMO PRO INT. (PROMOTEUR AGRÉÉ)</Text>
+            <Text style={styles.signatureTitle}>POUR IMMOFIKA (PROMOTEUR AGRÉÉ)</Text>
             <View style={styles.signatureLine} />
           </View>
         </View>
@@ -277,7 +277,7 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
         {/* Legal Footer */}
         <View style={styles.footer}>
           <Text>
-            IMMO PRO INTERNATIONAL — SA au Capital de 50 000 000 FCFA — RCCM: CI-ABJ-202X-B-XXXX — CC: 0000000X.
+            IMMOFIKA — SA au Capital de 50 000 000 FCFA — RCCM: CI-ABJ-202X-B-XXXX — CC: 0000000X.
           </Text>
           <Text>
             Document certifié conforme émis sous le contrôle d'un Promoteur Immobilier Agréé par l'État. Toute contrefaçon est passible de poursuites.

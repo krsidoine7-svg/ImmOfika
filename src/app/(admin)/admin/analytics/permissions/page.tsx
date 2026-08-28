@@ -9,7 +9,7 @@ import {
 import AnalyticsDashboardClient from '@/components/admin/analytics/AnalyticsDashboardClient'
 
 export const metadata = {
-  title: 'Rôles & Permissions — Favor Company',
+  title: 'Rôles & Permissions — ImmOfika',
 }
 
 export default async function PermissionsPage() {

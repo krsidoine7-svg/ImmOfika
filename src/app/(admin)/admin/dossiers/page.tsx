@@ -7,7 +7,7 @@ import { requirePermission } from '@/lib/auth/permissions'
 import DossiersManagerClient from '@/components/admin/DossiersManagerClient'
 
 export const metadata = {
-  title: 'Suivi des Dossiers & Tâches - Admin Favor Company',
+  title: 'Suivi des Dossiers & Tâches - Admin ImmOfika',
 }
 
 export default async function AdminDossiersPage() {

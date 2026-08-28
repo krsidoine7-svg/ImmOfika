@@ -91,7 +91,7 @@ const DEFAULTS: Record<string, any> = {
     title_gold: "bien de vos rêves",
     title_p2: "en toute",
     title_badge: "sérénité.",
-    subtitle: "« FAVOR Company Int. : les bienfaits d'un service authentique »",
+    subtitle: "« ImmOfika : Ton chez-toi garanti, zéro palabre ! 🇨🇮 »",
     description: "Lotissement, aménagement foncier, études topographiques et construction d'exception. L'expertise et l'intégrité au service de vos ambitions.",
     cta1_label: "Découvrir les biens",
     cta1_link: "/biens",
@@ -109,9 +109,9 @@ const DEFAULTS: Record<string, any> = {
     tag: "À propos de nous",
     title: "Plus qu'un promoteur immobilier agréé, un partenaire de vie.",
     italic_word: "partenaire",
-    description: "Depuis plus de 15 ans, Favor Company s'est imposée comme une référence de l'immobilier premium. Notre secret ? Une écoute attentive et une compréhension profonde des besoins de nos clients.",
+    description: "Depuis plus de 15 ans, ImmOfika s'est imposée comme une référence de l'immobilier premium. Notre secret ? Une écoute attentive et une compréhension profonde des besoins de nos clients.",
     experience_years: "15+",
-    experience_label: "Années d'Excellence à Favor",
+    experience_label: "Années d'Excellence à ImmOfika",
     grid_image_1: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=400",
     grid_image_2: "https://images.unsplash.com/photo-1582408921715-18e7806365c1?auto=format&fit=crop&q=80&w=400",
     grid_image_3: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400",
@@ -129,7 +129,7 @@ const DEFAULTS: Record<string, any> = {
     tag: "Nos Domaines d'Expertise",
     title: "Une offre pluridimensionnelle pour un service authentique.",
     italic_word: "service authentique",
-    description: "FAVOR Company International combine rigueur technique, intégrité commerciale et vision d'avenir pour propulser chacun de vos projets d'aménagement et de commerce.",
+    description: "ImmOfika combine rigueur technique, intégrité commerciale et vision d'avenir pour propulser chacun de vos projets d'aménagement et de commerce.",
     services: [
       { title: "Le Lotissement", desc: "Création et planification d'espaces de vie harmonieux à travers des plans de lotissement stratégiques et réglementés.", icon: "Grid" },
       { title: "Aménagement Foncier", desc: "Valorisation, viabilisation et aménagement technique de vos parcelles pour optimiser leur valeur et leur usage.", icon: "Layers" },
@@ -145,8 +145,8 @@ const DEFAULTS: Record<string, any> = {
     title: "Ce que nos clients disent de nous.",
     italic_word: "clients",
     testimonials: [
-      { name: "Alexandre Dubois", role: "Propriétaire", text: "Favor Company a vendu mon appartement en moins de deux semaines au prix estimé. Un professionnalisme rare et un accompagnement de tous les instants.", avatar: "https://i.pravatar.cc/150?u=alex", rating: 5 },
-      { name: "Sophie Martin", role: "Acheteuse", text: "Grâce à l'équipe Favor, nous avons trouvé la maison de nos rêves. Elle a tout de suite compris nos besoins et ne nous a proposé que biens pertinents.", avatar: "https://i.pravatar.cc/150?u=sophie", rating: 5 }
+      { name: "Alexandre Dubois", role: "Propriétaire", text: "ImmOfika a vendu mon appartement en moins de deux semaines au prix estimé. Un professionnalisme rare et un accompagnement de tous les instants.", avatar: "https://i.pravatar.cc/150?u=alex", rating: 5 },
+      { name: "Sophie Martin", role: "Acheteuse", text: "Grâce à l'équipe ImmOfika, nous avons trouvé la maison de nos rêves. Elle a tout de suite compris nos besoins et ne nous a proposé que des biens pertinents.", avatar: "https://i.pravatar.cc/150?u=sophie", rating: 5 }
     ]
   },
   faq: {
@@ -160,7 +160,7 @@ const DEFAULTS: Record<string, any> = {
     cta_card_subtitle: "Notre équipe est disponible pour vous répondre personnellement.",
     cta_card_button: "Contactez un expert →",
     faqs: [
-      { question: "Quels sont les frais de promotion chez Favor Company ?", answer: "En tant que promoteur immobilier agréé, nos frais de promotion et d'accompagnement sont transparents et compétitifs. Ils sont intégrés à la valeur des lots et incluent l'aménagement foncier, la viabilisation et la sécurisation juridique complète de vos parcelles." }
+      { question: "Quels sont les frais de promotion chez ImmOfika ?", answer: "En tant que promoteur immobilier agréé, nos frais de promotion et d'accompagnement sont transparents et compétitifs. Ils sont intégrés à la valeur des lots et incluent l'aménagement foncier, la viabilisation et la sécurisation juridique complète de vos parcelles." }
     ]
   },
   cta: {
@@ -179,7 +179,7 @@ const DEFAULTS: Record<string, any> = {
     newsletter_title: "Restez informé des opportunités",
     newsletter_description: "Recevez nos dernières exclusivités immobilières et nos analyses de marché directement dans votre boîte mail. Pas de spam.",
     newsletter_badge: "Rejoignez plus de 2 000+ clients prestige",
-    tagline: "« FAVOR Company Int. : les bienfaits d'un service authentique »",
+    tagline: "« ImmOfika : Ton chez-toi garanti, zéro palabre ! 🇨🇮 »",
     description: "Notre expertise et notre rigueur commerciale à votre service.",
     whatsapp_number: "+225 01 03 13 28 78",
     whatsapp_link: "https://wa.me/2250103132878",
@@ -188,15 +188,14 @@ const DEFAULTS: Record<string, any> = {
     address_link: "https://maps.google.com/?q=Yahou+immeuble+en+face+de+la+maison+blanche",
     phone_fixe: "+225 27 24 37 01 55 (Fixe)",
     phone_mobile: "+225 07 47 63 17 06 (Mobile)",
-    email: "Favorcompanyint@gmail.com"
+    email: "ImmOfika@gmail.com"
   },
-  explainer_video: {
+  heroVideo: {
     enabled: true,
-    theme: "white",
-    tag: "Présentation Vidéo",
-    title: "Découvrez notre expertise en action.",
-    italic_word: "expertise",
-    description: "En tant que Promoteur Immobilier Agréé, Favor Company International s'engage à vous offrir des projets d'aménagement foncier et de construction d'exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
+    theme: "dark",
+    tagline: "« ImmOfika : Ton chez-toi garanti, zéro palabre ! 🇨🇮 »",
+    title: "Découvrez notre vision de l'immobilier en vidéo",
+    description: "En tant que Promoteur Immobilier Agréé, ImmOfika s'engage à vous offrir des projets d'aménagement foncier et de construction d'exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
     video_url: "/video-heros.mp4",
     thumbnail_image: "/heros-img.png",
     points: [

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import Logo from "@/components/shared/Logo"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -54,21 +55,21 @@ export default function VerifyOtpPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F8F6F1] p-6 md:p-10">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6 md:p-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         className="flex w-full max-w-md flex-col gap-6"
       >
-        <Link href="/" className="flex items-center gap-2 self-center font-bold text-2xl text-[#1A2A4A] tracking-wider hover:opacity-85 transition-opacity">
-          FAVOR COMPANY
-        </Link>
+        <div className="flex justify-center mb-1">
+          <Logo />
+        </div>
 
-        <Card className="shadow-xl border border-gray-100/50 bg-white/95 backdrop-blur-md rounded-2xl">
+        <Card className="shadow-xl border border-slate-100 bg-white rounded-3xl">
           <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl font-bold tracking-tight text-[#1A2A4A]">Vérification OTP</CardTitle>
-            <CardDescription className="text-sm text-gray-500">
+            <CardTitle className="text-2xl font-extrabold tracking-tight text-slate-900">Vérification OTP</CardTitle>
+            <CardDescription className="text-xs text-slate-500 font-medium">
               Entrez le code reçu par email ou SMS.
             </CardDescription>
           </CardHeader>
@@ -82,21 +83,21 @@ export default function VerifyOtpPage() {
                 )}
 
                 <Field>
-                  <FieldLabel htmlFor="email" className="text-sm font-semibold text-[#1A2A4A]">Email ou Téléphone (+33...)</FieldLabel>
+                  <FieldLabel htmlFor="email" className="text-sm font-bold text-slate-900">Email ou Téléphone (+225...)</FieldLabel>
                   <Input
                     id="email"
                     type="text"
-                    placeholder="nom@exemple.com ou +33612345678"
+                    placeholder="nom@exemple.com ou +2250700000000"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={loading}
-                    className="h-12 rounded-xl bg-gray-50/50 border-gray-200 focus-visible:ring-[#C9A84C] text-[#1A2A4A]"
+                    className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 placeholder:text-slate-400"
                   />
                 </Field>
 
                 <Field>
-                  <FieldLabel htmlFor="token" className="text-sm font-semibold text-[#1A2A4A]">Code de vérification</FieldLabel>
+                  <FieldLabel htmlFor="token" className="text-sm font-bold text-slate-900">Code de vérification</FieldLabel>
                   <Input
                     id="token"
                     type="text"
@@ -105,7 +106,7 @@ export default function VerifyOtpPage() {
                     onChange={(e) => setToken(e.target.value)}
                     required
                     disabled={loading}
-                    className="h-12 rounded-xl bg-gray-50/50 border-gray-200 focus-visible:ring-[#C9A84C] text-[#1A2A4A] text-center tracking-[0.5em] text-lg font-bold"
+                    className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 text-center tracking-[0.5em] text-lg font-bold"
                   />
                 </Field>
 
@@ -113,7 +114,7 @@ export default function VerifyOtpPage() {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-12 rounded-xl font-bold bg-[#C9A84C] hover:bg-[#b8943d] text-white shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full h-12 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <>
@@ -125,9 +126,9 @@ export default function VerifyOtpPage() {
                     )}
                   </Button>
                 </Field>
-                <div className="w-full text-center text-sm text-gray-500 mt-2">
+                <div className="w-full text-center text-xs text-slate-500 font-medium mt-2">
                   Retour à la{" "}
-                  <Link href="/auth/login" className="text-[#C9A84C] font-semibold hover:underline">
+                  <Link href="/auth/login" className="text-emerald-600 font-bold hover:underline">
                     connexion
                   </Link>
                 </div>
@@ -139,3 +140,4 @@ export default function VerifyOtpPage() {
     </div>
   )
 }
+

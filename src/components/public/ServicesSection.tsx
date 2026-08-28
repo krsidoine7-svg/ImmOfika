@@ -39,7 +39,7 @@ interface ServicesSectionProps {
 export default function ServicesSection({ data }: ServicesSectionProps) {
   const tag = data?.tag || "Nos Offres & Solutions"
   const title = data?.title || "Une gamme complète pour tous vos projets immobiliers."
-  const description = data?.description || "Immo Pro propose aux particuliers, investisseurs et agences un accompagnement clé en main pour valoriser, acquérir et gérer vos biens en toute sécurité."
+  const description = data?.description || "ImmOfika propose aux particuliers, investisseurs et agences un accompagnement clé en main pour valoriser, acquérir et gérer vos biens en toute sécurité."
 
   return (
     <section id="services" className="py-20 md:py-28 bg-white relative">

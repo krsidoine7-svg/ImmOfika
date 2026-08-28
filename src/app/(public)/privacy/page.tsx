@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { ShieldCheckIcon, EyeIcon, UserCheckIcon, LockIcon } from 'lucide-react'
 
 export const metadata = {
-  title: "Politique de Confidentialité - Favor Company International",
-  description: "Découvrez notre politique de confidentialité et la manière dont nous protégeons vos données personnelles conformément à la législation en vigueur en Côte d'Ivoire.",
+  title: "Politique de Confidentialité - ImmOfika",
+  description: "Consultez la politique de protection des données personnelles de la plateforme immobilière ImmOfika.",
 }
 
 export default function PrivacyPage() {
@@ -15,28 +15,28 @@ export default function PrivacyPage() {
       <Navbar />
       <main id="privacy-main" className="min-h-screen bg-[#F8F6F1] pt-24">
         {/* Hero Section */}
-        <section id="privacy-hero" className="bg-[#1A2A4A] py-16 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center justify-center p-3 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] mb-4">
+        <section id="privacy-hero" className="bg-slate-900 py-16 px-4 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center relative z-10">
+            <span className="inline-flex items-center justify-center p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 mb-4 border border-emerald-500/20">
               <ShieldCheckIcon className="h-8 w-8" />
             </span>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Politique de <span className="text-[#C9A84C]">Confidentialité</span>
+            <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">
+              Politique de <span className="text-emerald-400">Confidentialité</span>
             </h1>
-            <p className="text-white/60 text-lg">
-              Votre confiance est notre priorité. Engagement de protection des données personnelles de Favor Company.
+            <p className="text-slate-300 text-base md:text-lg font-medium">
+              Votre confiance est notre priorité. Engagement de protection des données personnelles d&apos;ImmOfika.
             </p>
           </div>
         </section>
 
         {/* Content Section */}
         <section id="privacy-content" className="max-w-4xl mx-auto px-4 py-16">
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl space-y-12">
+          <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-100 shadow-xl space-y-12">
             
             {/* Introduction */}
-            <div className="text-gray-600 text-sm md:text-base leading-relaxed space-y-3">
+            <div className="text-slate-600 text-sm md:text-base leading-relaxed space-y-3 font-medium">
               <p>
-                Chez <strong>Favor Company International</strong>, nous accordons une importance primordiale à la confidentialité et à la sécurité de vos données à caractère personnel.
+                Chez <strong>ImmOfika</strong>, nous accordons une importance primordiale à la confidentialité et à la sécurité de vos données à caractère personnel.
               </p>
               <p>
                 La présente Politique de Confidentialité a pour but de vous informer en toute transparence sur la nature des données que nous collectons, la raison de leur collecte, la manière dont elles sont traitées, sécurisées et conservées, ainsi que sur les droits dont vous disposez en vertu de la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des données à caractère personnel et, le cas échéant, du Règlement Général sur la Protection des Données (RGPD).
@@ -45,11 +45,11 @@ export default function PrivacyPage() {
 
             {/* 1. Collecte des données */}
             <article id="privacy-collection" className="space-y-4">
-              <div className="flex items-center gap-3 text-[#1A2A4A] border-b pb-3">
-                <EyeIcon className="h-6 w-6 text-[#C9A84C]" />
+              <div className="flex items-center gap-3 text-slate-900 border-b border-slate-100 pb-3">
+                <EyeIcon className="h-6 w-6 text-emerald-600" />
                 <h2 className="text-xl md:text-2xl font-bold">1. Quelles données collectons-nous ?</h2>
               </div>
-              <div className="text-gray-600 space-y-3 text-sm md:text-base leading-relaxed">
+              <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
                   Dans le cadre de l&apos;utilisation de notre plateforme et de nos services immobiliers d&apos;exception, nous collectons les catégories de données suivantes :
                 </p>
@@ -64,11 +64,11 @@ export default function PrivacyPage() {
 
             {/* 2. Finalités du traitement */}
             <article id="privacy-purpose" className="space-y-4">
-              <div className="flex items-center gap-3 text-[#1A2A4A] border-b pb-3">
-                <UserCheckIcon className="h-6 w-6 text-[#C9A84C]" />
+              <div className="flex items-center gap-3 text-slate-900 border-b border-slate-100 pb-3">
+                <UserCheckIcon className="h-6 w-6 text-emerald-600" />
                 <h2 className="text-xl md:text-2xl font-bold">2. Pourquoi traitons-nous vos données ?</h2>
               </div>
-              <div className="text-gray-600 space-y-3 text-sm md:text-base leading-relaxed">
+              <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
                   Le traitement de vos données personnelles repose sur des bases juridiques précises et est effectué pour les finalités suivantes :
                 </p>
@@ -83,13 +83,13 @@ export default function PrivacyPage() {
 
             {/* 3. Sécurité des données */}
             <article id="privacy-security" className="space-y-4">
-              <div className="flex items-center gap-3 text-[#1A2A4A] border-b pb-3">
-                <LockIcon className="h-6 w-6 text-[#C9A84C]" />
+              <div className="flex items-center gap-3 text-slate-900 border-b border-slate-100 pb-3">
+                <LockIcon className="h-6 w-6 text-emerald-600" />
                 <h2 className="text-xl md:text-2xl font-bold">3. Comment vos données sont-elles sécurisées ?</h2>
               </div>
-              <div className="text-gray-600 space-y-3 text-sm md:text-base leading-relaxed">
+              <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
-                  Favor Company International applique des mesures de sécurité techniques et organisationnelles d&apos;une exigence absolue pour préserver l&apos;intégrité, la confidentialité et la disponibilité de vos informations personnelles :
+                  ImmOfika applique des mesures de sécurité techniques et organisationnelles d&apos;une exigence absolue pour préserver l&apos;intégrité, la confidentialité et la disponibilité de vos informations personnelles :
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Chiffrement en transit :</strong> Toutes les communications entre votre navigateur et nos serveurs sont cryptées via le protocole HTTPS / TLS 1.3.</li>
@@ -102,11 +102,11 @@ export default function PrivacyPage() {
 
             {/* 4. Durée de conservation */}
             <article id="privacy-retention" className="space-y-4">
-              <div className="flex items-center gap-3 text-[#1A2A4A] border-b pb-3">
-                <ShieldCheckIcon className="h-6 w-6 text-[#C9A84C]" />
+              <div className="flex items-center gap-3 text-slate-900 border-b border-slate-100 pb-3">
+                <ShieldCheckIcon className="h-6 w-6 text-emerald-600" />
                 <h2 className="text-xl md:text-2xl font-bold">4. Durée de conservation des données</h2>
               </div>
-              <div className="text-gray-600 space-y-2 text-sm md:text-base leading-relaxed">
+              <div className="text-slate-600 space-y-2 text-sm md:text-base leading-relaxed font-medium">
                 <p>
                   Nous ne conservons vos données que pour la durée strictement nécessaire à l&apos;accomplissement des finalités pour lesquelles elles ont été collectées :
                 </p>
@@ -119,11 +119,11 @@ export default function PrivacyPage() {
 
             {/* 5. Vos droits */}
             <article id="privacy-rights" className="space-y-4">
-              <div className="flex items-center gap-3 text-[#1A2A4A] border-b pb-3">
-                <UserCheckIcon className="h-6 w-6 text-[#C9A84C]" />
+              <div className="flex items-center gap-3 text-slate-900 border-b border-slate-100 pb-3">
+                <UserCheckIcon className="h-6 w-6 text-emerald-600" />
                 <h2 className="text-xl md:text-2xl font-bold">5. Quels sont vos droits ?</h2>
               </div>
-              <div className="text-gray-600 space-y-3 text-sm md:text-base leading-relaxed">
+              <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
                   Conformément à la réglementation ivoirienne (Loi n° 2013-450) et internationale (RGPD), vous disposez des droits suivants concernant vos données à caractère personnel :
                 </p>
@@ -134,17 +134,17 @@ export default function PrivacyPage() {
                   <li><strong>Droit d&apos;opposition :</strong> Le droit de vous opposer à tout moment, pour des motifs légitimes, au traitement de vos données ou à leur utilisation à des fins de prospection commerciale.</li>
                 </ul>
                 <p>
-                  Pour exercer l&apos;un de ces droits, vous pouvez contacter notre Délégué à la Protection des Données (DPO) par e-mail à l&apos;adresse suivante : <a href="mailto:dpo@favor-ci.com" className="text-[#C9A84C] hover:underline">dpo@favor-ci.com</a> ou par courrier à notre siège social à Cocody Riviera M&apos;Badon.
+                  Pour exercer l&apos;un de ces droits, vous pouvez contacter notre Délégué à la Protection des Données (DPO) par e-mail à l&apos;adresse suivante : <a href="mailto:contact@immofika.ci" className="text-emerald-600 font-bold hover:underline">contact@immofika.ci</a> ou par courrier à notre siège social.
                 </p>
               </div>
             </article>
 
             {/* Footer controls */}
-            <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <span className="text-xs text-gray-400">Dernière mise à jour : Mai 2026</span>
+            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <span className="text-xs text-slate-400 font-medium">Dernière mise à jour : Mai 2026</span>
               <div className="flex gap-4">
-                <Link href="/legal" className="text-xs text-[#C9A84C] hover:underline font-medium">Mentions Légales</Link>
-                <Link href="/cookies" className="text-xs text-[#C9A84C] hover:underline font-medium">Gestion des Cookies</Link>
+                <Link href="/legal" className="text-xs text-emerald-600 hover:underline font-bold">Mentions Légales</Link>
+                <Link href="/cookies" className="text-xs text-emerald-600 hover:underline font-bold">Gestion des Cookies</Link>
               </div>
             </div>
 

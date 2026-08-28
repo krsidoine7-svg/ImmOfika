@@ -10,7 +10,7 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({ data }: TestimonialsSectionProps) {
   const tag = data?.tag || "Avis & Retours Clients"
-  const title = data?.title || "Ce que nos clients disent d'Immo Pro"
+  const title = data?.title || "Ce que nos clients disent d'ImmOfika"
   const description = data?.description || "Découvrez les retours d'expérience de nos acheteurs, vendeurs et investisseurs accompagnés par nos experts."
 
   const [liveReviews, setLiveReviews] = React.useState<any[]>([])
@@ -23,7 +23,7 @@ export default function TestimonialsSection({ data }: TestimonialsSectionProps) 
             name: r.clientName || 'Client Acquéreur Certifié',
             role: 'Acquéreur Vérifié',
             location: 'Abidjan',
-            text: r.commentaire || 'Visite d\'un bien avec un conseiller Immo Pro. Accompagnement irréprochable et conseils d\'expert.',
+            text: r.commentaire || 'Visite d\'un bien avec un conseiller ImmOfika. Accompagnement irréprochable et conseils d\'expert.',
             avatar: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150`,
             rating: r.note || 5,
             verified: true
@@ -39,7 +39,7 @@ export default function TestimonialsSection({ data }: TestimonialsSectionProps) 
       name: "Aboubacar Diop",
       role: "Acquéreur Foncier",
       location: "Cocody, Abidjan",
-      text: "Immo Pro a suivi mon achat de parcelle avec un sérieux exceptionnel. Le statut de Promoteur Agréé a été vérifié et le contrat notarié était parfaitement clair.",
+      text: "ImmOfika a suivi mon achat de parcelle avec un sérieux exceptionnel. Le statut de Promoteur Agréé a été vérifié et le contrat notarié était parfaitement clair.",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
       rating: 5,
       verified: true
@@ -48,7 +48,7 @@ export default function TestimonialsSection({ data }: TestimonialsSectionProps) 
       name: "Sophie Martin",
       role: "Acheteuse Villa",
       location: "Marcory Zone 4",
-      text: "Grâce à l'équipe Immo Pro, nous avons visité et réservé la maison de nos rêves en toute sécurité. Une réactivité irréprochable du premier contact à la clé.",
+      text: "Grâce à l'équipe ImmOfika, nous avons visité et réservé la maison de nos rêves en toute sécurité. Une réactivité irréprochable du premier contact à la clé.",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150",
       rating: 5,
       verified: true

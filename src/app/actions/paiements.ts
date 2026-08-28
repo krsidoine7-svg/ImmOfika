@@ -34,8 +34,8 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
 
   const { reservationId, clientId, montant, email } = parsed.data
 
-  // Generate a unique reference prefix with FC (Favor Company)
-  const reference = `FC-PAY-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
+  // Generate a unique reference prefix with IM (ImmOfika)
+  const reference = `IM-PAY-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
 
   try {
     const cookieStore = await cookies()

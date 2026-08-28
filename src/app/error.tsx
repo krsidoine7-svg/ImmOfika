@@ -87,7 +87,7 @@ export default function RootError({ error, reset }: ErrorProps) {
 
         {/* Footer info */}
         <p className="text-xs text-slate-500">
-          Favor Company International &copy; {new Date().getFullYear()} &mdash; Tous droits réservés.
+          ImmOfika International &copy; {new Date().getFullYear()} &mdash; Tous droits réservés.
         </p>
       </div>
     </div>

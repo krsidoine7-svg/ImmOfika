@@ -415,18 +415,49 @@ export const bienConfies = pgTable('bien_confies', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
-// ─── Modèles de Contrats Word (.docx) ─────────────────────────────────────────
+
+// ─── F18 : Générateur de Formulaires (style Tally) ───────────────────────────
+export const formulaires = pgTable('formulaires', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  titre: text('titre').notNull(),
+  description: text('description'),
+  slug: text('slug').notNull().unique(),
+  champs: jsonb('champs').notNull(),
+  statut: text('statut').default('actif').notNull(), // 'actif', 'archive'
+  notificationsEmail: text('notifications_email'),
+  createdBy: uuid('created_by').references(() => profiles.id, { onDelete: 'set null' }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+}, (table) => [
+  index('idx_formulaires_slug').on(table.slug),
+])
+
+export const formulaireReponses = pgTable('formulaire_reponses', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  formulaireId: uuid('formulaire_id').notNull().references(() => formulaires.id, { onDelete: 'cascade' }),
+  reponses: jsonb('reponses').notNull(),
+  fichiers: jsonb('fichiers'),
+  ipAddress: text('ip_address'),
+  userAgent: text('user_agent'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => [
+  index('idx_formulaire_reponses_form_id').on(table.formulaireId),
+])
+
 export const contractTemplates = pgTable('contract_templates', {
   id: uuid('id').primaryKey().defaultRandom(),
   nom: text('nom').notNull(),
   description: text('description'),
-  typeBien: text('type_bien').default('foncier').notNull(), // foncier, villa, appartement, general
+  type: text('type').default('vente').notNull(),
   fichierUrl: text('fichier_url').notNull(),
   fichierNom: text('fichier_nom').notNull(),
+  typeBien: text('type_bien').default('tous').notNull(),
   isDefault: boolean('is_default').default(false).notNull(),
+  variables: jsonb('variables'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
+
 
 
 

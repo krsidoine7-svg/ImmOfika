@@ -3,7 +3,7 @@ import { getUsersPourNotificationAction } from "@/app/actions/notifications"
 import SimpleNotificationForm from "@/components/admin/SimpleNotificationForm"
 
 export const metadata = {
-  title: "Envoyer une Notification - Admin Favor Company",
+  title: "Envoyer une Notification - Admin ImmOfika",
 }
 
 export default async function AdminNotificationsPage() {

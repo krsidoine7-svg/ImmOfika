@@ -5,7 +5,7 @@ import { requirePermission } from "@/lib/auth/permissions"
 import { AdminPaiementsClient } from "@/components/admin/AdminPaiementsClient"
 
 export const metadata = {
-  title: "Historique des Paiements - Admin Favor Company",
+  title: "Historique des Paiements - Admin ImmOfika",
 }
 
 export default async function AdminPaiementsPage() {

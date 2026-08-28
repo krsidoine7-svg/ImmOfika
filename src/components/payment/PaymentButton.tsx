@@ -165,7 +165,7 @@ export default function PaymentButton({
             Libellé : [Votre nom] - Acquisition
           </div>
           <p className="text-[10px] text-slate-400">
-            *Envoyez votre reçu de virement à support@favorcompany.ci pour validation manuelle.*
+            *Envoyez votre reçu de virement à support@immofika.ci pour validation manuelle.*
           </p>
           
           <div className="pt-2 border-t border-amber-200/40 flex items-start gap-2">

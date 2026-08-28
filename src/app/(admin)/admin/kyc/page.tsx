@@ -6,7 +6,7 @@ import { eq, and, isNull } from 'drizzle-orm'
 import KycModerationHub from '@/components/admin/KycModerationHub'
 
 export const metadata = {
-  title: 'Validation KYC — Admin Favor Company',
+  title: 'Validation KYC — Admin ImmOfika',
   description: 'Vérifiez et validez les pièces d\'identité soumises par les clients.',
 }
 

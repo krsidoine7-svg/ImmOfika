@@ -16,7 +16,7 @@ export async function envoyerEmailHelper(to: string, subject: string, htmlConten
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Immo Pro <noreply@immopro.ci>',
+      from: 'ImmOfika <noreply@immofika.ci>',
       to,
       subject,
       html: htmlContent,
@@ -119,20 +119,21 @@ export async function notifierEvenementAction(
       if (clientEmail) {
         const clientHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-            <div style="background: #1A2A4A; padding: 24px; text-align: center;">
-              <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">Favor Company International</h1>
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
-              <h2 style="color: #1A2A4A; margin-top: 0;">Votre réservation est bien enregistrée</h2>
+              <h2 style="color: #0F172A; margin-top: 0;">Votre réservation est bien enregistrée</h2>
               <p>Bonjour ${clientName || ''},</p>
               <p>Nous vous confirmons l'enregistrement de votre réservation pour le bien <strong>${bienTitre}</strong>.</p>
-              <div style="background: #F8F6F1; border-radius: 8px; padding: 16px; margin: 20px 0; border-left: 4px solid #C9A84C;">
+              <div style="background: #ECFDF5; border-radius: 8px; padding: 16px; margin: 20px 0; border-left: 4px solid #10B981;">
                 <p style="margin: 0;"><strong>Référence Réservation :</strong> ${reservationId}</p>
                 <p style="margin: 8px 0 0;"><strong>Statut :</strong> En attente de paiement de l'acompte</p>
                 <p style="margin: 8px 0 0;"><strong>Date d'expiration :</strong> Dans 3 mois</p>
               </div>
               <p>Notre équipe vous recontactera très rapidement pour finaliser votre dossier d'acquisition.</p>
-              <p style="margin-top: 24px;">Cordialement,<br>L'équipe Favor Company</p>
+              <p style="margin-top: 24px;">Cordialement,<br>L'équipe ImmOfika</p>
             </div>
           </div>
         `
@@ -179,8 +180,9 @@ export async function notifierEvenementAction(
       if (clientEmail) {
         const receiptHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-            <div style="background: #1A2A4A; padding: 24px; text-align: center;">
-              <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">Favor Company International</h1>
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
               <h2 style="color: #10B981; margin-top: 0;">Reçu de paiement confirmé</h2>
@@ -247,8 +249,9 @@ export async function notifierEvenementAction(
       if (clientEmail) {
         const failHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-            <div style="background: #1A2A4A; padding: 24px; text-align: center;">
-              <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">Favor Company International</h1>
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
               <h2 style="color: #EF4444; margin-top: 0;">Échec de paiement</h2>
@@ -283,14 +286,15 @@ export async function notifierEvenementAction(
         })
         const visitHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-            <div style="background: #1A2A4A; padding: 24px; text-align: center;">
-              <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">Favor Company International</h1>
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
-              <h2 style="color: #1A2A4A; margin-top: 0;">Votre visite de bien est planifiée</h2>
+              <h2 style="color: #0F172A; margin-top: 0;">Votre visite de bien est planifiée</h2>
               <p>Bonjour ${clientName || ''},</p>
               <p>Une visite sur site pour le bien <strong>${bienTitre}</strong> a été planifiée.</p>
-              <div style="background: #F8F6F1; border-radius: 8px; padding: 16px; margin: 20px 0; border-left: 4px solid #C9A84C;">
+              <div style="background: #ECFDF5; border-radius: 8px; padding: 16px; margin: 20px 0; border-left: 4px solid #10B981;">
                 <p style="margin: 0;"><strong>Date & Heure :</strong> ${formattedDate}</p>
                 <p style="margin: 8px 0 0;"><strong>Agent Accompagnateur :</strong> ${agentName || 'Non assigné'}</p>
               </div>
@@ -321,13 +325,14 @@ export async function notifierEvenementAction(
           const formattedDate = new Date(dateVisite).toLocaleDateString('fr-FR', {
             weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
           })
-          const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://favorcompany.ci'
+          const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://immofika.ci'
           const icalUrl = `${appUrl}/api/agenda/${agentId}/export.ics`
 
           const agentHtml = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
-              <div style="background: #1A2A4A; padding: 24px; text-align: center;">
-                <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">Favor Company International — Espace Agent</h1>
+              <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
+                <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+                <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Espace Agent Commercial — Zéro palabre ! 🇨🇮</p>
               </div>
               <div style="padding: 24px; background: #ffffff;">
                 <h2 style="color: #1A2A4A; margin-top: 0;">Nouvelle visite à accompagner</h2>

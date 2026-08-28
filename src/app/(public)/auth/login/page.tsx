@@ -155,7 +155,7 @@ export default function LoginPage() {
                     className="w-full h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-3 font-semibold text-sm"
                   >
                     {googleLoading ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-[#C9A84C]" />
+                      <Loader2 className="h-4 w-4 animate-spin text-emerald-600" />
                     ) : (
                       <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <path

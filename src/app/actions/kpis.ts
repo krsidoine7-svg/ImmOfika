@@ -503,16 +503,16 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
   } else {
     const ExcelJS = await import('exceljs')
     const workbook = new ExcelJS.Workbook()
-    workbook.creator = 'Favor Company International'
+    workbook.creator = 'ImmOfika'
     workbook.created = new Date()
 
     const ws = workbook.addWorksheet('Rapport CRM', {
-      properties: { tabColor: { argb: 'C9A84C' } }
+      properties: { tabColor: { argb: '10B981' } }
     })
 
     const BLEU_NUIT = '1A2A4A'
-    const OR = 'C9A84C'
-    const OR_CLAIR = 'FDF6DC'
+    const OR = '10B981'
+    const OR_CLAIR = 'ECFDF5'
     const BLANC = 'FFFFFF'
 
     ws.columns = [
@@ -529,7 +529,7 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
 
     ws.mergeCells('A1:I1')
     const titleCell = ws.getCell('A1')
-    titleCell.value = 'FAVOR COMPANY — RAPPORT CRM & KPIs'
+    titleCell.value = 'IMMOFIKA — RAPPORT CRM & KPIs'
     titleCell.font = { name: 'Calibri', size: 14, bold: true, color: { argb: BLANC } }
     titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
     titleCell.alignment = { horizontal: 'center', vertical: 'middle' }

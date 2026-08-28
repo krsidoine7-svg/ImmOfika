@@ -178,11 +178,11 @@ export const FacturePDF = ({ data }: { data: FactureData }) => {
         {/* Header Section */}
         <View style={styles.header}>
           <View style={styles.companyInfo}>
-            <Text style={styles.companyName}>IMMO PRO INTERNATIONAL</Text>
+            <Text style={styles.companyName}>IMMOFIKA</Text>
             <Text style={styles.companyDetails}>Promoteur Immobilier & Gestion Agréée</Text>
             <Text style={styles.companyDetails}>Abidjan - Côte d'Ivoire</Text>
             <Text style={styles.companyDetails}>Tél : +225 27 24 00 00 00</Text>
-            <Text style={styles.companyDetails}>Email : contact@immopro.ci</Text>
+            <Text style={styles.companyDetails}>Email : contact@immofika.ci</Text>
             <Text style={{ ...styles.companyDetails, marginTop: 4 }}>CC : 0000000X</Text>
             <Text style={styles.companyDetails}>RC : CI-ABJ-202X-B-XXXX</Text>
           </View>
@@ -252,14 +252,14 @@ export const FacturePDF = ({ data }: { data: FactureData }) => {
 
         {/* Signature */}
         <View style={styles.signatureBox}>
-          <Text style={{ fontWeight: 'bold' }}>La Direction Immo Pro</Text>
+          <Text style={{ fontWeight: 'bold' }}>La Direction ImmOfika</Text>
           <View style={styles.signatureLine} />
           <Text style={{ fontSize: 8, marginTop: 4, color: '#666' }}>Cachet et Signature</Text>
         </View>
 
         {/* Footer */}
         <Text style={styles.footer}>
-          IMMO PRO INTERNATIONAL - Document officiel de facturation
+          IMMOFIKA - Document officiel de facturation
           Conformément aux dispositions du droit OHADA - Document valable comme reçu de paiement - Conservation : 10 ans minimum
         </Text>
       </Page>

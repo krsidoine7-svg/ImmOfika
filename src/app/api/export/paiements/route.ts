@@ -5,7 +5,7 @@ import { eq, desc } from "drizzle-orm"
 import { checkAdminAccess } from "@/lib/auth/permissions"
 import ExcelJS from 'exceljs'
 
-// ─── Palette de couleurs Favor Company ────────────────────────────────────────
+// ─── Palette de couleurs ImmOfika ───────────────────────────────────────────
 const BLEU_NUIT   = '1A2A4A'   // Bleu nuit (branding principal)
 const OR          = 'C9A84C'   // Or Favor
 const OR_CLAIR    = 'FDF6DC'   // Or clair (lignes alternées)
@@ -121,8 +121,8 @@ export async function GET() {
     .orderBy(desc(paiements.createdAt))
 
   const workbook = new ExcelJS.Workbook()
-  workbook.creator = 'Favor Company International'
-  workbook.lastModifiedBy = 'Système FavorCI'
+  workbook.creator = 'ImmOfika'
+  workbook.lastModifiedBy = 'Système ImmOfika'
   workbook.created = new Date()
   workbook.modified = new Date()
 
@@ -230,7 +230,7 @@ export async function GET() {
   // En-têtes de titre
   wsSummary.mergeCells('B1:O1')
   const titleCell = wsSummary.getCell('B1')
-  titleCell.value = 'FAVOR COMPANY — TABLEAU DE BORD DES PAIEMENTS'
+  titleCell.value = 'IMMOFIKA — TABLEAU DE BORD DES PAIEMENTS'
   titleCell.font = { name: 'Calibri', size: 14, bold: true, color: { argb: BLANC } }
   titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
   titleCell.alignment = { horizontal: 'center', vertical: 'middle' }
@@ -500,7 +500,7 @@ export async function GET() {
   // ── Titre de la feuille ──
   ws.mergeCells('A1:P1')
   const mainTitle = ws.getCell('A1')
-  mainTitle.value = 'HISTORIQUE COMPLET DES PAIEMENTS — FAVOR COMPANY INTERNATIONAL'
+  mainTitle.value = 'HISTORIQUE COMPLET DES PAIEMENTS — IMMOFIKA'
   mainTitle.font = { name: 'Calibri', size: 13, bold: true, color: { argb: BLANC } }
   mainTitle.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
   mainTitle.alignment = { horizontal: 'center', vertical: 'middle' }

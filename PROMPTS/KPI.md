@@ -1,5 +1,5 @@
 # KPI.md — Indicateurs de Performance
-## Favor Company International
+## ImmOfika International
 
 ---
 

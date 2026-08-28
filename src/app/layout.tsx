@@ -12,6 +12,7 @@ import CookieConsent from "@/components/shared/CookieConsent";
 import TrackingScripts from "@/components/shared/TrackingScripts";
 import AnalyticsTracker from "@/components/shared/AnalyticsTracker";
 import PwaInstallBanner from "@/components/shared/PwaInstallBanner";
+import ChatBot from "@/components/shared/ChatBot";
 import { getHomepageConfigsAction } from "@/app/actions/homepage";
 
 const inter = Inter({
@@ -101,6 +102,7 @@ export default async function RootLayout({
           <PwaInstallBanner />
           <CookieConsent />
           <TrackingScripts config={trackingConfig} />
+          <ChatBot />
           <Suspense fallback={null}>
             <AnalyticsTracker />
           </Suspense>

@@ -108,9 +108,9 @@ export async function genererEtEnvoyerFacture(paiementId: string) {
     )
 
     await resend.emails.send({
-      from: 'Favor Company <facturation@favorcompany.ci>',
+      from: 'ImmOfika <facturation@immofika.ci>',
       to: profile.email,
-      subject: `Votre facture N° ${factureNumero} - Favor Company`,
+      subject: `Votre facture N° ${factureNumero} - ImmOfika`,
       html: emailHtml,
       attachments: [
         {

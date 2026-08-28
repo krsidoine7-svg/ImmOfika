@@ -1,5 +1,5 @@
 # MVP_3.md — Contrats, Airtable View & Chatbot IA
-## Favor Company International
+## ImmOfika International
 
 > **Durée :** Semaines 11–16  
 > **Prérequis :** MVP_1 et MVP_2 entièrement terminés et testés  
@@ -44,7 +44,7 @@
 **Entre les soussignés :**
 
 **Le Vendeur :**  
-Favor Company International  
+ImmOfika International  
 Yaho, Immeuble en face de la Maison Blanche, 2ème étage  
 Abidjan, Côte d'Ivoire  
 Représenté par : {{agent_nom}} {{agent_prenom}}  
@@ -567,13 +567,13 @@ function GridCell({ value, column, onEdit }: GridCellProps) {
 - [ ] Widget chatbot présent sur TOUTES les pages du site
 - [ ] L'utilisateur peut poser des questions à tout moment
 - [ ] Répond aux questions sur les biens disponibles (prix, localisation, type)
-- [ ] Répond aux questions sur les services de Favor Company
+- [ ] Répond aux questions sur les services de ImmOfika
 - [ ] Répond aux questions sur le processus d'achat/réservation
 - [ ] Répond aux questions sur les modalités de paiement
 - [ ] Répond aux questions sur les documents requis
 - [ ] Escalade vers un agent humain si la question dépasse ses capacités
 - [ ] Historique de la conversation dans la session
-- [ ] Design intégré à la charte graphique Favor Company
+- [ ] Design intégré à la charte graphique ImmOfika
 
 ### Architecture RAG
 
@@ -582,7 +582,7 @@ Base de Connaissances (Supabase + pgvector)
   ↓
 Documents vectorisés :
   - Catalogue biens (nom, description, prix, localisation)
-  - FAQ Favor Company
+  - FAQ ImmOfika
   - Guide du processus d'achat
   - Services proposés
   - Infos légales (documents requis, etc.)
@@ -619,7 +619,7 @@ export function ChatBot() {
     {
       id: '1',
       role: 'assistant',
-      content: '👋 Bonjour ! Je suis l\'assistant virtuel de Favor Company International. Comment puis-je vous aider aujourd\'hui ? (biens disponibles, processus d\'achat, prix, etc.)',
+      content: '👋 Bonjour ! Je suis l\'assistant virtuel d\'ImmOfika International. Comment puis-je vous aider aujourd\'hui ? (biens disponibles, processus d\'achat, prix, etc.)',
       timestamp: new Date(),
     },
   ])

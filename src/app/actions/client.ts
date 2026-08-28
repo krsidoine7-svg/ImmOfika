@@ -179,9 +179,9 @@ export async function submitBienConfieAction(formData: FormData) {
 
   // Envoyer un e-mail d'alerte
   await envoyerEmailHelper(
-    'support@favorcompany.ci',
+    'support@immofika.ci',
     `[Confier un Bien] Nouveau bien soumis par un client`,
-    `<p>Un client souhaite confier un bien immobilier à Favor Company :</p>
+    `<p>Un client souhaite confier un bien immobilier à ImmOfika :</p>
      <ul>
        <li><strong>Type de Service :</strong> ${typeService}</li>
        <li><strong>Ville :</strong> ${ville}</li>
@@ -252,11 +252,11 @@ export async function validateKycAction(
     if (clientEmail) {
       await envoyerEmailHelper(
         clientEmail,
-        '🎉 Validation de votre pièce d\'identité - Favor Company',
+        '🎉 Validation de votre pièce d\'identité - ImmOfika',
         `<p>Bonjour ${clientName},</p>
          <p>Nous avons le plaisir de vous informer que votre pièce d'identité a été validée par nos agents.</p>
          <p>Votre profil est désormais certifié "Vérifié". Vous pouvez procéder en toute sérénité à la signature électronique de vos contrats officiels.</p>
-         <p>L'équipe Favor Company International</p>`
+         <p>L'équipe ImmOfika</p>`
       )
     }
   } else {
@@ -273,15 +273,15 @@ export async function validateKycAction(
     if (clientEmail) {
       await envoyerEmailHelper(
         clientEmail,
-        '❌ Rejet de votre pièce d\'identité - Favor Company',
+        '❌ Rejet de votre pièce d\'identité - ImmOfika',
         `<p>Bonjour ${clientName},</p>
          <p>Après examen, nos agents ont dû rejeter votre pièce d'identité pour le motif suivant :</p>
          <blockquote style="border-left: 3px solid #EF4444; padding-left: 10px; color: #7F1D1D;">
            <strong>${reason || 'Fichier non lisible ou flou'}</strong>
          </blockquote>
          <p>Veuillez vous connecter à votre espace client et charger un nouveau document lisible (au format image ou PDF, recto-verso) depuis l'onglet profil.</p>
-         <p><a href="https://favorcompany.ci/client/profil">Se connecter à mon Espace Client</a></p>
-         <p>L'équipe Favor Company International</p>`
+         <p><a href="https://immofika.ci/client/profil">Se connecter à mon Espace Client</a></p>
+         <p>L'équipe ImmOfika</p>`
       )
     }
   }

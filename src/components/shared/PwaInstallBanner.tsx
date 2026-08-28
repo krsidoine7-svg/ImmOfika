@@ -2,6 +2,7 @@
 
 import React from "react"
 import { Download, X, Sparkles } from "lucide-react"
+import { siteConfig } from "@/config/site"
 
 export default function PwaInstallBanner() {
   const [deferredPrompt, setDeferredPrompt] = React.useState<any>(null)
@@ -51,32 +52,30 @@ export default function PwaInstallBanner() {
 
   return (
     <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 animate-in fade-in slide-in-from-bottom-5 duration-300">
-      <div className="bg-[#1A2A4A] text-white p-4 sm:p-5 rounded-3xl shadow-2xl border border-[#C9A84C]/30 flex items-start gap-3.5 relative overflow-hidden">
+      <div className="bg-slate-900/95 backdrop-blur-md text-white p-4 sm:p-5 rounded-3xl shadow-2xl border border-emerald-500/30 flex items-start gap-3.5 relative overflow-hidden">
         {/* Halo décoratif */}
-        <div className="absolute -top-10 -right-10 w-28 h-28 bg-[#C9A84C]/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -top-10 -right-10 w-28 h-28 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
 
-        <img
-          src="/logo-favor.jpeg"
-          alt="Favor Company Logo"
-          className="w-11 h-11 rounded-2xl object-cover border border-[#C9A84C]/40 shrink-0 mt-0.5"
-        />
+        <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-extrabold text-sm shrink-0 mt-0.5">
+          {siteConfig.name.substring(0, 2)}
+        </div>
 
         <div className="flex-1 space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black uppercase tracking-wider text-[#C9A84C] flex items-center gap-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 flex items-center gap-1">
               <Sparkles className="w-3 h-3" /> Application Web (PWA)
             </span>
           </div>
-          <h4 className="text-xs font-extrabold tracking-tight">Installer Favor Company</h4>
+          <h4 className="text-xs font-extrabold tracking-tight">Installer {siteConfig.name}</h4>
           <p className="text-[11px] text-slate-300 font-medium leading-snug">
-            Accédez à vos parcelles, reçus et suivi d&apos;ACD directement depuis votre écran d&apos;accueil sans navigateur.
+            Accédez à vos parcelles, reçus et suivi de dossier directement depuis votre écran d&apos;accueil.
           </p>
 
           <div className="flex items-center gap-2 pt-2">
             <button
               type="button"
               onClick={handleInstallClick}
-              className="px-3.5 py-1.5 bg-[#C9A84C] hover:bg-[#B8860B] text-[#1A2A4A] font-extrabold text-xs rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs rounded-xl transition-all shadow-md shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" /> Installer
             </button>
@@ -101,3 +100,4 @@ export default function PwaInstallBanner() {
     </div>
   )
 }
+

@@ -119,8 +119,8 @@ export default function ContactForm({ bien }: ContactFormProps) {
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">Adresse E-mail</h4>
                   <p className="text-xs text-slate-500 mt-1">Écrivez à notre équipe :</p>
-                  <a href="mailto:contact@immopro.ci" className="text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors block mt-0.5">
-                    contact@immopro.ci
+                  <a href="mailto:contact@immofika.ci" className="text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors block mt-0.5">
+                    contact@immofika.ci
                   </a>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function ContactForm({ bien }: ContactFormProps) {
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-slate-900">Siège Social</h4>
-                  <p className="text-xs text-slate-500 mt-1">Immo Pro International :</p>
+                  <p className="text-xs text-slate-500 mt-1">ImmOfika :</p>
                   <p className="text-sm font-bold text-slate-900 mt-0.5 leading-relaxed">
                     Abidjan, Côte d'Ivoire
                   </p>
@@ -159,7 +159,7 @@ export default function ContactForm({ bien }: ContactFormProps) {
                     <div className="space-y-2">
                       <h3 className="text-2xl font-bold text-slate-900">Message envoyé avec succès !</h3>
                       <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
-                        Merci pour votre confiance. Un conseiller Immo Pro va analyser votre demande et vous recontacter sous 24 heures.
+                        Merci pour votre confiance. Un conseiller ImmOfika va analyser votre demande et vous recontacter sous 24 heures.
                       </p>
                     </div>
                     <button
