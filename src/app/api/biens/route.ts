@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
       { count: 'exact' }
     )
     .is('deleted_at', null)
-    .eq('statut_moderation', 'valide')
+    .or('statut_moderation.eq.valide,statut_moderation.is.null')
 
   // Filtres
   if (type) query = query.eq('type', type)

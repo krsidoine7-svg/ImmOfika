@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db"
 import { biens, bienImages } from "@/lib/db/schema"
-import { eq, desc, isNull, inArray, and } from "drizzle-orm"
+import { eq, desc, isNull, inArray, and, or } from "drizzle-orm"
 
 export async function getPublishedBiensAction(limitCount: number = 100) {
   try {
@@ -12,7 +12,7 @@ export async function getPublishedBiensAction(limitCount: number = 100) {
       .where(
         and(
           isNull(biens.deletedAt),
-          eq(biens.statutModeration, 'valide'),
+          or(isNull(biens.statutModeration), eq(biens.statutModeration, 'valide')),
           inArray(biens.statut, ['disponible', 'reserve'])
         )
       )
@@ -52,4 +52,3 @@ export async function getPublishedBiensAction(limitCount: number = 100) {
     return { success: false, error: error.message, biens: [] }
   }
 }
-

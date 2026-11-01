@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Bed, Maximize, MapPin, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react"
-import { properties, Property, matchesProperty } from "@/data/properties"
+import { Property, matchesProperty } from "@/data/properties"
 import { useSearchParams } from "next/navigation"
 
 interface BiensSectionProps {
@@ -58,35 +58,30 @@ function PropertyCard({ item }: { item: Property }) {
               )}
             </div>
 
-            {/* Infos Prix & Titre */}
-            <div className="absolute bottom-4 left-4 right-4 text-white z-10 space-y-2">
-              <div className="bg-emerald-500 px-3.5 py-1.5 rounded-xl text-white font-extrabold text-sm sm:text-base w-fit shadow-md">
-                {new Intl.NumberFormat('fr-FR', {
-                  style: 'currency',
-                  currency: 'XOF',
-                  maximumFractionDigits: 0,
-                })
-                  .format(item.price)
-                  .replace('XOF', 'FCFA')}
-              </div>
-
-              <h4 className="text-base sm:text-lg font-bold leading-tight line-clamp-1 group-hover:text-emerald-300 transition-colors">
-                {item.title}
-              </h4>
-
-              <div className="flex items-center text-slate-300 text-xs">
-                <MapPin className="h-3.5 w-3.5 mr-1 text-emerald-400 shrink-0" />
+            {/* Informations en bas */}
+            <div className="absolute bottom-4 left-4 right-4 z-10 text-white">
+              <div className="flex items-center gap-1.5 text-xs text-emerald-300 font-medium mb-1 drop-shadow-sm">
+                <MapPin className="h-3.5 w-3.5 shrink-0" />
                 <span className="truncate">{item.location}</span>
               </div>
 
-              <div className="flex items-center gap-4 pt-2 border-t border-white/15 text-xs text-slate-300">
+              <h4 className="font-bold text-base leading-tight mb-2 line-clamp-2 drop-shadow-md group-hover:text-emerald-300 transition-colors">
+                {item.title}
+              </h4>
+
+              <div className="text-xl font-extrabold text-white tracking-tight drop-shadow-md mb-3">
+                {item.price ? `${item.price.toLocaleString('fr-FR')} FCFA` : 'Prix sur demande'}
+                {item.type === "Location" && <span className="text-xs text-slate-300 font-normal"> /mois</span>}
+              </div>
+
+              <div className="flex items-center gap-4 text-xs font-semibold text-slate-300 pt-2 border-t border-white/20">
                 {item.bedrooms && (
                   <div className="flex items-center gap-1.5">
                     <Bed className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{item.bedrooms} ch.</span>
                   </div>
                 )}
-                {item.area > 0 && (
+                {item.area && (
                   <div className="flex items-center gap-1.5">
                     <Maximize className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{item.area} m²</span>
@@ -116,7 +111,7 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
   const budget = searchParams.get("budget") || ""
 
   const searchQuery = React.useMemo(() => ({ location, type, budget }), [location, type, budget])
-  const currentProperties = externalProperties.length > 0 ? externalProperties : properties
+  const currentProperties = externalProperties
 
   const filteredProperties = React.useMemo(() => {
     return currentProperties
@@ -128,34 +123,33 @@ export default function BiensSection({ properties: externalProperties = [] }: Bi
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -340, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' })
     }
   }
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 340, behavior: 'smooth' })
+      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' })
     }
   }
 
   return (
-    <section id="biens" className="relative py-20 md:py-28 bg-slate-50/50 overflow-hidden">
+    <section className="py-20 bg-slate-50/50">
       <div className="container mx-auto px-4 md:px-6">
         
-        {/* En-tête de section */}
-        <div className="flex flex-col items-center text-center space-y-3 mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-100/70 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5">
-            <Sparkles className="h-3.5 w-3.5" />
-            Catalogue à la Une
-          </span>
-
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Découvrez nos opportunités exclusives
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-600 max-w-xl font-medium">
-            Des propriétés sélectionnées pour leur emplacement privilégié et leur sécurité juridique.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/60 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Biens d&apos;Exception</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+              Nos dernières opportunités
+            </h2>
+            <p className="text-slate-500 text-sm mt-2 max-w-xl">
+              Une sélection rigoureuse de biens immobiliers avec sécurité juridique garantie et accompagnement personnalisé.
+            </p>
+          </div>
         </div>
 
         {filteredProperties.length > 0 ? (

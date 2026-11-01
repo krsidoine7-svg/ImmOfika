@@ -177,6 +177,12 @@ export default function MarketplaceShowcaseSection({
   const isNearMeTab = activeTab === "near-me"
   const currentCategory = MARKETPLACE_CATEGORIES.find((c) => c.id === activeTab)
 
+  const hasAnyCategoryBiens = React.useMemo(() => {
+    return MARKETPLACE_CATEGORIES.some(
+      (category) => (categoriesData[category.id] || []).length > 0
+    )
+  }, [categoriesData])
+
   const displayedBiens: MarketplaceBien[] = isNearMeTab
     ? nearbyBiens
     : currentCategory
@@ -392,6 +398,7 @@ export default function MarketplaceShowcaseSection({
         <div className="mt-10">
           {/* CAS 1 : VUE TOUTES LES CATÉGORIES (Chaque catégorie a son bloc avec 3 à 6 annonces) */}
           {isAllTab ? (
+            hasAnyCategoryBiens ? (
             <div className="space-y-16">
               {MARKETPLACE_CATEGORIES.map((category) => {
                 const Icon = ICONS_MAP[category.iconName] || Home
@@ -448,6 +455,33 @@ export default function MarketplaceShowcaseSection({
                 )
               })}
             </div>
+            ) : (
+              <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center space-y-4 max-w-lg mx-auto shadow-sm">
+                <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto">
+                  <MapPin className="w-7 h-7" />
+                </div>
+                <h3 className="text-lg font-extrabold text-slate-900">
+                  Catalogue en attente de synchronisation
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Aucune annonce n'est encore enregistrée dans votre base de données Supabase. Injectez les données de démonstration ou publiez une annonce pour illuminer cette vitrine.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                  <Link
+                    href="/biens/publier"
+                    className="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 hover:bg-emerald-700 transition-all"
+                  >
+                    Déposer une annonce
+                  </Link>
+                  <Link
+                    href="/biens"
+                    className="w-full sm:w-auto px-5 py-2.5 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-200 transition-all"
+                  >
+                    Voir tout le catalogue
+                  </Link>
+                </div>
+              </div>
+            )
           ) : isNearMeTab && loadingNearby ? (
             /* CAS 2 : CHARGEMENT GÉOLOCALISÉ */
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -3,7 +3,7 @@
 
 import { db } from "@/lib/db"
 import { biens, bienImages, profiles } from "@/lib/db/schema"
-import { eq, and, isNull, desc, inArray } from "drizzle-orm"
+import { eq, and, isNull, desc, inArray, or } from "drizzle-orm"
 import { 
   COMMUNES_CI, 
   CommuneInfo, 
@@ -94,7 +94,7 @@ export async function getNearbyBiensAction({
         and(
           eq(biens.statut, "disponible"),
           isNull(biens.deletedAt),
-          eq(biens.statutModeration, "valide")
+          or(isNull(biens.statutModeration), eq(biens.statutModeration, "valide"))
         )
       )
       .orderBy(desc(biens.createdAt))
