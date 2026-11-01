@@ -282,12 +282,20 @@ export async function moderateItemAction(
   await requireSuperAdminAccess()
 
   try {
-    if (type === 'bien') {
-      await db.update(biens).set({ deletedAt: new Date(), statut: 'archive' }).where(eq(biens.id, id))
-      revalidatePath('/admin/biens')
-    } else if (type === 'paiement') {
-      await db.update(paiements).set({ deletedAt: new Date(), statut: 'annule' }).where(eq(paiements.id, id))
-      revalidatePath('/admin/paiements')
+    switch (type) {
+      case 'bien':
+        await db.update(biens).set({ deletedAt: new Date(), statut: 'archive' }).where(eq(biens.id, id))
+        revalidatePath('/admin/biens')
+        break
+      case 'paiement':
+        await db.update(paiements).set({ deletedAt: new Date(), statut: 'annule' }).where(eq(paiements.id, id))
+        revalidatePath('/admin/paiements')
+        break
+      case 'lead':
+        // Le module CRM leads a été retiré au profit de la marketplace
+        break
+      default:
+        return { success: false, message: `Type d'élément inconnu : ${type}` }
     }
 
     revalidatePath('/admin/moderation')
