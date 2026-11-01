@@ -29,8 +29,13 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, error: "No valid events in batch" }, { status: 400 })
       }
 
-      // Insertion SQL groupée optimisée
-      await db.insert(analyticsEvents).values(validEvents)
+      // Insertion SQL groupée optimisée avec tolérance aux pannes
+      try {
+        await db.insert(analyticsEvents).values(validEvents)
+      } catch (dbErr: any) {
+        console.warn('[API Analytics Warning] Base inaccessible pour l\'insertion par lot:', dbErr?.message || dbErr)
+        return NextResponse.json({ success: false, warning: "Database unavailable" }, { status: 200 })
+      }
       
       return NextResponse.json({ success: true, count: validEvents.length })
     }
@@ -42,19 +47,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 })
     }
 
-    await db.insert(analyticsEvents).values({
-      visitorId,
-      sessionId,
-      eventType,
-      path,
-      details: details || {},
-      duration: typeof duration === 'number' ? duration : 0,
-      createdAt: new Date(),
-    })
+    try {
+      await db.insert(analyticsEvents).values({
+        visitorId,
+        sessionId,
+        eventType,
+        path,
+        details: details || {},
+        duration: typeof duration === 'number' ? duration : 0,
+        createdAt: new Date(),
+      })
+    } catch (dbErr: any) {
+      console.warn('[API Analytics Warning] Base inaccessible pour l\'insertion unitaire:', dbErr?.message || dbErr)
+      return NextResponse.json({ success: false, warning: "Database unavailable" }, { status: 200 })
+    }
 
     return NextResponse.json({ success: true })
   } catch (error: any) {
-    console.error('[API Analytics Error]', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    console.warn('[API Analytics Warning] Erreur générale payload:', error?.message || error)
+    return NextResponse.json({ success: false, error: error?.message || "Invalid payload" }, { status: 400 })
   }
 }

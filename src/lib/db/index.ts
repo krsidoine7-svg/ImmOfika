@@ -9,7 +9,13 @@ const globalForDb = globalThis as unknown as {
 
 const connectionString = process.env.DATABASE_URL || ''
 
-const pgClient = globalForDb.pgClient ?? postgres(connectionString, { max: 10 })
+// prepare: false est indispensable lors de l'utilisation du pooler Supabase / PgBouncer
+const pgClient = globalForDb.pgClient ?? postgres(connectionString, { 
+  max: process.env.NODE_ENV === 'production' ? 10 : 5,
+  prepare: false,
+  idle_timeout: 20,
+  connect_timeout: 10,
+})
 
 if (process.env.NODE_ENV !== 'production') globalForDb.pgClient = pgClient
 

@@ -1,0 +1,10 @@
+https://immofika.ci
+https://immofika.ci/biens
+https://immofika.ci/biens/publier
+https://immofika.ci/contact
+https://immofika.ci/auth/login
+https://immofika.ci/auth/register
+https://immofika.ci/legal
+https://immofika.ci/confidentiality
+https://immofika.ci/cookies
+
