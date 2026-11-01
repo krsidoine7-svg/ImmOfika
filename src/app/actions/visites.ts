@@ -1,14 +1,14 @@
 'use server'
 
 import { db } from "@/lib/db/index"
-import { visites, leads, profiles, biens, leadInteractions, agentCalendriers, agentIndisponibilites } from "@/lib/db/schema"
+import { visites, profiles, biens, agentCalendriers, agentIndisponibilites } from "@/lib/db/schema"
 import { eq, and, isNull, desc, count, between, or, inArray } from "drizzle-orm"
 import { requirePermission } from "@/lib/auth/permissions"
 import { revalidatePath } from "next/cache"
 import { z } from 'zod'
 
 const visiteSchema = z.object({
-  leadId: z.string().uuid("Prospect invalide").optional().nullable(),
+  leadId: z.string().optional().nullable(),
   clientId: z.string().uuid("Client invalide").optional().nullable(),
   bienId: z.string().uuid("Bien immobilier requis"),
   agentId: z.string().uuid("Agent requis").optional().nullable(),
@@ -25,17 +25,14 @@ const modifyVisiteSchema = visiteSchema.partial().extend({
 export async function creerVisiteAction(input: z.infer<typeof visiteSchema>) {
   await requirePermission('manage:visites')
 
-  console.log("creerVisiteAction RECEIVED INPUT:", input)
-
   const parsed = visiteSchema.safeParse(input)
   if (!parsed.success) {
-    console.log("creerVisiteAction PARSE ERRORS:", parsed.error.format())
     return {
-      error: 'Données invalides : ' + parsed.error.issues.map(i => i.message).join(', ') + ' | Received: ' + JSON.stringify(input)
+      error: 'Données invalides : ' + parsed.error.issues.map(i => i.message).join(', ')
     }
   }
 
-  const { leadId, clientId, bienId, agentId, dateVisite, statut, commentaires } = parsed.data
+  const { clientId, bienId, agentId, dateVisite, statut, commentaires } = parsed.data
 
   try {
     const formattedDate = new Date(dateVisite)
@@ -44,7 +41,6 @@ export async function creerVisiteAction(input: z.infer<typeof visiteSchema>) {
     const [inserted] = await db
       .insert(visites)
       .values({
-        leadId: leadId || null,
         clientId: clientId || null,
         bienId,
         agentId: agentId || null,
@@ -66,36 +62,6 @@ export async function creerVisiteAction(input: z.infer<typeof visiteSchema>) {
       .limit(1)
     const bienTitre = bien?.titre || "le bien"
 
-    // Si lié à un Lead/Prospect, automatiser le pipeline et consigner l'interaction
-    if (leadId) {
-      const [lead] = await db
-        .select()
-        .from(leads)
-        .where(eq(leads.id, leadId))
-        .limit(1)
-
-      if (lead) {
-        // Enregistrer l'interaction
-        await db.insert(leadInteractions).values({
-          leadId,
-          agentId: agentId || null,
-          type: 'note',
-          details: `Visite planifiée le ${formattedDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} à ${formattedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })} pour ${bienTitre}.`,
-        })
-
-        // Si le lead est encore à l'état de simple prospect/qualifié, le passer en visite_planifiee
-        if (lead.etape === 'prospect' || lead.etape === 'qualifie') {
-          await db
-            .update(leads)
-            .set({
-              etape: 'visite_planifiee',
-              updatedAt: new Date()
-            })
-            .where(eq(leads.id, leadId))
-        }
-      }
-    }
-
     // Envoyer les notifications (in-app pour l'agent, email pour le client)
     try {
       let clientEmail = ""
@@ -110,16 +76,6 @@ export async function creerVisiteAction(input: z.infer<typeof visiteSchema>) {
         if (profile) {
           clientEmail = profile.email || ""
           clientName = profile.fullName || "Client"
-        }
-      } else if (leadId) {
-        const [lead] = await db
-          .select({ nom: leads.nom, prenom: leads.prenom, email: leads.email })
-          .from(leads)
-          .where(eq(leads.id, leadId))
-          .limit(1)
-        if (lead) {
-          clientEmail = lead.email || ""
-          clientName = `${lead.prenom || ''} ${lead.nom || ''}`.trim() || "Prospect"
         }
       }
 
@@ -139,24 +95,19 @@ export async function creerVisiteAction(input: z.infer<typeof visiteSchema>) {
       await notifierEvenementAction('VISITE_PLANIFIEE', {
         clientEmail: clientEmail || null,
         clientName,
+        agentName,
         bienTitre,
         dateVisite: formattedDate.toISOString(),
-        agentId: agentId || null,
-        agentName
       })
     } catch (notifErr) {
-      console.error("Erreur notification visite planifiee:", notifErr)
+      console.error("Erreur d'envoi de notification (non bloquante):", notifErr)
     }
 
-    try {
-      revalidatePath('/admin/visites')
-      revalidatePath('/admin/leads')
-    } catch (e) {}
-
-    return { success: true, visiteId: inserted.id }
+    revalidatePath('/admin/visites')
+    return { success: true, visite: inserted, visiteId: inserted.id }
   } catch (err: any) {
-    console.error("Erreur creation visite:", err)
-    return { error: err.message || "Une erreur inconnue est survenue." }
+    console.error("Erreur creerVisiteAction:", err)
+    return { error: err.message || "Impossible de planifier la visite." }
   }
 }
 
@@ -171,10 +122,9 @@ export async function modifierVisiteAction(input: z.infer<typeof modifyVisiteSch
     }
   }
 
-  const { id, leadId, clientId, bienId, agentId, dateVisite, statut, commentaires } = parsed.data
+  const { id, clientId, bienId, agentId, dateVisite, statut, commentaires } = parsed.data
 
   try {
-    // Récupérer la visite actuelle
     const [current] = await db
       .select()
       .from(visites)
@@ -193,7 +143,6 @@ export async function modifierVisiteAction(input: z.infer<typeof modifyVisiteSch
     if (dateVisite !== undefined) updateData.dateVisite = new Date(dateVisite)
     if (statut !== undefined) updateData.statut = statut
     if (commentaires !== undefined) updateData.commentaires = commentaires || null
-    if (leadId !== undefined) updateData.leadId = leadId || null
     if (clientId !== undefined) updateData.clientId = clientId || null
 
     await db
@@ -201,54 +150,11 @@ export async function modifierVisiteAction(input: z.infer<typeof modifyVisiteSch
       .set(updateData)
       .where(eq(visites.id, id))
 
-    // Effet de bord sur le Lead si le statut change
-    if (statut && current.leadId) {
-      const formattedDate = dateVisite ? new Date(dateVisite) : current.dateVisite
-
-      // 1. Visite effectuée
-      if (statut === 'effectuee') {
-        await db
-          .update(leads)
-          .set({
-            visiteConfirmee: true,
-            etape: 'visite_effectuee',
-            updatedAt: new Date()
-          })
-          .where(eq(leads.id, current.leadId))
-
-        await db.insert(leadInteractions).values({
-          leadId: current.leadId,
-          agentId: agentId || current.agentId || null,
-          type: 'note',
-          details: `Visite marquée comme EFFECTUÉE. Rapport : ${commentaires || "Aucun commentaire renseigné."}`,
-        })
-      }
-      // 2. Visite annulée
-      else if (statut === 'annulee') {
-        await db.insert(leadInteractions).values({
-          leadId: current.leadId,
-          agentId: agentId || current.agentId || null,
-          type: 'note',
-          details: `Visite ANNULÉE. Motif : ${commentaires || "Non renseigné."}`,
-        })
-      }
-      // 3. Client absent
-      else if (statut === 'client_absent') {
-        await db.insert(leadInteractions).values({
-          leadId: current.leadId,
-          agentId: agentId || current.agentId || null,
-          type: 'note',
-          details: `Visite manquée (CLIENT ABSENT). Note : ${commentaires || "Non renseigné."}`,
-        })
-      }
-    }
-
     // Déclencher le service de notifications si clôture
     if (statut && ['effectuee', 'annulee', 'client_absent'].includes(statut)) {
       try {
         let clientName = "Client"
         const finalClientId = clientId !== undefined ? clientId : current.clientId
-        const finalLeadId = leadId !== undefined ? leadId : current.leadId
         const finalBienId = bienId !== undefined ? bienId : current.bienId
 
         if (finalClientId) {
@@ -258,13 +164,6 @@ export async function modifierVisiteAction(input: z.infer<typeof modifyVisiteSch
             .where(eq(profiles.id, finalClientId))
             .limit(1)
           if (profile) clientName = profile.fullName || "Client"
-        } else if (finalLeadId) {
-          const [lead] = await db
-            .select({ nom: leads.nom, prenom: leads.prenom })
-            .from(leads)
-            .where(eq(leads.id, finalLeadId))
-            .limit(1)
-          if (lead) clientName = `${lead.prenom || ''} ${lead.nom || ''}`.trim() || "Prospect"
         }
 
         const [bien] = await db
@@ -285,23 +184,19 @@ export async function modifierVisiteAction(input: z.infer<typeof modifyVisiteSch
       }
     }
 
-    try {
-      revalidatePath('/admin/visites')
-      revalidatePath('/admin/leads')
-    } catch (e) {}
-
+    revalidatePath('/admin/visites')
     return { success: true }
   } catch (err: any) {
     console.error("Erreur modification visite:", err)
-    return { error: err.message || "Une erreur de mise à jour est survenue." }
+    return { error: err.message || "Erreur lors de la mise à jour." }
   }
 }
 
 // 3. Supprimer une visite (Soft delete)
-export async function supprimerVisiteAction(visiteId: string) {
+export async function supprimerVisiteAction(id: string) {
   await requirePermission('manage:visites')
 
-  if (!visiteId) return { error: "ID de visite requis." }
+  if (!id) return { error: "ID de visite requis." }
 
   try {
     await db
@@ -310,20 +205,16 @@ export async function supprimerVisiteAction(visiteId: string) {
         deletedAt: new Date(),
         updatedAt: new Date(),
       })
-      .where(eq(visites.id, visiteId))
+      .where(eq(visites.id, id))
 
-    try {
-      revalidatePath('/admin/visites')
-      revalidatePath('/admin/leads')
-    } catch (e) {}
-
+    revalidatePath('/admin/visites')
     return { success: true }
   } catch (err: any) {
     return { error: err.message || "Erreur lors de la suppression." }
   }
 }
 
-// 4. Récupérer toutes les visites avec filtres
+// 4. Récupérer les visites avec filtres
 export async function getVisitesAction(filters: {
   agentId?: string
   statut?: string
@@ -334,10 +225,9 @@ export async function getVisitesAction(filters: {
   await requirePermission('view:visites')
 
   try {
-    let query = db
+    const results = await db
       .select({
         id: visites.id,
-        leadId: visites.leadId,
         clientId: visites.clientId,
         bienId: visites.bienId,
         agentId: visites.agentId,
@@ -348,44 +238,27 @@ export async function getVisitesAction(filters: {
         bienTitre: biens.titre,
         bienVille: biens.ville,
         agentName: profiles.fullName,
-        clientName: profiles.fullName, // will adjust in JS if from profile or lead
-        leadNom: leads.nom,
-        leadPrenom: leads.prenom,
-        leadPhone: leads.telephone,
+        clientName: profiles.fullName,
         profilePhone: profiles.phone,
       })
       .from(visites)
       .innerJoin(biens, eq(visites.bienId, biens.id))
       .leftJoin(profiles, eq(visites.agentId, profiles.id))
-      .leftJoin(leads, eq(visites.leadId, leads.id))
-      // Wait, we need another join for client profile if not from lead
-      // Drizzle handles multiple joins to the same table by alias, but we can resolve in TS or leftJoin client profiles if needed.
-      // For simplicity, let's leftJoin client profile as clientProfiles
       .where(isNull(visites.deletedAt))
       .orderBy(desc(visites.dateVisite))
 
-    const results = await query
-
-    // Filter in JS for simplicity or construct complex query
     const filtered = results.filter(row => {
-      // 1. Agent filter
       if (filters.agentId && row.agentId !== filters.agentId) return false
-
-      // 2. Statut filter
       if (filters.statut && row.statut !== filters.statut) return false
-
-      // 3. Date range filter
       if (filters.dateFrom && new Date(row.dateVisite) < new Date(filters.dateFrom)) return false
       if (filters.dateTo && new Date(row.dateVisite) > new Date(filters.dateTo)) return false
 
-      // 4. Text search (Client/Lead name or phone, or property)
       if (filters.search) {
         const s = filters.search.toLowerCase()
-        const leadName = `${row.leadPrenom || ''} ${row.leadNom || ''}`.toLowerCase()
         const clientName = row.clientName?.toLowerCase() || ''
-        const phone = row.leadPhone || row.profilePhone || ''
+        const phone = row.profilePhone || ''
         const property = row.bienTitre.toLowerCase()
-        if (!leadName.includes(s) && !clientName.includes(s) && !phone.includes(s) && !property.includes(s)) {
+        if (!clientName.includes(s) && !phone.includes(s) && !property.includes(s)) {
           return false
         }
       }
@@ -400,119 +273,72 @@ export async function getVisitesAction(filters: {
   }
 }
 
-// 5. Récupérer les visites d'un Lead
-export async function getLeadVisitesAction(leadId: string) {
+// 5. Visites pour compatibilité
+export async function getLeadVisitesAction(_leadId: string) {
+  return { success: true, visites: [] }
+}
+
+// 6. Impact de la visite
+export async function getVisiteImpactAction(_visiteId: string) {
+  return { success: true, impact: null, leadImpactInfo: null }
+}
+
+// 7. Changer le statut d'une visite
+export async function changerStatutVisiteAction(id: string, statut: 'planifiee' | 'confirmee' | 'effectuee' | 'annulee' | 'client_absent') {
+  return modifierVisiteAction({ id, statut })
+}
+
+// 8. Visites de l'agenda de l'agent
+export async function getAgentVisitesCalendrierAction(agentId?: string) {
   await requirePermission('view:visites')
 
-  if (!leadId) return { error: "ID du lead requis." }
-
   try {
-    const list = await db
+    const conditions = [isNull(visites.deletedAt)]
+    if (agentId) {
+      conditions.push(eq(visites.agentId, agentId))
+    }
+
+    const rows = await db
       .select({
         id: visites.id,
         dateVisite: visites.dateVisite,
+        plageHoraire: visites.plageHoraire,
         statut: visites.statut,
         commentaires: visites.commentaires,
         bienTitre: biens.titre,
-        agentName: profiles.fullName,
-        agentId: visites.agentId,
-        bienId: visites.bienId,
+        bienVille: biens.ville,
+        clientName: profiles.fullName,
       })
       .from(visites)
       .innerJoin(biens, eq(visites.bienId, biens.id))
-      .leftJoin(profiles, eq(visites.agentId, profiles.id))
-      .where(and(
-        eq(visites.leadId, leadId),
-        isNull(visites.deletedAt)
-      ))
-      .orderBy(desc(visites.dateVisite))
+      .leftJoin(profiles, eq(visites.clientId, profiles.id))
+      .where(and(...conditions))
+      .orderBy(visites.dateVisite)
 
-    return { success: true, visites: list }
+    return { success: true, visites: rows }
   } catch (err: any) {
-    return { error: err.message }
+    return { error: err.message || "Impossible de récupérer les créneaux d'agenda." }
   }
 }
 
-// 6. Analyse d'impact d'une suppression de visite
-export async function getVisiteImpactAction(visiteId: string) {
-  await requirePermission('view:visites')
-
-  if (!visiteId) return { error: "ID de visite requis." }
-
-  try {
-    const [visite] = await db
-      .select({
-        statut: visites.statut,
-        leadId: visites.leadId,
-        bienTitre: biens.titre,
-      })
-      .from(visites)
-      .innerJoin(biens, eq(visites.bienId, biens.id))
-      .where(eq(visites.id, visiteId))
-      .limit(1)
-
-    if (!visite) return { error: "Visite introuvable." }
-
-    let leadImpactInfo = null
-    if (visite.leadId) {
-      const [lead] = await db
-        .select({
-          prenom: leads.prenom,
-          nom: leads.nom,
-          etape: leads.etape,
-        })
-        .from(leads)
-        .where(eq(leads.id, visite.leadId))
-        .limit(1)
-      if (lead) {
-        leadImpactInfo = {
-          prospectName: `${lead.prenom || ''} ${lead.nom || ''}`.trim(),
-          etapeActuelle: lead.etape,
-        }
-      }
-    }
-
-    return {
-      success: true,
-      impact: {
-        statut: visite.statut,
-        bienTitre: visite.bienTitre,
-        leadImpactInfo,
-      }
-    }
-  } catch (err: any) {
-    return { error: err.message }
-  }
-}
-
-// ─── Planification Autonome Client & Prospect ─────────────────────────────────
-
-const planAutonomeSchema = z.object({
-  bienId: z.string().uuid("Bien immobilier requis"),
-  dateVisite: z.string().min(1, "Date et heure de visite requises"),
-  commentaires: z.string().optional().nullable(),
-  // Coordonnées du prospect s'il n'est pas connecté
-  nom: z.string().optional().nullable(),
-  prenom: z.string().optional().nullable(),
-  email: z.string().optional().nullable(),
-  telephone: z.string().optional().nullable(),
-})
-
-export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAutonomeSchema>) {
-  const parsed = planAutonomeSchema.safeParse(input)
-  if (!parsed.success) {
-    return {
-      error: 'Données invalides : ' + parsed.error.issues.map(i => i.message).join(', ')
-    }
-  }
-
-  const { bienId, dateVisite, commentaires, nom, prenom, email, telephone } = parsed.data
-  const formattedDate = new Date(dateVisite)
+// 9. Demande publique de visite (Prise de rendez-vous directe)
+export async function demanderVisitePubliqueAction(input: {
+  bienId: string
+  dateVisite: string
+  nom?: string
+  prenom?: string
+  email?: string
+  telephone: string
+  commentaires?: string
+}) {
+  const { bienId, dateVisite, nom, prenom, email, telephone, commentaires } = input
 
   try {
-    // 1. Récupérer le bien pour savoir s'il existe et s'il a un agent
+    const formattedDate = new Date(dateVisite)
+
+    // Vérifier l'existence du bien
     const [bien] = await db
-      .select({ id: biens.id, titre: biens.titre, agentId: biens.agentId })
+      .select({ titre: biens.titre, agentId: biens.agentId })
       .from(biens)
       .where(eq(biens.id, bienId))
       .limit(1)
@@ -520,120 +346,8 @@ export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAu
     if (!bien) {
       return { error: "Bien immobilier introuvable." }
     }
-
     const bienTitre = bien.titre
 
-    // 2. Déterminer dynamiquement l'agent accompagnateur libre
-    const agentsList = await db
-      .select({ id: profiles.id, fullName: profiles.fullName })
-      .from(profiles)
-      .where(
-        and(
-          inArray(profiles.role, ['agent', 'admin_agent']),
-          isNull(profiles.deletedAt)
-        )
-      )
-
-    if (agentsList.length === 0) {
-      return { error: "Aucun agent commercial disponible pour effectuer des visites actuellement." }
-    }
-
-    // Récupérer toutes les occupations pour ce créneau horaire
-    const dbVisites = await db
-      .select({
-        id: visites.id,
-        agentId: visites.agentId,
-        dateVisite: visites.dateVisite,
-        statut: visites.statut
-      })
-      .from(visites)
-      .where(
-        and(
-          isNull(visites.deletedAt),
-          or(
-            eq(visites.statut, 'planifiee'),
-            eq(visites.statut, 'confirmee')
-          )
-        )
-      )
-
-    const dbIndisponibilites = await db
-      .select()
-      .from(agentIndisponibilites)
-      .where(isNull(agentIndisponibilites.deletedAt))
-
-    const dbCalendriers = await db
-      .select()
-      .from(agentCalendriers)
-      .where(isNull(agentCalendriers.deletedAt))
-
-    const calendrierParAgent: Record<string, string> = {}
-    for (const cal of dbCalendriers) {
-      calendrierParAgent[cal.agentId] = cal.icalUrl
-    }
-
-    const agentsLibres: { id: string; fullName: string | null }[] = []
-    
-    // Déterminer le créneau (1h)
-    const slotStart = formattedDate
-    const slotEnd = new Date(slotStart.getTime() + 60 * 60 * 1000)
-
-    for (const agent of agentsList) {
-      let occupe = false
-
-      // Check A: Visites dans l'app
-      const aVisite = dbVisites.some(v => {
-        if (v.agentId !== agent.id) return false
-        const vStart = new Date(v.dateVisite)
-        const vEnd = new Date(vStart.getTime() + 60 * 60 * 1000)
-        return vStart < slotEnd && vEnd > slotStart
-      })
-      if (aVisite) occupe = true
-
-      // Check B: Absences manuelles locales
-      if (!occupe) {
-        const aIndisp = dbIndisponibilites.some(ind => {
-          if (ind.agentId !== agent.id) return false
-          const indStart = new Date(ind.dateDebut)
-          const indFin = new Date(ind.dateFin)
-          return indStart < slotEnd && indFin > slotStart
-        })
-        if (aIndisp) occupe = true
-      }
-
-      // Check C: Google iCal
-      if (!occupe && calendrierParAgent[agent.id]) {
-        try {
-          const { fetchAgentICalEvents } = await import("./disponibilites")
-          const events = await fetchAgentICalEvents(calendrierParAgent[agent.id])
-          const aGoogle = events.some(ge => {
-            return ge.start < slotEnd && ge.end > slotStart
-          })
-          if (aGoogle) occupe = true
-        } catch (e) {
-          console.error(`Erreur iCal pour l'agent ${agent.id}:`, e)
-        }
-      }
-
-      if (!occupe) {
-        agentsLibres.push(agent)
-      }
-    }
-
-    if (agentsLibres.length === 0) {
-      return { error: "Désolé, ce créneau horaire n'est plus disponible (tous les agents sont occupés). Veuillez en choisir un autre." }
-    }
-
-    // Choisir en priorité l'agent du bien s'il est libre, sinon le premier libre
-    let agentChoisi = agentsLibres.find(a => a.id === bien.agentId)
-    if (!agentChoisi) {
-      agentChoisi = agentsLibres[0]
-    }
-
-    const agentId = agentChoisi.id
-    const agentName = agentChoisi.fullName || "Non assigné"
-
-    // 3. Vérifier s'il y a un utilisateur connecté
     const { createClient } = await import('@/utils/supabase/server')
     const { cookies } = await import('next/headers')
     const cookieStore = await cookies()
@@ -641,12 +355,10 @@ export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAu
     const { data: { user } } = await supabase.auth.getUser()
 
     let clientId: string | null = null
-    let leadId: string | null = null
-    let clientEmail = ""
-    let clientName = "Client"
+    let clientEmail = email || ""
+    let clientName = `${prenom || ''} ${nom || ''}`.trim() || "Visiteur"
 
     if (user) {
-      // Connecté
       clientId = user.id
       const [profile] = await db
         .select({ fullName: profiles.fullName, email: profiles.email })
@@ -654,95 +366,22 @@ export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAu
         .where(eq(profiles.id, user.id))
         .limit(1)
       if (profile) {
-        clientEmail = profile.email || ""
-        clientName = profile.fullName || "Client"
-      }
-    } else {
-      // Visiteur anonyme -> gérer via table `leads`
-      if (!telephone) {
-        return { error: "Le numéro de téléphone est obligatoire pour planifier une visite." }
-      }
-
-      // Chercher s'il existe déjà un lead avec cet e-mail ou ce numéro de téléphone
-      const { or } = await import('drizzle-orm')
-      const conditions = []
-      if (email) conditions.push(eq(leads.email, email))
-      if (telephone) conditions.push(eq(leads.telephone, telephone))
-
-      const existingLeads = await db
-        .select()
-        .from(leads)
-        .where(
-          and(
-            or(...conditions),
-            isNull(leads.deletedAt)
-          )
-        )
-        .limit(1)
-
-      if (existingLeads.length > 0) {
-        const existingLead = existingLeads[0]
-        leadId = existingLead.id
-        clientEmail = existingLead.email || email || ""
-        clientName = `${existingLead.prenom || ''} ${existingLead.nom || ''}`.trim() || nom || "Prospect"
-
-        // Mettre à jour l'étape du lead
-        if (existingLead.etape === 'prospect' || existingLead.etape === 'qualifie') {
-          await db
-            .update(leads)
-            .set({
-              etape: 'visite_planifiee',
-              updatedAt: new Date()
-            })
-            .where(eq(leads.id, leadId))
-        }
-      } else {
-        // Créer un nouveau lead
-        const { calculerScore } = await import("@/lib/crm/scoring")
-        const scoreInitial = calculerScore({
-          aVisite: false,
-          aPayeAcompte: false,
-          aRappeleAgent: false,
-          aOuvertEmail: false,
-          aRempliFormulaire: true,
-          source: 'direct',
-        })
-
-        const [insertedLead] = await db
-          .insert(leads)
-          .values({
-            nom: nom || null,
-            prenom: prenom || null,
-            email: email || null,
-            telephone: telephone,
-            source: 'site_web',
-            statut: 'nouveau',
-            etape: 'visite_planifiee',
-            score: scoreInitial,
-            bienInteresse: bienId,
-            agentId: agentId || null,
-          })
-          .returning()
-
-        if (insertedLead) {
-          leadId = insertedLead.id
-          clientEmail = insertedLead.email || ""
-          clientName = `${insertedLead.prenom || ''} ${insertedLead.nom || ''}`.trim() || "Prospect"
-        }
+        clientEmail = profile.email || clientEmail
+        clientName = profile.fullName || clientName
       }
     }
 
-    // 4. Insérer la visite
+    const noteCommentaire = `Demandeur: ${clientName} (Tél: ${telephone}${clientEmail ? ', Email: ' + clientEmail : ''})${commentaires ? ' — ' + commentaires : ''}`
+
     const [inserted] = await db
       .insert(visites)
       .values({
-        leadId: leadId || null,
         clientId: clientId || null,
         bienId,
-        agentId: agentId || null,
+        agentId: bien.agentId || null,
         dateVisite: formattedDate,
         statut: 'planifiee',
-        commentaires: commentaires || null,
+        commentaires: noteCommentaire,
       })
       .returning()
 
@@ -750,17 +389,7 @@ export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAu
       return { error: "Erreur lors de l'enregistrement de la visite." }
     }
 
-    // Si lié à un lead, consigner l'interaction
-    if (leadId) {
-      await db.insert(leadInteractions).values({
-        leadId,
-        agentId: agentId || null,
-        type: 'note',
-        details: `Visite planifiée de manière autonome le ${formattedDate.toLocaleDateString('fr-FR')} pour ${bienTitre}.`,
-      })
-    }
-
-    // 5. Envoyer les notifications (email et in-app)
+    // Notifications
     try {
       const { notifierEvenementAction } = await import("@/lib/notifications/service")
       await notifierEvenementAction('VISITE_PLANIFIEE', {
@@ -768,69 +397,42 @@ export async function planifierVisiteAutonomeAction(input: z.infer<typeof planAu
         clientName,
         bienTitre,
         dateVisite: formattedDate.toISOString(),
-        agentId: agentId || null,
-        agentName
       })
-
-      // Si l'utilisateur n'était pas connecté (nouveau lead), notifier en plus les administrateurs
-      if (!user) {
-        const admins = await db
-          .select({ id: profiles.id })
-          .from(profiles)
-          .where(
-            and(
-              eq(profiles.role, 'admin'),
-              isNull(profiles.deletedAt)
-            )
-          )
-        const { creerNotificationHelper } = await import("@/lib/notifications/service")
-        for (const admin of admins) {
-          await creerNotificationHelper(
-            admin.id,
-            'Nouvelle visite auto-planifiée (Prospect)',
-            `Le prospect ${clientName} a planifié lui-même une visite pour le bien ${bienTitre} le ${formattedDate.toLocaleDateString('fr-FR')}.`,
-            'visite',
-            `/admin/visites`
-          )
-        }
-      }
     } catch (notifErr) {
-      console.error("Erreur notification visite planifiee autonome:", notifErr)
+      console.error("Erreur notification visite publique:", notifErr)
     }
 
-    // 6. Réhydrater les pages
-    try {
-      revalidatePath('/admin/visites')
-      revalidatePath('/admin/leads')
-      revalidatePath('/client/dashboard')
-    } catch (e) {}
-
+    revalidatePath('/admin/visites')
     return { success: true, visiteId: inserted.id }
   } catch (err: any) {
-    console.error("Erreur planifierVisiteAutonomeAction:", err)
-    return { error: err.message || "Une erreur est survenue." }
+    console.error("Erreur demanderVisitePubliqueAction:", err)
+    return { error: err.message || "Une erreur technique est survenue." }
   }
 }
 
+// Fonctions de compatibilité pour la prise de rendez-vous client
 export async function getBiensDisponiblesAction() {
   try {
-    const list = await db
+    const rows = await db
       .select({
         id: biens.id,
         titre: biens.titre,
+        slug: biens.slug,
         ville: biens.ville,
         quartier: biens.quartier,
+        prix: biens.prix,
+        type: biens.type,
+        mainImageUrl: biens.mainImageUrl,
       })
       .from(biens)
-      .where(
-        and(
-          eq(biens.statut, 'disponible'),
-          isNull(biens.deletedAt)
-        )
-      )
-      .orderBy(biens.titre)
-    return { success: true, biens: list }
+      .where(and(isNull(biens.deletedAt), eq(biens.statut, 'disponible')))
+      .orderBy(desc(biens.createdAt))
+    return { success: true, biens: rows }
   } catch (err: any) {
-    return { error: err.message }
+    return { success: false, error: err.message || "Erreur de chargement des biens." }
   }
+}
+
+export async function planifierVisiteAutonomeAction(input: any) {
+  return demanderVisitePubliqueAction(input)
 }

@@ -6,6 +6,7 @@ import { getDashboardKPIsAction, exportDashboardDataAction, KPIParams } from "@/
 import DashboardFilters from "./DashboardFilters"
 import DashboardCharts from "./DashboardCharts"
 import AgentLeaderboard from "./AgentLeaderboard"
+import SupabaseQuickStatus from "./SupabaseQuickStatus"
 import { 
   TrendingUp, 
   Users, 
@@ -17,7 +18,8 @@ import {
   AlertCircle,
   Award,
   Compass,
-  UserCheck
+  UserCheck,
+  ShieldCheck
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -94,6 +96,9 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
 
     return (
       <div className="space-y-8 max-w-6xl mx-auto py-4">
+        {/* Supabase Keep-Alive Quick Status */}
+        <SupabaseQuickStatus />
+
         {/* Welcome Card */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
@@ -338,6 +343,9 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
+      {/* Supabase Keep-Alive Quick Status */}
+      <SupabaseQuickStatus />
+
       {/* Dashboard Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -345,18 +353,24 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
             <h1 className="text-3xl font-black text-slate-900 tracking-tight">Performances & Analytiques</h1>
             {userRole && (
               <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-extrabold border uppercase tracking-wider ${
-                userRole === 'super_admin' 
+                userRole === 'super_admin' || userRole === 'tech_super_admin'
                   ? 'bg-purple-50 border-purple-200 text-purple-700' 
-                  : userRole === 'tech_super_admin' 
-                    ? 'bg-indigo-50 border-indigo-200 text-indigo-700' 
-                    : 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                  : 'bg-emerald-50 border-emerald-200 text-emerald-700'
               }`}>
-                Rôle : {userRole === 'super_admin' ? 'Super Administrateur' : userRole === 'tech_super_admin' ? 'Super Admin Technique' : userRole === 'agent' ? 'Agent Commercial' : 'Administrateur'}
+                Rôle : {
+                  userRole === 'super_admin' || userRole === 'tech_super_admin' ? 'Super Administrateur' :
+                  userRole === 'moderateur' ? 'Modérateur' :
+                  userRole === 'comptable' ? 'Comptable' :
+                  userRole === 'support' ? 'Support Client' :
+                  userRole === 'commercial' || userRole === 'agent' ? 'Commercial' :
+                  userRole === 'bailleur' ? 'Bailleur' :
+                  userRole === 'client' ? 'Client' : 'Administrateur'
+                }
               </span>
             )}
           </div>
           <p className="text-slate-500 mt-1 text-xs font-medium leading-relaxed">
-            {userRole === 'agent' 
+            {userRole === 'agent' || userRole === 'commercial'
               ? "Statistiques commerciales et suivi de vos dossiers clients en temps réel." 
               : "Statistiques commerciales, RH, et financières consolidées en temps réel sur ImmOfika."}
           </p>
@@ -364,6 +378,15 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
 
         {/* Export Buttons */}
         <div className="flex items-center gap-2">
+          {(userRole === 'super_admin' || userRole === 'tech_super_admin' || userRole === 'admin') && (
+            <a
+              href="/admin/roles"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-800 rounded-xl text-xs font-bold transition-all shadow-sm hover:shadow cursor-pointer"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-purple-600" />
+              <span>Rôles & Permissions</span>
+            </a>
+          )}
           <button
             type="button"
             disabled={exporting !== null || isLoading}

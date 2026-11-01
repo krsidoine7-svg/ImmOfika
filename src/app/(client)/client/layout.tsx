@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -29,16 +30,16 @@ export default async function ClientLayout({
   }
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-[#F8F6F1]">
+    <div className="flex h-screen overflow-hidden bg-[#F8F6F1]">
       <ClientSidebar />
-      <div className="flex-1 min-h-screen overflow-x-hidden flex flex-col pt-16 lg:pt-0">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <ClientHeader 
           userId={user.id}
           fullName={profile?.full_name || null} 
           email={user.email} 
           avatarUrl={profile?.avatar_url || null} 
         />
-        <div className="flex-1 p-6 lg:p-10">
+        <div className="flex-1 overflow-y-auto min-w-0">
           {children}
         </div>
       </div>

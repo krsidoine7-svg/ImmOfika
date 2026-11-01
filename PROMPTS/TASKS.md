@@ -1,5 +1,5 @@
 # TASKS.md — Backlog des Tâches
-## Favor Company International
+## ImmOfika
 
 > **Usage :** Ce fichier est la source de vérité des tâches en cours et à venir.  
 > Mettre à jour avant de coder une feature et après l'avoir terminée.

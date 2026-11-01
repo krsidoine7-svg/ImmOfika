@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, Mail, MapPin, CheckCircle, ArrowRight, Loader2 } from 'lucide-react'
-import { creerLeadAction } from '@/app/actions/leads'
+import { envoyerMessageContactAction } from '@/app/actions/contactActions'
 
 interface ContactFormProps {
   bien?: {
@@ -23,6 +23,7 @@ export default function ContactForm({ bien }: ContactFormProps) {
     email: '',
     telephone: '',
     message: '',
+    website_hp: '',
   })
 
   const [loading, setLoading] = React.useState(false)
@@ -40,7 +41,7 @@ export default function ContactForm({ bien }: ContactFormProps) {
     setError(null)
 
     try {
-      const res = await creerLeadAction({
+      const res = await envoyerMessageContactAction({
         ...formData,
         source: 'site_web',
         bienInteresse: bien?.id || undefined,
@@ -50,7 +51,7 @@ export default function ContactForm({ bien }: ContactFormProps) {
         setError(res.error)
       } else {
         setSuccess(true)
-        setFormData({ nom: '', prenom: '', email: '', telephone: '', message: '' })
+        setFormData({ nom: '', prenom: '', email: '', telephone: '', message: '', website_hp: '' })
       }
     } catch (err: any) {
       setError(err.message || "Une erreur est survenue lors de l'envoi de votre message.")
@@ -181,6 +182,20 @@ export default function ContactForm({ bien }: ContactFormProps) {
                     <div className="border-b border-slate-100 pb-4 mb-4">
                       <h3 className="text-xl font-bold text-[#1A2A4A]">Formulaire de contact</h3>
                       <p className="text-slate-400 text-xs mt-1">Tous les champs marqués d'une étoile (*) sont obligatoires.</p>
+                    </div>
+
+                    {/* Champ piège invisible anti-spam (Honeypot) */}
+                    <div className="opacity-0 absolute -left-[9999px] -top-[9999px] h-0 w-0 overflow-hidden pointer-events-none" aria-hidden="true" tabIndex={-1}>
+                      <label htmlFor="website_hp">Ne pas remplir</label>
+                      <input
+                        id="website_hp"
+                        name="website_hp"
+                        type="text"
+                        value={formData.website_hp}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
                     </div>
 
                     {error && (

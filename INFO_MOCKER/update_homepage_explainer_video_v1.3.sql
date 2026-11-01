@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 ADD EXPLAINER VIDEO SECTION — Ajout de la Section Vidéo Explicative
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-11
 -- Version : v1.3
@@ -21,7 +21,7 @@ INSERT INTO homepage_configs (section, content) VALUES
       "tag": "Présentation Vidéo",
       "title": "Découvrez notre expertise en action.",
       "italic_word": "expertise",
-      "description": "En tant que Promoteur Immobilier Agréé, Favor Company International s''engage à vous offrir des projets d''aménagement foncier et de construction d''exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
+      "description": "En tant que Promoteur Immobilier Agréé, ImmOfika s''engage à vous offrir des projets d''aménagement foncier et de construction d''exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
       "video_url": "/video-heros.mp4",
       "thumbnail_image": "/heros-img.png",
       "points": [

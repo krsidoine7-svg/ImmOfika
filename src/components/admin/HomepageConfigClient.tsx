@@ -190,6 +190,58 @@ const DEFAULTS: Record<string, any> = {
     phone_mobile: "+225 07 47 63 17 06 (Mobile)",
     email: "ImmOfika@gmail.com"
   },
+  featured_partners: {
+    enabled: true,
+    theme: "white",
+    tag: "Partenaires Officiels & Agréés",
+    title: "Nos Promoteurs & Agences d'Élite en Vedette",
+    italic_word: "en Vedette",
+    description: "Découvrez nos promoteurs certifiés et agences partenaires ImmOfika. Échangez directement par WhatsApp ou appel avec leurs conseillers dédiés.",
+    partners: [
+      {
+        id: "part-1",
+        name: "SCPI Riviera Standing",
+        type: "promoteur",
+        agrement: "Agrément MCLU N° 2026/041/DP",
+        badge: "Promoteur Agréé & Certifié",
+        phone: "+225 0701020304",
+        whatsapp: "2250701020304",
+        whatsapp_message: "Bonjour, je vous contacte depuis la plateforme ImmOfika au sujet de vos programmes immobiliers.",
+        communes: "Cocody & Bingerville",
+        active_biens_count: 14,
+        logo: "/logo-immo.svg",
+        bio: "Spécialiste de la promotion immobilière haut standing et de l'aménagement foncier sécurisé avec ACD."
+      },
+      {
+        id: "part-2",
+        name: "Horizon Foncier & Aménagement",
+        type: "promoteur",
+        agrement: "Agrément Foncier N° 2025/118/MCLU",
+        badge: "Aménageur Foncier Certifié",
+        phone: "+225 0505060708",
+        whatsapp: "2250505060708",
+        whatsapp_message: "Bonjour, je vous contacte depuis la plateforme ImmOfika à propos de vos parcelles avec ACD.",
+        communes: "Assinie & Grand-Bassam",
+        active_biens_count: 22,
+        logo: "/logo-immo.svg",
+        bio: "Lotissements balnéaires et parcelles viabilisées avec approbation ministérielle et titres fonciers définitifs."
+      },
+      {
+        id: "part-3",
+        name: "Agence Prestige Ivoire",
+        type: "agence",
+        agrement: "Carte Pro N° 2024/089/CI",
+        badge: "Agence Partenaire Vérifiée",
+        phone: "+225 0101020304",
+        whatsapp: "2250101020304",
+        whatsapp_message: "Bonjour, je vous contacte depuis la plateforme ImmOfika pour échanger sur vos biens en gestion.",
+        communes: "Marcory Zone 4 & Plateau",
+        active_biens_count: 9,
+        logo: "/logo-immo.svg",
+        bio: "Gestion locative, mandats exclusifs et accompagnement personnalisé des acquéreurs de la diaspora."
+      }
+    ]
+  },
   heroVideo: {
     enabled: true,
     theme: "dark",

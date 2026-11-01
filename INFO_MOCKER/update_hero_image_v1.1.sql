@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 UPDATE HERO IMAGE — Mise à jour des images du Hero
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-11
 -- Version : v1.1

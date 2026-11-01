@@ -5,11 +5,11 @@ import { requirePermission } from "@/lib/auth/permissions"
 import { AdminPaiementsClient } from "@/components/admin/AdminPaiementsClient"
 
 export const metadata = {
-  title: "Historique des Paiements - Admin ImmOfika",
+  title: "Historique des Paiements & FNE - Admin ImmOfika",
 }
 
 export default async function AdminPaiementsPage() {
-  await requirePermission('view:paiements')
+  await requirePermission('facture:voir/exporter')
 
   const allPaiements = await db
     .select({
@@ -22,6 +22,11 @@ export default async function AdminPaiementsPage() {
       paidAt: paiements.paidAt,
       clientName: profiles.fullName,
       clientEmail: profiles.email,
+      fneNumero: paiements.fneNumero,
+      fneType: paiements.fneType,
+      fneStatut: paiements.fneStatut,
+      fneQrData: paiements.fneQrData,
+      fneCertifieLe: paiements.fneCertifieLe,
     })
     .from(paiements)
     .leftJoin(profiles, eq(paiements.clientId, profiles.id))

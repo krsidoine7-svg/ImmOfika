@@ -34,14 +34,39 @@ const formatRoleBadge = (role: string) => {
     case 'client':
       return (
         <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
-          👤 Client Acquéreur
+          👤 Client
         </span>
       )
+    case 'bailleur':
+      return (
+        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-amber-50 text-amber-700 border border-amber-200">
+          🏡 Propriétaire-Bailleur
+        </span>
+      )
+    case 'commercial':
     case 'admin_agent':
     case 'agent':
       return (
         <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-teal-50 text-teal-800 border border-teal-200">
-          💼 Agent Commercial
+          💼 Commercial
+        </span>
+      )
+    case 'support':
+      return (
+        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-cyan-50 text-cyan-800 border border-cyan-200">
+          🎧 Support Client
+        </span>
+      )
+    case 'comptable':
+      return (
+        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-blue-50 text-blue-800 border border-blue-200">
+          📊 Comptable
+        </span>
+      )
+    case 'moderateur':
+      return (
+        <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-800 border border-indigo-200">
+          🛡️ Modérateur
         </span>
       )
     case 'admin_manager':

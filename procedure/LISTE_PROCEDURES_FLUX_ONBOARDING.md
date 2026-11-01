@@ -1,7 +1,7 @@
 # Répertoire et Nomenclature des Procédures, Flux & Onboarding
-## Favor Company International — Promoteur Immobilier Agréé
+## ImmOfika — Promoteur Immobilier Agréé
 
-Ce document recense exclusivement la liste officielle et les intitulés des différentes procédures, des flux métiers et des parcours d'intégration (onboarding) en vigueur sur la plateforme Favor Company International.
+Ce document recense exclusivement la liste officielle et les intitulés des différentes procédures, des flux métiers et des parcours d'intégration (onboarding) en vigueur sur la plateforme ImmOfika.
 
 ---
 

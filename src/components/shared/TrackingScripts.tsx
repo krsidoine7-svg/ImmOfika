@@ -14,10 +14,10 @@ export default function TrackingScripts({ config }: { config: TrackingConfig }) 
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      setConsent(localStorage.getItem("favor_cookie_consent"))
+      setConsent(localStorage.getItem("immofika_cookie_consent"))
 
       const handleConsentChange = () => {
-        setConsent(localStorage.getItem("favor_cookie_consent"))
+        setConsent(localStorage.getItem("immofika_cookie_consent"))
       }
 
       window.addEventListener("cookie-consent-changed", handleConsentChange)

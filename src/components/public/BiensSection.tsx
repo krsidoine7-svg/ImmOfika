@@ -14,25 +14,48 @@ interface BiensSectionProps {
 }
 
 function PropertyCard({ item }: { item: Property }) {
+  const [imgSrc, setImgSrc] = React.useState(item.image)
+  const isVente = item.type === "Vente"
+  const isReserve = item.trend === "reserve"
+
   return (
-    <div className="group relative">
-      <Card className="overflow-hidden border border-slate-100 bg-white rounded-3xl shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
+    <Link
+      href={`/biens/${item.slug}`}
+      className="group block relative focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-3xl"
+    >
+      <Card className="overflow-hidden border border-slate-100 bg-white rounded-3xl shadow-sm hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300 group-hover:-translate-y-1">
         <CardContent className="p-0 relative">
           <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
             <img
-              src={item.image}
+              src={imgSrc}
               alt={item.title}
+              onError={() =>
+                setImgSrc(
+                  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800"
+                )
+              }
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
             />
 
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
 
-            {/* Tag / Badge */}
-            <div className="absolute top-4 left-4 z-10">
-              <Badge className="bg-white/95 text-slate-900 rounded-full px-3 py-1 text-xs font-bold shadow-md border-0">
-                {item.tag}
+            {/* Badges en haut */}
+            <div className="absolute top-3.5 left-3.5 right-3.5 z-10 flex items-center justify-between gap-2">
+              <Badge
+                className={`rounded-full px-3 py-1 text-xs font-bold shadow-md border-0 ${
+                  isVente ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'
+                }`}
+              >
+                {isVente ? 'À Vendre' : 'À Louer'}
               </Badge>
+
+              {isReserve && (
+                <Badge className="bg-amber-500 text-white rounded-full px-2.5 py-0.5 text-[11px] font-bold shadow">
+                  Réservé
+                </Badge>
+              )}
             </div>
 
             {/* Infos Prix & Titre */}
@@ -41,11 +64,13 @@ function PropertyCard({ item }: { item: Property }) {
                 {new Intl.NumberFormat('fr-FR', {
                   style: 'currency',
                   currency: 'XOF',
-                  maximumFractionDigits: 0
-                }).format(item.price).replace("XOF", "FCFA")}
+                  maximumFractionDigits: 0,
+                })
+                  .format(item.price)
+                  .replace('XOF', 'FCFA')}
               </div>
 
-              <h4 className="text-base sm:text-lg font-bold leading-tight line-clamp-1 group-hover:text-emerald-400 transition-colors">
+              <h4 className="text-base sm:text-lg font-bold leading-tight line-clamp-1 group-hover:text-emerald-300 transition-colors">
                 {item.title}
               </h4>
 
@@ -61,27 +86,26 @@ function PropertyCard({ item }: { item: Property }) {
                     <span>{item.bedrooms} ch.</span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5">
-                  <Maximize className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>{item.area} m²</span>
-                </div>
+                {item.area > 0 && (
+                  <div className="flex items-center gap-1.5">
+                    <Maximize className="h-3.5 w-3.5 text-emerald-400" />
+                    <span>{item.area} m²</span>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Hover Link */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/40 backdrop-blur-[2px] z-20">
-              <Link
-                href={`/biens/${item.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold bg-emerald-500 hover:bg-emerald-600 text-white text-xs sm:text-sm shadow-lg transition-transform"
-              >
+            {/* Hover Link Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-950/40 backdrop-blur-[2px] z-20">
+              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold bg-emerald-500 hover:bg-emerald-600 text-white text-xs sm:text-sm shadow-xl transition-transform transform group-hover:scale-105">
                 <span>Voir le bien</span>
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </span>
             </div>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </Link>
   )
 }
 

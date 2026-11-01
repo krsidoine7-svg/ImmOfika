@@ -1,5 +1,5 @@
 # ROADMAP.md — Plan de Bataille
-## Favor Company International
+## ImmOfika
 
 > **Approche :** Feature by feature — Tester chaque feature avant de passer à la suivante  
 > **Principe :** Build → Test → Commit → Next Feature
@@ -237,7 +237,7 @@ Avoir un site fonctionnel avec : catalogue de biens, réservation, paiement, et 
 
 #### F20 — Chatbot IA (Agent RAG)
 - [ ] Widget chatbot sur toutes les pages
-- [ ] Base de connaissances (biens, services, FAQ, processus Favor Company)
+- [ ] Base de connaissances (biens, services, FAQ, processus ImmOfika)
 - [ ] Réponses contextuelles (RAG)
 - [ ] Escalade vers agent humain
 - [ ] Historique des conversations

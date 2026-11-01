@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 📋 INFO_MOCKER — Table de Traçabilité des Injections de Données Mockées
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-04
 -- But     : Garder une trace de chaque injection de données mockées en BDD

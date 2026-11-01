@@ -641,7 +641,7 @@ export async function GET() {
   return new NextResponse(Buffer.from(buffer), {
     headers: {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': `attachment; filename="Paiements_FavorCompany_${today}.xlsx"`,
+      'Content-Disposition': `attachment; filename="Paiements_ImmOfika_${today}.xlsx"`,
     },
   })
 }

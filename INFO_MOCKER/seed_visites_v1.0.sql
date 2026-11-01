@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 SEED VISITES — Données Mockées pour la Gestion des Visites (F14)
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-04
 -- Version : v1.0

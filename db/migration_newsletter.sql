@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration — Table d'Abonnement Newsletter
--- Favor Company International
+-- ImmOfika
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
 

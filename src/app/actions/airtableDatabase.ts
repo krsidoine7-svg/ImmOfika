@@ -1,15 +1,14 @@
 'use server'
 
 import { db } from "@/lib/db"
-import { biens, leads, reservations, paiements } from "@/lib/db/schema"
+import { biens, profiles, reservations, paiements } from "@/lib/db/schema"
 import { eq, isNull, desc } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
 
 export async function getAirtableDataAction() {
   try {
-    const [biensList, leadsList, reservationsList, paiementsList] = await Promise.all([
+    const [biensList, reservationsList, paiementsList] = await Promise.all([
       db.select().from(biens).where(isNull(biens.deletedAt)).orderBy(desc(biens.createdAt)),
-      db.select().from(leads).orderBy(desc(leads.createdAt)),
       db.select().from(reservations).orderBy(desc(reservations.createdAt)),
       db.select().from(paiements).orderBy(desc(paiements.createdAt)),
     ])
@@ -18,7 +17,7 @@ export async function getAirtableDataAction() {
       success: true,
       data: {
         biens: biensList || [],
-        leads: leadsList || [],
+        leads: [], // CRM leads définitivement supprimé
         reservations: reservationsList || [],
         paiements: paiementsList || [],
       },
@@ -35,13 +34,6 @@ export async function updateInlineCellAction(tableName: string, rowId: string, f
       await db.update(biens).set({ [field]: value, updatedAt: new Date() }).where(eq(biens.id, rowId))
       revalidatePath('/admin/database')
       revalidatePath('/admin/biens')
-      return { success: true }
-    }
-
-    if (tableName === 'leads') {
-      await db.update(leads).set({ [field]: value, updatedAt: new Date() }).where(eq(leads.id, rowId))
-      revalidatePath('/admin/database')
-      revalidatePath('/admin/leads')
       return { success: true }
     }
 
@@ -84,21 +76,9 @@ export async function addRowAirtableAction(tableName: string, rowData: Record<st
       return { success: true, row: newBien[0] }
     }
 
-    if (tableName === 'leads') {
-      const newLead = await db.insert(leads).values({
-        nom: rowData.nom || 'Nouveau Lead',
-        email: rowData.email || `lead-${Date.now()}@example.com`,
-        telephone: rowData.telephone || '+225 0000000000',
-        statut: rowData.statut || 'nouveau',
-        source: rowData.source || 'Vue Base de Données',
-      }).returning()
-      revalidatePath('/admin/database')
-      return { success: true, row: newLead[0] }
-    }
-
     return { success: false, error: 'Création non supportée pour cette table' }
   } catch (error: any) {
     console.error('[addRowAirtableAction error]', error)
-    return { success: false, error: error.message || 'Erreur lors de la création' }
+    return { success: false, error: error.message || 'Erreur d\'ajout' }
   }
 }

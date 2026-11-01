@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from '@/lib/db'
-import { profiles, biens, paiements, leads, notifications } from '@/lib/db/schema'
+import { profiles, biens, paiements, notifications } from '@/lib/db/schema'
 import { sql, desc, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/utils/supabase/server'
@@ -187,20 +187,7 @@ export async function getModerationFeedAction() {
     .orderBy(desc(paiements.createdAt))
     .limit(25)
 
-  const recentLeads = await db
-    .select({
-      id: leads.id,
-      nom: leads.nom,
-      prenom: leads.prenom,
-      email: leads.email,
-      telephone: leads.telephone,
-      message: leads.message,
-      source: leads.source,
-      createdAt: leads.createdAt,
-    })
-    .from(leads)
-    .orderBy(desc(leads.createdAt))
-    .limit(25)
+  const recentLeads: any[] = []
 
   return {
     accounts: recentAccounts,
@@ -301,9 +288,6 @@ export async function moderateItemAction(
     } else if (type === 'paiement') {
       await db.update(paiements).set({ deletedAt: new Date(), statut: 'annule' }).where(eq(paiements.id, id))
       revalidatePath('/admin/paiements')
-    } else if (type === 'lead') {
-      await db.update(leads).set({ deletedAt: new Date(), statut: 'perdu' }).where(eq(leads.id, id))
-      revalidatePath('/admin/leads')
     }
 
     revalidatePath('/admin/moderation')

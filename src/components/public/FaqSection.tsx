@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import {
   Accordion,
   AccordionContent,
@@ -58,10 +59,10 @@ export default function FaqSection({ data }: FaqSectionProps) {
               <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
                 <p className="font-bold text-slate-900 text-sm mb-1">Besoin d'un renseignement personnalisé ?</p>
                 <p className="text-xs text-slate-500 mb-3">Notre équipe de conseillers est à votre écoute.</p>
-                <a href="#about" className="text-xs font-bold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1">
+                <Link href="/contact" className="text-xs font-bold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1">
                   <span>Contacter un conseiller</span>
                   <span>→</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

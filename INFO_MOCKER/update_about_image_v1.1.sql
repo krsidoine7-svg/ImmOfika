@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 UPDATE ABOUT IMAGE — Mise à jour des images de la section À Propos
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-11
 -- Version : v1.1

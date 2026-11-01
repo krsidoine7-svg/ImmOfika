@@ -1,5 +1,5 @@
 import { db } from "@/lib/db/index"
-import { profiles, leads, reservations } from "@/lib/db/schema"
+import { profiles, reservations } from "@/lib/db/schema"
 import { desc, eq, ne, inArray, and, isNull } from "drizzle-orm"
 import { createClient } from "@/utils/supabase/server"
 import { cookies } from "next/headers"
@@ -49,10 +49,7 @@ export default async function AdminUsersPage() {
   // 2. Application des règles d'accès RBAC
   if ((currentUserRole === 'admin_agent' || currentUserRole === 'agent') && currentUserId) {
     // Agent Commercial : VOIR UNIQUEMENT LES CLIENTS AFFILIÉS À CET AGENT
-    const agentLeads = await db
-      .select({ email: leads.email })
-      .from(leads)
-      .where(and(eq(leads.agentId, currentUserId), isNull(leads.deletedAt)))
+    const agentLeads: any[] = []
 
     const agentReservations = await db
       .select({ clientId: reservations.clientId })
@@ -92,19 +89,8 @@ export default async function AdminUsersPage() {
   }
 
   // 3. Construire le mapping email → agentId depuis les leads
-  const allLeadAffiliations = await db
-    .select({ email: leads.email, agentId: leads.agentId })
-    .from(leads)
-    .where(isNull(leads.deletedAt))
-
   const emailToAgentMap: Record<string, string> = {}
-  for (const l of allLeadAffiliations) {
-    if (l.email && l.agentId) {
-      emailToAgentMap[l.email] = l.agentId
-    }
-  }
 
-  // Enrichir chaque user avec son agent affilié
   const enrichedUsersList = usersList.map((u: any) => ({
     ...u,
     affiliatedAgentId: emailToAgentMap[u.email] || null,

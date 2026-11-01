@@ -89,16 +89,15 @@ export function NavUser({
                     <span className="truncate font-medium">{user.name}</span>
                     <span className="truncate text-xs text-gray-500">{user.email}</span>
                     {user.role && (
-                      <span className="text-[9px] font-black uppercase text-[#C9A84C] mt-0.5 tracking-wider">
-                        {user.role === 'super_admin' 
-                          ? 'Super Administrateur' 
-                          : user.role === 'tech_super_admin' 
-                            ? 'Super Admin Technique' 
-                            : user.role === 'admin' 
-                              ? 'Administrateur' 
-                              : user.role === 'agent' 
-                                ? 'Agent Commercial' 
-                                : 'Client'}
+                      <span className="text-[9px] font-black uppercase text-emerald-600 mt-0.5 tracking-wider">
+                        {user.role === 'super_admin' || user.role === 'tech_super_admin' ? 'Super Administrateur' :
+                         user.role === 'admin' ? 'Administrateur' :
+                         user.role === 'moderateur' ? 'Modérateur' :
+                         user.role === 'comptable' ? 'Comptable' :
+                         user.role === 'support' ? 'Support Client' :
+                         user.role === 'commercial' || user.role === 'agent' ? 'Commercial' :
+                         user.role === 'bailleur' ? 'Bailleur' :
+                         user.role === 'client' ? 'Client' : user.role}
                       </span>
                     )}
                   </div>

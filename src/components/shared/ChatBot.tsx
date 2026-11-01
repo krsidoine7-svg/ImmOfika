@@ -222,7 +222,7 @@ export default function ChatBot() {
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-full bg-white/20 p-0.5 flex items-center justify-center backdrop-blur-sm border border-white/30 shrink-0">
                 <img
-                  src="/logo-favor.jpeg"
+                  src="/logo-icon-badge.png"
                   alt="ImmOfika"
                   className="h-full w-full rounded-full object-cover"
                 />

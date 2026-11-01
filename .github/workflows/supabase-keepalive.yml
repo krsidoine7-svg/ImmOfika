@@ -1,0 +1,24 @@
+name: Supabase Anti-Pause Keep-Alive
+
+on:
+  schedule:
+    # Exécution automatique chaque 2 jours à 00:00 UTC (largement en-deçà des 7 jours d'inactivité Supabase)
+    - cron: '0 0 */2 * *'
+  workflow_dispatch: # Permet de lancer manuellement depuis l'onglet GitHub Actions
+
+jobs:
+  keepalive:
+    name: Ping Supabase Database & API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Keep-Alive Endpoint
+        run: |
+          TARGET_URL="${{ secrets.APP_URL || 'https://immofika.ci' }}"
+          echo "Pinging $TARGET_URL/api/cron/keepalive..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}" -X GET "$TARGET_URL/api/cron/keepalive")
+          echo "$RESPONSE"
+          if echo "$RESPONSE" | grep -q "HTTP_STATUS:200"; then
+            echo "✅ Supabase Keep-Alive Ping Réussi !"
+          else
+            echo "⚠️ Avertissement lors du ping Keep-Alive"
+          fi

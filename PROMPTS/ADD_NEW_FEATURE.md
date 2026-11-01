@@ -1,5 +1,5 @@
 # ADD_NEW_FEATURE.md — Protocole d'Ajout de Feature
-## Favor Company International
+## ImmOfika
 
 > **Règle absolue :** Suivre ces étapes dans l'ordre pour ne jamais casser le projet existant.
 

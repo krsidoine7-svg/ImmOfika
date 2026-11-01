@@ -15,12 +15,13 @@ export const metadata = {
 export default async function AdminBiensPage({
   searchParams,
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
   await requirePermission('view:biens')
 
+  const resolvedSearchParams = await searchParams
   const ITEMS_PER_PAGE = 10
-  const currentPage = Number(searchParams?.page) || 1
+  const currentPage = Number(resolvedSearchParams?.page) || 1
   const offset = (currentPage - 1) * ITEMS_PER_PAGE
 
   const [totalRes] = await db

@@ -31,3 +31,10 @@ Tu agis comme un **Chef de Projet / Tech Lead Senior**. Tu ne dois pas tout fair
 *   **`utility-skills` & `document-skills`** : Génération de fichiers (XLSX, PDF, DOCX), design, etc.
 
 👉 **Réfère-toi toujours au fichier [MANIFESTE.md](.skills/MANIFESTE.md) pour la liste exhaustive des capacités à ta disposition.**
+
+## 3. 📚 Documentation & Recette Synchrones OBLIGATOIRES (`docs/`)
+Toute évolution du code, ajout de fonctionnalité, modification de route ou ajustement de règles d'autorisation doit **impérativement et immédiatement** être répercutée dans les deux documents de référence du projet :
+1. **[`docs/GUIDE-UTILISATEUR-ADMIN.md`](docs/GUIDE-UTILISATEUR-ADMIN.md)** : Mise à jour des explications utilisateur/administrateur, des flux de travail et de la FAQ.
+2. **[`docs/CAHIER-DE-RECETTE.md`](docs/CAHIER-DE-RECETTE.md)** : Ajout ou ajustement des scénarios de test pas-à-pas avec identifiant stable (`T-...`), résultat attendu et cases de validation `[ ] OK` / `[ ] KO`.
+> 🚫 **Règle absolue** : Aucune tâche n'est considérée terminée (Definition of Done) si ces deux fichiers ne sont pas rigoureusement à jour.
+

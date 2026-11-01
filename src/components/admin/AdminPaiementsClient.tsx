@@ -1,9 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { DownloadIcon, CreditCardIcon, FileSpreadsheetIcon, Sparkles } from 'lucide-react'
+import { DownloadIcon, CreditCardIcon, FileSpreadsheetIcon, Sparkles, ShieldCheck, RotateCcw, QrCode } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CustomSelect } from '@/components/ui/custom-select'
+import { certifierPaiementManuelAction, genererFactureAvoirFNEAction } from '@/app/actions/fneActions'
 
 interface PaiementItem {
   id: string
@@ -15,6 +16,11 @@ interface PaiementItem {
   paidAt: Date | string | null
   clientName: string | null
   clientEmail: string | null
+  fneNumero?: string | null
+  fneType?: string | null
+  fneStatut?: string | null
+  fneQrData?: string | null
+  fneCertifieLe?: Date | string | null
 }
 
 interface AdminPaiementsClientProps {
@@ -27,6 +33,8 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
   const [statusFilter, setStatusFilter] = React.useState('all')
   const [currentPage, setCurrentPage] = React.useState(1)
   const [pageSize, setPageSize] = React.useState(6)
+  const [isPending, startTransition] = React.useTransition()
+  const [actionMessage, setActionMessage] = React.useState<{ type: 'success' | 'error'; text: string } | null>(null)
 
   // Reset page on filter change
   React.useEffect(() => {
@@ -36,18 +44,20 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
   // Filtering Logic
   const filteredPaiements = React.useMemo(() => {
     return paiementsList.filter((p) => {
-      // 1. Search Query
       const query = searchTerm.toLowerCase().trim()
       const matchesSearch =
         !query ||
         (p.id && p.id.toLowerCase().includes(query)) ||
         (p.factureNumero && p.factureNumero.toLowerCase().includes(query)) ||
+        (p.fneNumero && p.fneNumero.toLowerCase().includes(query)) ||
         (p.clientName && p.clientName.toLowerCase().includes(query)) ||
         (p.clientEmail && p.clientEmail.toLowerCase().includes(query)) ||
         (p.paystackChannel && p.paystackChannel.toLowerCase().includes(query))
 
-      // 2. Status Filter
-      const matchesStatus = statusFilter === 'all' || p.statut === statusFilter
+      const matchesStatus =
+        statusFilter === 'all' ||
+        (statusFilter === 'fne' && Boolean(p.fneNumero)) ||
+        p.statut === statusFilter
 
       return matchesSearch && matchesStatus
     })
@@ -58,19 +68,76 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
   const totalPages = Math.ceil(totalItems / pageSize) || 1
   const validCurrentPage = Math.min(Math.max(currentPage, 1), totalPages)
   const startIndex = (validCurrentPage - 1) * pageSize
-  const endIndex = Math.min(startIndex + pageSize, totalItems)
   const paginatedPaiements = filteredPaiements.slice(startIndex, startIndex + pageSize)
+
+  // Certification manuelle
+  const handleCertifierFNE = (paiementId: string) => {
+    startTransition(async () => {
+      try {
+        const formData = new FormData()
+        formData.append('paiementId', paiementId)
+        const res = await certifierPaiementManuelAction(formData)
+        setActionMessage({
+          type: 'success',
+          text: `Facture certifiée avec succès par la DGI ! N° FNE : ${res.fneNumero}`,
+        })
+        setTimeout(() => setActionMessage(null), 4000)
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : 'Erreur de certification'
+        setActionMessage({ type: 'error', text: msg })
+        setTimeout(() => setActionMessage(null), 4000)
+      }
+    })
+  }
+
+  // Émission d'un Avoir FNE
+  const handleCreerAvoir = (paiementId: string) => {
+    const motif = prompt('Veuillez préciser le motif de la facture d\'avoir FNE (ex: Annulation de réservation) :')
+    if (!motif) return
+
+    startTransition(async () => {
+      try {
+        const formData = new FormData()
+        formData.append('paiementId', paiementId)
+        formData.append('motif', motif)
+        const res = await genererFactureAvoirFNEAction(formData)
+        setActionMessage({
+          type: 'success',
+          text: `Avoir FNE émis avec succès sous le N° : ${res.avoirFneNumero}`,
+        })
+        setTimeout(() => setActionMessage(null), 4000)
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : 'Erreur lors de la génération de l\'avoir'
+        setActionMessage({ type: 'error', text: msg })
+        setTimeout(() => setActionMessage(null), 4000)
+      }
+    })
+  }
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
+      {actionMessage && (
+        <div
+          className={`px-4 py-3 rounded-xl border text-xs font-bold transition-all ${
+            actionMessage.type === 'success'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
+          }`}
+        >
+          {actionMessage.text}
+        </div>
+      )}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold w-fit mb-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Promoteur Immobilier Agréé — Comptabilité & Encaissements</span>
+            <span>Facturation Normalisée Électronique (FNE) & Encaissements</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Historique des Paiements</h1>
-          <p className="text-slate-500 text-sm font-medium">Suivez toutes les transactions Paystack et téléchargez les exports comptables.</p>
+          <h1 className="text-2xl font-bold text-slate-900">Historique des Paiements & FNE</h1>
+          <p className="text-slate-500 text-sm font-medium">
+            Factures certifiées DGI (Arrêté 0337), QR Codes de contrôle et exports comptables conformes.
+          </p>
         </div>
         <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md shadow-emerald-600/20 cursor-pointer" render={<a href="/api/export/paiements" target="_blank" rel="noopener noreferrer" />}>
           <FileSpreadsheetIcon className="h-4 w-4 mr-2" /> Exporter en Excel (.xlsx)
@@ -86,7 +153,7 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Rechercher par client, e-mail, N° facture..."
+              placeholder="Rechercher par client, e-mail, N° FNE..."
               className="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white transition-all"
             />
             <svg
@@ -116,8 +183,9 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
               options={[
                 { value: 'all', label: `💳 Tous les statuts (${paiementsList.length})` },
                 { value: 'paye', label: '✅ Payé / Confirmé' },
+                { value: 'fne', label: '🛡️ Certifié FNE (DGI)' },
+                { value: 'rembourse', label: '↩️ Remboursé / Avoir' },
                 { value: 'en_attente', label: '⏳ En attente de règlement' },
-                { value: 'echoue', label: '❌ Échoué / Annulé' },
               ]}
             />
           </div>
@@ -134,7 +202,7 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
         </div>
       </div>
 
-      {/* TABLE CONTAINER WITH SCROLLABLE VIEWPORT */}
+      {/* TABLE CONTAINER */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div className="overflow-x-auto overflow-y-auto max-h-[650px] scrollbar-thin">
           <table className="w-full text-sm text-left">
@@ -143,113 +211,129 @@ export function AdminPaiementsClient({ paiementsList }: AdminPaiementsClientProp
                 <th className="px-6 py-3.5 bg-slate-50">Date</th>
                 <th className="px-6 py-3.5 bg-slate-50">Client Acquéreur</th>
                 <th className="px-6 py-3.5 bg-slate-50">Montant</th>
-                <th className="px-6 py-3.5 bg-slate-50">Moyen / Canal</th>
+                <th className="px-6 py-3.5 bg-slate-50">Certification FNE (DGI)</th>
                 <th className="px-6 py-3.5 bg-slate-50">Statut</th>
-                <th className="px-6 py-3.5 text-right bg-slate-50">Reçu & Facture</th>
+                <th className="px-6 py-3.5 text-right bg-slate-50">Actions & Facture</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {paginatedPaiements.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="px-6 py-4 font-bold text-xs text-slate-900">
-                    {p.paidAt ? new Date(p.paidAt).toLocaleDateString('fr-FR') : 'En attente'}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div>
-                      <p className="font-bold text-xs text-slate-900">{p.clientName || 'Client Inconnu'}</p>
-                      <p className="text-[11px] text-slate-500 font-mono">{p.clientEmail}</p>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-black text-slate-900">
-                    {Number(p.montant).toLocaleString('fr-FR')} FCFA
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-slate-100 text-slate-700">
-                      <CreditCardIcon className="h-3 w-3 text-emerald-600" />
-                      {p.paystackChannel || 'Paystack'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase ${
-                        p.statut === 'paye'
-                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-700 border border-amber-200'
-                      }`}
-                    >
-                      {p.statut === 'paye' ? '✅ Payé' : p.statut}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="text-xs border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-emerald-700 font-bold rounded-xl cursor-pointer"
-                      render={
-                        <a
-                          href={`/api/export/recu/${p.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        />
-                      }
-                    >
-                      <DownloadIcon className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Reçu PDF
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-              {paginatedPaiements.length === 0 && (
-                <tr>
-                  <td colSpan={6} className="text-center py-12 text-slate-400 font-medium italic">
-                    Aucun paiement ne correspond à votre recherche ou filtre.
-                  </td>
-                </tr>
-              )}
+              {paginatedPaiements.map((p) => {
+                const isAvoir = p.fneType === 'AVOIR'
+                const isCertified = Boolean(p.fneNumero)
+
+                return (
+                  <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="px-6 py-4 font-bold text-xs text-slate-900">
+                      {p.paidAt ? new Date(p.paidAt).toLocaleDateString('fr-FR') : 'En attente'}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div>
+                        <p className="font-bold text-xs text-slate-900">{p.clientName || 'Client Inconnu'}</p>
+                        <p className="text-[11px] text-slate-500 font-mono">{p.clientEmail}</p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-black text-slate-900">
+                      {Number(p.montant).toLocaleString('fr-FR')} FCFA
+                    </td>
+                    <td className="px-6 py-4">
+                      {isCertified ? (
+                        <div className="space-y-1">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+                              isAvoir
+                                ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                                : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            }`}
+                          >
+                            <ShieldCheck className="h-3 w-3" />
+                            {isAvoir ? 'Avoir FNE' : 'FNE Certifiée'}
+                          </span>
+                          <p className="text-[10px] font-mono font-bold text-slate-700">{p.fneNumero}</p>
+                        </div>
+                      ) : (
+                        <span className="text-[10px] text-slate-400 italic">Non certifiée</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase ${
+                          p.statut === 'paye'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : p.statut === 'rembourse'
+                            ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                            : 'bg-amber-50 text-amber-700 border border-amber-200'
+                        }`}
+                      >
+                        {p.statut === 'paye' ? '✅ Payé' : p.statut === 'rembourse' ? '↩️ Remboursé' : p.statut}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        {/* Téléchargement de la facture PDF */}
+                        {p.factureUrl ? (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs border-emerald-200 text-emerald-700 hover:bg-emerald-50 font-bold rounded-xl cursor-pointer"
+                            render={
+                              <a
+                                href={p.factureUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              />
+                            }
+                          >
+                            <DownloadIcon className="h-3.5 w-3.5 mr-1" /> FNE PDF
+                          </Button>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs border-slate-300 text-slate-700 hover:bg-slate-100 font-bold rounded-xl cursor-pointer"
+                            render={
+                              <a
+                                href={`/api/export/recu/${p.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              />
+                            }
+                          >
+                            <DownloadIcon className="h-3.5 w-3.5 mr-1 text-emerald-600" /> Reçu PDF
+                          </Button>
+                        )}
+
+                        {/* Certification FNE si manquante */}
+                        {!isCertified && p.statut === 'paye' && (
+                          <Button
+                            size="sm"
+                            disabled={isPending}
+                            onClick={() => handleCertifierFNE(p.id)}
+                            className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl"
+                          >
+                            <ShieldCheck className="h-3.5 w-3.5 mr-1" /> Certifier
+                          </Button>
+                        )}
+
+                        {/* Émission d'un Avoir FNE pour les règlements payés */}
+                        {p.statut === 'paye' && isCertified && !isAvoir && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={isPending}
+                            onClick={() => handleCreerAvoir(p.id)}
+                            title="Générer une facture d'avoir FNE conforme (Art. 5)"
+                            className="text-xs border-slate-200 text-slate-600 hover:text-purple-700 hover:bg-purple-50 font-bold rounded-xl"
+                          >
+                            <RotateCcw className="h-3.5 w-3.5 mr-1" /> Avoir
+                          </Button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
-        </div>
-
-        {/* CONTROLES DE PAGINATION BAS DE TABLEAU */}
-        <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-600">
-          <div>
-            Affichage de <strong className="text-slate-900">{totalItems > 0 ? startIndex + 1 : 0}</strong> à{' '}
-            <strong className="text-slate-900">{endIndex}</strong> sur <strong className="text-slate-900">{totalItems}</strong> paiements
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              disabled={validCurrentPage <= 1}
-              onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-              className="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all"
-            >
-              ◀ Précédent
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                type="button"
-                onClick={() => setCurrentPage(page)}
-                className={`w-8 h-8 rounded-xl font-extrabold transition-all cursor-pointer ${
-                  validCurrentPage === page
-                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                    : 'bg-white border border-slate-200 text-slate-600 hover:border-emerald-500 hover:text-emerald-700'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-
-            <button
-              type="button"
-              disabled={validCurrentPage >= totalPages}
-              onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-              className="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all"
-            >
-              Suivant ▶
-            </button>
-          </div>
         </div>
       </div>
     </div>

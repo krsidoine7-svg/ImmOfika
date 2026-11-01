@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { createClient } from "@/utils/supabase/client"
+import { verifyOtpAction } from "@/app/actions/authActions"
 import { Loader2 } from "lucide-react"
 
 export default function VerifyOtpPage() {
@@ -23,33 +23,19 @@ export default function VerifyOtpPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
 
-    // Si on a un format téléphone (+33...), on utilise type: "sms", sinon "email"
-    const isPhone = email.startsWith("+")
-    const { error } = isPhone
-      ? await supabase.auth.verifyOtp({ phone: email, token, type: "sms" })
-      : await supabase.auth.verifyOtp({ email, token, type: "email" })
+    const res = await verifyOtpAction(email, token)
 
-    if (error) {
-      setError(error.message)
+    if (!res.success) {
+      setError(res.error || "Code de vérification invalide ou expiré.")
       setLoading(false)
     } else {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
-        if (profile && (profile.role.includes('admin') || profile.role === 'agent')) {
-          router.push("/admin")
-          router.refresh()
-          return
-        }
-      }
-      router.push("/client/dashboard")
+      router.push(res.roleRedirect || "/client/dashboard")
       router.refresh()
     }
   }

@@ -6,7 +6,14 @@ import { eq } from "drizzle-orm"
 import { createClient } from "@/utils/supabase/server"
 import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
-import { uploadToR2 } from "@/lib/r2/client"
+import { uploadToR2, uploadSecureToR2 } from "@/lib/r2/client"
+import { z } from "zod"
+
+const UpdateProfileInputSchema = z.object({
+  fullName: z.string().trim().max(100, "Le nom ne doit pas dépasser 100 caractères").optional(),
+  phone: z.string().trim().max(30, "Numéro de téléphone invalide").optional(),
+  email: z.string().trim().email("Adresse e-mail invalide").optional(),
+})
 
 export async function updateProfileAction(formData: FormData) {
   const cookieStore = await cookies()
@@ -15,15 +22,49 @@ export async function updateProfileAction(formData: FormData) {
   
   if (!user) throw new Error("Non autorisé")
 
-  const fullName = formData.get('fullName') as string
-  const phone = formData.get('phone') as string
-  const email = formData.get('email') as string
+  const rawFullName = formData.get('fullName') as string | null
+  const rawPhone = formData.get('phone') as string | null
+  const rawEmail = formData.get('email') as string | null
   const avatarFile = formData.get('avatar') as File | null
+
+  // 1. Validation Zod des entrées textuelles
+  const validationResult = UpdateProfileInputSchema.safeParse({
+    fullName: rawFullName || undefined,
+    phone: rawPhone || undefined,
+    email: rawEmail || undefined,
+  })
+
+  if (!validationResult.success) {
+    throw new Error(validationResult.error.issues[0]?.message || "Données de profil invalides.")
+  }
+
+  const { fullName, phone, email } = validationResult.data
   
   let avatarUrl = undefined
   
+  // 2. Contrôle strict de l'avatar (Taille, Type MIME et Magic Bytes)
   if (avatarFile && avatarFile.size > 0) {
+    const MAX_AVATAR_SIZE = 2 * 1024 * 1024 // 2 Mo maximum
+    if (avatarFile.size > MAX_AVATAR_SIZE) {
+      throw new Error("L'image de profil est trop volumineuse. La taille maximale autorisée est de 2 Mo.")
+    }
+
+    const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+    if (!ALLOWED_MIME_TYPES.includes(avatarFile.type)) {
+      throw new Error("Format d'image non autorisé. Seuls les formats JPG, PNG et WEBP sont acceptés.")
+    }
+
     const buffer = Buffer.from(await avatarFile.arrayBuffer())
+
+    // Validation des en-têtes binaires (Magic Bytes)
+    const isJpeg = buffer.length > 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff
+    const isPng = buffer.length > 4 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47
+    const isWebp = buffer.length > 11 && buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP'
+
+    if (!isJpeg && !isPng && !isWebp) {
+      throw new Error("Le contenu du fichier est corrompu ou ne correspond pas à une image valide.")
+    }
+
     avatarUrl = await uploadToR2(buffer, avatarFile.name, avatarFile.type, 'avatars')
   }
 
@@ -62,11 +103,46 @@ export async function updateKycAction(formData: FormData) {
   const kycDocType = formData.get('kycDocType') as string
   const kycFile = formData.get('kycDoc') as File | null
 
-  if (!kycDocType) throw new Error("Le type de pièce est requis")
-  if (!kycFile || kycFile.size === 0) throw new Error("Le fichier de pièce d'identité est requis")
+  if (!kycDocType) throw new Error("Le type de pièce d'identité est requis.")
+  if (!kycFile || kycFile.size === 0) throw new Error("Le fichier de pièce d'identité est requis.")
+
+  // 1. Limite de taille stricte : 5 Mo maximum
+  const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 Mo
+  if (kycFile.size > MAX_FILE_SIZE) {
+    throw new Error("Le fichier est trop volumineux. La taille maximale autorisée est de 5 Mo.")
+  }
+
+  // 2. Types MIME autorisés
+  const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'application/pdf']
+  if (!ALLOWED_MIME_TYPES.includes(kycFile.type)) {
+    throw new Error("Format de fichier non autorisé. Seuls les fichiers JPG, PNG et PDF sont acceptés.")
+  }
 
   const buffer = Buffer.from(await kycFile.arrayBuffer())
-  const kycDocUrl = await uploadToR2(buffer, kycFile.name, kycFile.type, 'kyc')
+
+  // 3. Validation des Magic Bytes (en-tête binaire réel)
+  const isJpeg = buffer.length > 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff
+  const isPng = buffer.length > 4 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47
+  const isPdf = buffer.length > 4 && buffer.subarray(0, 4).toString('ascii') === '%PDF'
+
+  if (!isJpeg && !isPng && !isPdf) {
+    throw new Error("Le contenu du fichier est corrompu ou ne correspond pas à une image ou un PDF valide.")
+  }
+
+  const fileKey = await uploadSecureToR2(buffer, kycFile.name, kycFile.type, 'kyc')
+  const kycDocUrl = `/api/kyc/${user.id}/document?file=${encodeURIComponent(fileKey)}`
+
+  // Journalisation d'audit de sécurité
+  try {
+    const { logAuditEvent } = await import('@/lib/audit/logger')
+    await logAuditEvent({
+      userId: user.id,
+      userEmail: user.email,
+      action: 'kyc.submitted',
+      entity: 'profiles',
+      details: { kycDocType, fileName: kycFile.name, fileSize: kycFile.size, mimeType: kycFile.type },
+    })
+  } catch {}
 
   // Mettre à jour le profil avec kycRejectionReason à null
   await db.update(profiles).set({
@@ -132,7 +208,7 @@ export async function submitSuggestionAction(categorie: string, message: string)
 
   // Envoyer un e-mail d'alerte à l'administrateur
   await envoyerEmailHelper(
-    'support@favorcompany.ci',
+    'support@immofika.ci',
     `[Suggestion] Nouvelle préoccupation client - ${categorie}`,
     `<p>Un client a soumis une suggestion dans la boîte à suggestions :</p>
      <p><strong>Catégorie :</strong> ${categorie}</p>

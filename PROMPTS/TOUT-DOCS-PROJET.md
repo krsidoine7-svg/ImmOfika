@@ -1,5 +1,5 @@
 # TOUT-DOCS-PROJET.md — Index de la Documentation
-## Favor Company International
+## ImmOfika
 
 > **Ce fichier regroupe tous les liens, ressources, packages, et documentations utilisées dans le projet.**
 

@@ -45,4 +45,9 @@ next-env.d.ts
 # python virtualenv
 locust-load-tests/.venv/
 
+# sensitive access notes & credentials
+COMPTES_ACCES*
+*acces*credential*
+
+
 

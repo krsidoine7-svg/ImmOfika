@@ -12,7 +12,7 @@ const db = drizzle(client)
 async function seed() {
   console.log('Seeding data...')
   await db.insert(todos).values([
-    { name: 'Installer le projet Favor Company' },
+    { name: 'Installer le projet ImmOfika' },
     { name: 'Configurer Supabase SSR' },
     { name: 'Lancer le premier test via Drizzle' },
   ])

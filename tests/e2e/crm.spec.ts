@@ -12,7 +12,7 @@ test.describe('CRM - Kanban Transition Gating', () => {
 
     // Remplir les identifiants de test administrateur
     // Note : Modifier avec les informations réelles ou configurer l'environnement de test
-    await emailInput.fill('admin@favorcompany.ci')
+    await emailInput.fill('admin@immofika.ci')
     await passwordInput.fill('Password123!') 
     await submitBtn.click()
 

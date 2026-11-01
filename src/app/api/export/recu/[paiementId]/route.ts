@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import { paiements, reservations, biens, profiles, leads } from '@/lib/db/schema'
+import { paiements, reservations, biens, profiles } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import { genererRecuPdfBuffer, RecuData } from '@/lib/pdf/genererRecuPdf'
+import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 
 export async function GET(
   req: NextRequest,
@@ -15,6 +17,18 @@ export async function GET(
       return NextResponse.json({ error: 'ID de paiement requis' }, { status: 400 })
     }
 
+    // 0. Vérification d'authentification de l'utilisateur
+    const cookieStore = await cookies()
+    const supabase = createClient(cookieStore)
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Non authentifié. Veuillez vous connecter pour accéder à ce reçu.' },
+        { status: 401 }
+      )
+    }
+
     // 1. Récupérer le paiement
     const [paiement] = await db
       .select()
@@ -23,6 +37,39 @@ export async function GET(
 
     if (!paiement) {
       return NextResponse.json({ error: 'Paiement introuvable' }, { status: 404 })
+    }
+
+    // Récupérer le profil de l'utilisateur demandeur
+    const [userProfile] = await db
+      .select({ role: profiles.role, deletedAt: profiles.deletedAt })
+      .from(profiles)
+      .where(eq(profiles.id, user.id))
+
+    if (!userProfile || userProfile.deletedAt || userProfile.role === 'suspended') {
+      return NextResponse.json({ error: 'Compte inactif ou suspendu' }, { status: 403 })
+    }
+
+    const role = userProfile.role as string
+    const isStaff = role?.includes('admin') || role === 'agent'
+    const isOwner = paiement.clientId === user.id
+
+    // Si ni staff ni payeur direct, vérifier via la réservation associée
+    let isReservationClient = false
+    if (!isStaff && !isOwner && paiement.reservationId) {
+      const [res] = await db
+        .select({ clientId: reservations.clientId })
+        .from(reservations)
+        .where(eq(reservations.id, paiement.reservationId))
+      if (res && res.clientId === user.id) {
+        isReservationClient = true
+      }
+    }
+
+    if (!isStaff && !isOwner && !isReservationClient) {
+      return NextResponse.json(
+        { error: 'Accès interdit. Vous n\'êtes pas autorisé à consulter ce reçu.' },
+        { status: 403 }
+      )
     }
 
     // 2. Récupérer la réservation
@@ -57,18 +104,8 @@ export async function GET(
       .where(eq(profiles.id, paiement.clientId))
 
     let clientNom = client?.fullName || 'Client Acquéreur'
-    let clientEmail = client?.email || 'client@favorcompany.ci'
+    let clientEmail = client?.email || 'client@immofika.ci'
     let clientPhone = client?.phone || ''
-
-    if (!clientPhone) {
-      const [lead] = await db
-        .select()
-        .from(leads)
-        .where(eq(leads.email, clientEmail))
-      if (lead && lead.telephone) {
-        clientPhone = lead.telephone
-      }
-    }
 
     const recuNumero = paiement.recuNumero || `REC-FAVOR-${paiement.id.slice(0, 8).toUpperCase()}`
     const dateEmission = paiement.paidAt

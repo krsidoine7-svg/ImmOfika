@@ -2,7 +2,7 @@
 
 ## Pourquoi certaines tables n'ont pas de relations (clés étrangères) ?
 
-Dans le cadre du projet **Favor Company International**, certaines tables n'ont pas de liaisons directes (clés étrangères) avec d'autres tables de la base de données (telles que `users` ou `profiles`). Ce choix de conception est volontaire et répond à des exigences de flexibilité, de conformité RGPD, et de performance système.
+Dans le cadre du projet **ImmOfika**, certaines tables n'ont pas de liaisons directes (clés étrangères) avec d'autres tables de la base de données (telles que `users` ou `profiles`). Ce choix de conception est volontaire et répond à des exigences de flexibilité, de conformité RGPD, et de performance système.
 
 ---
 
@@ -37,7 +37,7 @@ Dans le cadre du projet **Favor Company International**, certaines tables n'ont 
 
 ### 4. Table `team_members` (Membres de l'Équipe)
 
-* **Rôle** : Présentation marketing des collaborateurs de Favor Company sur la page d'accueil vitrine.
+* **Rôle** : Présentation marketing des collaborateurs de ImmOfika sur la page d'accueil vitrine.
 * **Pourquoi pas de clé étrangère ?**
   * **Flexibilité** : Tous les collaborateurs ou partenaires externes présentés dans la section "Notre Équipe" n'ont pas forcément besoin d'un compte utilisateur ou d'un profil d'accès dans l'application.
   * **Découplage** : En évitant une clé étrangère obligatoire vers la table `profiles`, la direction peut ajouter, modifier, trier (via la colonne `order`) ou retirer des fiches de collaborateurs librement, sans impacter la sécurité ou l'existence de leurs comptes d'accès réels.

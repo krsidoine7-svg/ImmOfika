@@ -1,6 +1,6 @@
 # Procédure de Configuration & Synchronisation Google Agenda (iCal)
 
-Ce document décrit la procédure étape par étape permettant aux agents immobiliers d'intégrer leur Google Calendar privé dans l'application **FavorCI**. Cela permet de bloquer automatiquement les créneaux occupés sur le site de réservation client sans exposer les détails privés des événements.
+Ce document décrit la procédure étape par étape permettant aux agents immobiliers d'intégrer leur Google Calendar privé dans l'application **ImmOfika**. Cela permet de bloquer automatiquement les créneaux occupés sur le site de réservation client sans exposer les détails privés des événements.
 
 ---
 
@@ -19,9 +19,9 @@ L'obtention de cette URL doit obligatoirement s'effectuer depuis un **ordinateur
 
 ---
 
-## 💻 Étape 2 : Lier le calendrier sur FavorCI
+## 💻 Étape 2 : Lier le calendrier sur ImmOfika
 
-1. Connectez-vous à votre espace d'administration sur **FavorCI**.
+1. Connectez-vous à votre espace d'administration sur **ImmOfika**.
 2. Accédez à la page **"Mon Agenda"** dans la barre latérale.
 3. Repérez le panneau **"Synchronisation Google Calendar"**.
 4. Collez l'URL secrète copiée dans le champ **"Adresse secrète iCal (.ics)"**.
@@ -31,9 +31,9 @@ L'obtention de cette URL doit obligatoirement s'effectuer depuis un **ordinateur
 
 ## 🛡️ Sécurité & Confidentialité des données
 
-* **Lecture Seule** : L'intégration est unidirectionnelle. FavorCI ne peut en aucun cas écrire, modifier ou supprimer des événements sur votre Google Agenda.
+* **Lecture Seule** : L'intégration est unidirectionnelle. ImmOfika ne peut en aucun cas écrire, modifier ou supprimer des événements sur votre Google Agenda.
 * **Masquage du contenu** : Seul l'état de disponibilité (Libre / Occupé) est lu par le système. Les titres de vos réunions, les descriptions, les invités ou les lieux ne sont jamais lus ni affichés publiquement.
-* **Intégrité de l'agenda** : Si vous supprimez le lien iCal de FavorCI, vos créneaux redeviendront instantanément réservables et toutes les traces de synchronisation seront archivées.
+* **Intégrité de l'agenda** : Si vous supprimez le lien iCal de ImmOfika, vos créneaux redeviendront instantanément réservables et toutes les traces de synchronisation seront archivées.
 
 ---
 
@@ -41,5 +41,5 @@ L'obtention de cette URL doit obligatoirement s'effectuer depuis un **ordinateur
 
 * **Table PostgreSQL** : `agent_calendriers`
 * **Persistance** : Seule l'URL secrète `.ics` et la date de dernière synchronisation sont sauvegardées en base de données.
-* **Pas de stockage d'événements** : Les événements du calendrier Google ne sont pas dupliqués dans la base de données de FavorCI. Ils sont analysés en temps réel et mis en cache mémoire (RAM du serveur) pendant **15 minutes** pour assurer une réactivité maximale du site.
+* **Pas de stockage d'événements** : Les événements du calendrier Google ne sont pas dupliqués dans la base de données de ImmOfika. Ils sont analysés en temps réel et mis en cache mémoire (RAM du serveur) pendant **15 minutes** pour assurer une réactivité maximale du site.
 * **Soft Delete** : La suppression du calendrier utilise un soft delete (`deleted_at` mis à jour avec le timestamp de suppression).

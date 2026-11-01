@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 SEED HOMEPAGE CONFIGS — Données par défaut de la Page d'Accueil
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-10
 -- Version : v1.0
@@ -61,7 +61,7 @@ INSERT INTO homepage_configs (section, content) VALUES
       "tag": "Présentation Vidéo",
       "title": "Découvrez notre expertise en action.",
       "italic_word": "expertise",
-      "description": "En tant que Promoteur Immobilier Agréé, Favor Company International s''engage à vous offrir des projets d''aménagement foncier et de construction d''exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
+      "description": "En tant que Promoteur Immobilier Agréé, ImmOfika s''engage à vous offrir des projets d''aménagement foncier et de construction d''exception. Regardez notre vidéo explicative pour comprendre notre rigueur et notre accompagnement.",
       "video_url": "/video-heros.mp4",
       "thumbnail_image": "/heros-img.png",
       "points": [
@@ -79,7 +79,7 @@ INSERT INTO homepage_configs (section, content) VALUES
       "tag": "À propos de nous",
       "title": "Plus qu''un promoteur immobilier agréé, un partenaire de vie.",
       "italic_word": "partenaire",
-      "description": "Depuis plus de 15 ans, Favor Company s''est imposée comme une référence de l''immobilier premium. Notre secret ? Une écoute attentive et une compréhension profonde des besoins de nos clients.",
+      "description": "Depuis plus de 15 ans, ImmOfika s''est imposée comme une référence de l''immobilier premium. Notre secret ? Une écoute attentive et une compréhension profonde des besoins de nos clients.",
       "experience_years": "15+",
       "experience_label": "Années d''Excellence à Favor",
       "grid_image_1": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=400",
@@ -200,7 +200,7 @@ INSERT INTO homepage_configs (section, content) VALUES
         {
           "name": "Alexandre Dubois",
           "role": "Propriétaire",
-          "text": "Favor Company a vendu mon appartement en moins de deux semaines au prix estimé. Un professionnalisme rare et un accompagnement de tous les instants.",
+          "text": "ImmOfika a vendu mon appartement en moins de deux semaines au prix estimé. Un professionnalisme rare et un accompagnement de tous les instants.",
           "avatar": "https://i.pravatar.cc/150?u=alex",
           "rating": 5
         },
@@ -221,7 +221,7 @@ INSERT INTO homepage_configs (section, content) VALUES
         {
           "name": "Isabelle Durand",
           "role": "Locataire",
-          "text": "La mise en place de mon bail a été très rapide. Un service irréprochable, je recommande vivement Favor Company.",
+          "text": "La mise en place de mon bail a été très rapide. Un service irréprochable, je recommande vivement ImmOfika.",
           "avatar": "https://i.pravatar.cc/150?u=isa",
           "rating": 4
         }
@@ -242,7 +242,7 @@ INSERT INTO homepage_configs (section, content) VALUES
       "cta_card_button": "Contactez un expert →",
       "faqs": [
         {
-          "question": "Quels sont les frais de promotion chez Favor Company ?",
+          "question": "Quels sont les frais de promotion chez ImmOfika ?",
           "answer": "En tant que promoteur immobilier agréé, nos frais de promotion et d''accompagnement sont transparents et compétitifs. Ils sont intégrés à la valeur des lots et incluent l''aménagement foncier, la viabilisation et la sécurisation juridique complète de vos parcelles."
         },
         {
@@ -259,7 +259,7 @@ INSERT INTO homepage_configs (section, content) VALUES
         },
         {
           "question": "Combien de temps prend la vente d''un bien en moyenne ?",
-          "answer": "La durée moyenne de vente chez Favor Company est de 45 jours. Ce délai rapide s''explique par notre base de données d''acheteurs qualifiés et notre stratégie de marketing digital ciblée."
+          "answer": "La durée moyenne de vente chez ImmOfika est de 45 jours. Ce délai rapide s''explique par notre base de données d''acheteurs qualifiés et notre stratégie de marketing digital ciblée."
         }
       ]
     }'::jsonb
@@ -294,7 +294,7 @@ INSERT INTO homepage_configs (section, content) VALUES
       "address_link": "https://maps.google.com/?q=Yahou+immeuble+en+face+de+la+maison+blanche",
       "phone_fixe": "+225 27 24 37 01 55 (Fixe)",
       "phone_mobile": "+225 07 47 63 17 06 (Mobile)",
-      "email": "Favorcompanyint@gmail.com"
+      "email": "contact@immofika.ci"
     }'::jsonb
   )
 ON CONFLICT (section) DO UPDATE SET content = EXCLUDED.content;

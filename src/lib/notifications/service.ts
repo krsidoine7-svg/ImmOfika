@@ -1,8 +1,9 @@
 import { db } from "../db/index"
-import { notifications, profiles } from "../db/schema"
+import { notifications, profiles, recherchesAlertes } from "../db/schema"
 import { eq, and, isNull } from "drizzle-orm"
 import { Resend } from "resend"
 import { sendPushNotificationAction } from "@/app/actions/push"
+import { getAgentCalendarToken } from "@/lib/calendar/token"
 
 const resendApiKey = process.env.RESEND_API_KEY
 const resend = resendApiKey ? new Resend(resendApiKey) : null
@@ -37,7 +38,7 @@ export async function creerNotificationHelper(
   userId: string,
   title: string,
   message: string,
-  type: 'reservation' | 'paiement' | 'visite' | 'lead' | 'system',
+  type: 'reservation' | 'paiement' | 'visite' | 'lead' | 'system' | 'moderation' | 'alerte',
   link?: string | null
 ) {
   try {
@@ -68,7 +69,18 @@ export async function creerNotificationHelper(
 
 // Fonction centrale pour dispatcher les notifications par événement
 export async function notifierEvenementAction(
-  event: 'NOUVEAU_LEAD' | 'LEAD_ATTRIBUE' | 'RESERVATION_CREEE' | 'PAIEMENT_CONFIRME' | 'PAIEMENT_ECHOUE' | 'VISITE_PLANIFIEE' | 'VISITE_CLOTUREE',
+  event:
+    | 'NOUVEAU_LEAD'
+    | 'LEAD_ATTRIBUE'
+    | 'RESERVATION_CREEE'
+    | 'PAIEMENT_CONFIRME'
+    | 'PAIEMENT_ECHOUE'
+    | 'VISITE_PLANIFIEE'
+    | 'VISITE_CLOTUREE'
+    | 'BIEN_VALIDE'
+    | 'BIEN_REJETE'
+    | 'SIGNALEMENT_TRAITE'
+    | 'ALERTE_CORRESPONDANCE',
   data: any
 ) {
   console.log(`[Notification Service] Event triggered: ${event}`, data)
@@ -174,7 +186,7 @@ export async function notifierEvenementAction(
 
     // 4. PAIEMENT_CONFIRME
     else if (event === 'PAIEMENT_CONFIRME') {
-      const { clientEmail, clientName, bienTitre, montant, paiementRef, clientId, agentId } = data
+      const { clientEmail, clientName, bienTitre, montant, paiementRef, clientId, agentId, ownerId } = data
 
       // Email reçu de paiement au Client
       if (clientEmail) {
@@ -218,6 +230,17 @@ export async function notifierEvenementAction(
           `Le client ${clientName || ''} a réglé l'acompte pour ${bienTitre}.`,
           'paiement',
           `/admin/paiements`
+        )
+      }
+
+      // Notification In-app Propriétaire / Bailleur
+      if (ownerId) {
+        await creerNotificationHelper(
+          ownerId,
+          'Acompte de réservation consigné',
+          `Un acompte légal de ${montant.toLocaleString('fr-CI')} FCFA a été sécurisé sous séquestre pour votre annonce ${bienTitre}.`,
+          'paiement',
+          '/dashboard/bailleur'
         )
       }
 
@@ -326,7 +349,8 @@ export async function notifierEvenementAction(
             weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
           })
           const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://immofika.ci'
-          const icalUrl = `${appUrl}/api/agenda/${agentId}/export.ics`
+          const calendarToken = getAgentCalendarToken(agentId)
+          const icalUrl = `${appUrl}/api/agenda/${agentId}/export.ics?token=${calendarToken}`
 
           const agentHtml = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">

@@ -1,4 +1,4 @@
-# 📦 INFO_MOCKER — Données de Test Favor Company International
+# 📦 INFO_MOCKER — Données de Test ImmOfika
 
 > Données mockées réalistes pour le développement et les tests de l'application CRM immobilier.
 

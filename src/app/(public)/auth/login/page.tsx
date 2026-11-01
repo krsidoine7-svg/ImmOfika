@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import Logo from "@/components/shared/Logo"
 import { Button } from "@/components/ui/button"
@@ -17,18 +17,44 @@ import {
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client"
-import { Loader2, Smartphone, KeyRound, Eye, EyeOff } from "lucide-react"
+import { loginWithPasswordAction } from "@/app/actions/authActions"
+import { Loader2, Smartphone, KeyRound, Eye, EyeOff, ShieldAlert } from "lucide-react"
 
-export default function LoginPage() {
+// Fonction de validation stricte anti-Open Redirect
+function getSafeRedirectPath(rawPath: string | null): string | null {
+  if (!rawPath) return null
+  const trimmed = rawPath.trim()
+  if (
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('\\') ||
+    trimmed.includes('://') ||
+    !trimmed.startsWith('/')
+  ) {
+    return null
+  }
+  return trimmed
+}
+
+function LoginForm() {
   const [loginMethod, setLoginMethod] = useState<"password" | "otp">("password")
-  const [identifier, setIdentifier] = useState("") // email or phone
+  const [identifier, setIdentifier] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
+
+  // Rate Limiting anti-force brute (5 échecs consécutifs = 60 secondes de verrouillage)
+  const [failedAttempts, setFailedAttempts] = useState(0)
+  const [lockoutRemaining, setLockoutRemaining] = useState(0)
+
   const router = useRouter()
+  const searchParams = useSearchParams()
   const supabase = createClient()
+
+  // Paramètre de redirection sécurisé
+  const rawNext = searchParams.get("callbackUrl") || searchParams.get("next")
+  const safeCallback = getSafeRedirectPath(rawNext)
 
   useEffect(() => {
     // Reset state & clean any browser forced autofill on page render/deconnexion
@@ -47,49 +73,63 @@ export default function LoginPage() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Compte à rebours du verrouillage anti-force brute
+  useEffect(() => {
+    if (lockoutRemaining <= 0) return
+
+    const interval = setInterval(() => {
+      setLockoutRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [lockoutRemaining])
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Vérifier si le formulaire est temporairement verrouillé
+    if (lockoutRemaining > 0) {
+      setError(`Trop de tentatives infructueuses. Veuillez patienter encore ${lockoutRemaining} seconde(s).`)
+      return
+    }
+
     setLoading(true)
     setError(null)
 
     try {
       if (loginMethod === "password") {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: identifier,
-          password,
-        })
+        // Authentification et Rate Limiting sécurisés côté serveur
+        const res = await loginWithPasswordAction(identifier, password, safeCallback)
 
-        if (error) {
-          setError(error.message)
+        if (!res.success) {
+          setError(res.error || "Adresse e-mail ou mot de passe incorrect.")
           setLoading(false)
           return
         }
 
-        const user = data?.user
-        if (user) {
-          const { data: profile, error: profileError } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', user.id)
-            .single()
-
-          if (!profileError && profile && (profile.role.includes('admin') || profile.role === 'agent')) {
-            await router.push("/admin")
-            router.refresh()
-            return
-          }
+        if (res.roleRedirect) {
+          await router.push(res.roleRedirect)
+          router.refresh()
+          return
         }
+
         await router.push("/client/dashboard")
         router.refresh()
       } else {
-        // OTP Flow (SMS or Email Magic Link)
+        // OTP Flow (SMS ou Email Magic Link)
         const isPhone = identifier.startsWith("+")
-        const { error } = isPhone
+        const { error: otpError } = isPhone
           ? await supabase.auth.signInWithOtp({ phone: identifier })
           : await supabase.auth.signInWithOtp({ email: identifier })
 
-        if (error) {
-          setError(error.message)
+        if (otpError) {
+          setError(otpError.message)
           setLoading(false)
         } else {
           await router.push("/auth/verify-otp")
@@ -104,10 +144,14 @@ export default function LoginPage() {
 
   const handleGoogleLogin = async () => {
     setGoogleLoading(true)
+    const callbackTarget = safeCallback
+      ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeCallback)}`
+      : `${window.location.origin}/auth/callback`
+
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: callbackTarget,
       },
     })
   }
@@ -139,7 +183,16 @@ export default function LoginPage() {
               <input type="password" name="fake_pass" style={{ display: 'none' }} tabIndex={-1} readOnly />
 
               <FieldGroup className="gap-5">
-                {error && (
+                {lockoutRemaining > 0 && (
+                  <Alert variant="destructive" className="bg-amber-50 border border-amber-200 text-amber-800 rounded-xl flex items-center gap-2">
+                    <ShieldAlert className="h-5 w-5 text-amber-600 shrink-0" />
+                    <AlertDescription className="text-xs font-semibold">
+                      Verrouillage temporaire actif. Patientez encore {lockoutRemaining}s avant un nouvel essai.
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {error && lockoutRemaining === 0 && (
                   <Alert variant="destructive" className="bg-red-50 border border-red-200 text-red-700 rounded-xl">
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
@@ -151,8 +204,8 @@ export default function LoginPage() {
                     variant="outline"
                     type="button"
                     onClick={handleGoogleLogin}
-                    disabled={googleLoading || loading}
-                    className="w-full h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-3 font-semibold text-sm"
+                    disabled={googleLoading || loading || lockoutRemaining > 0}
+                    className="w-full h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-3 font-semibold text-sm cursor-pointer"
                   >
                     {googleLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin text-emerald-600" />
@@ -177,14 +230,14 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => { setLoginMethod("password"); setError(null); }}
-                    className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2 rounded-lg transition-all ${loginMethod === "password" ? "bg-white shadow-sm text-slate-900" : "text-slate-500 hover:text-slate-700"}`}
+                    className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2 rounded-lg transition-all cursor-pointer ${loginMethod === "password" ? "bg-white shadow-sm text-slate-900" : "text-slate-500 hover:text-slate-700"}`}
                   >
                     <KeyRound className="h-4 w-4" /> Mot de passe
                   </button>
                   <button
                     type="button"
                     onClick={() => { setLoginMethod("otp"); setError(null); }}
-                    className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2 rounded-lg transition-all ${loginMethod === "otp" ? "bg-white shadow-sm text-slate-900" : "text-slate-500 hover:text-slate-700"}`}
+                    className={`flex-1 flex items-center justify-center gap-2 text-xs font-bold py-2 rounded-lg transition-all cursor-pointer ${loginMethod === "otp" ? "bg-white shadow-sm text-slate-900" : "text-slate-500 hover:text-slate-700"}`}
                   >
                     <Smartphone className="h-4 w-4" /> Code OTP
                   </button>
@@ -203,7 +256,7 @@ export default function LoginPage() {
                     onChange={(e) => setIdentifier(e.target.value)}
                     required
                     autoComplete="username"
-                    disabled={loading || googleLoading}
+                    disabled={loading || googleLoading || lockoutRemaining > 0}
                     className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 placeholder:text-slate-400"
                   />
                 </Field>
@@ -235,14 +288,14 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             required={loginMethod === "password"}
                             autoComplete="new-password"
-                            disabled={loading || googleLoading}
+                            disabled={loading || googleLoading || lockoutRemaining > 0}
                             className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 pr-10"
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors focus:outline-none"
-                            disabled={loading || googleLoading}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors focus:outline-none cursor-pointer"
+                            disabled={loading || googleLoading || lockoutRemaining > 0}
                           >
                             {showPassword ? (
                               <EyeOff className="h-5 w-5" />
@@ -260,14 +313,16 @@ export default function LoginPage() {
                 <Field>
                   <Button
                     type="submit"
-                    disabled={loading || googleLoading}
-                    className="w-full h-12 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={loading || googleLoading || lockoutRemaining > 0}
+                    className="w-full h-12 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
                         Connexion en cours...
                       </>
+                    ) : lockoutRemaining > 0 ? (
+                      `Bloqué temporairement (${lockoutRemaining}s)`
                     ) : (
                       loginMethod === "password" ? "Se connecter" : "Recevoir mon code"
                     )}
@@ -291,5 +346,19 @@ export default function LoginPage() {
         </FieldDescription>
       </motion.div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-slate-50">
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   )
 }

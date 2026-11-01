@@ -139,8 +139,8 @@ export default function NotificationService() {
       try {
         new Notification(title, {
           body: message,
-          icon: "/logo-favor.jpeg",
-          badge: "/logo-favor.jpeg",
+          icon: "/logo-icon-badge.png",
+          badge: "/logo-icon-badge.png",
           data: { url: url || "/admin/dashboard" }
         })
       } catch (e) {

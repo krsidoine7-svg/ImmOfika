@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import { Toaster } from "sonner";
@@ -15,16 +14,6 @@ import PwaInstallBanner from "@/components/shared/PwaInstallBanner";
 import ChatBot from "@/components/shared/ChatBot";
 import { getHomepageConfigsAction } from "@/app/actions/homepage";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
-
 export const viewport: Viewport = {
   themeColor: "#10B981",
   width: "device-width",
@@ -34,6 +23,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://immofika.ci"),
   title: {
     default: "ImmOfika — Plateforme Immobilière & Promotion Agréée",
     template: "%s | ImmOfika",
@@ -59,12 +49,18 @@ export const metadata: Metadata = {
     description: "ImmOfika — Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
     images: [
       {
-        url: "/logo-favor.jpeg",
-        width: 1200,
-        height: 630,
+        url: "/icon-512.png",
+        width: 512,
+        height: 512,
         alt: "ImmOfika — Plateforme Immobilière & Promotion",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ImmOfika — Plateforme Immobilière & Promotion Agréée",
+    description: "Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
+    images: ["/icon-512.png"],
   },
   manifest: "/manifest.json",
   appleWebApp: {
@@ -73,8 +69,16 @@ export const metadata: Metadata = {
     title: "ImmOfika",
   },
   icons: {
-    icon: "/logo-favor.jpeg",
-    apple: "/logo-favor.jpeg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -88,7 +92,7 @@ export default async function RootLayout({
   return (
     <html
       lang="fr"
-      className={`relative h-full antialiased font-sans ${inter.variable} ${geistMono.variable}`}
+      className="relative h-full antialiased font-sans"
     >
       <body className="relative min-h-full flex flex-col">
         <QueryProvider>

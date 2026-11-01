@@ -29,7 +29,7 @@ export async function fetchAgentICalEvents(url: string): Promise<ICalEvent[]> {
     const timeoutId = setTimeout(() => controller.abort(), 3000)
 
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'FavorCI-CalendarSync/1.0' },
+      headers: { 'User-Agent': 'ImmOfika-CalendarSync/1.0' },
       cache: 'no-store', // Évite le cache agressif du navigateur pour avoir les données fraîches
       signal: controller.signal
     })

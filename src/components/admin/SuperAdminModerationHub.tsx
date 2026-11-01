@@ -30,6 +30,8 @@ import {
   type SystemHealthResult,
 } from '@/app/actions/moderation'
 import { useRouter } from 'next/navigation'
+import ModerationMarketplaceTab from '@/components/admin/ModerationMarketplaceTab'
+import { Flag } from 'lucide-react'
 
 interface AccountItem {
   id: string
@@ -86,15 +88,16 @@ interface FeedProps {
 interface HubProps {
   initialHealth: SystemHealthResult
   feed: FeedProps
+  signalements?: any[]
 }
 
-export default function SuperAdminModerationHub({ initialHealth, feed }: HubProps) {
+export default function SuperAdminModerationHub({ initialHealth, feed, signalements = [] }: HubProps) {
   const router = useRouter()
   const [activeTab, setActiveTab] = React.useState<'moderation' | 'health' | 'logs'>('moderation')
   const [health, setHealth] = React.useState<SystemHealthResult>(initialHealth)
   const [isChecking, setIsChecking] = React.useState(false)
   const [searchTerm, setSearchTerm] = React.useState('')
-  const [modSection, setModSection] = React.useState<'accounts' | 'properties' | 'transactions' | 'leads'>('accounts')
+  const [modSection, setModSection] = React.useState<'accounts' | 'properties' | 'transactions' | 'signalements'>('accounts')
 
   // Webhook Make.com state
   const [webhookUrl, setWebhookUrl] = React.useState('')
@@ -115,13 +118,13 @@ export default function SuperAdminModerationHub({ initialHealth, feed }: HubProp
 
   // Load Webhook from localStorage on mount
   React.useEffect(() => {
-    const saved = localStorage.getItem('favor_ci_make_webhook_url')
+    const saved = localStorage.getItem('immofika_make_webhook_url')
     if (saved) setWebhookUrl(saved)
   }, [])
 
   const saveWebhookUrl = () => {
     if (webhookUrl) {
-      localStorage.setItem('favor_ci_make_webhook_url', webhookUrl)
+      localStorage.setItem('immofika_make_webhook_url', webhookUrl)
       setWebhookSaved(true)
       setTimeout(() => setWebhookSaved(false), 3000)
     }
@@ -381,14 +384,15 @@ export default function SuperAdminModerationHub({ initialHealth, feed }: HubProp
                 Transactions LBC-FT ({filteredTransactions.length})
               </button>
               <button
-                onClick={() => setModSection('leads')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  modSection === 'leads'
+                onClick={() => setModSection('signalements')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  modSection === 'signalements'
                     ? 'bg-slate-900 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                Soumissions & Messages ({filteredLeads.length})
+                <Flag className="w-3.5 h-3.5 text-rose-500" />
+                <span>Signalements & Fraude (${signalements.length})</span>
               </button>
             </div>
 
@@ -601,35 +605,9 @@ export default function SuperAdminModerationHub({ initialHealth, feed }: HubProp
             </div>
           )}
 
-          {/* Section: LEADS / MESSAGES */}
-          {modSection === 'leads' && (
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-slate-100">
-                <h3 className="font-extrabold text-base text-slate-900">Modération des Messages & Formulaires Prospects</h3>
-              </div>
-              <div className="divide-y divide-slate-100">
-                {filteredLeads.map(lead => (
-                  <div key={lead.id} className="p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-sm text-slate-900">{lead.nom} {lead.prenom}</span>
-                        <span className="text-xs bg-slate-100 px-2 py-0.5 rounded text-slate-600 font-mono">{lead.telephone}</span>
-                        <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded uppercase border border-emerald-100">{lead.source}</span>
-                      </div>
-                      <p className="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-200/50 max-w-2xl font-medium">
-                        {lead.message || 'Aucun message spécifié'}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleDeleteItem('lead', lead.id)}
-                      className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs inline-flex items-center gap-1 self-end sm:self-center cursor-pointer border border-rose-200"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" /> Supprimer (Spam / Phishing)
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Section: SIGNALEMENTS & ANTI-FRAUDE */}
+          {modSection === 'signalements' && (
+            <ModerationMarketplaceTab initialSignalements={signalements} />
           )}
         </div>
       )}

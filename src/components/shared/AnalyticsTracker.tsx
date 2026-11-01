@@ -81,16 +81,16 @@ export default function AnalyticsTracker() {
     if (typeof window === "undefined") return
 
     // 1. Initialiser les IDs de session et visiteur
-    let visitorId = localStorage.getItem("favor_visitor_id")
+    let visitorId = localStorage.getItem("immofika_visitor_id")
     if (!visitorId) {
       visitorId = "vis_" + Math.random().toString(36).substring(2, 15)
-      localStorage.setItem("favor_visitor_id", visitorId)
+      localStorage.setItem("immofika_visitor_id", visitorId)
     }
 
-    let sessionId = sessionStorage.getItem("favor_session_id")
+    let sessionId = sessionStorage.getItem("immofika_session_id")
     if (!sessionId) {
       sessionId = "ses_" + Math.random().toString(36).substring(2, 15)
-      sessionStorage.setItem("favor_session_id", sessionId)
+      sessionStorage.setItem("immofika_session_id", sessionId)
     }
 
     // Déterminer le terminal

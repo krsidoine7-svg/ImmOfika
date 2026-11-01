@@ -1,5 +1,5 @@
 # ARCHITECTURE.md — Carte du Projet
-## Favor Company International
+## ImmOfika
 
 > **Ce document est la source de vérité de l'architecture.**  
 > Mettre à jour après chaque nouvelle feature implémentée.
@@ -10,7 +10,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    FAVOR COMPANY PLATFORM                        │
+│                    IMMOFIKA PLATFORM                        │
 ├─────────────────┬──────────────────────┬────────────────────────┤
 │   SITE PUBLIC   │   ESPACE CLIENT      │   BACKOFFICE ADMIN     │
 │   (Marketing)   │   (Authentifié)      │   (Multi-rôles)        │

@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F04 — Catalogue & Détail Biens
--- Favor Company International
+-- ImmOfika
 -- Date: 2026-05-17
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================

@@ -1,6 +1,0 @@
-{
-  "id": "contrats",
-  "manager": "chefs-favor",
-  "skills": ["immo-ci", "skills-main/docx", "skills-main/pdf"],
-  "delegation_policy": "require_manager_approval"
-}

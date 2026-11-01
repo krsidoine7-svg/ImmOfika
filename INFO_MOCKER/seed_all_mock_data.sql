@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
--- 🌱 SEED COMPLET — Données Mockées Favor Company International
+-- 🌱 SEED COMPLET — Données Mockées ImmOfika
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International — CRM Immobilier
+-- Projet  : ImmOfika — CRM Immobilier
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-04
 -- Version : v1.1 — UUIDs corrigés (hex uniquement)
@@ -17,11 +17,11 @@ BEGIN;
 
 INSERT INTO profiles (id, email, full_name, phone, role, created_at, updated_at) VALUES
   -- Admin
-  ('11111111-aaaa-1111-aaaa-111111111111', 'admin@favorcompany.ci', 'Directeur Général', '+225 07 00 00 01', 'admin', NOW() - INTERVAL '6 months', NOW()),
+  ('11111111-aaaa-1111-aaaa-111111111111', 'admin@immofika.ci', 'Directeur Général', '+225 07 00 00 01', 'admin', NOW() - INTERVAL '6 months', NOW()),
   -- Agents Immobiliers
-  ('22222222-bbbb-2222-bbbb-222222222222', 'kone.agent@favorcompany.ci', 'Koné Amadou', '+225 07 11 22 33', 'agent', NOW() - INTERVAL '5 months', NOW()),
-  ('33333333-cccc-3333-cccc-333333333333', 'toure.agent@favorcompany.ci', 'Touré Mariam', '+225 07 44 55 66', 'agent', NOW() - INTERVAL '4 months', NOW()),
-  ('44444444-dddd-4444-dddd-444444444444', 'diallo.agent@favorcompany.ci', 'Diallo Ibrahim', '+225 07 77 88 99', 'agent', NOW() - INTERVAL '3 months', NOW()),
+  ('22222222-bbbb-2222-bbbb-222222222222', 'kone.agent@immofika.ci', 'Koné Amadou', '+225 07 11 22 33', 'agent', NOW() - INTERVAL '5 months', NOW()),
+  ('33333333-cccc-3333-cccc-333333333333', 'toure.agent@immofika.ci', 'Touré Mariam', '+225 07 44 55 66', 'agent', NOW() - INTERVAL '4 months', NOW()),
+  ('44444444-dddd-4444-dddd-444444444444', 'diallo.agent@immofika.ci', 'Diallo Ibrahim', '+225 07 77 88 99', 'agent', NOW() - INTERVAL '3 months', NOW()),
   -- Clients
   ('55555555-eeee-5555-eeee-555555555555', 'bamba.moussa@gmail.com', 'Bamba Moussa', '+225 05 10 20 30', 'client', NOW() - INTERVAL '2 months', NOW()),
   ('66666666-ffff-6666-ffff-666666666666', 'coulibaly.awa@yahoo.fr', 'Coulibaly Awa', '+225 05 40 50 60', 'client', NOW() - INTERVAL '45 days', NOW()),
@@ -582,7 +582,7 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO info_mocker (nom_injection, description, tables_ciblees, nb_lignes_total, executee_par, environnement, statut, notes, rollback_sql)
 VALUES (
   'seed_complet_v1.2',
-  'Injection complète de données mockées réalistes pour le CRM immobilier Favor Company. Données de visites physiques (F14) incluses.',
+  'Injection complète de données mockées réalistes pour le CRM immobilier ImmOfika. Données de visites physiques (F14) incluses.',
   ARRAY['profiles', 'biens', 'leads', 'lead_interactions', 'reservations', 'dossiers', 'taches', 'visites'],
   83,
   'dev_antigravity',

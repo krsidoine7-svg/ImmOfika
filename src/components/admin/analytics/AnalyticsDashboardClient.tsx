@@ -185,7 +185,7 @@ export default function AnalyticsDashboardClient({ currentUserRole, initialAnaly
     const encodedUri = encodeURI(csvContent)
     const link = document.createElement("a")
     link.setAttribute("href", encodedUri)
-    link.setAttribute("download", `analytics_favor_company_${new Date().toISOString().split('T')[0]}.csv`)
+    link.setAttribute("download", `analytics_immofika_${new Date().toISOString().split('T')[0]}.csv`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
@@ -682,7 +682,8 @@ export default function AnalyticsDashboardClient({ currentUserRole, initialAnaly
                             rp => rp.roleName === role.name && rp.permissionCode === perm.code
                           )
                           const isSuperRole = role.name === 'super_admin' || role.name === 'tech_super_admin'
-                          const isDisabled = isSuperRole || (role.name === 'admin' && currentUserRole !== 'tech_super_admin')
+                          const isSuperAdmin = currentUserRole === 'super_admin' || currentUserRole === 'tech_super_admin'
+                          const isDisabled = isSuperRole || (role.name === 'admin' && !isSuperAdmin)
                           const isChecked = isSuperRole || (role.name === 'admin' && isDisabled) ? true : isGranted
                           return (
                             <td key={role.name} className="p-4 text-center">

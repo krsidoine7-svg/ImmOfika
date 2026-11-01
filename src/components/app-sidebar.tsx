@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { 
   BuildingIcon, 
   UsersIcon, 
@@ -33,7 +34,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 
-const favorData = {
+const immofikaData = {
   navMain: [
     {
       title: "Tableau de Bord & Stats",
@@ -48,9 +49,9 @@ const favorData = {
       permission: "view:biens",
     },
     {
-      title: "Formulaires (Tally)",
-      url: "/admin/formulaires",
-      icon: <BookOpenIcon />,
+      title: "Santé Supabase (Anti-Veille)",
+      url: "/admin/systeme",
+      icon: <ActivityIcon className="text-emerald-500" />,
       permission: "view:biens",
     },
     {
@@ -66,13 +67,12 @@ const favorData = {
       permission: "view:users",
     },
     {
-      title: "Leads",
-      url: "/admin/leads",
-      icon: <ContactIcon />,
-      permission: "view:leads",
+      title: "Rôles & Permissions",
+      url: "/admin/roles",
+      icon: <ShieldCheckIcon className="text-emerald-500" />,
     },
     {
-      title: "Dossiers & Tâches",
+      title: "Candidatures & Dossiers",
       url: "/admin/dossiers",
       icon: <BookOpenIcon />,
       permission: "view:dossiers",
@@ -100,12 +100,6 @@ const favorData = {
       url: "/admin/paiements",
       icon: <CreditCardIcon />,
       permission: "view:paiements",
-    },
-    {
-      title: "Rôles & Accès",
-      url: "/admin/roles",
-      icon: <ShieldCheckIcon />,
-      permission: "manage:roles",
     },
     {
       title: "Validation KYC",
@@ -168,12 +162,12 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function AppSidebar({ user, ...props }: AppSidebarProps) {
-  const filteredNavMain = favorData.navMain
+  const filteredNavMain = immofikaData.navMain
     .filter(item => {
-      const isSuperRole = user.role === "super_admin" || user.role === "tech_super_admin"
+      const isSuperRole = user.role === "super_admin" || user.role === "tech_super_admin" || user.role === "admin"
       if (item.title === "Analytiques & Rôles") return isSuperRole
       if (item.title === "Supervision & Modération") return isSuperRole
-      if (item.title === "Rôles & Accès") return isSuperRole
+      if (item.title === "Rôles & Accès" || item.title === "Rôles & Permissions") return isSuperRole
       return true
     })
     .map(item => {
@@ -196,12 +190,19 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="hover:bg-transparent">
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-emerald-500 text-white">
-                <CrownIcon className="size-5" />
+              <div className="flex aspect-square size-8 items-center justify-center shrink-0">
+                <Image
+                  src="/logo-immo.svg"
+                  alt="ImmOfika"
+                  width={32}
+                  height={38}
+                  className="h-8 w-auto object-contain"
+                  priority
+                />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-extrabold text-slate-900">ImmOfika</span>
-                <span className="truncate text-xs font-semibold text-emerald-600">Promotion & Agence</span>
+                <span className="truncate text-xs font-semibold text-emerald-600">Console Admin</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

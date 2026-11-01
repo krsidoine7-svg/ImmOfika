@@ -12,7 +12,7 @@ export default function CookieConsent() {
 
   React.useEffect(() => {
     // Vérifier si le consentement a déjà été donné
-    const consent = localStorage.getItem("favor_cookie_consent")
+    const consent = localStorage.getItem("immofika_cookie_consent")
     if (!consent) {
       // Afficher le bandeau après un court délai (1.5s) pour une entrée fluide
       const timer = setTimeout(() => {
@@ -23,14 +23,14 @@ export default function CookieConsent() {
   }, [])
 
   const handleAccept = () => {
-    localStorage.setItem("favor_cookie_consent", "accepted")
+    localStorage.setItem("immofika_cookie_consent", "accepted")
     logCookieConsentAction("accepted").catch(console.error)
     window.dispatchEvent(new Event("cookie-consent-changed"))
     setIsVisible(false)
   }
 
   const handleDecline = () => {
-    localStorage.setItem("favor_cookie_consent", "declined")
+    localStorage.setItem("immofika_cookie_consent", "declined")
     logCookieConsentAction("declined").catch(console.error)
     window.dispatchEvent(new Event("cookie-consent-changed"))
     setIsVisible(false)

@@ -120,7 +120,7 @@ Le présent contrat est soumis au droit ivoirien. Tout litige sera soumis aux tr
 
 | Signature du Vendeur | Signature de l'Acquéreur |
 |---|---|
-| Favor Company International | {{client_nom}} {{client_prenom}} |
+| ImmOfika | {{client_nom}} {{client_prenom}} |
 | {{agent_nom}} {{agent_prenom}} | |
 | Date : {{date_signature}} | Date : {{date_signature_client}} |
 
@@ -711,7 +711,7 @@ export function ChatBot() {
                 <Bot className="w-5 h-5 text-primary-500" />
               </div>
               <div>
-                <p className="font-semibold text-white text-sm">Assistant Favor Company</p>
+                <p className="font-semibold text-white text-sm">Assistant ImmOfika</p>
                 <p className="text-primary-100 text-xs">Disponible 24h/24</p>
               </div>
             </div>
@@ -815,14 +815,14 @@ export async function POST(request: Request) {
     messages: [
       {
         role: 'system',
-        content: `Tu es l'assistant virtuel de Favor Company International, un promoteur immobilier agréé basé à Abidjan, Côte d'Ivoire.
+        content: `Tu es l'assistant virtuel de ImmOfika, un promoteur immobilier agréé basé à Abidjan, Côte d'Ivoire.
         
 Ton rôle est d'aider les visiteurs à trouver le bien immobilier de leurs rêves et de répondre à toutes leurs questions sur nos services.
 
-Informations sur Favor Company :
+Informations sur ImmOfika :
 - Localisation : Yaho, Immeuble face à la Maison Blanche, 2ème étage, Abidjan
 - Téléphone : +225 2724370155 | WhatsApp : +225 0103132878
-- Email : Favorcompanyint@gmail.com
+- Email : contact@immofika.ci
 - Services : Terrains, Maisons, Appartements, Lotissements, Topographie, Construction
 
 Contexte pertinent de notre base de données :

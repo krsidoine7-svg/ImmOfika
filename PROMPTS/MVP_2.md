@@ -1,5 +1,5 @@
 # MVP_2.md — CRM, Pipeline & Agents
-## Favor Company International
+## ImmOfika
 
 > **Durée :** Semaines 6–10  
 > **Prérequis :** MVP_1 entièrement terminé et testé  

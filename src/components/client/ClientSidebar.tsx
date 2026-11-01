@@ -10,21 +10,22 @@ import {
   User, 
   HelpCircle, 
   Share2, 
-  Menu, 
-  Crown
+  Crown,
+  Bell,
+  FileText
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 
-interface MenuItem {
+export interface MenuItem {
   name: string
   href: string
   icon: any
   isBeta?: boolean
 }
 
-const menuItems: MenuItem[] = [
+export const menuItems: MenuItem[] = [
   { name: "Tableau de Bord", href: "/client/dashboard", icon: Home },
+  { name: "Mes Alertes Immo", href: "/client/alertes", icon: Bell },
+  { name: "Dossier Candidat", href: "/client/dossier", icon: FileText },
   { name: "Paiements & Factures", href: "/client/paiements", icon: CreditCard },
   { name: "Mon Profil & KYC", href: "/client/profil", icon: User },
   { name: "Niveau d'Offre", href: "/client/offres", icon: Crown },
@@ -32,7 +33,7 @@ const menuItems: MenuItem[] = [
   { name: "Contacter l'Agent", href: "/client/contact", icon: Share2 }
 ]
 
-function SidebarContent({ 
+export function SidebarContent({ 
   className = "", 
   pathname, 
   onNavigate 
@@ -42,7 +43,7 @@ function SidebarContent({
   onNavigate?: () => void 
 }) {
   return (
-    <div className={`flex flex-col h-full bg-white text-slate-800 border-r border-slate-100 ${className}`}>
+    <div className={`flex flex-col h-full bg-white text-slate-800 ${className}`}>
       {/* Brand Header */}
       <div className="flex items-center gap-3 px-6 py-6 border-b border-slate-100">
         <Logo />
@@ -89,31 +90,10 @@ function SidebarContent({
 
 export default function ClientSidebar() {
   const pathname = usePathname()
-  const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <>
-      {/* Mobile Top Navigation bar */}
-      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-white border-b border-slate-100 fixed top-0 left-0 right-0 z-40">
-        <Logo />
-
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger render={
-            <Button variant="ghost" size="icon" className="text-slate-800">
-              <Menu className="h-6 w-6" />
-            </Button>
-          } />
-          <SheetContent side="left" className="p-0 w-80">
-            <SheetTitle className="sr-only">Menu de Navigation ImmOfika</SheetTitle>
-            <SidebarContent pathname={pathname} onNavigate={() => setIsOpen(false)} />
-          </SheetContent>
-        </Sheet>
-      </div>
-
-      {/* Desktop Persistent Sidebar */}
-      <aside className="hidden lg:block w-72 h-screen sticky top-0 shrink-0">
-        <SidebarContent className="h-full" pathname={pathname} />
-      </aside>
-    </>
+    <aside className="hidden lg:block w-72 h-screen shrink-0 border-r border-slate-100 bg-white">
+      <SidebarContent className="h-full" pathname={pathname} />
+    </aside>
   )
 }

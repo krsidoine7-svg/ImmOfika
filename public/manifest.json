@@ -9,15 +9,15 @@
   "theme_color": "#10B981",
   "icons": [
     {
-      "src": "/logo-favor.jpeg",
+      "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logo-favor.jpeg",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
@@ -27,21 +27,21 @@
       "short_name": "Tableau de Bord",
       "description": "Consulter mon tableau de bord immobilier",
       "url": "/client/dashboard",
-      "icons": [{ "src": "/logo-favor.jpeg", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "Paiements & Factures",
       "short_name": "Paiements",
       "description": "Consulter mes règlements et reçus officiels",
       "url": "/client/paiements",
-      "icons": [{ "src": "/logo-favor.jpeg", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
       "name": "Contacter mon Conseiller",
       "short_name": "Contact",
       "description": "Contacter le support ou mon agent attitré",
       "url": "/client/contact",
-      "icons": [{ "src": "/logo-favor.jpeg", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }

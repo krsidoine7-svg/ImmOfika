@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db/index"
-import { visites, leads, profiles, biens } from "@/lib/db/schema"
+import { visites, profiles, biens } from "@/lib/db/schema"
 import { eq, and, isNull, desc } from "drizzle-orm"
 import { alias } from "drizzle-orm/pg-core"
 import { generateICalFeed, ICalExportEvent } from "@/lib/calendar/ical-generator"
+import { verifyAgentCalendarToken } from "@/lib/calendar/token"
+import { createClient } from "@/utils/supabase/server"
+import { cookies } from "next/headers"
 
 export async function GET(
   request: NextRequest,
@@ -13,6 +16,42 @@ export async function GET(
     const { agentId } = await context.params
     if (!agentId) {
       return new NextResponse("ID Agent manquant", { status: 400 })
+    }
+
+    // 1. Vérification par jeton HMAC dans l'URL (?token=...)
+    const token = request.nextUrl.searchParams.get("token")
+    let isAuthorized = verifyAgentCalendarToken(agentId, token)
+
+    // 2. Si pas de jeton ou jeton invalide, vérifier la session utilisateur connectée
+    if (!isAuthorized) {
+      const cookieStore = await cookies()
+      const supabase = createClient(cookieStore)
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        const [profile] = await db
+          .select({ role: profiles.role, deletedAt: profiles.deletedAt })
+          .from(profiles)
+          .where(eq(profiles.id, user.id))
+
+        if (profile && !profile.deletedAt && profile.role !== 'suspended') {
+          const role = profile.role as string
+          const isStaff = role?.includes('admin') || role === 'agent'
+          // L'agent lui-même ou un administrateur/agent du staff a accès
+          if (user.id === agentId || isStaff) {
+            isAuthorized = true
+          }
+        }
+      }
+    }
+
+    if (!isAuthorized) {
+      return NextResponse.json(
+        {
+          error: "Accès non autorisé au calendrier. Un jeton valide ou une session agent/administrateur est requis."
+        },
+        { status: 401 }
+      )
     }
 
     const clientProfile = alias(profiles, 'client_profile')
@@ -35,15 +74,11 @@ export async function GET(
         bienTitre: biens.titre,
         bienVille: biens.ville,
         bienQuartier: biens.quartier,
-        leadNom: leads.nom,
-        leadPrenom: leads.prenom,
-        leadPhone: leads.telephone,
-        clientName: clientProfile.fullName,
+                                clientName: clientProfile.fullName,
         clientPhone: clientProfile.phone,
       })
       .from(visites)
       .innerJoin(biens, eq(visites.bienId, biens.id))
-      .leftJoin(leads, eq(visites.leadId, leads.id))
       .leftJoin(clientProfile, eq(visites.clientId, clientProfile.id))
       .where(
         and(
@@ -58,8 +93,8 @@ export async function GET(
       // Durée par défaut : 1 heure
       const end = new Date(start.getTime() + 60 * 60 * 1000)
 
-      const contactName = row.clientName || [row.leadPrenom, row.leadNom].filter(Boolean).join(" ") || "Client Anonyme"
-      const contactPhone = row.clientPhone || row.leadPhone || "Non renseigné"
+      const contactName = row.clientName || "Client ImmOfika"
+      const contactPhone = row.clientPhone || "Non renseigné"
 
       let status: 'CONFIRMED' | 'TENTATIVE' | 'CANCELLED' = 'CONFIRMED'
       if (row.statut === 'annulee' || row.statut === 'client_absent') {

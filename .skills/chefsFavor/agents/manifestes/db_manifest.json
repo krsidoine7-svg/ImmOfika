@@ -1,6 +1,0 @@
-{
-  "id": "db",
-  "manager": "chefs-favor",
-  "skills": ["supabase", "supabase-postgres-best-practices"],
-  "delegation_policy": "require_manager_approval"
-}

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { db } from '@/lib/db/index'
-import { visites, profiles, biens, leads } from '@/lib/db/schema'
+import { visites, profiles, biens } from "@/lib/db/schema"
 import { desc, isNull, and, eq, inArray } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/pg-core'
 import { requirePermission } from '@/lib/auth/permissions'
@@ -45,8 +45,7 @@ export default async function AdminVisitesPage() {
   const fetchedVisites = await db
     .select({
       id: visites.id,
-      leadId: visites.leadId,
-      clientId: visites.clientId,
+            clientId: visites.clientId,
       bienId: visites.bienId,
       agentId: visites.agentId,
       dateVisite: visites.dateVisite,
@@ -69,20 +68,12 @@ export default async function AdminVisitesPage() {
         email: clientProfile.email,
         phone: clientProfile.phone,
       },
-      lead: {
-        id: leads.id,
-        nom: leads.nom,
-        prenom: leads.prenom,
-        telephone: leads.telephone,
-        email: leads.email,
-      }
     })
     .from(visites)
     .innerJoin(biens, eq(visites.bienId, biens.id))
     .leftJoin(agentProfile, eq(visites.agentId, agentProfile.id))
     .leftJoin(clientProfile, eq(visites.clientId, clientProfile.id))
-    .leftJoin(leads, eq(visites.leadId, leads.id))
-    .where(and(...visitConditions))
+        .where(and(...visitConditions))
     .orderBy(desc(visites.dateVisite))
 
   // 3. Récupérer les agents actifs
@@ -118,21 +109,7 @@ export default async function AdminVisitesPage() {
     .orderBy(profiles.fullName)
 
   // 5. Récupérer les leads non convertis ni perdus (pour lier une visite à un lead actif)
-  const activeLeads = await db
-    .select({
-      id: leads.id,
-      nom: leads.nom,
-      prenom: leads.prenom,
-      telephone: leads.telephone,
-    })
-    .from(leads)
-    .where(
-      and(
-        isNull(leads.deletedAt),
-        eq(leads.statut, 'nouveau')
-      )
-    )
-    .orderBy(leads.nom)
+  const activeLeads: any[] = []
 
   // 6. Récupérer tous les biens disponibles
   const activeBiens = await db

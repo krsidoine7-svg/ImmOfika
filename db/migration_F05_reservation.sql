@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F05 — Réservation Atomique
--- Favor Company International
+-- ImmOfika
 -- Date: 2026-05-17
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================

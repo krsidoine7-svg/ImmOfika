@@ -2,8 +2,13 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Search, User, LogOut } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { Search, User, LogOut, Menu } from "lucide-react"
 import { NotificationsBell } from "@/components/admin/NotificationsBell"
+import Logo from "@/components/shared/Logo"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { SidebarContent } from "@/components/client/ClientSidebar"
 
 interface ClientHeaderProps {
   userId: string
@@ -13,7 +18,9 @@ interface ClientHeaderProps {
 }
 
 export default function ClientHeader({ userId, fullName, email, avatarUrl }: ClientHeaderProps) {
+  const pathname = usePathname()
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const dropdownRef = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -31,9 +38,27 @@ export default function ClientHeader({ userId, fullName, email, avatarUrl }: Cli
     : email?.charAt(0).toUpperCase() || "U"
 
   return (
-    <header className="h-20 border-b border-slate-100 bg-white/80 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-30 w-full">
-      {/* Search Bar */}
-      <div className="flex-1 max-w-lg mx-auto hidden sm:block relative">
+    <header className="h-16 lg:h-20 shrink-0 border-b border-slate-100 bg-white/95 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-30 w-full transition-all">
+      {/* Mobile Menu Trigger & Logo */}
+      <div className="flex items-center gap-3 lg:hidden">
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          <SheetTrigger render={
+            <Button variant="ghost" size="icon" className="text-slate-800 -ml-2 hover:bg-slate-100">
+              <Menu className="h-5 w-5" />
+            </Button>
+          } />
+          <SheetContent side="left" className="p-0 w-80">
+            <SheetTitle className="sr-only">Menu de Navigation ImmOfika</SheetTitle>
+            <SidebarContent pathname={pathname} onNavigate={() => setIsMobileMenuOpen(false)} />
+          </SheetContent>
+        </Sheet>
+        <div className="scale-90 origin-left">
+          <Logo />
+        </div>
+      </div>
+
+      {/* Desktop Search Bar */}
+      <div className="hidden lg:block flex-1 max-w-lg relative">
         <div className="relative w-full">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
           <input
@@ -44,11 +69,8 @@ export default function ClientHeader({ userId, fullName, email, avatarUrl }: Cli
         </div>
       </div>
 
-      {/* Mobile spacing */}
-      <div className="sm:hidden flex-1" />
-
       {/* User Actions */}
-      <div className="flex items-center gap-4 shrink-0 ml-4">
+      <div className="flex items-center gap-3 sm:gap-4 shrink-0 ml-auto">
         <NotificationsBell userId={userId} />
 
         <div className="relative" ref={dropdownRef}>
@@ -56,7 +78,7 @@ export default function ClientHeader({ userId, fullName, email, avatarUrl }: Cli
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             className="flex items-center gap-2.5 focus:outline-none group cursor-pointer"
           >
-            <div className="h-10 w-10 rounded-full border border-slate-200 overflow-hidden bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-sm shadow-xs transition-all group-hover:border-emerald-500">
+            <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full border border-slate-200 overflow-hidden bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs sm:text-sm shadow-xs transition-all group-hover:border-emerald-500">
               {avatarUrl ? (
                 <img
                   src={avatarUrl}

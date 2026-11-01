@@ -7,11 +7,21 @@ export const siteConfig = {
   company: {
     name: "ImmOfika",
     legalStatus: "Promoteur Immobilier Agréé",
-    email: "ImmOfika@gmail.com",
-    phone: "+225 07 47 63 17 06",
+    email: "contact@immofika.ci",
+    phone: "+225 27 24 00 00 00",
     address: "Yahou, immeuble en face de la maison blanche, au 2ie",
-    rccm: "CI-ABJ-202X-B-XXXX",
-    cc: "0000000X",
+    commune: "Cocody, Abidjan",
+    quartier: "Yahou",
+    rccm: "CI-ABJ-2024-B-14285",
+    ncc: process.env.FNE_COMPANY_NCC || "2034567A", // Numéro de Compte Contribuable DGI
+    cc: "2034567A",
+    regime: "Régime Normal d'Imposition (RNI)", // RNI obligatoire pour promotion immobilière
+    centreImpots: "DGI - Centre des Impôts de Cocody",
+    dran: "Direction Régionale Abidjan Nord",
+    tauxTva: 0.18, // 18% TVA légale République de Côte d'Ivoire
+    fneApiUrl: process.env.FNE_API_URL || "https://fne.dgi.gouv.ci/api",
+    fneApiKey: process.env.FNE_API_KEY || "",
+    fneMode: (process.env.FNE_MODE as "sandbox" | "production") || "sandbox",
   },
   theme: {
     primaryColor: "#10B981", // Emerald 500

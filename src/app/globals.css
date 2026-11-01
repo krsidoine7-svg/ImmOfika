@@ -32,7 +32,7 @@
 }
 
 /* =============================================
-   IMMO PRO — DESIGN TOKENS
+   IMMOFIKA — DESIGN TOKENS
    Vert Émeraude #10B981 | Blanc #FFFFFF | Menthe #ECFDF5
    ============================================= */
 
@@ -45,7 +45,7 @@
   --popover:            #FFFFFF;
   --popover-foreground: #0F172A;
 
-  /* === VERT ÉMERAUDE / MENTHE — Palette Immo Pro === */
+  /* === VERT ÉMERAUDE / MENTHE — Palette ImmOfika === */
   --green-light:        #F0FDF4;   /* Vert très clair / fond accent */
   --green-mint:         #ECFDF5;   /* Vert menthe ultra-doux */
   --green-mid:          #10B981;   /* Vert émeraude primaire (Emerald 500) */
@@ -108,7 +108,7 @@
 }
 
 /* =============================================
-   FAVOR COMPANY — CUSTOM PREMIUM SCROLLBARS
+   IMMOFIKA — CUSTOM PREMIUM SCROLLBARS
    ============================================= */
 
 /* Chrome, Safari, Edge, Opera */

@@ -21,24 +21,59 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const { data: bien } = await supabase
     .from('biens')
-    .select('titre, description, ville, type, prix, main_image_url')
+    .select('titre, description, ville, quartier, type, transaction, prix, main_image_url, type_titre_propriete')
     .eq('slug', slug)
     .is('deleted_at', null)
     .single()
 
-  if (!bien) return { title: 'Bien introuvable' }
+  if (!bien) return { title: 'Bien introuvable — ImmOfika' }
 
-  const formattedPrix = typeof bien.prix === 'number' ? new Intl.NumberFormat('fr-FR').format(bien.prix) : bien.prix
-  const seoTitle = `${bien.titre} à ${bien.ville || 'Côte d\'Ivoire'} (${formattedPrix} FCFA)`
-  const seoDescription = `${bien.titre} à ${bien.ville || 'Côte d\'Ivoire'} — ${bien.description.slice(0, 120)}... Offre certifiée par ImmOfika, Promoteur Immobilier Agréé pour l'aménagement foncier et la construction.`
+  const formattedPrix =
+    typeof bien.prix === 'number'
+      ? new Intl.NumberFormat('fr-CI').format(bien.prix)
+      : Number(bien.prix).toLocaleString('fr-CI')
+  const localisation = [bien.quartier, bien.ville || 'Abidjan'].filter(Boolean).join(', ')
+  const titreBadge = bien.type_titre_propriete ? `[${bien.type_titre_propriete.toUpperCase()}] ` : ''
+
+  const seoTitle = `${titreBadge}${bien.titre} à ${localisation} (${formattedPrix} FCFA)`
+  const seoDescription = `${bien.titre} — ${bien.transaction === 'location' ? 'À louer' : 'À vendre'} à ${localisation}. Prix : ${formattedPrix} FCFA. Annonce vérifiée sur ImmOfika, marketplace immobilière sécurisée à Abidjan.`
 
   return {
     title: seoTitle,
     description: seoDescription,
+    keywords: [
+      bien.type,
+      bien.transaction,
+      bien.ville,
+      bien.quartier,
+      'immobilier Abidjan',
+      'ACD',
+      'titre foncier',
+      'ImmOfika',
+    ].filter(Boolean) as string[],
     openGraph: {
-      title: `${seoTitle} | Promoteur Immobilier Agréé`,
+      title: `${seoTitle} | ImmOfika`,
       description: seoDescription,
-      images: bien.main_image_url ? [{ url: bien.main_image_url, alt: bien.titre }] : [],
+      url: `https://immofika.ci/biens/${slug}`,
+      siteName: 'ImmOfika',
+      locale: 'fr_CI',
+      type: 'article',
+      images: bien.main_image_url
+        ? [
+            {
+              url: bien.main_image_url,
+              width: 1200,
+              height: 630,
+              alt: bien.titre,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: seoDescription,
+      images: bien.main_image_url ? [bien.main_image_url] : [],
     },
   }
 }
@@ -50,17 +85,20 @@ export default async function BienDetailPage({ params }: PageProps) {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
-  // Récupérer le bien
+  // Récupérer le bien avec son organisation annonceur
   const { data: bien, error } = await supabase
     .from('biens')
-    .select('*')
+    .select(`
+      *,
+      organization:organizations(id, name, slug, type, agrement_numero, logo_url, telephone, whatsapp, email, ville, commune, adresse, verified_at)
+    `)
     .eq('slug', slug)
     .is('deleted_at', null)
     .single()
 
   if (error || !bien) notFound()
 
-  // Incrémenter les vues (fire & forget) + afficher la valeur +1 immédiatement
+  // Incrémenter les vues (fire & forget)
   const vuesActuelles = (bien.vues ?? 0) + 1
   supabase
     .from('biens')
@@ -76,17 +114,20 @@ export default async function BienDetailPage({ params }: PageProps) {
     .eq('bien_id', bien.id)
     .order('order', { ascending: true })
 
-  // Récupérer les biens suggérés (même type, toutes villes — pas de filtre ville pour maximiser les résultats)
+  // Récupérer les biens suggérés (même type)
   const { data: suggeres } = await supabase
     .from('biens')
-    .select('id, slug, titre, prix, type, transaction, ville, quartier, surface, chambres, main_image_url, statut')
+    .select('id, slug, titre, prix, type, transaction, ville, quartier, surface, chambres, main_image_url, statut, type_titre_propriete')
     .neq('id', bien.id)
     .eq('type', bien.type)
     .is('deleted_at', null)
+    .eq('statut_moderation', 'valide')
     .limit(3)
 
   // Vérifier si connecté + si favori
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
   let isFavori = false
   if (user) {
     const { data: fav } = await supabase
@@ -98,19 +139,55 @@ export default async function BienDetailPage({ params }: PageProps) {
     isFavori = !!fav
   }
 
+  // Schema.org JSON-LD
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: bien.titre,
+    description: bien.description,
+    url: `https://immofika.ci/biens/${bien.slug}`,
+    image: bien.main_image_url ? [bien.main_image_url] : [],
+    offers: {
+      '@type': 'Offer',
+      price: bien.prix,
+      priceCurrency: 'XOF',
+      availability:
+        bien.statut === 'disponible' ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+      businessFunction:
+        bien.transaction === 'location' ? 'https://schema.org/LeaseOut' : 'https://schema.org/Sell',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: bien.ville || 'Abidjan',
+      addressRegion: bien.quartier || 'Abidjan',
+      addressCountry: 'CI',
+    },
+    ...(bien.latitude && bien.longitude
+      ? {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: Number(bien.latitude),
+            longitude: Number(bien.longitude),
+          },
+        }
+      : {}),
+  }
+
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#F8F6F1] pt-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="min-h-screen bg-slate-50/50 pt-20">
         <BienDetailClient
           bien={bien}
           images={images ?? []}
           isFavori={isFavori}
           isConnected={!!user}
         />
-        {suggeres && suggeres.length > 0 && (
-          <BiensSuggeres biens={suggeres} />
-        )}
+        {suggeres && suggeres.length > 0 && <BiensSuggeres biens={suggeres} />}
       </main>
       <Footer />
     </>

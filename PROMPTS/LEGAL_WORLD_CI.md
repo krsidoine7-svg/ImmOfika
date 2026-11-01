@@ -1,5 +1,5 @@
 # LEGAL_WORLD_CI.md — Conformité Légale
-## Favor Company International — Côte d'Ivoire
+## ImmOfika — Côte d'Ivoire
 
 > **Juridiction principale :** République de Côte d'Ivoire  
 > **Secteur :** Immobilier & Lotissement  
@@ -9,14 +9,14 @@
 
 ## 1. Politique de Confidentialité
 
-### Favor Company International — Politique de Confidentialité
+### ImmOfika — Politique de Confidentialité
 
 **Date de mise à jour :** Mai 2026
 
 #### 1.1 Identité du Responsable du Traitement
-**Raison sociale :** Favor Company International  
+**Raison sociale :** ImmOfika  
 **Adresse :** Yaho, Immeuble en face de la Maison Blanche, 2ème étage, Abidjan, Côte d'Ivoire  
-**Email :** Favorcompanyint@gmail.com  
+**Email :** contact@immofika.ci  
 **Téléphone :** +225 2724370155  
 
 #### 1.2 Données Collectées
@@ -66,7 +66,7 @@ Conformément à la loi ivoirienne sur la protection des données personnelles, 
 - **Droit d'opposition :** Vous opposer au traitement
 - **Droit à la portabilité :** Recevoir vos données dans un format structuré
 
-Pour exercer ces droits : Favorcompanyint@gmail.com
+Pour exercer ces droits : contact@immofika.ci
 
 #### 1.8 Sécurité
 Nous mettons en œuvre des mesures techniques et organisationnelles pour protéger vos données :
@@ -86,7 +86,7 @@ Notre plateforme utilise des cookies pour :
 ## 2. Conditions Générales d'Utilisation (CGU)
 
 ### Article 1 — Objet
-Les présentes CGU régissent l'utilisation de la plateforme digitale de Favor Company International, accessible à l'adresse [URL du site]. Cette plateforme permet la consultation, la réservation et l'achat de biens immobiliers (terrains, maisons, appartements, lotissements).
+Les présentes CGU régissent l'utilisation de la plateforme digitale de ImmOfika, accessible à l'adresse [URL du site]. Cette plateforme permet la consultation, la réservation et l'achat de biens immobiliers (terrains, maisons, appartements, lotissements).
 
 ### Article 2 — Acceptation
 L'utilisation de la plateforme implique l'acceptation pleine et entière des présentes CGU. Tout utilisateur qui accède à la plateforme reconnaît avoir pris connaissance des CGU et les accepte sans réserve.
@@ -95,7 +95,7 @@ L'utilisation de la plateforme implique l'acceptation pleine et entière des pr�
 - L'inscription est réservée aux personnes physiques majeures (18 ans et plus) ou aux personnes morales légalement constituées
 - L'utilisateur garantit l'exactitude des informations fournies lors de l'inscription
 - L'utilisateur est responsable de la confidentialité de ses identifiants de connexion
-- Favor Company International se réserve le droit de suspendre ou supprimer tout compte en cas d'utilisation frauduleuse
+- ImmOfika se réserve le droit de suspendre ou supprimer tout compte en cas d'utilisation frauduleuse
 
 ### Article 4 — Description des Services
 La plateforme propose :
@@ -119,11 +119,11 @@ La plateforme propose :
 - Les factures sont émises conformément aux normes ivoiriennes (FNE/RNE)
 
 ### Article 7 — Propriété Intellectuelle
-L'ensemble du contenu de la plateforme (textes, images, graphismes, logos, vidéos) est la propriété exclusive de Favor Company International. Toute reproduction, même partielle, sans autorisation écrite préalable est strictement interdite.
+L'ensemble du contenu de la plateforme (textes, images, graphismes, logos, vidéos) est la propriété exclusive de ImmOfika. Toute reproduction, même partielle, sans autorisation écrite préalable est strictement interdite.
 
 ### Article 8 — Responsabilité
-- Favor Company International s'engage à fournir des informations exactes sur les biens proposés
-- La responsabilité de Favor Company International ne saurait être engagée en cas d'indisponibilité temporaire de la plateforme pour des raisons de maintenance ou de force majeure
+- ImmOfika s'engage à fournir des informations exactes sur les biens proposés
+- La responsabilité de ImmOfika ne saurait être engagée en cas d'indisponibilité temporaire de la plateforme pour des raisons de maintenance ou de force majeure
 - L'utilisateur est seul responsable de l'utilisation qu'il fait de la plateforme
 
 ### Article 9 — Droit Applicable et Juridiction
@@ -134,13 +134,13 @@ Les présentes CGU sont soumises au droit ivoirien. Tout litige relatif à leur 
 ## 3. Conditions Générales de Vente (CGV)
 
 ### Article 1 — Vendeur
-**Favor Company International**  
+**ImmOfika**  
 Yaho, Immeuble en face de la Maison Blanche, 2ème étage  
 Abidjan, Côte d'Ivoire  
 Registre du Commerce : [Numéro RC]
 
 ### Article 2 — Biens et Services Proposés
-Favor Company International propose à la vente :
+ImmOfika propose à la vente :
 - Terrains (nus ou viabilisés)
 - Maisons et villas
 - Appartements
@@ -149,7 +149,7 @@ Favor Company International propose à la vente :
 
 ### Article 3 — Prix
 - Les prix affichés sont exprimés en Francs CFA (XOF) toutes taxes comprises
-- Favor Company International se réserve le droit de modifier ses prix à tout moment
+- ImmOfika se réserve le droit de modifier ses prix à tout moment
 - Le prix applicable est celui en vigueur au moment de la confirmation de la commande
 
 ### Article 4 — Processus d'Achat
@@ -176,11 +176,11 @@ Conformément aux usages commerciaux en vigueur en Côte d'Ivoire, l'acheteur di
 ### Structure d'une Facture Légale (CI)
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FAVOR COMPANY INTERNATIONAL
+IMMOFIKA
 Yaho, Immeuble face Maison Blanche, 2ème étage
 Abidjan - Côte d'Ivoire
 Tél : +225 2724370155
-Email : Favorcompanyint@gmail.com
+Email : contact@immofika.ci
 CC : [Numéro Centre de Commerce]
 RC : [Numéro Registre du Commerce]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -225,13 +225,13 @@ Signature et Cachet :
 ## 5. Mentions Légales
 
 **Éditeur du site :**  
-Favor Company International  
+ImmOfika  
 Yaho, Immeuble en face de la Maison Blanche, 2ème étage  
 Abidjan, Côte d'Ivoire  
 Tél : +225 2724370155 (fixe)  
 Mobile : +225 0747631706  
 WhatsApp : +225 0103132878  
-Email : Favorcompanyint@gmail.com  
+Email : contact@immofika.ci  
 
 **Directeur de la publication :** [Nom du dirigeant]  
 
@@ -241,13 +241,13 @@ Vercel Inc.
 Covina, CA 91723, USA  
 
 **Données personnelles :**  
-Conformément à la loi ivoirienne n°2013-450 du 19 juin 2013 relative à la protection des données à caractère personnel, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez : Favorcompanyint@gmail.com
+Conformément à la loi ivoirienne n°2013-450 du 19 juin 2013 relative à la protection des données à caractère personnel, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez : contact@immofika.ci
 
 ---
 
 ## 6. Charte Éthique
 
-Favor Company International s'engage à :
+ImmOfika s'engage à :
 
 1. **Transparence :** Fournir des informations exactes et complètes sur chaque bien commercialisé
 2. **Intégrité :** Ne jamais dissimuler des vices ou défauts connus d'un bien
@@ -262,7 +262,7 @@ Favor Company International s'engage à :
 
 ## 7. Clause de Non-Responsabilité
 
-Les informations présentées sur cette plateforme sont fournies à titre informatif. Favor Company International s'efforce d'assurer l'exactitude de ces informations mais ne peut garantir leur exhaustivité ni leur absence d'erreur. Toute décision d'achat doit être précédée d'une visite physique du bien et, si nécessaire, d'une consultation avec un professionnel juridique ou financier.
+Les informations présentées sur cette plateforme sont fournies à titre informatif. ImmOfika s'efforce d'assurer l'exactitude de ces informations mais ne peut garantir leur exhaustivité ni leur absence d'erreur. Toute décision d'achat doit être précédée d'une visite physique du bien et, si nécessaire, d'une consultation avec un professionnel juridique ou financier.
 
 ---
 

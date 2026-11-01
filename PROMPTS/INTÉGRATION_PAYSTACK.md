@@ -1,5 +1,5 @@
 # INTÉGRATION_PAYSTACK.md
-## Favor Company International — Paiements
+## ImmOfika — Paiements
 
 > **API :** Paystack  
 > **Docs :** https://support.paystack.com/en  
@@ -311,7 +311,7 @@ export async function rembourserClient(paystackReference: string, montantTotal: 
       transaction: paystackReference,
       amount: montantRembourse * 100,  // En centimes
       currency: 'XOF',
-      merchant_note: 'Remboursement réservation expirée — Favor Company',
+      merchant_note: 'Remboursement réservation expirée — ImmOfika',
     }),
   })
 

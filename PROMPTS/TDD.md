@@ -1,5 +1,5 @@
 # TDD — Technical Design Document
-## Favor Company International
+## ImmOfika
 
 > **Version :** 1.0  
 > **Date :** Mai 2026  

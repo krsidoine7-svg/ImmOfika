@@ -1,5 +1,5 @@
 # DESIGN_SYSTEM.md — Système de Design
-## Favor Company International
+## ImmOfika
 
 > **Framework :** Tailwind CSS v4 + shadcn/ui  
 > **Philosophie :** Moderne, professionnel, prestigieux — Or et Bleu Nuit
@@ -9,7 +9,7 @@
 ## 1. Identité de Marque
 
 ### Nom
-**Favor Company International**
+**ImmOfika**
 
 ### Positionnement
 SaaS Immobilier Africain Premium — Confiance, Prestige, Excellence

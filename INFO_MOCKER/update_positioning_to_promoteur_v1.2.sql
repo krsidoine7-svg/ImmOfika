@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 UPDATE POSITIONING TO PROMOTEUR — Correction du Positionnement de Marque
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : Favor Company International
+-- Projet  : ImmOfika
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-11
 -- Version : v1.2
@@ -29,7 +29,7 @@ SET content = jsonb_set(
   content,
   '{faqs,0}',
   '{
-    "question": "Quels sont les frais de promotion chez Favor Company ?",
+    "question": "Quels sont les frais de promotion chez ImmOfika ?",
     "answer": "En tant que promoteur immobilier agréé, nos frais de promotion et d''accompagnement sont transparents et compétitifs. Ils sont intégrés à la valeur des lots et incluent l''aménagement foncier, la viabilisation et la sécurisation juridique complète de vos parcelles."
   }'::jsonb
 )

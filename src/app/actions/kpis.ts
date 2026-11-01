@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from "@/lib/db/index"
-import { leads, profiles, biens, reservations, paiements, visites, agentCalendriers, agentIndisponibilites, systemSettings } from "@/lib/db/schema"
+import { profiles, biens, reservations, paiements, visites, agentCalendriers, agentIndisponibilites, systemSettings } from "@/lib/db/schema"
 import { eq, and, gte, lte, isNull, sql, inArray } from "drizzle-orm"
 import { requirePermission } from "@/lib/auth/permissions"
 import { 
@@ -229,19 +229,19 @@ export async function getDashboardKPIsAction(params: KPIParams) {
 
   // Construction des conditions temporelles pour chaque table
   const paymentConditions = [eq(paiements.statut, 'paye'), isNull(paiements.deletedAt)]
-  const leadConditions = [isNull(leads.deletedAt)]
+  const profileConditions = [isNull(profiles.deletedAt), eq(profiles.role, 'client')]
   const reservationConditions = [isNull(reservations.deletedAt)]
   const visitConditions = [isNull(visites.deletedAt)]
 
   if (from) {
     paymentConditions.push(gte(paiements.paidAt, from))
-    leadConditions.push(gte(leads.createdAt, from))
+    profileConditions.push(gte(profiles.createdAt, from))
     reservationConditions.push(gte(reservations.createdAt, from))
     visitConditions.push(gte(visites.dateVisite, from))
   }
   if (to) {
     paymentConditions.push(lte(paiements.paidAt, to))
-    leadConditions.push(lte(leads.createdAt, to))
+    profileConditions.push(lte(profiles.createdAt, to))
     reservationConditions.push(lte(reservations.createdAt, to))
     visitConditions.push(lte(visites.dateVisite, to))
   }
@@ -259,18 +259,18 @@ export async function getDashboardKPIsAction(params: KPIParams) {
   const totalRevenue = parseFloat(totalRevData?.sum || '0')
   const periodRevenue = parseFloat(periodRevData?.sum || '0')
 
-  // 2. Leads (Total et Conversion)
-  const [[leadsTotalData], [leadsConvertedData]] = await Promise.all([
+  // 2. Utilisateurs & Clients Actifs
+  const [[clientsTotalData], [clientsConvertedData]] = await Promise.all([
     db.select({ count: sql<number>`count(*)::int` })
-      .from(leads)
-      .where(and(...leadConditions)),
+      .from(profiles)
+      .where(and(...profileConditions)),
     db.select({ count: sql<number>`count(*)::int` })
-      .from(leads)
-      .where(and(...leadConditions, eq(leads.etape, 'vente_finalisee')))
+      .from(reservations)
+      .where(and(...reservationConditions, eq(reservations.statut, 'confirme')))
   ])
 
-  const totalLeads = leadsTotalData?.count || 0
-  const convertedLeads = leadsConvertedData?.count || 0
+  const totalLeads = clientsTotalData?.count || 0
+  const convertedLeads = clientsConvertedData?.count || 0
   const conversionRate = totalLeads > 0 ? Math.round((convertedLeads / totalLeads) * 100) : 0
 
   // 3. Réservations et Taux d'Expiration
@@ -295,26 +295,25 @@ export async function getDashboardKPIsAction(params: KPIParams) {
 
   const totalVisits = visTotalData?.count || 0
 
-  // 5. Distribution du Pipeline (Étapes)
+  // 5. Distribution des Visites Marketplace
   const pipelineStats = await db
     .select({
-      etape: leads.etape,
+      etape: visites.statut,
       count: sql<number>`count(*)::int`
     })
-    .from(leads)
-    .where(and(...leadConditions))
-    .groupBy(leads.etape)
+    .from(visites)
+    .where(and(...visitConditions))
+    .groupBy(visites.statut)
 
-  // 6. Répartition Géographique (Top Quartiers demandés)
+  // 6. Répartition Géographique (Offre par Commune)
   const geoStats = await db
     .select({
       quartier: biens.quartier,
       ville: biens.ville,
       count: sql<number>`count(*)::int`
     })
-    .from(leads)
-    .innerJoin(biens, eq(leads.bienInteresse, biens.id))
-    .where(and(...leadConditions, isNull(biens.deletedAt)))
+    .from(biens)
+    .where(isNull(biens.deletedAt))
     .groupBy(biens.quartier, biens.ville)
     .orderBy(sql`count(*) desc`)
     .limit(10)
@@ -379,14 +378,14 @@ export async function getDashboardKPIsAction(params: KPIParams) {
     agentsList.map(async (agent) => {
       const [[leadsCount], [visCount], [salesCount]] = await Promise.all([
         db.select({ count: sql<number>`count(*)::int` })
-          .from(leads)
-          .where(and(...leadConditions, eq(leads.agentId, agent.id))),
+          .from(visites)
+          .where(and(...visitConditions, eq(visites.agentId, agent.id))),
         db.select({ count: sql<number>`count(*)::int` })
           .from(visites)
           .where(and(...visitConditions, eq(visites.agentId, agent.id), eq(visites.statut, 'effectuee'))),
         db.select({ count: sql<number>`count(*)::int` })
-          .from(leads)
-          .where(and(...leadConditions, eq(leads.agentId, agent.id), eq(leads.etape, 'vente_finalisee')))
+          .from(reservations)
+          .where(and(...reservationConditions, eq(reservations.statut, 'confirme')))
       ])
 
       const leadsAssignes = leadsCount?.count || 0
@@ -496,7 +495,7 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
 
     return {
       success: true,
-      filename: `Rapport_CRM_FavorCompany_${new Date().toISOString().split('T')[0]}.csv`,
+      filename: `Rapport_CRM_ImmOfika_${new Date().toISOString().split('T')[0]}.csv`,
       data: Buffer.from(csvContent).toString('base64'),
       mimeType: 'text/csv;charset=utf-8;'
     }
@@ -634,7 +633,7 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
     const buffer = await workbook.xlsx.writeBuffer()
     return {
       success: true,
-      filename: `Rapport_CRM_FavorCompany_${new Date().toISOString().split('T')[0]}.xlsx`,
+      filename: `Rapport_CRM_ImmOfika_${new Date().toISOString().split('T')[0]}.xlsx`,
       data: Buffer.from(buffer).toString('base64'),
       mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     }

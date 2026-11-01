@@ -1,18 +1,18 @@
 # PRD — Product Requirements Document
-## Favor Company International — Plateforme Immobilière SaaS
+## ImmOfika — Plateforme Immobilière SaaS
 
 > **Version :** 1.0  
 > **Date :** Mai 2026  
 > **Statut :** Draft  
-> **Auteur :** Favor Company International  
-> **Contact :** Favorcompanyint@gmail.com | +225 2724370155
+> **Auteur :** ImmOfika  
+> **Contact :** contact@immofika.ci | +225 2724370155
 
 ---
 
 ## 1. Vision Produit
 
 ### 1.1 Résumé Exécutif
-Favor Company International est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble face à la Maison Blanche, 2ème étage, Côte d'Ivoire). La plateforme est un **SaaS immobilier africain tout-en-un** couvrant : site vitrine e-commerce, CRM intégré, gestion des biens, paiements en ligne (Paystack / Mobile Money), génération de contrats, pipeline de vente, et administration multi-rôles.
+ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble face à la Maison Blanche, 2ème étage, Côte d'Ivoire). La plateforme est un **SaaS immobilier africain tout-en-un** couvrant : site vitrine e-commerce, CRM intégré, gestion des biens, paiements en ligne (Paystack / Mobile Money), génération de contrats, pipeline de vente, et administration multi-rôles.
 
 ### 1.2 Objectifs Business
 - Générer de la notoriété et inspirer confiance auprès des prospects
@@ -26,11 +26,11 @@ Favor Company International est un promoteur immobilier agréé basé à Abidjan
 | Particuliers | Personnes physiques souhaitant se loger, acheter un terrain ou une maison |
 | Personnes morales | Entreprises souhaitant acquérir des biens immobiliers |
 | Agences/Promoteurs partenaires | Autres agences/promoteurs immobiliers partenaires |
-| Agents internes | Équipe Favor Company (agents, admins, RH, tech) |
+| Agents internes | Équipe ImmOfika (agents, admins, RH, tech) |
 
 ---
 
-## 2. Services Favor Company
+## 2. Services ImmOfika
 
 - Lotissement & aménagement foncier
 - Études et travaux de topographie
@@ -271,7 +271,7 @@ Favor Company International est un promoteur immobilier agréé basé à Abidjan
 
 ### 4.10 Chatbot IA (Agent RAG)
 - Présent sur toutes les pages du site
-- Base de connaissances alimentée par les données Favor Company
+- Base de connaissances alimentée par les données ImmOfika
 - Répond à toutes les questions utilisateur (biens, services, prix, processus, etc.)
 - Disponible 24h/24
 - Escalade vers un agent humain si nécessaire

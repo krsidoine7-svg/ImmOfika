@@ -1,13 +1,11 @@
-const CACHE_NAME = "immo-pro-cache-v1";
+const CACHE_NAME = "immofika-cache-v1";
 const ASSETS_TO_CACHE = [
   "/",
   "/manifest.json",
-  "/logo-favor.jpeg",
-  "/file.svg",
-  "/globe.svg",
-  "/window.svg",
-  "/next.svg",
-  "/vercel.svg"
+  "/logo-immofika.jpeg",
+  "/icon-192.png",
+  "/icon-512.png",
+  "/favicon.svg"
 ];
 
 // Install Event
@@ -72,17 +70,17 @@ self.addEventListener("push", function (event) {
   try {
     payload = event.data.json();
   } catch (err) {
-    payload = { title: "Immo Pro", body: event.data.text() };
+    payload = { title: "ImmOfika", body: event.data.text() };
   }
 
-  const title = payload.title || "Immo Pro — Plateforme Immobilière";
+  const title = payload.title || "ImmOfika — Plateforme Immobilière";
   const options = {
     body: payload.body || "Nouvelle alerte immobilière",
-    icon: "/logo-favor.jpeg",
-    badge: "/logo-favor.jpeg",
+    icon: "/logo-immofika.jpeg",
+    badge: "/logo-immofika.jpeg",
     image: payload.image || undefined,
     vibrate: [200, 100, 200, 100, 300],
-    tag: payload.tag || "immopro-notification",
+    tag: payload.tag || "immofika-notification",
     renotify: true,
     requireInteraction: true,
     data: {

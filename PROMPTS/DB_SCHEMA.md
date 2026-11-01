@@ -1,5 +1,5 @@
 # DB_SCHEMA.md — Schéma de Base de Données
-## Favor Company International
+## ImmOfika
 
 > **Base :** PostgreSQL (via Supabase)  
 > **ORM :** Drizzle ORM  

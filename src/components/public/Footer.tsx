@@ -139,6 +139,7 @@ export default function Footer({ data }: FooterProps) {
               <li><Link href="/biens" className="hover:text-emerald-700 transition-colors">Catalogue de biens</Link></li>
               <li><Link href="#services" className="hover:text-emerald-700 transition-colors">Nos Services</Link></li>
               <li><Link href="#about" className="hover:text-emerald-700 transition-colors">À propos</Link></li>
+              <li><Link href="/contact" className="hover:text-emerald-700 transition-colors">Nous contacter</Link></li>
             </ul>
           </div>
 

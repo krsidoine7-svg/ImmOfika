@@ -15,7 +15,8 @@ import {
   Building2,
   Key,
   Layers,
-  PhoneCall
+  PhoneCall,
+  PlusCircle
 } from "lucide-react"
 
 const dropdownServices = [
@@ -115,15 +116,37 @@ export default function Navbar() {
             >
               FAQ
             </Link>
+
+            <Link
+              href="/contact"
+              className={cn(
+                "text-xs uppercase font-bold tracking-wider transition-all relative py-1",
+                pathname === "/contact" 
+                  ? "text-emerald-600 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-emerald-500 after:rounded-full" 
+                  : "text-slate-600 hover:text-emerald-600"
+              )}
+            >
+              Contact
+            </Link>
           </nav>
 
           {/* Action Header Button */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Bouton Publier une Annonce */}
+            <Link
+              href="/biens/publier"
+              className="inline-flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 shadow-2xs transition-all duration-200 hover:scale-[1.02] active:scale-98"
+            >
+              <PlusCircle className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="hidden sm:inline">Publier une annonce</span>
+              <span className="sm:hidden">Publier</span>
+            </Link>
+
             <Link
               href="/auth/login"
-              className="group relative inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 shadow-sm shadow-emerald-500/20 transition-all duration-200 hover:scale-[1.02] active:scale-98"
+              className="group relative inline-flex items-center gap-2 rounded-full px-4 sm:px-5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-emerald-600 shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-98"
             >
-              <span>Connexion / Espace Agent</span>
+              <span>Connexion</span>
               <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
 
@@ -145,7 +168,7 @@ export default function Navbar() {
       <div 
         className={cn(
           "lg:hidden max-w-7xl mx-auto mt-2 bg-white rounded-2xl border border-slate-100 shadow-xl transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-[500px] p-5 opacity-100" : "max-h-0 p-0 opacity-0 border-0"
+          isMobileMenuOpen ? "max-h-[550px] p-5 opacity-100" : "max-h-0 p-0 opacity-0 border-0"
         )}
       >
         <div className="space-y-2">
@@ -210,9 +233,38 @@ export default function Navbar() {
             className="flex items-center gap-3 text-sm font-bold p-2.5 text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <PhoneCall className="h-4 w-4 text-emerald-500" />
-            <span>FAQ & Contact</span>
+            <Layers className="h-4 w-4 text-emerald-500" />
+            <span>FAQ</span>
           </Link>
+
+          <Link
+            href="/contact"
+            className="flex items-center gap-3 text-sm font-bold p-2.5 text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <PhoneCall className="h-4 w-4 text-emerald-500" />
+            <span>Contactez-nous</span>
+          </Link>
+
+          {/* Actions mobiles dédiées */}
+          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+            <Link
+              href="/biens/publier"
+              className="flex items-center justify-center gap-2 text-xs font-bold py-3 px-4 text-emerald-800 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors border border-emerald-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <PlusCircle className="h-4 w-4 text-emerald-600" />
+              <span>Publier une annonce</span>
+            </Link>
+
+            <Link
+              href="/auth/login"
+              className="flex items-center justify-center gap-2 text-xs font-bold py-3 px-4 text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <span>Connexion / Espace Agent</span>
+            </Link>
+          </div>
         </div>
       </div>
     </header>

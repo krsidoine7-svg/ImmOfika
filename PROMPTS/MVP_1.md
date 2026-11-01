@@ -1,5 +1,5 @@
 # MVP_1.md — Fondations & Core
-## Favor Company International
+## ImmOfika
 
 > **Durée :** Semaines 1–5  
 > **Objectif :** Site fonctionnel avec catalogue, réservation, paiement, et backoffice admin de base  
@@ -468,7 +468,7 @@ export function FactureEmail({
       <Head />
       <Body>
         <Container>
-          <Heading>Favor Company International</Heading>
+          <Heading>ImmOfika</Heading>
           <Text>Bonjour {clientNom},</Text>
           <Text>
             Votre paiement pour le bien "{bienNom}" a été confirmé.
@@ -480,7 +480,7 @@ export function FactureEmail({
             <a href={factureUrl}>Télécharger ma facture</a>
           </Text>
           <Text>
-            Favor Company International<br />
+            ImmOfika<br />
             Yaho, Abidjan - Côte d'Ivoire<br />
             +225 2724370155
           </Text>

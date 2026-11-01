@@ -104,7 +104,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  FAVOR COMPANY — TABLEAU DE BORD                    │
+│  IMMOFIKA — TABLEAU DE BORD                    │
 │                                  Période: [Mois]    │
 ├────────────┬─────────────┬────────────┬─────────────┤
 │  CA Total  │  Nb Ventes  │  Leads     │  Visites    │

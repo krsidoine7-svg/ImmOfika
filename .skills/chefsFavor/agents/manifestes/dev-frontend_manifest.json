@@ -1,6 +1,0 @@
-{
-  "id": "dev-frontend",
-  "manager": "chefs-favor",
-  "skills": ["copywriting", "seo-audit", "skills-main/frontend-design", "skills-main/canvas-design"],
-  "delegation_policy": "require_manager_approval"
-}

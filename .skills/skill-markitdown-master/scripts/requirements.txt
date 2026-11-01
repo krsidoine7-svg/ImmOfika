@@ -1,3 +1,0 @@
-markitdown[all]
-google-generativeai
-pyyaml

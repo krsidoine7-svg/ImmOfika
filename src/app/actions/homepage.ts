@@ -8,7 +8,7 @@ import { revalidatePath } from "next/cache"
 import { z } from 'zod'
 import { uploadToR2 } from "@/lib/r2/client"
 
-const SectionSchema = z.enum(['hero', 'about', 'expertise', 'team', 'testimonials', 'faq', 'cta', 'footer', 'explainer_video', 'tracking'])
+const SectionSchema = z.enum(['hero', 'about', 'expertise', 'team', 'testimonials', 'faq', 'cta', 'footer', 'explainer_video', 'tracking', 'featured_partners'])
 
 /**
  * Fetches all homepage configurations from the database.

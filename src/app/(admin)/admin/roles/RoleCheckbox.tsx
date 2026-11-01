@@ -22,8 +22,9 @@ export function RoleCheckbox({
   }, [isGranted])
 
   const isSuperRole = roleName === 'super_admin' || roleName === 'tech_super_admin'
+  const isSuperAdmin = currentUserRole === 'super_admin' || currentUserRole === 'tech_super_admin'
 
-  const isDisabled = isSuperRole || (roleName === 'admin' && currentUserRole !== 'tech_super_admin')
+  const isDisabled = isSuperRole || (roleName === 'admin' && !isSuperAdmin)
   const isChecked = isSuperRole || (roleName === 'admin' && isDisabled) ? true : optimisticGranted
 
   if (isDisabled) {

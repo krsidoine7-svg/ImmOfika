@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { createClient } from "@/utils/supabase/client"
+import { requestPasswordResetAction } from "@/app/actions/authActions"
 import { Loader2, MailCheck, ArrowLeft } from "lucide-react"
 
 export default function ForgotPasswordPage() {
@@ -22,19 +22,19 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-  const supabase = createClient()
 
   const handleResetRequest = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
-    })
+    const res = await requestPasswordResetAction(
+      email,
+      `${window.location.origin}/auth/reset-password`
+    )
 
-    if (error) {
-      setError(error.message)
+    if (!res.success) {
+      setError(res.error || "Une erreur est survenue lors de la demande.")
       setLoading(false)
     } else {
       setSuccess(true)

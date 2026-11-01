@@ -8,7 +8,7 @@ import { z } from 'zod'
 const InitPaiementSchema = z.object({
   reservationId: z.string().uuid(),
   clientId: z.string().uuid(),
-  montant: z.number().positive(), // in XOF
+  montant: z.number().positive().optional(), // in XOF, calculé automatiquement par le serveur si omis
   email: z.string().email(),
 })
 
@@ -32,7 +32,7 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
     }
   }
 
-  const { reservationId, clientId, montant, email } = parsed.data
+  const { reservationId, clientId, email } = parsed.data
 
   // Generate a unique reference prefix with IM (ImmOfika)
   const reference = `IM-PAY-${Date.now()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
@@ -41,10 +41,30 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
     const cookieStore = await cookies()
     const supabase = createClient(cookieStore)
 
+    // Sécurité IDOR : Récupérer impérativement la session utilisateur serveur
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    if (authError || !user) {
+      return { success: false, error: 'Vous devez être connecté pour initier un paiement.' }
+    }
+
+    // Récupérer le rôle pour savoir si c'est un agent/admin
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    const isStaff = profile?.role && (profile.role.includes('admin') || profile.role === 'agent')
+
+    // Si pas administrateur, l'utilisateur ne peut payer que sa propre réservation
+    if (!isStaff && user.id !== clientId) {
+      return { success: false, error: 'Accès non autorisé : vous ne pouvez payer que vos propres réservations.' }
+    }
+
     // Check if the reservation actually exists and belongs to the client
     const { data: reservation, error: resError } = await supabase
       .from('reservations')
-      .select('id, statut, bien_id, biens(prix, titre)')
+      .select('id, statut, bien_id, biens(prix, titre, transaction)')
       .eq('id', reservationId)
       .eq('client_id', clientId)
       .single()
@@ -57,33 +77,35 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
       return { success: false, error: 'Cette réservation est déjà confirmée.' }
     }
 
-    // Contrôle strict du montant : Minimum 10% de la valeur du bien
+    // Contrôle strict du montant : Recalcul garanti côté serveur
     const bienPrix = (reservation.biens as any)?.prix ? Number((reservation.biens as any).prix) : 0
-    if (bienPrix > 0) {
-      const minAcompte = bienPrix * 0.10
-      const formatAmountStr = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/[\u202F\u00A0]/g, ' ') + ' FCFA'
+    const minAcompte = bienPrix > 0 ? Math.round(bienPrix * 0.10) : 50000 // 10% légal ou 50 000 FCFA forfaitaire minimum
+    const formatAmountStr = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/[\u202F\u00A0]/g, ' ') + ' FCFA'
 
-      if (montant < minAcompte) {
+    // Si le montant n'est pas fourni, le serveur impose strictement l'acompte légal de 10%
+    let montantFinal = parsed.data.montant ? Math.round(parsed.data.montant) : minAcompte
+
+    if (bienPrix > 0) {
+      if (montantFinal < minAcompte) {
         return {
           success: false,
-          error: `Le montant minimal d'acompte est de ${formatAmountStr(minAcompte)} (10%). Vous pouvez verser plus, mais pas moins.`,
+          error: `Le montant minimal d'acompte est de ${formatAmountStr(minAcompte)} (10%). Vous ne pouvez pas verser moins.`,
         }
       }
 
-      if (montant > bienPrix) {
+      if (montantFinal > bienPrix) {
         return {
           success: false,
-          error: `Le montant saisi (${formatAmountStr(montant)}) dépasse le prix total du bien (${formatAmountStr(bienPrix)}).`,
+          error: `Le montant saisi (${formatAmountStr(montantFinal)}) dépasse le prix total du bien (${formatAmountStr(bienPrix)}).`,
         }
       }
     }
 
-        // Insert record in 'paiements' table using the internal reference as 'paystackReference'
-    // because Paystack will match this reference when triggering webhook or verification!
+    // Insert record in 'paiements' table using the internal reference as 'paystackReference'
     const { error: dbError } = await supabase.from('paiements').insert({
       reservation_id: reservationId,
       client_id: clientId,
-      montant: montant,
+      montant: montantFinal,
       devise: 'XOF',
       statut: 'en_attente',
       type_paiement: 'acompte',
@@ -94,6 +116,19 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
       console.error('[initierPaiement DB Error]', dbError.message)
       return { success: false, error: 'Erreur lors de la création de la transaction en base : ' + dbError.message }
     }
+
+    // Journalisation d'audit de sécurité
+    try {
+      const { logAuditEvent } = await import('@/lib/audit/logger')
+      await logAuditEvent({
+        userId: user.id,
+        userEmail: user.email,
+        userRole: profile?.role || 'client',
+        action: 'paiement.initie',
+        entity: 'paiements',
+        details: { reservationId, bienId: reservation.bien_id, montant: montantFinal, reference },
+      })
+    } catch {}
 
     // Call Paystack API to initialize the transaction
     const response = await fetch(`${paystackConfig.baseUrl}/transaction/initialize`, {
@@ -106,7 +141,7 @@ export async function initierPaiement(input: z.infer<typeof InitPaiementSchema>)
         email,
         // Amount in kobo/cents. For XOF accounts (live), 1 XOF = 100 kobo on Paystack.
         // For test mode, Paystack uses the account's default currency (NGN/GHS) unless specified.
-        amount: Math.round(montant * 100),
+        amount: Math.round(montantFinal * 100),
         currency: 'XOF',
         reference,
         channels: paystackConfig.channels,

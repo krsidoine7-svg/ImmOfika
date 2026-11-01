@@ -22,7 +22,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
           })
@@ -40,16 +40,19 @@ export async function updateSession(request: NextRequest) {
 
   const url = request.nextUrl.clone()
 
-  // Protect /admin and /client routes
-  if (
-    !user &&
-    (url.pathname.startsWith('/admin') || url.pathname.startsWith('/client'))
-  ) {
-    url.pathname = '/auth/login'
-    return NextResponse.redirect(url)
+  // 1. Protection stricte des routes privées : /admin, /client et /dashboard
+  const isPrivateRoute =
+    url.pathname.startsWith('/admin') ||
+    url.pathname.startsWith('/client') ||
+    url.pathname.startsWith('/dashboard')
+
+  if (!user && isPrivateRoute) {
+    const redirectUrl = new URL('/auth/login', request.url)
+    redirectUrl.searchParams.set('callbackUrl', url.pathname + url.search)
+    return NextResponse.redirect(redirectUrl)
   }
 
-  // Redirect authenticated users away from auth pages (except callback/verify logic)
+  // 2. Redirection des utilisateurs déjà connectés loin des pages d'authentification
   if (
     user &&
     url.pathname.startsWith('/auth') &&
@@ -61,8 +64,8 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Redirection des alias /mon-compte et /client vers le tableau de bord client officiel
-  if (url.pathname === '/mon-compte' || url.pathname === '/client') {
+  // 3. Redirection des alias /compte, /mon-compte et /client vers le tableau de bord client officiel
+  if (url.pathname === '/compte' || url.pathname === '/mon-compte' || url.pathname === '/client') {
     url.pathname = '/client/dashboard'
     return NextResponse.redirect(url)
   }

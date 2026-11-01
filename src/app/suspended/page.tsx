@@ -112,7 +112,7 @@ export default async function SuspendedPage() {
 
             {/* Email button */}
             <a
-              href="mailto:support@favorcompany.ci"
+              href="mailto:support@immofika.ci"
               className="flex items-center justify-center gap-3 w-full h-12 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[#1A2A4A] font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-sm"
             >
               <Mail className="w-4 h-4 text-slate-400" />

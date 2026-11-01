@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F05 — Relances & Remboursements 87%
--- Favor Company International
+-- ImmOfika
 -- Date: 2026-05-18
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
@@ -45,7 +45,7 @@ BEGIN
 
     -- Si pas d'email, utiliser une valeur par défaut
     IF v_client_email IS NULL THEN
-      v_client_email := 'client@favorcompany.ci';
+      v_client_email := 'client@immofika.ci';
     END IF;
 
     -- ─── CAS 1 : Relance N°1 (30 jours ou moins avant expiration) ───

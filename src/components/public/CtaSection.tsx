@@ -51,7 +51,7 @@ export default function CtaSection({ data }: CtaSectionProps) {
             </Link>
 
             <Link
-              href="#about"
+              href="/contact"
               className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-emerald-600/60 hover:bg-emerald-600 text-white font-bold text-sm sm:text-base border border-white/20 backdrop-blur-md transition-all"
             >
               <PhoneCall className="w-4 h-4" />

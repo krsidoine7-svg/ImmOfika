@@ -3,7 +3,10 @@
 import { db } from "@/lib/db/index"
 import { profiles, reservations, paiements, favoris } from "@/lib/db/schema"
 import { eq, count } from "drizzle-orm"
-import { requireAdminAccess } from "@/lib/auth/permissions"
+import { requireAdminAccess, getCurrentUserContext, assertNotModifyingSelf, assertNotLastSuperAdmin, checkRoleCompatibility, invaliderCachePermissions, exiger } from "@/lib/auth/permissions"
+import { userRoles, roles } from "@/lib/db/schema"
+import { and } from "drizzle-orm"
+import { logAuditEvent } from "@/lib/audit/logger"
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
@@ -17,10 +20,17 @@ const UserImpactSchema = z.object({
 })
 
 export async function toggleUserStatusAction(formData: FormData) {
-  await requireAdminAccess()
+  const actor = await getCurrentUserContext()
+  if (!actor) throw new Error('Authentification requise')
+  await exiger('utilisateur:desactiver')
   
   const id = formData.get('id') as string
   const currentStatus = formData.get('currentStatus') as string
+
+  assertNotModifyingSelf(actor, id)
+  if (currentStatus === 'active') {
+    await assertNotLastSuperAdmin(id)
+  }
 
   const parsed = ToggleStatusSchema.safeParse({ id, currentStatus })
   if (!parsed.success) {
@@ -57,4 +67,116 @@ export async function getUserImpact(userId: string) {
     paiements: paiCount?.count || 0,
     favoris: favCount?.count || 0,
   }
+}
+
+export async function assignUserRoleAction(formData: FormData) {
+  const actor = await getCurrentUserContext()
+  if (!actor) throw new Error('Authentification requise')
+  await exiger('role:attribuer')
+
+  const targetUserId = formData.get('userId') as string
+  const newRoleName = formData.get('roleName') as string
+  const expiresAtStr = formData.get('expiresAt') as string | null
+
+  if (!targetUserId || !newRoleName) {
+    throw new Error('Paramètres manquants')
+  }
+
+  // Garde-fou : interdiction de modifier ses propres rôles
+  assertNotModifyingSelf(actor, targetUserId)
+
+  // Garde-fou hiérarchie : l'acteur ne peut attribuer qu'un rôle de niveau inférieur
+  const targetRoleRecord = await db
+    .select({ level: roles.hierarchyLevel, isLocked: roles.isLocked })
+    .from(roles)
+    .where(eq(roles.name, newRoleName))
+    .limit(1)
+
+  if (!targetRoleRecord || targetRoleRecord.length === 0) {
+    throw new Error('Rôle inexistant')
+  }
+
+  if (targetRoleRecord[0].level >= actor.hierarchyLevel && actor.hierarchyLevel < 7) {
+    throw new Error('Vous ne pouvez attribuer qu\'un rôle de niveau strictement inférieur au vôtre.')
+  }
+
+  // Récupérer les rôles actuels de l'utilisateur cible
+  const currentRoles = await db
+    .select({ roleName: userRoles.roleName })
+    .from(userRoles)
+    .where(eq(userRoles.userId, targetUserId))
+
+  const existingRoleNames = currentRoles.map(r => r.roleName)
+
+  // Garde-fou multi-rôles (max 2 rôles + incompatibilités)
+  checkRoleCompatibility(existingRoleNames, newRoleName)
+
+  const expiresAt = expiresAtStr ? new Date(expiresAtStr) : null
+
+  // Insérer ou mettre à jour le rôle
+  await db.insert(userRoles).values({
+    userId: targetUserId,
+    roleName: newRoleName,
+    assignedBy: actor.id,
+    expiresAt,
+  })
+
+  // Synchroniser profiles.role avec le rôle le plus fort
+  await db.update(profiles).set({ role: newRoleName }).where(eq(profiles.id, targetUserId))
+
+  invaliderCachePermissions(targetUserId)
+
+  await logAuditEvent({
+    userId: actor.id,
+    userEmail: actor.email,
+    userRole: actor.role,
+    action: 'role.assigned',
+    entity: 'user_roles',
+    entityId: targetUserId,
+    details: { assignedRole: newRoleName, expiresAt },
+  })
+
+  revalidatePath('/admin/utilisateurs')
+}
+
+export async function revokeUserRoleAction(formData: FormData) {
+  const actor = await getCurrentUserContext()
+  if (!actor) throw new Error('Authentification requise')
+  await exiger('role:attribuer')
+
+  const targetUserId = formData.get('userId') as string
+  const roleNameToRevoke = formData.get('roleName') as string
+
+  if (!targetUserId || !roleNameToRevoke) {
+    throw new Error('Paramètres manquants')
+  }
+
+  // Garde-fou : interdiction d'agir sur son propre compte
+  assertNotModifyingSelf(actor, targetUserId)
+
+  // Garde-fou : protection du dernier Super Admin
+  if (roleNameToRevoke.toUpperCase() === 'SUPER_ADMIN' || roleNameToRevoke === 'super_admin') {
+    await assertNotLastSuperAdmin(targetUserId)
+  }
+
+  await db.delete(userRoles).where(
+    and(
+      eq(userRoles.userId, targetUserId),
+      eq(userRoles.roleName, roleNameToRevoke)
+    )
+  )
+
+  invaliderCachePermissions(targetUserId)
+
+  await logAuditEvent({
+    userId: actor.id,
+    userEmail: actor.email,
+    userRole: actor.role,
+    action: 'role.revoked',
+    entity: 'user_roles',
+    entityId: targetUserId,
+    details: { revokedRole: roleNameToRevoke },
+  })
+
+  revalidatePath('/admin/utilisateurs')
 }

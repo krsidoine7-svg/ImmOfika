@@ -1,0 +1,13 @@
+{
+  "title": "Cahier de Recette Fonctionnelle, Sécurité & FNE",
+  "platform": "ImmOfika",
+  "environment": "Production / Staging",
+  "url": "https://immofika.ci",
+  "version": "2.2",
+  "date": "31 Octobre 2026",
+  "author": "Équipe QA & Conformité Fiscale ImmOfika",
+  "logo": "public/logo-immofika.png",
+  "primary_color": "#10B981",
+  "accent_color": "#059669"
+}
+

@@ -41,14 +41,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Signature manquante' }, { status: 400 })
     }
 
+    // Le secret de validation Paystack est PAYSTACK_WEBHOOK_SECRET ou la clé secrète PAYSTACK_SECRET_KEY
+    const secret = paystackConfig.webhookSecret || paystackConfig.secretKey
+    if (!secret) {
+      console.error('[Paystack Webhook] CRITICAL: Clé secrète Paystack manquante dans la configuration.')
+      return NextResponse.json({ error: 'Configuration serveur incomplète' }, { status: 500 })
+    }
+
     // Verify webhook signature (HMAC-SHA512)
     const expectedHash = crypto
-      .createHmac('sha512', paystackConfig.webhookSecret)
+      .createHmac('sha512', secret)
       .update(rawBody)
       .digest('hex')
 
     if (expectedHash !== paystackSignature) {
       console.error('[Paystack Webhook] Invalid signature. Access Denied.')
+      try {
+        const { logAuditEvent } = await import('@/lib/audit/logger')
+        await logAuditEvent({
+          action: 'security.webhook_tampering',
+          entity: 'paiements',
+          details: { reason: 'Invalid Paystack HMAC-SHA512 signature', receivedSignature: paystackSignature.slice(0, 10) + '...' },
+        })
+      } catch {}
       return NextResponse.json({ error: 'Signature invalide' }, { status: 401 })
     }
 
@@ -121,6 +136,8 @@ export async function POST(request: NextRequest) {
       let bienTitle = 'Votre Bien Immobilier'
       let bienPrice = 0
       let bienAgentId: string | null = null
+      let bienOwnerId: string | null = null
+      let bienTransaction = 'vente'
       if (bienId) {
         const [bienRecord] = await db
           .select()
@@ -131,6 +148,8 @@ export async function POST(request: NextRequest) {
           bienTitle = bienRecord.titre
           bienPrice = parseFloat(bienRecord.prix || '0')
           bienAgentId = bienRecord.agentId
+          bienOwnerId = bienRecord.ownerId
+          bienTransaction = bienRecord.transaction || 'vente'
         }
       }
 
@@ -144,7 +163,10 @@ export async function POST(request: NextRequest) {
         .filter((p) => p.statut === 'paye')
         .reduce((sum, p) => sum + parseFloat(p.montant || '0'), 0)
 
-      const requiredAcompte = Math.round(bienPrice * 0.1)
+      // Acompte légal : 10% sur vente, 1 mois de loyer sur location
+      const requiredAcompte = bienTransaction === 'location'
+        ? Math.round(bienPrice)
+        : Math.round(bienPrice * 0.1)
       const isAcompteFullyPaid = totalPaid >= requiredAcompte
       const resteAPayer = Math.max(0, requiredAcompte - totalPaid)
 

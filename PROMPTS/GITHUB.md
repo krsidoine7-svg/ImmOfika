@@ -1,5 +1,5 @@
 # GITHUB.md — Workflow Git & CI/CD
-## Favor Company International
+## ImmOfika
 
 ---
 
@@ -247,8 +247,8 @@ test-results/
 
 ```bash
 # Setup initial
-git clone https://github.com/azertyyt/FavorCI.git
-cd FavorCI
+git clone https://github.com/krsidoine7-svg/ImmOfika.git
+cd ImmOfika
 npm install
 cp .env.example .env.local
 # Remplir .env.local avec les vraies valeurs
@@ -280,7 +280,7 @@ git cherry-pick <commit-hash>  # Appliquer un commit spécifique
 ## 9. README.md du Projet
 
 ```markdown
-# Favor Company International — Plateforme Immobilière
+# ImmOfika — Plateforme Immobilière
 
 Plateforme SaaS immobilière pour le marché ivoirien.
 
@@ -298,8 +298,8 @@ Plateforme SaaS immobilière pour le marché ivoirien.
 ## Démarrage
 
 ```bash
-git clone https://github.com/azertyyt/FavorCI.git
-cd FavorCI
+git clone https://github.com/krsidoine7-svg/ImmOfika.git
+cd ImmOfika
 ```
 npm install
 cp .env.example .env.local

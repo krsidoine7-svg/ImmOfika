@@ -1,4 +1,4 @@
-# Manifeste d'Arborescence & Carte Mentale Technique — Favor Company International
+# Manifeste d'Arborescence & Carte Mentale Technique — ImmOfika
 
 > [!IMPORTANT]
 > **Directive de Maintenance IA Obligatoire**
@@ -86,7 +86,7 @@ graph TD
 | **[[db/](./db)]** | Fichiers de migration SQL bruts générés pour le déploiement sur Supabase. | **Élevé** |
 | **[[INFO_MOCKER/](./INFO_MOCKER)]** | Données de simulation SQL (seeding) et scripts d'initialisation de contenu. | **Moyen** |
 | **[[PROMPTS/](./PROMPTS)]** | Cahier des charges, spécifications d'architecture, de design, de DB et roadmap de développement. | **Élevé** |
-| **[[public/](./public)]** | Fichiers statiques et médias (images de miniature, photos du Hero, logos Favor Company). | **Moyen** |
+| **[[public/](./public)]** | Fichiers statiques et médias (images de miniature, photos du Hero, logos ImmOfika). | **Moyen** |
 
 ---
 
@@ -189,7 +189,7 @@ graph TD
         *   `src/app/admin/dashboard/page.tsx`
 
 *   #### 📄 **[AgentLeaderboard.tsx](./src/components/admin/AgentLeaderboard.tsx)**
-    *   **Description** : Affiche le classement des commerciaux Favor Company. Comprend un menu de tri par KPI (conversion, occupation, heures terrain, ventes) et un accordéon animé par agent affichant le détail de ses statistiques.
+    *   **Description** : Affiche le classement des commerciaux ImmOfika. Comprend un menu de tri par KPI (conversion, occupation, heures terrain, ventes) et un accordéon animé par agent affichant le détail de ses statistiques.
     *   **Importance** : **Élevé**
     *   **Dépendances Sortantes (Appelle)** : Néant (uniquement composants de style tiers).
     *   **Dépendances Entrantes (Appelé par)** :

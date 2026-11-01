@@ -1,5 +1,5 @@
 # SECURITY.md — Politique de Sécurité
-## Favor Company International
+## ImmOfika
 
 > **Standard :** OWASP Top 10 + spécificités SaaS immobilier  
 > **Niveau :** Production-ready

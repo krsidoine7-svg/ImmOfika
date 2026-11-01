@@ -2,9 +2,10 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, MapPin, Home, DollarSign, SlidersHorizontal, ChevronDown, Check } from "lucide-react"
+import { Search, MapPin, Home, DollarSign, SlidersHorizontal, ChevronDown, Check, Navigation } from "lucide-react"
 import { Property, matchesProperty } from "@/data/properties"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import { COMMUNES_CI, getCommuneByIdOrName } from "@/config/communes"
 
 interface FloatingSearchBarProps {
   properties: Property[]
@@ -31,10 +32,13 @@ const BUDGETS = [
 
 // Quartiers suggérés
 const SUGGESTED_LOCATIONS = [
-  "Cocody (Riviera, Golf, Ambassades)",
-  "Marcory (Zone 4, Bietry)",
-  "Assinie-Mafia (Lagune / Mer)",
+  "Cocody (Riviera, Angré, Golf)",
+  "Marcory (Zone 4, Biétry)",
+  "Yopougon (Niangon, Maroc)",
+  "Bingerville (Lagune, Blanchon)",
   "Plateau (Business District)",
+  "Grand-Bassam (Quartier France)",
+  "Assinie-Mafia (Bord de Mer)",
 ]
 
 export default function FloatingSearchBar({ properties = [] }: FloatingSearchBarProps) {
@@ -151,7 +155,27 @@ export default function FloatingSearchBar({ properties = [] }: FloatingSearchBar
                   exit={{ opacity: 0, y: 10 }}
                   className="absolute left-0 top-full mt-2 w-full sm:w-[260px] bg-white rounded-2xl shadow-xl border border-slate-100 p-2 z-50"
                 >
-                  <p className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest px-3 py-1.5 border-b border-slate-100">Quartiers Recommandés</p>
+                  <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-100">
+                    <p className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">Communes \u0026 Secteurs</p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        try {
+                          const savedCommuneId = localStorage.getItem("immofika_user_commune")
+                          const com = savedCommuneId ? getCommuneByIdOrName(savedCommuneId) : COMMUNES_CI[0]
+                          if (com) {
+                            setLocalLocation(com.nom)
+                            updateQueryParam("location", com.nom)
+                            setShowLocations(false)
+                          }
+                        } catch {}
+                      }}
+                      className="text-[10px] font-extrabold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
+                    >
+                      <Navigation className="w-2.5 h-2.5" />
+                      <span>Ma commune</span>
+                    </button>
+                  </div>
                   {SUGGESTED_LOCATIONS.map((loc) => (
                     <button
                       key={loc}
