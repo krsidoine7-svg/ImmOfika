@@ -25,8 +25,28 @@ export default async function AdminDashboardPage() {
     period: "ce_mois",
   }
 
-  // Chargement serveur des données initiales du mois en cours
-  const initialData = await getDashboardKPIsAction(initialFilters)
+  // Chargement serveur sécurisé des données initiales du mois en cours
+  let initialData: Awaited<ReturnType<typeof getDashboardKPIsAction>>
+  try {
+    initialData = await getDashboardKPIsAction(initialFilters)
+  } catch (err) {
+    console.error("[AdminDashboardPage] Impossible de charger les KPIs initiaux:", err)
+    initialData = {
+      cookieStats: null,
+      kpis: {
+        totalRevenue: 0,
+        periodRevenue: 0,
+        totalLeads: 0,
+        conversionRate: 0,
+        expirationRate: 0,
+        totalVisits: 0,
+      },
+      revenueHistory: [],
+      pipelineDistribution: [],
+      geographicDemand: [],
+      agentPerformance: [],
+    }
+  }
 
   return (
     <div className="py-2 px-1 sm:px-2 lg:px-4">

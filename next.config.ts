@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
         'localhost:5000',
         '127.0.0.1:3000',
         '127.0.0.1:5000',
+        'imm-ofika.vercel.app',
         'immofika-psi.vercel.app',
         'immofika.ci',
         'www.immofika.ci',

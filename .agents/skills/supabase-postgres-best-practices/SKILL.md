@@ -1,6 +1,6 @@
 ---
 name: supabase-postgres-best-practices
-description: Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.
+description: "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query."
 license: MIT
 metadata:
   author: supabase
@@ -54,14 +54,6 @@ Each rule file contains:
 - Optional EXPLAIN output or metrics
 - Additional context and references
 - Supabase-specific notes (when applicable)
-
-## Project Specific Physical Indexing Guidelines
-
-In the ImmOfika application, physical indexes are strictly enforced for:
-- All foreign keys on high-frequency tables (e.g., `reservations(client_id)`, `reservations(bien_id)`, `paiements(client_id)`, `favoris(client_id)`).
-- Slug columns to allow instant O(1) public listing loads (e.g., `biens(slug)`).
-- Third-party references frequently looked up or modified synchronously (e.g., `paiements(paystack_reference)`).
-- Chronological feeds (e.g., `biens(created_at DESC)`).
 
 ## References
 

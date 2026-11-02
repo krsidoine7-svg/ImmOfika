@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { type NextRequest, NextResponse } from 'next/server'
 import { getDefaultDashboardForRole, canRoleAccessPath } from '@/lib/roles'
+import { getSupabaseUrl, getSupabaseAnonKey } from '@/utils/supabase/config'
 
 /**
  * Proxy Next.js 16 (remplace la convention middleware dépréciée)
@@ -13,12 +14,8 @@ export default async function proxy(request: NextRequest) {
     request,
   })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-
-  if (!supabaseUrl || !supabaseKey) {
-    return response
-  }
+  const supabaseUrl = getSupabaseUrl()
+  const supabaseKey = getSupabaseAnonKey()
 
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
@@ -38,9 +35,14 @@ export default async function proxy(request: NextRequest) {
   })
 
   // Récupérer l'utilisateur connecté de manière sécurisée
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  let user = null
+  try {
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch (e) {
+    console.error('[proxy] Erreur de récupération session Supabase:', e)
+    user = null
+  }
 
   const url = request.nextUrl.clone()
   const { pathname } = url

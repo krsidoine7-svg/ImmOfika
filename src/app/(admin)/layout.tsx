@@ -19,8 +19,19 @@ export default async function AdminLayout({
 
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
-  const { data: { user } } = await supabase.auth.getUser()
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user?.id).single()
+  let user: any = null
+  let profile: any = null
+
+  try {
+    const { data } = await supabase.auth.getUser()
+    user = data?.user
+    if (user?.id) {
+      const { data: p } = await supabase.from('profiles').select('*').eq('id', user.id).single()
+      profile = p
+    }
+  } catch (err) {
+    console.error('[AdminLayout] Erreur récupération profil:', err)
+  }
 
   const adminUser = {
     name: profile?.full_name || 'Admin',
