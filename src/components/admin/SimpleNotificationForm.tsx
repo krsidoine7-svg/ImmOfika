@@ -74,7 +74,7 @@ export default function SimpleNotificationForm({ users }: SimpleNotificationForm
         </div>
         <div>
           <h2 className="text-xl font-extrabold text-slate-900">Envoyer une Notification / Message</h2>
-          <p className="text-xs text-slate-500 font-medium">Diffusion instantanée dans la cloche des utilisateurs ImmOfika</p>
+          <p className="text-xs text-slate-500 font-medium">Diffusion instantanée dans la cloche des utilisateurs Anyilo</p>
         </div>
       </div>
 

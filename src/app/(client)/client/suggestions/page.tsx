@@ -8,7 +8,7 @@ import { HelpCircle, MessageSquare, PlusCircle, CheckCircle } from 'lucide-react
 import SuggestionFormClient from '@/components/client/SuggestionFormClient'
 
 export const metadata = {
-  title: 'Suggestions & Retours — ImmOfika',
+  title: 'Suggestions & Retours — Anyilo',
   description: 'Laissez vos avis et retours d\'expérience.',
 }
 
@@ -39,7 +39,7 @@ export default async function SuggestionsPage() {
           Boîte à Suggestions & Retours
         </h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">
-          Partagez vos idées ou questions avec les équipes d&apos;ImmOfika.
+          Partagez vos idées ou questions avec les équipes d&apos;Anyilo.
         </p>
       </div>
 
@@ -98,7 +98,7 @@ export default async function SuggestionsPage() {
 
                     {sug.reponse && (
                       <div className="bg-emerald-50/60 p-3 rounded-xl border-l-2 border-emerald-500 text-[11px] text-slate-800 leading-relaxed font-normal mt-2 w-full">
-                        <p className="font-bold text-emerald-900 mb-1">Réponse de l&apos;équipe ImmOfika :</p>
+                        <p className="font-bold text-emerald-900 mb-1">Réponse de l&apos;équipe Anyilo :</p>
                         {sug.reponse}
                       </div>
                     )}

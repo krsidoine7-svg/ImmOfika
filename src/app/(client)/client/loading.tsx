@@ -9,7 +9,7 @@ export default function ClientLoading() {
       </div>
       <div className="text-center space-y-1">
         <h3 className="text-sm font-extrabold text-slate-900 tracking-tight">Chargement de votre espace...</h3>
-        <p className="text-xs text-slate-400 font-medium">ImmOfika — Espace Client</p>
+        <p className="text-xs text-slate-400 font-medium">Anyilo — Espace Client</p>
       </div>
     </div>
   )

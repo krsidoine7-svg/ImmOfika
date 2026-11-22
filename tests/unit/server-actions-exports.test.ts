@@ -29,7 +29,7 @@ describe('Password Policy Schema', () => {
   })
 
   it('rejette un mot de passe sans chiffre', () => {
-    const invalid = 'Secure@ImmoFika'
+    const invalid = 'Secure@Anyilo'
     const result = PasswordPolicySchema.safeParse(invalid)
     expect(result.success).toBe(false)
     if (!result.success) {
@@ -38,7 +38,7 @@ describe('Password Policy Schema', () => {
   })
 
   it('rejette un mot de passe sans caractère spécial', () => {
-    const invalid = 'Secure123ImmoFika'
+    const invalid = 'Secure123Anyilo'
     const result = PasswordPolicySchema.safeParse(invalid)
     expect(result.success).toBe(false)
     if (!result.success) {

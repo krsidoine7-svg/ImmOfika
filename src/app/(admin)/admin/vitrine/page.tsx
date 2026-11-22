@@ -10,7 +10,7 @@ import { getHomepageConfigsAction } from '@/app/actions/homepage'
 import VitrineSettingsClient from '@/components/admin/VitrineSettingsClient'
 
 export const metadata = {
-  title: 'Ma Vitrine en Vedette — ImmOfika',
+  title: 'Ma Vitrine en Vedette — Anyilo',
   description: 'Gérez votre vitrine professionnelle, vos coordonnées directes WhatsApp et vos programmes certifiés.',
 }
 

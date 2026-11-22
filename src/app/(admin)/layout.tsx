@@ -47,7 +47,7 @@ export default async function AdminLayout({
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-slate-100 bg-white px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1 text-slate-600 hover:text-slate-900" />
-            <div className="font-extrabold text-xs sm:text-sm text-slate-900 hidden xs:block">Espace Administration — ImmOfika</div>
+            <div className="font-extrabold text-xs sm:text-sm text-slate-900 hidden xs:block">Espace Administration — Anyilo</div>
           </div>
           <div className="flex items-center gap-4 px-2">
             <NotificationsBell userId={user?.id} />

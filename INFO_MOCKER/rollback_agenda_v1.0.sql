@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🧹 ROLLBACK AGENDA — Suppression des Données Mockées d'Agenda
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : ImmOfika
+-- Projet  : Anyilo
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-05
 -- Version : v1.0

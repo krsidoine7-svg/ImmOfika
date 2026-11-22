@@ -1,4 +1,7 @@
-# Manifeste d'Arborescence & Carte Mentale Technique — ImmOfika
+# Manifeste d'Arborescence & Carte Mentale Technique — Anyilo
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
 
 > [!IMPORTANT]
 > **Directive de Maintenance IA Obligatoire**
@@ -44,7 +47,7 @@ graph TD
     subgraph External["Services & API Externes"]
         iCal["Flux Google Calendar (iCal Feed)"]
         ExcelJS["Import ExcelJS (xlsx)"]
-        Paystack["Webhooks & Transactions Paystack"]
+        passerelle de paiement (retirée)["Webhooks & Transactions passerelle de paiement (retirée)"]
     end
 
     %% Dependencies
@@ -82,11 +85,11 @@ graph TD
 | **[[src/app/](./src/app)]** | Structure Next.js App Router (Pages, layouts et API Routes du projet). | **Critique** |
 | **[[src/app/actions/](./src/app/actions)]** | Server Actions d'interaction avec la base de données (se substitue aux routes d'API). | **Critique** |
 | **[[src/components/](./src/components)]** | Composants d'interface (Admin, Public, Client, Shared, UI de base). | **Élevé** |
-| **[[src/lib/](./src/lib)]** | Logique métier interne (connexion DB, sécurité, intégration de passerelle Paystack, stockage Cloudflare R2, notifications Resend). | **Critique** |
+| **[[src/lib/](./src/lib)]** | Logique métier interne (connexion DB, sécurité, intégration de passerelle passerelle de paiement (retirée), stockage Cloudflare R2, notifications Resend). | **Critique** |
 | **[[db/](./db)]** | Fichiers de migration SQL bruts générés pour le déploiement sur Supabase. | **Élevé** |
 | **[[INFO_MOCKER/](./INFO_MOCKER)]** | Données de simulation SQL (seeding) et scripts d'initialisation de contenu. | **Moyen** |
 | **[[PROMPTS/](./PROMPTS)]** | Cahier des charges, spécifications d'architecture, de design, de DB et roadmap de développement. | **Élevé** |
-| **[[public/](./public)]** | Fichiers statiques et médias (images de miniature, photos du Hero, logos ImmOfika). | **Moyen** |
+| **[[public/](./public)]** | Fichiers statiques et médias (images de miniature, photos du Hero, logos Anyilo). | **Moyen** |
 
 ---
 
@@ -189,7 +192,7 @@ graph TD
         *   `src/app/admin/dashboard/page.tsx`
 
 *   #### 📄 **[AgentLeaderboard.tsx](./src/components/admin/AgentLeaderboard.tsx)**
-    *   **Description** : Affiche le classement des commerciaux ImmOfika. Comprend un menu de tri par KPI (conversion, occupation, heures terrain, ventes) et un accordéon animé par agent affichant le détail de ses statistiques.
+    *   **Description** : Affiche le classement des commerciaux Anyilo. Comprend un menu de tri par KPI (conversion, occupation, heures terrain, ventes) et un accordéon animé par agent affichant le détail de ses statistiques.
     *   **Importance** : **Élevé**
     *   **Dépendances Sortantes (Appelle)** : Néant (uniquement composants de style tiers).
     *   **Dépendances Entrantes (Appelé par)** :

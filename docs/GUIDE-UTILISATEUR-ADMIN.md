@@ -1,4 +1,4 @@
-# ImmOfika — Guide Complet Utilisateur & Administrateur
+# Anyilo — Guide Complet Utilisateur & Administrateur
 
 > **Plateforme Immobilière & Promotion Agréée**  
 > **Version du document** : 2.0  
@@ -9,7 +9,7 @@
 
 ## 1. Introduction & Présentation de la Plateforme
 
-**ImmOfika** est une solution logicielle SaaS haut de gamme dédiée à la gestion, la promotion et la transaction immobilière certifiée. Elle met en relation directe et sécurisée les locataires, acquéreurs, propriétaires-bailleurs, agences immobilières et promoteurs agréés.
+**Anyilo** est une solution logicielle SaaS haut de gamme dédiée à la gestion, la promotion et la transaction immobilière certifiée. Elle met en relation directe et sécurisée les locataires, acquéreurs, propriétaires-bailleurs, agences immobilières et promoteurs agréés.
 
 ### 🎨 Charte & Principes Fondamentaux
 * **Couleurs officielles** : Vert Émeraude Menthe (`#10B981`, `#059669`, `#ECFDF5`) & Blanc Pur (`#FFFFFF`).
@@ -27,7 +27,7 @@ La plateforme repose sur un système de contrôle d'accès fondé sur les rôles
 | **8** | `super_admin` | **Super Administrateur** | Accès universel absolu, gestion de la matrice des rôles, configuration système et audit. |
 | **7** | `admin` | **Administrateur** | Gestion opérationnelle complète de la plateforme, gestion des utilisateurs, validation des paiements. |
 | **6** | `moderateur` | **Modérateur de Contenu** | Examen, approbation et rejet motivé des annonces immobilières soumises par les bailleurs. |
-| **5** | `comptable` | **Comptable / Finance** | Consultation financière, vérification des transactions Paystack, export des rapports comptables. |
+| **5** | `comptable` | **Comptable / Finance** | Consultation financière, suivi des acomptes réglés hors plateforme, export des rapports comptables. |
 | **4** | `support` | **Chargé de Support Client** | Traitement des demandes d'assistance, suivi des réclamations et médiation des litiges. |
 | **3** | `commercial` | **Agent Commercial** | Suivi du portefeuille clients, gestion des rendez-vous et qualification des contacts (leads). |
 | **2** | `bailleur` | **Propriétaire / Promoteur** | Publication d'annonces, gestion de son parc de biens propres, suivi des réservations et loyers. |
@@ -73,7 +73,7 @@ Pour garantir la souveraineté du système, certaines permissions critiques sont
    * **Agence Immobilière** (gence) : Vitrine professionnelle, gestion des collaborateurs et portefeuille de mandats d agence.
    * **Promoteur Agréé** (promoteur) : Commercialisation de programmes neufs VEFA et lotissements validés par le Ministère (MCLU).
 3. Renseignez un mot de passe sécurisé (au moins 10 caractères, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial).
-4. Validez votre compte par le lien d activation ou via Google SSO avec transmission immédiate du rôle choisi.
+4. Validez votre compte par le lien d activation reçu par email (la connexion par Google ou tout autre compte externe n'existe pas : email + mot de passe ou code OTP uniquement).
 
 ### 3.2 Parcours d Onboarding Obligatoire (Gating Edge & Proxy)
 Afin de préserver la confiance et la qualité des transactions sur la marketplace, tout compte non finalisé est intercepté par le sas d onboarding (/auth/onboarding) :
@@ -105,6 +105,18 @@ Lorsque vous saisissez un code de validation SMS/Email :
 
 ## 4. Guide Utilisateur : Locataires & Acheteurs (Clients)
 
+### 4.0 La page d'accueil (refonte du 2026-11-22)
+L'accueil va à l'essentiel, dans cet ordre :
+1. **Recherche** : « Louer » ou « Acheter », commune, type de bien, budget maximum, puis « Rechercher » (ouvre `/biens` avec ces filtres). Fonctionne même sur un téléphone lent.
+2. **Annonces récentes** par catégorie et « Près de vous ».
+3. **Comment ça marche** en 3 étapes, avec la règle : *Anyilo ne vous demande jamais d'argent*.
+4. **Avis après visite** : uniquement des avis réels laissés après une visite (prénom et initiale, sans photo ni email). La section est masquée tant qu'il n'y en a aucun.
+5. **Vous louez ou vendez un bien ?** : bouton « Publier une annonce ».
+6. **Questions fréquentes**.
+
+Supprimé : la section « À propos de nous », les témoignages écrits en dur, les « Expertises », la vidéo, l'écran de chargement 3D et la section des partenaires en vedette (qui ne contenait que des exemples fictifs). Ces textes ne sont plus modifiables dans `/admin/configuration` : seuls le pied de page et les pixels de suivi le restent.
+
+
 ### 4.1 Recherche Multicritères, Cartographie & Titres Fonciers Garantis (Abidjan)
 Le portail public offre une expérience de recherche immobilière haut de gamme et sécurisée, adaptée aux réalités du marché abidjanais :
 * **Recherche Multicritères Spécifique à Abidjan** :
@@ -131,7 +143,7 @@ Le portail public offre une expérience de recherche immobilière haut de gamme 
   3. *Appartements à vendre*
   4. *Terrains & Parcelles à vendre*
 * **Bouton « Voir plus »** : Chaque univers présente les 3 à 6 annonces les plus récentes, avec un bouton menant au catalogue complet filtré sur cette catégorie.
-* **Recherche GPS « Près de chez vous »** : En autorisant la localisation de votre navigateur, ImmOfika trie automatiquement les annonces par ordre de proximité kilométrique.
+* **Recherche GPS « Près de chez vous »** : En autorisant la localisation de votre navigateur, Anyilo trie automatiquement les annonces par ordre de proximité kilométrique.
 
 ### 4.2 Recherches Sauvegardées & Alertes Automatiques (/client/alertes)
 L'espace client permet de créer et d'administrer des alertes immobilières personnalisées :
@@ -153,22 +165,20 @@ Pour accélérer les démarches locatives et d'acquisition, le client dispose d'
 * **Jauge dynamique de complétude** : Score de solvabilité calculé en temps réel (0% à 100%) selon les pièces fournies. Un seuil minimal de 40% est obligatoire pour soumettre le dossier à certification.
 * **Confidentialité absolue (RLS)** : Vos justificatifs sont chiffrés et accessibles uniquement aux bailleurs et agences auprès desquels vous avez expressément candidaté.
 
-### 4.4 Réservation d'un Bien & Acompte Légal Garanti (Mobile Money & Séquestre)
-Pour verrouiller un bien immobilier et engager formellement la procédure notariale ou contractuelle :
-1. Sur la fiche détaillée du bien, cliquez sur **« Réserver avec acompte légal »**.
-2. **Calcul du montant légal selon la transaction** :
-   * **Acquisition / Vente** : Acompte d'engagement légal de **10% du prix total** séquestré en compte certifié jusqu'à l'acte authentique notarié.
-   * **Location** : Caution équivalente à **1 mois de loyer mensuel**.
-   * Le serveur vérifie et impose strictement ce seuil minimal : aucun paiement partiel ou sous-évalué ne peut être validé.
-3. **Paiement Multi-Canaux Paystack** :
-   * **Mobile Money** : Wave, Orange Money, MTN MoMo, Moov Money.
-   * **Cartes Bancaires** : Visa, Mastercard.
-   * La transaction est scellée par signature cryptographique **HMAC-SHA512** empêchant toute interception ou falsification man-in-the-middle.
-   * Dès confirmation, le bien bascule automatiquement au statut **« Réservé »**, générant une facture normalisée et préparant le projet de contrat d'acquisition.
+### 4.4 Réservation d'un Bien & Acompte (réglé hors plateforme)
+**Aucun paiement n'est encaissé sur Anyilo.** La plateforme met en relation ; l'acompte et le loyer se règlent directement entre le client et l'annonceur.
+1. Sur la fiche détaillée du bien, cliquez sur **« Réserver »**.
+2. **Montant d'acompte indiqué selon la transaction** :
+   * **Vente** : **10 % du prix**.
+   * **Location** : **1 mois de loyer**.
+3. Dans **/client/dashboard**, la réservation affiche le montant restant et le message : « Le règlement de l'acompte se fait directement avec l'annonceur. Aucun paiement n'est demandé sur Anyilo : exigez toujours un reçu. »
+4. Une fois l'acompte réglé, l'agence ou l'administrateur passe la réservation au statut **« Confirmée »** depuis **/admin/reservations** ; le bien passe alors en **« Réservé »**.
+
+> ⚠ Si quelqu'un vous demande de payer « via Anyilo » par Mobile Money ou carte, c'est une arnaque : signalez l'annonce.
 
 ### 4.5 Notifications Multi-Canaux & Veille Immobilière en Temps Réel
-ImmOfika intègre un pipeline de notifications instantané (In-App et Email transactionnel) pour tous les acteurs :
-* **Acomptes consignés** : Notification conjointe de l'acquéreur, du propriétaire annonceur et du service comptable dès validation du webhook Paystack.
+Anyilo intègre un pipeline de notifications instantané (In-App et Email transactionnel) pour tous les acteurs :
+* **Acomptes consignés** : Notification conjointe de l'acquéreur, du propriétaire annonceur et du service comptable dès confirmation de la réservation par l'agence ou l'administrateur.
 * **Résultat de modération** : Information immédiate du diffuseur en cas d'approbation (visa ACD accordé) ou de refus motivé.
 * **Arbitrage des signalements** : Notification de prise en charge pour les usagers vigilants ayant dénoncé une annonce suspecte.
 * **Alertes de nouveaux biens** : Détection et dispatching automatique vers les acquéreurs dont les critères enregistrés correspondent à une annonce venant d'être validée.
@@ -216,7 +226,7 @@ Accessible depuis l'URL : `/dashboard/bailleur`, cet espace s'adapte automatique
 ### 5.3 Le Cycle de Modération
 Pour préserver la crédibilité de la plateforme et lutter contre les arnaques :
 * Toute annonce soumise prend le statut : `en_attente`.
-* Elle est examinée sous 24h par l'équipe de modération ImmOfika.
+* Elle est examinée sous 24h par l'équipe de modération Anyilo.
 * Si le dossier est complet : l'annonce passe au statut `approuve` et devient visible publiquement.
 * En cas de non-conformité : l'annonce passe au statut `rejete`. Le modérateur vous indique obligatoirement un **motif clair de rejet** pour vous permettre de corriger votre annonce et de la soumettre à nouveau.
 
@@ -224,7 +234,7 @@ Pour préserver la crédibilité de la plateforme et lutter contre les arnaques 
 Les agences partenaires et promoteurs immobiliers agréés bénéficiant de l'option de visibilité sponsorisée disposent d'un espace dédié pour paramétrer leur vitrine :
 1. Rendez-vous dans le menu latéral **« Ma Vitrine en Vedette »** (`/admin/vitrine`).
 2. Renseignez et maintenez à jour vos canaux directs de contact :
-   * **Numéro WhatsApp Direct** (au format international, ex: `2250701020304`) : Ce numéro génère automatiquement un bouton WhatsApp sur la page d'accueil permettant aux acquéreurs de démarrer une discussion instantanée pré-remplie sans intermédiaire.
+   * **Numéro WhatsApp Direct** (au format international, ex: `2250701020304`) : Ce numéro sert au bouton WhatsApp de votre vitrine, permettant aux acquéreurs de démarrer une discussion instantanée pré-remplie sans intermédiaire.
    * **Téléphone Fixe / Mobile Professionnel** : Pour la mise en relation téléphonique directe (`tel:`).
    * **Commune & Quartier d'Implantation** (ex: *Cocody Riviera 3*, *Marcory Zone 4*).
    * **Courte Présentation / Bio** mettant en valeur vos réalisations, votre label agréé ou vos programmes neufs en cours.
@@ -238,7 +248,7 @@ Les agences partenaires et promoteurs immobiliers agréés bénéficiant de l'op
 L'espace d'administration est accessible à l'adresse : `/admin`. Il est protégé par un contrôle d'autorisation serveur strict.
 
 ### 6.1 Console de Modération & Bouclier Anti-Fraude Abidjan (`/admin/moderation` & `/admin/biens`)
-ImmOfika déploie un dispositif de modération et de veille anti-fraude rigoureux pour assainir le marché immobilier ivoirien :
+Anyilo déploie un dispositif de modération et de veille anti-fraude rigoureux pour assainir le marché immobilier ivoirien :
 
 1. **File d'Arbitrage des Signalements Communautaires** (`/admin/moderation`) :
    * Les acquéreurs et locataires peuvent dénoncer tout comportement suspect depuis la fiche d'un bien (démarcheur pirate sans mandat, faux prix d'appel, photos trompeuses ou bien déjà vendu).
@@ -265,7 +275,7 @@ Cet écran de pointe permet au Super Administrateur de piloter l'ensemble des pr
    * Permet de restaurer en 1 clic les permissions officielles d'origine du rôle en cas d'erreur de manipulation.
 
 ### 6.3 Journal d'Audit & Traçabilité (`/admin/audit`)
-ImmOfika intègre un registre d'audit légal immuable (non modifiable, non supprimable) :
+Anyilo intègre un registre d'audit légal immuable (non modifiable, non supprimable) :
 * Chaque modification de permissions, rejet d'annonce, paiement initié ou incident de sécurité y est horodaté à la seconde près.
 * **Alertes de sécurité consultables** :
   * `security.webhook_tampering` : Tentative de notification de paiement frauduleuse.
@@ -274,7 +284,9 @@ ImmOfika intègre un registre d'audit légal immuable (non modifiable, non suppr
 * Des filtres par utilisateur, date et type d'action facilitent les enquêtes de conformité.
 
 ### 6.4 Gestion des Promoteurs en Vedette & Interrupteur Général (Kill-Switch) (`/admin/configuration`)
-La section **« Promoteurs Vedettes »** sur la page d'accueil met en avant les acteurs agréés ayant souscrit un partenariat ou une redevance de sponsoring :
+> **Depuis le 2026-11-22, la section des partenaires n'est plus affichée sur la page d'accueil** (sa liste ne contenait que des exemples fictifs). L'interrupteur reste actif pour l'espace `/admin/vitrine`.
+
+Le module **« Promoteurs Vedettes »** concerne les acteurs ayant souscrit une mise en avant :
 1. **Interrupteur Général Maître (Kill Switch)** :
    * Le Super Administrateur peut **activer ou désactiver d'un seul clic** l'intégralité de la section publique.
    * **Désactivé** : La section disparaît immédiatement de la page d'accueil sans casser le design ni laisser d'espace vide. L'onglet `/admin/vitrine` des promoteurs informe que la fonctionnalité est en pause administrative.
@@ -297,15 +309,15 @@ La section **« Promoteurs Vedettes »** sur la page d'accueil met en avant les 
 > 2. Le format est strictement un fichier **PDF, JPG ou PNG**.
 > 3. L'image est lisible et non compressée par une application tierce qui altérerait sa structure.
 
-### ❓ Pourquoi le bouton de réservation n'accepte-t-il pas un montant personnalisé inférieur ?
-> Le système applique strictement la loi sur l'acompte de réservation immobilier minimum (10% de la valeur). Il est techniquement impossible pour le navigateur ou un tiers de contourner ce seuil serveur.
+### ❓ Puis-je payer mon acompte sur Anyilo ?
+> Non. Anyilo n'encaisse aucun paiement. Vous réglez directement l'annonceur (agence, propriétaire, promoteur) et vous exigez un reçu. Toute demande de paiement « via Anyilo » est une tentative d'arnaque à signaler.
 
 ### ❓ Qui contacter en cas d'urgence technique ?
 > Contactez le support officiel de la plateforme à l'adresse configurée dans `src/config/site.ts` ou via le module de messagerie interne.
 
 
 ### 6.4 Sécurisation Avancée & Protection des Données (OWASP Top 10)
-ImmOfika applique les plus hauts standards de sécurité bancaire et applicative :
+Anyilo applique les plus hauts standards de sécurité bancaire et applicative :
 * **Filtrage Middleware Global (`src/middleware.ts`)** : Tout visiteur non authentifié est stoppé dès l'entrée réseau avant même le chargement des pages privées (`/admin`, `/client`, `/dashboard`).
 * **Protection Anti-Force Brute Serveur** : Le serveur limite les tentatives de connexion à 5 échecs par tranche de 15 minutes par adresse IP et par e-mail. Le blocage est inaltérable même en rechargeant la page.
 * **Politique de Mots de Passe Renforcée** : L'inscription exige au moins 10 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial, avec contrôle Zod côté serveur et guide visuel dynamique.
@@ -352,28 +364,32 @@ L'écran d'administration offre trois onglets opérationnels :
 
 ---
 
-## 9. Facturation Normalisée Électronique (FNE — DGI Côte d'Ivoire / Arrêté 0337)
+## 9. Plateforme recentrée sur la mise en relation (2026-11-22)
 
-### 9.1 Cadre Légal & Réglementaire
-Conformément à l'**Arrêté n° 0337 MFB/DGI du 09 mai 2025** et aux articles 384 et 385 du Code Général des Impôts (CGI), ImmOfika applique la facturation électronique obligatoire pour toutes les transactions et encaissements :
-- **Identification Fiscale Officielle** :
-  - **NCC (Numéro de Compte Contribuable)** : `2034567A`
-  - **Régime d'Imposition** : Régime Normal d'Imposition (RNI)
-  - **Centre des Impôts de Rattachement** : DGI - Centre des Impôts de Cocody
-  - **RCCM** : `CI-ABJ-2024-B-14285`
-  - **TVA Applicable** : 18% (Taux normal légal de la République de Côte d'Ivoire)
+Les fonctions suivantes ont été **retirées** car elles sortaient du cœur « mise en relation » et coûtaient à maintenir :
 
-### 9.2 Le Sticker Électronique & QR Code (Art. 4)
-Chaque facture générée comporte simultanément les trois éléments du sticker officiel :
-1. **Visuel Officiel FNE** : Badge fiscal « CERTIFIÉ DGI - CI (FNE) ».
-2. **QR Code Vectoriel Haute Définition** : Code de certification scannable par le contrôleur des impôts et le client, pointant directement vers `https://fne.dgi.gouv.ci/v/[NuméroFNE]`.
-3. **Format de Numérotation Séquentiel (Art. 5)** :
-   $$\text{Numéro} = [\text{Préfixe}] + \text{NCC} + \text{Année (2 car.)} + \text{Séquence annuelle ininterrompue (10 car.)}$$
-   - Facture de vente (acompte, loyer) : `2034567A260000000001` (sans préfixe)
-   - Facture d'avoir (remboursement, annulation) : `A2034567A26000000001` (préfixe `A`)
-   - Facture proforma : `P2034567A26000000001` (préfixe `P`)
+| Fonction retirée | Ce qui la remplace |
+| :--- | :--- |
+| Facturation électronique FNE (certification DGI, QR code, avoirs) | Rien sur la plateforme : aucun paiement n'est encaissé. L'historique des paiements reste consultable dans `/admin/paiements`. |
+| Génération et suivi de contrats (modèles Word/PDF, contrat scanné, signature) | Le bail ou le compromis est rédigé et signé directement entre le client et l'annonceur. |
+| Dossiers et tâches internes (kanban, `/admin/dossiers`) | — |
+| Agenda des agents et synchronisation de calendrier (iCal, Google Calendar) | La demande de visite reste possible : un créneau est grisé dès que tous les agents ont déjà une visite à cette heure ; le dimanche est fermé. |
+| Pages client « Communauté » et « Niveau d'offre » (VIP) | — |
 
-### 9.3 Gestion Comptable dans le Back-Office (`/admin/paiements`)
-- **Badge de Certification FNE** : Indique instantanément si le paiement a reçu son visa fiscal DGI.
-- **Téléchargement FNE PDF** : Permet de télécharger le PDF certifié intégrant le sticker électronique et la ventilation fiscale complète.
-- **Bouton « Avoir »** : Permet à un utilisateur avec permission comptable d'émettre un avoir officiel FNE préfixé `A` en cas de litige ou désistement.
+**Réservations (`/admin/reservations`)** : l'administrateur change le statut avec un simple sélecteur.
+* **Confirmée** → le bien passe en « Réservé ».
+* **Annulée** ou **Expirée** → le bien redevient « Disponible ».
+
+Les données existantes en base (tables de contrats, tâches, agendas, colonnes FNE) sont **conservées** mais ne sont plus utilisées.
+
+## 10. Marque Anyilo, Domaines & Choix techniques
+
+### 10.1 Pas de paiement en ligne, pas de connexion externe
+* **Paiement** : aucune passerelle ni agrégateur de paiement n'est intégré. Les acomptes et loyers se règlent hors plateforme. Le futur modèle de revenus (paiement par les annonceurs **en fonction du nombre de clients obtenus**, sans abonnement mensuel) est décrit dans `docs/PLAN-CORRECTIONS-AUDIT.md`.
+* **Connexion** : email + mot de passe ou code OTP uniquement. La connexion par Google (ou tout autre fournisseur externe) a été retirée. À faire aussi côté Supabase : **Authentication > Providers > Google → désactiver**.
+
+### 10.2 Marque officielle et domaines
+* Nom officiel : **Anyilo** (configuration centralisée dans `src/config/site.ts`).
+* **Production** : `https://anyilo.com` — **Préproduction** : `https://preprod.anyilo.com`.
+* Chaque environnement définit son domaine dans `NEXT_PUBLIC_APP_URL`. Dès que ce domaine contient `preprod.`, le site est automatiquement **exclu des moteurs de recherche** (robots.txt « Disallow: / » et balise `noindex`).
+* Emails officiels : `contact@anyilo.com`, `support@anyilo.com`, `noreply@anyilo.com`, `facturation@anyilo.com` (domaine à vérifier dans Resend avant la mise en production).

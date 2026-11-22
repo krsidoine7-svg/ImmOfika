@@ -1,5 +1,5 @@
 # MVP_3.md — Contrats, Airtable View & Chatbot IA
-## ImmOfika International
+## Anyilo International
 
 > **Durée :** Semaines 11–16  
 > **Prérequis :** MVP_1 et MVP_2 entièrement terminés et testés  
@@ -44,7 +44,7 @@
 **Entre les soussignés :**
 
 **Le Vendeur :**  
-ImmOfika International  
+Anyilo International  
 Yaho, Immeuble en face de la Maison Blanche, 2ème étage  
 Abidjan, Côte d'Ivoire  
 Représenté par : {{agent_nom}} {{agent_prenom}}  
@@ -120,7 +120,7 @@ Le présent contrat est soumis au droit ivoirien. Tout litige sera soumis aux tr
 
 | Signature du Vendeur | Signature de l'Acquéreur |
 |---|---|
-| ImmOfika | {{client_nom}} {{client_prenom}} |
+| Anyilo | {{client_nom}} {{client_prenom}} |
 | {{agent_nom}} {{agent_prenom}} | |
 | Date : {{date_signature}} | Date : {{date_signature_client}} |
 
@@ -567,13 +567,13 @@ function GridCell({ value, column, onEdit }: GridCellProps) {
 - [ ] Widget chatbot présent sur TOUTES les pages du site
 - [ ] L'utilisateur peut poser des questions à tout moment
 - [ ] Répond aux questions sur les biens disponibles (prix, localisation, type)
-- [ ] Répond aux questions sur les services de ImmOfika
+- [ ] Répond aux questions sur les services de Anyilo
 - [ ] Répond aux questions sur le processus d'achat/réservation
 - [ ] Répond aux questions sur les modalités de paiement
 - [ ] Répond aux questions sur les documents requis
 - [ ] Escalade vers un agent humain si la question dépasse ses capacités
 - [ ] Historique de la conversation dans la session
-- [ ] Design intégré à la charte graphique ImmOfika
+- [ ] Design intégré à la charte graphique Anyilo
 
 ### Architecture RAG
 
@@ -582,7 +582,7 @@ Base de Connaissances (Supabase + pgvector)
   ↓
 Documents vectorisés :
   - Catalogue biens (nom, description, prix, localisation)
-  - FAQ ImmOfika
+  - FAQ Anyilo
   - Guide du processus d'achat
   - Services proposés
   - Infos légales (documents requis, etc.)
@@ -619,7 +619,7 @@ export function ChatBot() {
     {
       id: '1',
       role: 'assistant',
-      content: '👋 Bonjour ! Je suis l\'assistant virtuel d\'ImmOfika International. Comment puis-je vous aider aujourd\'hui ? (biens disponibles, processus d\'achat, prix, etc.)',
+      content: '👋 Bonjour ! Je suis l\'assistant virtuel d\'Anyilo International. Comment puis-je vous aider aujourd\'hui ? (biens disponibles, processus d\'achat, prix, etc.)',
       timestamp: new Date(),
     },
   ])
@@ -711,7 +711,7 @@ export function ChatBot() {
                 <Bot className="w-5 h-5 text-primary-500" />
               </div>
               <div>
-                <p className="font-semibold text-white text-sm">Assistant ImmOfika</p>
+                <p className="font-semibold text-white text-sm">Assistant Anyilo</p>
                 <p className="text-primary-100 text-xs">Disponible 24h/24</p>
               </div>
             </div>
@@ -815,14 +815,14 @@ export async function POST(request: Request) {
     messages: [
       {
         role: 'system',
-        content: `Tu es l'assistant virtuel de ImmOfika, un promoteur immobilier agréé basé à Abidjan, Côte d'Ivoire.
+        content: `Tu es l'assistant virtuel de Anyilo, un promoteur immobilier agréé basé à Abidjan, Côte d'Ivoire.
         
 Ton rôle est d'aider les visiteurs à trouver le bien immobilier de leurs rêves et de répondre à toutes leurs questions sur nos services.
 
-Informations sur ImmOfika :
+Informations sur Anyilo :
 - Localisation : Yaho, Immeuble face à la Maison Blanche, 2ème étage, Abidjan
 - Téléphone : +225 2724370155 | WhatsApp : +225 0103132878
-- Email : contact@immofika.ci
+- Email : contact@anyilo.com
 - Services : Terrains, Maisons, Appartements, Lotissements, Topographie, Construction
 
 Contexte pertinent de notre base de données :

@@ -1,6 +1,9 @@
 # 03 — Analyse des Flux Utilisateur Existants
 
-> **Projet** : ImmOfika  
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+
+> **Projet** : Anyilo  
 > **Type d'audit** : Phase 1 — Audit en lecture seule pour transformation en Marketplace Immobilière (Abidjan)  
 > **Date** : 31 Octobre 2026  
 > **Méthode** : Suivi écran par écran dans le code source de l'App Router (`src/app`), Server Actions (`src/app/actions`) et composants UI.
@@ -103,12 +106,12 @@
 3. **Prise de Rendez-vous / Visite** : `src/app/actions/visites.ts`
    - Enregistrement de la visite dans la table `visites`.
    - Attribution à un agent commercial interne ou rattachement au bien.
-4. **Réservation & Acompte** : `src/app/actions/reservation.ts` et `src/lib/paystack/client.ts`
+4. **Réservation & Acompte** : `src/app/actions/reservation.ts` et `src/lib/payments/client.ts`
    - Création de la réservation avec calcul de l'acompte légal.
-   - Déclenchement du paiement Paystack en Mobile Money (Wave, Orange, MTN) ou Carte.
+   - Déclenchement du paiement passerelle de paiement (retirée) en Mobile Money (Wave, Orange, MTN) ou Carte.
 
 ### 4.2 Problèmes & Écarts Marketplace Identifiés
-- 🔀 **Système d'acompte centralisé vers un compte unique** : Aujourd'hui, l'acompte Paystack est crédité sur le compte bancaire de la société cliente unique. Sur une marketplace, une réservation avec acompte nécessite soit un modèle de séquestre (escrow), soit une simple mise en relation avec dépôt de dossier préalable, car la plateforme ne peut pas légalement encaisser les acomptes des mandants sans carte de gestion immobilière réglementée (G).
+- 🔀 **Système d'acompte centralisé vers un compte unique** : Aujourd'hui, l'acompte passerelle de paiement (retirée) est crédité sur le compte bancaire de la société cliente unique. Sur une marketplace, une réservation avec acompte nécessite soit un modèle de séquestre (escrow), soit une simple mise en relation avec dépôt de dossier préalable, car la plateforme ne peut pas légalement encaisser les acomptes des mandants sans carte de gestion immobilière réglementée (G).
 - ❌ **Absence de messagerie interne intégrée** : Il n'existe pas de chat ou messagerie privée entre l'acheteur/locataire et l'agence/propriétaire. Tout bascule immédiatement sur WhatsApp ou téléphone en clair.
 - ❌ **Absence de recherches sauvegardées et d'alertes e-mail/push** : Si un bien correspondant aux critères de l'acheteur n'est pas disponible aujourd'hui, il ne peut pas enregistrer sa recherche (« Villa 4 pièces à Bingerville < 60M FCFA ») pour être notifié des nouveaux dépôts.
 - ❌ **Dossier locataire non transmissible** : L'espace client permet d'uploader une CNI (`/client/kyc`), mais il n'existe pas de « Dossier Candidat » (bulletins de salaire, attestation d'emploi, quittance de loyer précédente) transmissible à l'agence d'un simple clic pour candidater sur un logement.

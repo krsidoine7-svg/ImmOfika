@@ -208,7 +208,7 @@ export async function submitSuggestionAction(categorie: string, message: string)
 
   // Envoyer un e-mail d'alerte à l'administrateur
   await envoyerEmailHelper(
-    'support@immofika.ci',
+    'support@anyilo.com',
     `[Suggestion] Nouvelle préoccupation client - ${categorie}`,
     `<p>Un client a soumis une suggestion dans la boîte à suggestions :</p>
      <p><strong>Catégorie :</strong> ${categorie}</p>
@@ -255,9 +255,9 @@ export async function submitBienConfieAction(formData: FormData) {
 
   // Envoyer un e-mail d'alerte
   await envoyerEmailHelper(
-    'support@immofika.ci',
+    'support@anyilo.com',
     `[Confier un Bien] Nouveau bien soumis par un client`,
-    `<p>Un client souhaite confier un bien immobilier à ImmOfika :</p>
+    `<p>Un client souhaite confier un bien immobilier à Anyilo :</p>
      <ul>
        <li><strong>Type de Service :</strong> ${typeService}</li>
        <li><strong>Ville :</strong> ${ville}</li>
@@ -328,11 +328,11 @@ export async function validateKycAction(
     if (clientEmail) {
       await envoyerEmailHelper(
         clientEmail,
-        '🎉 Validation de votre pièce d\'identité - ImmOfika',
+        '🎉 Validation de votre pièce d\'identité - Anyilo',
         `<p>Bonjour ${clientName},</p>
          <p>Nous avons le plaisir de vous informer que votre pièce d'identité a été validée par nos agents.</p>
          <p>Votre profil est désormais certifié "Vérifié". Vous pouvez procéder en toute sérénité à la signature électronique de vos contrats officiels.</p>
-         <p>L'équipe ImmOfika</p>`
+         <p>L'équipe Anyilo</p>`
       )
     }
   } else {
@@ -349,15 +349,15 @@ export async function validateKycAction(
     if (clientEmail) {
       await envoyerEmailHelper(
         clientEmail,
-        '❌ Rejet de votre pièce d\'identité - ImmOfika',
+        '❌ Rejet de votre pièce d\'identité - Anyilo',
         `<p>Bonjour ${clientName},</p>
          <p>Après examen, nos agents ont dû rejeter votre pièce d'identité pour le motif suivant :</p>
          <blockquote style="border-left: 3px solid #EF4444; padding-left: 10px; color: #7F1D1D;">
            <strong>${reason || 'Fichier non lisible ou flou'}</strong>
          </blockquote>
          <p>Veuillez vous connecter à votre espace client et charger un nouveau document lisible (au format image ou PDF, recto-verso) depuis l'onglet profil.</p>
-         <p><a href="https://immofika.ci/client/profil">Se connecter à mon Espace Client</a></p>
-         <p>L'équipe ImmOfika</p>`
+         <p><a href="https://anyilo.com/client/profil">Se connecter à mon Espace Client</a></p>
+         <p>L'équipe Anyilo</p>`
       )
     }
   }

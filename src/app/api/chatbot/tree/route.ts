@@ -269,7 +269,7 @@ export async function GET(request: Request) {
         reservation: {
           key: 'reservation',
           titre: "Processus & Règles des Réservations",
-          intro: "Chez ImmOfika, la réservation d'un bien suit des règles strictes et transparentes :",
+          intro: "Chez Anyilo, la réservation d'un bien suit des règles strictes et transparentes :",
           points: [
             { label: "Acompte de Réservation", text: "1/3 du montant total du bien pour bloquer la réservation." },
             { label: "Durée Maximale", text: "La réservation est valable pour une durée de 3 mois au maximum." },
@@ -280,22 +280,21 @@ export async function GET(request: Request) {
         documents: {
           key: 'documents',
           titre: "Documents & Conformité Légale OHADA",
-          intro: "Tous les biens immobiliers et terrains inscrits sur ImmOfika sont certifiés :",
+          intro: "Tous les biens immobiliers et terrains inscrits sur Anyilo sont certifiés :",
           points: [
             { label: "Attestation de Cession ACD", text: "Attestation de Cession de Droit certifiée et vérifiée pour les parcelles et terrains." },
             { label: "Titre Foncier TF", text: "Titre Foncier officiel et Plan de Bornage contradictoire." },
-            { label: "Facture Normalisée", text: "Générée automatiquement aux normes officielles FC-2026." },
-            { label: "Contrat & Signature", text: "Bail ou contrat de vente généré avec signature électronique sécurisée SHA-256." }
+            { label: "Bail ou compromis", text: "Rédigé et signé directement avec l'annonceur ; Anyilo ne génère pas de contrat." }
           ]
         },
         paiement: {
           key: 'paiement',
           titre: "Modes de paiement",
-          intro: "ImmOfika intègre un système de paiement multi-canaux 100% sécurisé via Paystack :",
+          intro: "Aucun paiement ne se fait sur Anyilo : vous réglez l'acompte et le loyer directement avec l'annonceur, selon le moyen convenu :",
           points: [
             { label: "Mobile Money", text: "Wave, Orange Money, Moov Money, MTN Mobile Money." },
-            { label: "Cartes Bancaires", text: "Visa et Mastercard locales ou internationales." },
-            { label: "Virement & Chèque", text: "Disponible pour les règlements d'acompte auprès de nos agences agréées." }
+            
+            { label: "Virement & Chèque", text: "Possible selon l'annonceur ; demandez toujours un reçu." }
           ]
         },
         depot_bien: {
@@ -312,7 +311,7 @@ export async function GET(request: Request) {
 
       const selected = faqs[topic] || {
         key: 'defaut',
-        titre: "Information ImmOfika",
+        titre: "Information Anyilo",
         intro: "Pour toute question spécifique, nos conseillers sont à votre disposition 6j/7 via la page de contact.",
         points: []
       }

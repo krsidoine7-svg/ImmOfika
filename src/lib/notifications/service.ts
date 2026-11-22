@@ -3,7 +3,6 @@ import { notifications, profiles, recherchesAlertes } from "../db/schema"
 import { eq, and, isNull } from "drizzle-orm"
 import { Resend } from "resend"
 import { sendPushNotificationAction } from "@/app/actions/push"
-import { getAgentCalendarToken } from "@/lib/calendar/token"
 
 const resendApiKey = process.env.RESEND_API_KEY
 const resend = resendApiKey ? new Resend(resendApiKey) : null
@@ -17,7 +16,7 @@ export async function envoyerEmailHelper(to: string, subject: string, htmlConten
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'ImmOfika <noreply@immofika.ci>',
+      from: 'Anyilo <noreply@anyilo.com>',
       to,
       subject,
       html: htmlContent,
@@ -132,7 +131,7 @@ export async function notifierEvenementAction(
         const clientHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
-              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">Anyilo</h1>
               <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
@@ -145,7 +144,7 @@ export async function notifierEvenementAction(
                 <p style="margin: 8px 0 0;"><strong>Date d'expiration :</strong> Dans 3 mois</p>
               </div>
               <p>Notre équipe vous recontactera très rapidement pour finaliser votre dossier d'acquisition.</p>
-              <p style="margin-top: 24px;">Cordialement,<br>L'équipe ImmOfika</p>
+              <p style="margin-top: 24px;">Cordialement,<br>L'équipe Anyilo</p>
             </div>
           </div>
         `
@@ -193,7 +192,7 @@ export async function notifierEvenementAction(
         const receiptHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
-              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">Anyilo</h1>
               <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
@@ -273,7 +272,7 @@ export async function notifierEvenementAction(
         const failHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
-              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">Anyilo</h1>
               <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
@@ -310,7 +309,7 @@ export async function notifierEvenementAction(
         const visitHtml = `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
             <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
-              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+              <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">Anyilo</h1>
               <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Ton chez-toi garanti, zéro palabre ! 🇨🇮</p>
             </div>
             <div style="padding: 24px; background: #ffffff;">
@@ -348,14 +347,11 @@ export async function notifierEvenementAction(
           const formattedDate = new Date(dateVisite).toLocaleDateString('fr-FR', {
             weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
           })
-          const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://immofika.ci'
-          const calendarToken = getAgentCalendarToken(agentId)
-          const icalUrl = `${appUrl}/api/agenda/${agentId}/export.ics?token=${calendarToken}`
 
           const agentHtml = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;">
               <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 28px; text-align: center;">
-                <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">ImmOfika</h1>
+                <h1 style="color: #FFFFFF; margin: 0; font-size: 24px; font-weight: 800;">Anyilo</h1>
                 <p style="color: #A7F3D0; margin: 4px 0 0; font-size: 14px; font-weight: 600;">Espace Agent Commercial — Zéro palabre ! 🇨🇮</p>
               </div>
               <div style="padding: 24px; background: #ffffff;">
@@ -366,10 +362,6 @@ export async function notifierEvenementAction(
                   <p style="margin: 0;"><strong>Client :</strong> ${clientName || 'Client'}</p>
                   <p style="margin: 8px 0 0;"><strong>Date & Heure :</strong> ${formattedDate}</p>
                 </div>
-                <p>💡 <strong>Synchronisation Agenda :</strong> Vous pouvez ajouter automatiquement toutes vos visites dans Google Calendar ou Outlook en vous abonnant à votre flux iCal personnel :</p>
-                <p style="word-break: break-all; background: #f1f5f9; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 13px;">
-                  <a href="${icalUrl}" style="color: #2563eb;">${icalUrl}</a>
-                </p>
                 <p style="margin-top: 24px;">Cordialement,<br>La Direction Commerciale</p>
               </div>
             </div>

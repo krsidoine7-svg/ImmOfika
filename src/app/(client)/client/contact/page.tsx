@@ -8,7 +8,7 @@ import { Mail, Phone, MapPin, HelpCircle } from 'lucide-react'
 import ContactFormClient from '@/components/client/ContactFormClient'
 
 export const metadata = {
-  title: 'Contacter mon Agent — ImmOfika',
+  title: 'Contacter mon Agent — Anyilo',
   description: 'Prenez contact avec votre conseiller immobilier agréé.',
 }
 
@@ -53,7 +53,7 @@ export default async function ContactAgentPage() {
 
   const promoterConfig = (promoterConfigDb[0]?.value as Record<string, any>) || {}
   const whatsappPhone = promoterConfig.whatsappPhone || '2250700000000'
-  const whatsappTemplateRaw = promoterConfig.whatsappTemplate || 'Bonjour ImmOfika, je suis {name}. Je souhaite échanger concernant mes projets immobiliers.'
+  const whatsappTemplateRaw = promoterConfig.whatsappTemplate || 'Bonjour Anyilo, je suis {name}. Je souhaite échanger concernant mes projets immobiliers.'
   
   // Remplacer les variables de template
   const whatsappMessage = whatsappTemplateRaw.replace('{name}', clientName)
@@ -72,7 +72,7 @@ export default async function ContactAgentPage() {
           Service Client & Support
         </h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">
-          Besoin d&apos;assistance ou de conseils sur votre projet d&apos;acquisition avec ImmOfika ?
+          Besoin d&apos;assistance ou de conseils sur votre projet d&apos;acquisition avec Anyilo ?
         </p>
       </div>
 
@@ -81,7 +81,7 @@ export default async function ContactAgentPage() {
         <div className="border border-slate-100 rounded-3xl p-6 bg-slate-50 flex flex-col justify-between">
           <div>
             <h2 className="font-bold text-slate-900 text-lg mb-4">
-              {hasAgent ? "Votre Conseiller Privé" : "ImmOfika International"}
+              {hasAgent ? "Votre Conseiller Privé" : "Anyilo International"}
             </h2>
             
             {hasAgent ? (
@@ -113,7 +113,7 @@ export default async function ContactAgentPage() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-4.5 w-4.5 text-emerald-600" />
-                <span className="truncate font-semibold text-slate-800">{hasAgent && agent?.agentEmail ? agent.agentEmail : "contact@immofika.ci"}</span>
+                <span className="truncate font-semibold text-slate-800">{hasAgent && agent?.agentEmail ? agent.agentEmail : "contact@anyilo.com"}</span>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="h-4.5 w-4.5 text-emerald-600 shrink-0 mt-0.5" />

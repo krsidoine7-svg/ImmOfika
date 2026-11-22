@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 export const metadata = {
-  title: 'Mes Paiements — ImmOfika',
+  title: 'Mes Paiements — Anyilo',
 }
 
 export default async function PaiementsPage() {
@@ -37,7 +37,7 @@ export default async function PaiementsPage() {
           Historique des Paiements
         </h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">
-          Retrouvez toutes vos transactions et téléchargez vos reçus et factures d&apos;ImmOfika.
+          Retrouvez toutes vos transactions et téléchargez vos reçus et factures d&apos;Anyilo.
         </p>
       </div>
 

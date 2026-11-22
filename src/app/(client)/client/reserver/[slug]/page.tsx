@@ -6,7 +6,7 @@ import Navbar from '@/components/shared/Navbar'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Réserver un bien — ImmOfika',
+  title: 'Réserver un bien — Anyilo',
 }
 
 interface PageProps {

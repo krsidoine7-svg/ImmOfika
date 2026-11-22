@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import PaymentButton from '@/components/payment/PaymentButton'
+import { calculerAcompteRequis, libelleAcompte } from '@/lib/payments/acompte'
 import { db } from '@/lib/db'
 import { visites, biens, profiles } from '@/lib/db/schema'
 import { eq, and, isNull, desc } from 'drizzle-orm'
@@ -19,8 +19,8 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'Espace Client — ImmOfika',
-  description: 'Gérez vos réservations immobilières et vos paiements sécurisés avec ImmOfika.',
+  title: 'Espace Client — Anyilo',
+  description: 'Gérez vos réservations immobilières et vos paiements sécurisés avec Anyilo.',
 }
 
 export default async function ClientDashboard() {
@@ -42,7 +42,7 @@ export default async function ClientDashboard() {
   // Fetch client reservations with joined biens details and payments
   const { data: reservationsData } = await supabase
     .from('reservations')
-    .select('id, statut, date_expiration, notes, created_at, contrat_scanne_url, biens(*), paiements(*)')
+    .select('id, statut, date_expiration, notes, created_at, biens(*), paiements(*)')
     .eq('client_id', user.id)
     .is('deleted_at', null)
     .order('created_at', { ascending: false })
@@ -54,16 +54,14 @@ export default async function ClientDashboard() {
       .filter((p: any) => p.statut === 'paye')
       .reduce((sum: number, p: any) => sum + parseFloat(p.montant || '0'), 0)
 
-    const lastPaymentWithInvoice = payments.find((p: any) => p.facture_url)
-    const factureUrl = lastPaymentWithInvoice?.facture_url
 
     // Determine current timeline step (1 to 5)
     let currentStep = 1 // Step 1: Réservation (validated)
     if (res.statut === 'confirme' || totalDejaPaye > 0) {
       currentStep = 2 // Step 2: Acompte validé
     }
-    if (res.statut === 'confirme' && totalDejaPaye >= parseFloat(bien?.prix || '0') * 0.1) {
-      currentStep = 3 // Step 3: Contrat signé
+    if (res.statut === 'confirme' && totalDejaPaye >= calculerAcompteRequis(parseFloat(bien?.prix || '0'), bien?.transaction)) {
+      currentStep = 3 // Step 3: Réservation confirmée
     }
     if (res.statut === 'confirme' && totalDejaPaye > parseFloat(bien?.prix || '0') * 0.3) {
       currentStep = 4 // Step 4: Échéancier en cours
@@ -80,8 +78,6 @@ export default async function ClientDashboard() {
       createdAt: res.created_at,
       bien,
       totalDejaPaye,
-      factureUrl,
-      contratScanneUrl: res.contrat_scanne_url,
       currentStep
     }
   })
@@ -127,7 +123,7 @@ export default async function ClientDashboard() {
             <p className="font-bold text-red-900">❌ Votre pièce d&apos;identité (KYC) a été refusée par nos agents.</p>
             <p className="font-semibold text-red-700">Raison du refus : {profile.kyc_rejection_reason}</p>
             <p className="font-medium">
-              Veuillez charger un nouveau document valide (recto-verso lisible, non expiré) pour débloquer la signature de vos contrats.
+              Veuillez charger un nouveau document valide (recto-verso lisible, non expiré) pour faire certifier votre profil auprès des annonceurs.
               <a href="/client/profil" className="underline font-bold ml-1 hover:text-red-900">Mettre à jour ma pièce d&apos;identité</a>
             </p>
           </div>
@@ -139,7 +135,7 @@ export default async function ClientDashboard() {
         <div className="flex items-start gap-3 p-4 bg-emerald-50/80 border border-emerald-200 rounded-2xl text-xs text-emerald-900">
           <AlertCircle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <p className="font-bold text-emerald-900">ℹ️ Pour finaliser vos contrats juridiques officiels, veuillez compléter vos informations d&apos;identité (KYC).</p>
+            <p className="font-bold text-emerald-900">ℹ️ Complétez vos informations d&apos;identité (KYC) pour obtenir le badge de profil vérifié.</p>
             <p className="font-medium">
               Téléversez une photo de votre pièce d&apos;identité (CNI ou Passeport) depuis les paramètres de votre profil. 
               <a href="/client/profil" className="underline font-bold ml-1 hover:text-emerald-700">Compléter mon profil maintenant</a>
@@ -165,7 +161,7 @@ export default async function ClientDashboard() {
               Bonjour, {profile?.full_name || user.email?.split('@')[0]}
             </h1>
             <p className="text-slate-600 font-medium max-w-xl text-xs sm:text-sm mt-1.5 leading-relaxed">
-              Suivez l&apos;avancement de vos projets fonciers et immobiliers ImmOfika et gérez vos documents légaux.
+              Suivez l&apos;avancement de vos projets fonciers et immobiliers Anyilo et gérez vos documents légaux.
             </p>
           </div>
           <div className="flex gap-3">
@@ -239,14 +235,14 @@ export default async function ClientDashboard() {
               const hasProperty = !!res.bien
               const bien = res.bien || {}
               const exactPrice = parseFloat(bien.prix || '0')
-              const acompteAmount = Math.round(exactPrice * 0.1)
+              const acompteAmount = calculerAcompteRequis(exactPrice, bien.transaction)
 
               const steps = [
                 { label: "Réservation" },
-                { label: "Acompte (10%)" },
-                { label: "Contrat Signé" },
+                { label: `Acompte (${libelleAcompte(bien.transaction)})` },
+                { label: "Confirmée" },
                 { label: "Échéancier" },
-                { label: "ACD / Clés" }
+                { label: "Clés" }
               ]
 
               return (
@@ -260,7 +256,7 @@ export default async function ClientDashboard() {
                         {bien.main_image_url ? (
                           <img
                             src={bien.main_image_url}
-                            alt={bien.titre || 'Bien ImmOfika'}
+                            alt={bien.titre || 'Bien Anyilo'}
                             className="w-full h-full object-cover"
                           />
                         ) : (
@@ -345,7 +341,7 @@ export default async function ClientDashboard() {
                       </p>
                     </div>
                     <div>
-                      <p className="text-slate-400 font-bold text-[10px] uppercase">Acompte (10%)</p>
+                      <p className="text-slate-400 font-bold text-[10px] uppercase">Acompte ({libelleAcompte(bien.transaction)})</p>
                       <p className="font-black text-emerald-700 mt-0.5">
                         {new Intl.NumberFormat('fr-CI').format(acompteAmount)} FCFA
                       </p>
@@ -368,49 +364,20 @@ export default async function ClientDashboard() {
                   {res.statut === 'en_attente' && hasProperty && (
                     <div className="space-y-4">
                       <div className="bg-amber-50/60 border border-amber-200/60 rounded-2xl p-4 text-xs text-amber-900 leading-relaxed font-medium">
-                        Veuillez régler votre acompte de 10% sous 7 jours pour valider la réservation et sécuriser le bien.
+                        Réglez votre acompte ({libelleAcompte(bien.transaction)}) directement avec l&apos;annonceur sous 7 jours pour valider la réservation.
                       </div>
-                      <PaymentButton
-                        reservationId={res.id}
-                        clientId={user.id}
-                        acompteRequis={acompteAmount}
-                        totalDejaPaye={res.totalDejaPaye}
-                        email={user.email || ''}
-                        bienTitre={bien.titre}
-                      />
+                      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-xs text-slate-700 leading-relaxed">
+                        Le règlement de l&apos;acompte ({new Intl.NumberFormat('fr-CI').format(Math.max(0, acompteAmount - res.totalDejaPaye))} FCFA restant) se fait directement avec l&apos;annonceur. Aucun paiement n&apos;est demandé sur Anyilo : exigez toujours un reçu.
+                      </div>
                     </div>
                   )}
 
                   {res.statut === 'confirme' && (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="h-5 w-5 text-emerald-600 shrink-0" />
-                        <span className="text-xs text-slate-700 font-medium">Contrat de réservation validé. Vos documents officiels sont téléchargeables.</span>
-                      </div>
-                      <div className="flex gap-2">
-                        {res.factureUrl && (
-                          <a
-                            href={res.factureUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors shrink-0 shadow-xs border border-slate-200"
-                          >
-                            <Download className="h-4 w-4 text-slate-500" />
-                            Facture
-                          </a>
-                        )}
-                        {res.contratScanneUrl && (
-                          <a
-                            href={res.contratScanneUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition-colors shrink-0 shadow-md shadow-emerald-500/20"
-                          >
-                            <Download className="h-4 w-4 text-white" />
-                            Contrat Signé
-                          </a>
-                        )}
-                      </div>
+                    <div className="flex items-center gap-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                      <CheckCircle className="h-5 w-5 text-emerald-600 shrink-0" />
+                      <span className="text-xs text-slate-700 font-medium">
+                        Réservation confirmée par l&apos;annonceur. Les documents (reçu, bail ou compromis) vous sont remis directement par lui.
+                      </span>
                     </div>
                   )}
                 </div>
@@ -450,7 +417,7 @@ export default async function ClientDashboard() {
           <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 text-xs text-slate-600 space-y-3 font-medium leading-relaxed">
             <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
               <AlertCircle className="h-4 w-4 text-emerald-600" />
-              Réglementation ImmOfika
+              Réglementation Anyilo
             </h3>
             <ul className="space-y-2 list-disc list-inside">
               <li>Toute réservation non réglée sous 7 jours est annulée de plein droit.</li>

@@ -62,7 +62,7 @@ interface TransactionItem {
   montant: string
   statut: string
   typePaiement: string
-  paystackReference: string | null
+  transactionReference: string | null
   factureUrl: string | null
   createdAt: Date
 }
@@ -118,13 +118,13 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
 
   // Load Webhook from localStorage on mount
   React.useEffect(() => {
-    const saved = localStorage.getItem('immofika_make_webhook_url')
+    const saved = localStorage.getItem('anyilo_make_webhook_url')
     if (saved) setWebhookUrl(saved)
   }, [])
 
   const saveWebhookUrl = () => {
     if (webhookUrl) {
-      localStorage.setItem('immofika_make_webhook_url', webhookUrl)
+      localStorage.setItem('anyilo_make_webhook_url', webhookUrl)
       setWebhookSaved(true)
       setTimeout(() => setWebhookSaved(false), 3000)
     }
@@ -229,7 +229,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
   )
 
   const filteredTransactions = feed.transactions.filter(t =>
-    (t.paystackReference || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (t.transactionReference || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
     t.montant.includes(searchTerm)
   )
 
@@ -249,7 +249,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               <ShieldAlert className="w-3.5 h-3.5" />
-              <span>Promoteur Immobilier Agréé — Sécurité ImmOfika</span>
+              <span>Promoteur Immobilier Agréé — Sécurité Anyilo</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
               Centre de Supervision, Modération & Diagnostic
@@ -489,7 +489,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
               <div className="p-6 border-b border-slate-100 flex items-center justify-between">
                 <div>
                   <h3 className="font-extrabold text-base text-slate-900">Surveillance LBC-FT (Anti-Blanchiment)</h3>
-                  <p className="text-xs text-slate-500 font-medium">Contrôle de conformité OHADA sur les encaissements, acomptes et références Paystack.</p>
+                  <p className="text-xs text-slate-500 font-medium">Contrôle de conformité OHADA sur les encaissements, acomptes et références de transaction.</p>
                 </div>
               </div>
 
@@ -509,7 +509,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
                     {filteredTransactions.map(tx => (
                       <tr key={tx.id} className="hover:bg-slate-50/50 transition-colors">
                         <td className="p-4 font-mono font-bold text-slate-900">
-                          {tx.paystackReference || `TX-${tx.id.slice(0, 8)}`}
+                          {tx.transactionReference || `TX-${tx.id.slice(0, 8)}`}
                         </td>
                         <td className="p-4 font-black text-emerald-600 text-sm">
                           {Number(tx.montant).toLocaleString('fr-FR')} XOF
@@ -755,7 +755,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
             <div>
               <h3 className="font-extrabold text-lg text-slate-900">Journal d&apos;Audit & Activité Système</h3>
               <p className="text-xs text-slate-500 font-medium">
-                Historique inaltérable des connexions et vérifications de conformité ImmOfika pour vous protéger légalement.
+                Historique inaltérable des connexions et vérifications de conformité Anyilo pour vous protéger légalement.
               </p>
             </div>
             <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-3 py-1 rounded-full border border-emerald-200">
@@ -789,7 +789,7 @@ export default function SuperAdminModerationHub({ initialHealth, feed, signaleme
                   <span className="text-[10px] text-slate-400 font-mono">Système</span>
                 </div>
                 <p className="text-xs text-slate-600 font-medium">
-                  Les encaissements Paystack et factures sont sous contrôle automatisé. Aucun incident de blanchiment détecté.
+                  Les encaissements en ligne et factures sont sous contrôle automatisé. Aucun incident de blanchiment détecté.
                 </p>
               </div>
             </div>

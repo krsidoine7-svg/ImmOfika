@@ -1,26 +1,26 @@
-# Cahier de Recette Fonctionnelle, Securite et FNE — ImmOfika
+# Cahier de Recette Fonctionnelle et Securite — Anyilo
 
 ## 1. Informations generales et Contexte Metier
 
 | Element | Valeur |
 | :--- | :--- |
-| Plateforme | ImmOfika (Immobilier et Promotion Agreee) |
-| Entreprise / Organisation | ImmOfika SARL — Agence et Promoteur Immobilier Agree |
-| Secteur d'activite | PropTech & Promotion Immobiliere Agreee (Cote d'Ivoire, OHADA, FNE Arrete 0337) |
+| Plateforme | Anyilo (Immobilier et Promotion Agreee) |
+| Entreprise / Organisation | Anyilo SARL — Agence et Promoteur Immobilier Agree |
+| Secteur d'activite | PropTech & Promotion Immobiliere Agreee (Cote d'Ivoire, OHADA) |
 | Environnement de test | Production / Staging |
-| URL du site | https://immofika.ci |
-| Version testee | 2.4.0 (RBAC Robuste & FNE Integree) |
+| URL du site | https://anyilo.com |
+| Version testee | 2.5.0 (Marketplace recentrée — mise en relation) |
 | Date | 31 Octobre 2026 |
-| Perimetre | Portail public, vitrine, espace client, espace bailleur, console super admin, certification FNE, securite RBAC |
+| Perimetre | Portail public, vitrine, espace client, espace bailleur, console super admin, securite RBAC |
 
 ### Resume executif du projet
-ImmOfika est une plateforme SaaS immobiliere et de promotion agreee en Cote d'Ivoire. Elle permet la commercialisation securisee de terrains avec Arrete de Concession Definitive (ACD) et de programmes neufs, la reservation en ligne avec acompte d'un tiers, la planification de visites sur site geolocalisees, la facturation normalisee electronique (FNE) conforme aux exigences de la DGI et la gouvernance stricte des acces selon le principe du moindre privilege via une matrice RBAC a 8 niveaux hierarchiques.
+Anyilo est une plateforme SaaS immobiliere et de promotion agreee en Cote d'Ivoire. Elle permet la commercialisation securisee de terrains avec Arrete de Concession Definitive (ACD) et de programmes neufs, la reservation (acompte regle hors plateforme) et la planification de visites sur site geolocalisees et la gouvernance stricte des acces selon le principe du moindre privilege via une matrice RBAC a 8 niveaux hierarchiques.
 
 ---
 
 ## 2. Consignes aux testeurs
 
-Ce cahier de recette permet de tester et valider methodiquement chaque fonctionnalite du site ImmOfika.
+Ce cahier de recette permet de tester et valider methodiquement chaque fonctionnalite du site Anyilo.
 
 ### Consignes de test :
 - Suivre scrupuleusement les etapes decrites dans chaque scenario pas-a-pas.
@@ -43,14 +43,14 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | Profil / Role | Identifiants de connexion reels | Droits et Actions autorisees (Ce que ce profil peut faire) |
 | :--- | :--- | :--- |
-| **Directeur General (Super Admin)** - Role : super_admin / tech_super_admin - Niveau 8 | Nom : Kouassi Jean-Baptiste - Email : admin.general@immofika.ci - Pass : Admin! - Tel : +225 0701020304 | - Creer, modifier, archiver et supprimer n'importe quel bien immobilier - Moderer l'ensemble des annonces de la plateforme - Consulter et gerer l'annuaire de tous les utilisateurs - Gerer et attribuer les roles dans la console /admin/roles - Consulter le journal d'audit immuable /admin/audit - Certifier les factures normalisees FNE DGI et generer des avoirs - Configurer les passerelles et cles marchandes Paystack - Supprimer definitivement des comptes (conformite RGPD/APDP) - Gerer les sauvegardes et la maintenance de la base de donnees |
-| **Directrice Juridique (Admin)** - Role : admin - Niveau 7 | Nom : Me Kone Aminata - Email : admin.juridique@immofika.ci - Pass : Admin123! - Tel : +225 0705060708 | - Consulter l'integralite du catalogue de biens - Moderer et valider les annonces en attente - Traiter les signalements et litiges utilisateurs - Consulter les coordonnees de contact direct des usagers - Suspendre ou bloquer temporairement un utilisateur - Valider les paiements et certifier les factures FNE DGI - Consulter les statistiques d'audience et le journal d'audit - Restrictions : pas d'acces a la modification des roles (/admin/roles verrouille) - pas de suppression definitive de biens ni de comptes |
-| **Agent Commercial Terrain (Cocody)** - Role : agent / commercial - Niveau 4 | Nom : Bamba Sekou - Email : manager.cocody@immofika.ci - Pass : ImmOfikaManager2026!#1 - Tel : +225 0501020304 | - Consulter le catalogue des biens et verifier les disponibilites - Gerer et qualifier son portefeuille de prospects et leads - Planifier, confirmer et realiser les visites sur site - Mettre a jour les comptes-rendus de visite terrain - Suivre les dossiers clients et reservations d'acompte - Gerer son agenda commercial et exporter son flux iCal Google Calendar - Restrictions : aucun acces aux interfaces d'administration - pas de droit de moderation - pas de suppression de biens |
-| **Agent Commercial Terrain (Zone 4)** - Role : agent / commercial - Niveau 4 | Nom : Diallo Fatou - Email : manager.zone4@immofika.ci - Pass : ImmOfikaManager2026!#2 - Tel : +225 0505060708 | - Consulter le catalogue des biens du secteur Marcory / Zone 4 - Prendre en charge les demandes de visite entrantes - Planifier et valider les visites sur site - Qualifier les prospects et convertir les opportunites - Traiter les dossiers de reservation et d'acompte - Synchroniser son planning de disponibilite commercial - Restrictions identiques : aucune fonction d'administration ou de moderation |
-| **Proprietaire Bailleur** - Role : proprietaire - Niveau 3 | Nom : Kouame Proprietaire - Email : proprietaire.test@immofika.ci - Pass : ImmOfikaBailleur2026!#1 - Tel : +225 0102030405 | - Publier des annonces de biens selon le quota de son abonnement - Modifier et mettre a jour ses propres annonces (:own) - Archiver ou retirer ses propres biens de la vitrine (:own) - Gerer ses residences et ensembles immobiliers prives - Consulter les messages et demandes de visite sur ses biens - Laisser des avis certifies et signaler des abus - Restrictions : gestion strictement limitee a ses propres biens (:own) - aucun acces aux biens des tiers ni aux menus d'administration |
-| **Client Investisseur (Diaspora)** - Role : client - Niveau 2 | Nom : Diop Aboubacar - Email : client.investisseur@gmail.com - Pass : ImmOfikaClient2026!#1 - Tel : +33 601020304 | - Consulter l'ensemble du catalogue public des biens - Utiliser les filtres de recherche avances (titre ACD, commune, budget) - Enregistrer et gerer ses biens favoris dans son compte - Initier la reservation d'un bien avec paiement securise de l'acompte 1/3 - Suivre l'avancement de son dossier d'acquisition - Telecharger ses factures normalisees FNE certifiees avec QR code - Demander un creneau de visite sur site - Deposer un avis verifie apres visite - Signaler un contenu ou une annonce abusive - Restrictions : acces strictement refuse a toute route d'administration (/admin, /admin/roles, /admin/biens) |
-| **Client Particulier** - Role : client - Niveau 2 | Nom : Kassi Marie-Laure - Email : client.particulier@yahoo.fr - Pass : ImmOfikaClient2026!#2 - Tel : +225 0101020304 | - Rechercher des logements et terrains disponibles - Enregistrer ses favoris personnels - Envoyer une demande de contact ou d'information a un commercial - Programmer un rendez-vous de visite sur site - Reserver un bien avec reglement d'acompte - Consulter ses recus et factures certifiees - Restrictions identiques : aucune autorisation sur les espaces d'administration |
-| **Client Entreprise (B2B)** - Role : client - Niveau 2 | Nom : Societe Afrique Invest SARL - Email : client.societe@afrique-invest.com - Pass : ImmOfikaClient2026!#3 - Tel : +225 0105060708 | - Consulter les opportunites foncieres et commerciales - Gerer les acquisitions multi-lots d'entreprise - Effectuer les paiements d'acomptes corporate - Telecharger les factures normalisees FNE certifiees DGI au nom de la societe - Restrictions identiques : pas d'acces aux fonctionnalites d'administration |
+| **Directeur General (Super Admin)** - Role : super_admin / tech_super_admin - Niveau 8 | Nom : Kouassi Jean-Baptiste - Email : admin.general@anyilo.com - Pass : Admin! - Tel : +225 0701020304 | - Creer, modifier, archiver et supprimer n'importe quel bien immobilier - Moderer l'ensemble des annonces de la plateforme - Consulter et gerer l'annuaire de tous les utilisateurs - Gerer et attribuer les roles dans la console /admin/roles - Consulter le journal d'audit immuable /admin/audit - Configurer les parametres financiers (taux d acompte, TVA) - Supprimer definitivement des comptes (conformite RGPD/APDP) - Gerer les sauvegardes et la maintenance de la base de donnees |
+| **Directrice Juridique (Admin)** - Role : admin - Niveau 7 | Nom : Me Kone Aminata - Email : admin.juridique@anyilo.com - Pass : Admin123! - Tel : +225 0705060708 | - Consulter l'integralite du catalogue de biens - Moderer et valider les annonces en attente - Traiter les signalements et litiges utilisateurs - Consulter les coordonnees de contact direct des usagers - Suspendre ou bloquer temporairement un utilisateur - Consulter les statistiques d'audience et le journal d'audit - Restrictions : pas d'acces a la modification des roles (/admin/roles verrouille) - pas de suppression definitive de biens ni de comptes |
+| **Agent Commercial Terrain (Cocody)** - Role : agent / commercial - Niveau 4 | Nom : Bamba Sekou - Email : manager.cocody@anyilo.com - Pass : AnyiloManager2026!#1 - Tel : +225 0501020304 | - Consulter le catalogue des biens et verifier les disponibilites - Gerer et qualifier son portefeuille de prospects et leads - Planifier, confirmer et realiser les visites sur site - Mettre a jour les comptes-rendus de visite terrain - Suivre les dossiers clients et reservations d'acompte - Restrictions : aucun acces aux interfaces d'administration - pas de droit de moderation - pas de suppression de biens |
+| **Agent Commercial Terrain (Zone 4)** - Role : agent / commercial - Niveau 4 | Nom : Diallo Fatou - Email : manager.zone4@anyilo.com - Pass : AnyiloManager2026!#2 - Tel : +225 0505060708 | - Consulter le catalogue des biens du secteur Marcory / Zone 4 - Prendre en charge les demandes de visite entrantes - Planifier et valider les visites sur site - Qualifier les prospects et convertir les opportunites - Traiter les dossiers de reservation et d'acompte - Synchroniser son planning de disponibilite commercial - Restrictions identiques : aucune fonction d'administration ou de moderation |
+| **Proprietaire Bailleur** - Role : proprietaire - Niveau 3 | Nom : Kouame Proprietaire - Email : proprietaire.test@anyilo.com - Pass : AnyiloBailleur2026!#1 - Tel : +225 0102030405 | - Publier des annonces de biens selon le quota de son abonnement - Modifier et mettre a jour ses propres annonces (:own) - Archiver ou retirer ses propres biens de la vitrine (:own) - Gerer ses residences et ensembles immobiliers prives - Consulter les messages et demandes de visite sur ses biens - Laisser des avis certifies et signaler des abus - Restrictions : gestion strictement limitee a ses propres biens (:own) - aucun acces aux biens des tiers ni aux menus d'administration |
+| **Client Investisseur (Diaspora)** - Role : client - Niveau 2 | Nom : Diop Aboubacar - Email : client.investisseur@gmail.com - Pass : AnyiloClient2026!#1 - Tel : +33 601020304 | - Consulter l'ensemble du catalogue public des biens - Utiliser les filtres de recherche avances (titre ACD, commune, budget) - Enregistrer et gerer ses biens favoris dans son compte - Initier la reservation d'un bien avec paiement securise de l'acompte 1/3 - Suivre l'avancement de son dossier d'acquisition - Demander un creneau de visite sur site - Deposer un avis verifie apres visite - Signaler un contenu ou une annonce abusive - Restrictions : acces strictement refuse a toute route d'administration (/admin, /admin/roles, /admin/biens) |
+| **Client Particulier** - Role : client - Niveau 2 | Nom : Kassi Marie-Laure - Email : client.particulier@yahoo.fr - Pass : AnyiloClient2026!#2 - Tel : +225 0101020304 | - Rechercher des logements et terrains disponibles - Enregistrer ses favoris personnels - Envoyer une demande de contact ou d'information a un commercial - Programmer un rendez-vous de visite sur site - Reserver un bien avec reglement d'acompte - Consulter ses recus et factures certifiees - Restrictions identiques : aucune autorisation sur les espaces d'administration |
+| **Client Entreprise (B2B)** - Role : client - Niveau 2 | Nom : Societe Afrique Invest SARL - Email : client.societe@afrique-invest.com - Pass : AnyiloClient2026!#3 - Tel : +225 0105060708 | - Consulter les opportunites foncieres et commerciales - Gerer les acquisitions multi-lots d'entreprise - Effectuer les paiements d'acomptes corporate - Restrictions identiques : pas d'acces aux fonctionnalites d'administration |
 | **Visiteur Public non connecte** - Role : visiteur - Niveau 1 | Nom : Visiteur Anonyme - Email : Non applicable - Pass : Non applicable - Tel : Non applicable | - Consulter librement la page d'accueil et les vitrines de programmes - Rechercher des biens selon les criteres publics - Visualiser les fiches descriptives detaillees et galeries photos - Envoyer un message via le formulaire de contact general - Consulter les mentions legales et la politique de confidentialite - Restrictions : redirection automatique vers /auth/login lors de toute tentative d'acces a un espace prive (/admin, /client, /dashboard) |
 
 ---
@@ -59,14 +59,14 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 1.1 | P1 | Connexion reussie Super Admin | 1. Aller sur https://immofika.ci/login 2. Saisir l'email admin.general@immofika.ci 3. Saisir le mot de passe Admin! 4. Cliquer sur le bouton « Se connecter » | Connexion immediate et redirection automatique vers le tableau de bord /admin. | [ ] OK [ ] NA |
-| 1.2 | P1 | Rejet de connexion compte inexistant en base | 1. Aller sur https://immofika.ci/login 2. Saisir une adresse non inscrite toto@fika.com (ou inconnu.test@immofika.ci) 3. Saisir le mot de passe MotDePasseSecur1234! 4. Cliquer sur « Se connecter » | Rejet strict et immediat par le serveur avec affichage du message « Adresse e-mail ou mot de passe incorrect », aucune session ouverte, traçabilite dans les logs d'audit. Prouve que seuls les comptes crees en base peuvent acceder. | [ ] OK [ ] NA |
-| 1.3 | P1 | Echec de connexion mot de passe errone sur compte existant | 1. Aller sur https://immofika.ci/login 2. Saisir admin.general@immofika.ci 3. Saisir un faux mot de passe FauxMotDePasse2026! 4. Cliquer sur « Se connecter » | La connexion est refusee avec affichage du message « Adresse e-mail ou mot de passe incorrect » sans reveler si le mot de passe seul est faux. | [ ] OK [ ] NA |
-| 1.4 | P2 | Connexion reussie Commercial | 1. Aller sur https://immofika.ci/login 2. Saisir manager.cocody@immofika.ci 3. Saisir ImmOfikaManager2026!#1 4. Cliquer sur « Se connecter » | Connexion reussie et acces direct a la gestion du catalogue commercial. | [ ] OK [ ] NA |
-| 1.5 | P1 | Connexion reussie Client | 1. Aller sur https://immofika.ci/login 2. Saisir client.investisseur@gmail.com 3. Saisir ImmOfikaClient2026!#1 4. Valider le formulaire | Connexion reussie et redirection automatique vers l'espace client /client/dashboard. | [ ] OK [ ] NA |
+| 1.1 | P1 | Connexion reussie Super Admin | 1. Aller sur https://anyilo.com/login 2. Saisir l'email admin.general@anyilo.com 3. Saisir le mot de passe Admin! 4. Cliquer sur le bouton « Se connecter » | Connexion immediate et redirection automatique vers le tableau de bord /admin. | [ ] OK [ ] NA |
+| 1.2 | P1 | Rejet de connexion compte inexistant en base | 1. Aller sur https://anyilo.com/login 2. Saisir une adresse non inscrite toto@fika.com (ou inconnu.test@anyilo.com) 3. Saisir le mot de passe MotDePasseSecur1234! 4. Cliquer sur « Se connecter » | Rejet strict et immediat par le serveur avec affichage du message « Adresse e-mail ou mot de passe incorrect », aucune session ouverte, traçabilite dans les logs d'audit. Prouve que seuls les comptes crees en base peuvent acceder. | [ ] OK [ ] NA |
+| 1.3 | P1 | Echec de connexion mot de passe errone sur compte existant | 1. Aller sur https://anyilo.com/login 2. Saisir admin.general@anyilo.com 3. Saisir un faux mot de passe FauxMotDePasse2026! 4. Cliquer sur « Se connecter » | La connexion est refusee avec affichage du message « Adresse e-mail ou mot de passe incorrect » sans reveler si le mot de passe seul est faux. | [ ] OK [ ] NA |
+| 1.4 | P2 | Connexion reussie Commercial | 1. Aller sur https://anyilo.com/login 2. Saisir manager.cocody@anyilo.com 3. Saisir AnyiloManager2026!#1 4. Cliquer sur « Se connecter » | Connexion reussie et acces direct a la gestion du catalogue commercial. | [ ] OK [ ] NA |
+| 1.5 | P1 | Connexion reussie Client | 1. Aller sur https://anyilo.com/login 2. Saisir client.investisseur@gmail.com 3. Saisir AnyiloClient2026!#1 4. Valider le formulaire | Connexion reussie et redirection automatique vers l'espace client /client/dashboard. | [ ] OK [ ] NA |
 | 1.6 | P2 | Deconnexion de session | 1. Depuis le menu de navigation, cliquer sur le profil utilisateur 2. Cliquer sur « Se deconnecter » | Session detruite. L'utilisateur est renvoye sur /login et l'appui sur le bouton retour du navigateur ne reaffiche pas les donnees privees. | [ ] OK [ ] NA |
-| 1.7 | P1 | Mot de passe oublie et limitation anti-abus | 1. Aller sur https://immofika.ci/auth/forgot-password 2. Saisir l'adresse client.particulier@yahoo.fr 3. Cliquer 4 fois consecutives sur envoyer en moins de 30 secondes | Des la 4e demande, le serveur bloque la requete avec le message « Trop de tentatives depuis votre adresse IP. Veuillez patienter 15 minutes avant de reessayer ». | [ ] OK [ ] NA |
-| 1.8 | P1 | Blocage anti-brute-force code OTP | 1. Aller sur https://immofika.ci/auth/verify-otp 2. Saisir le numéro +225 0701020304 3. Saisir 5 fois de suite un code errone 000000 | Au 5e echec consecutif, le systeme affiche « Nombre maximal de tentatives atteint. Votre acces est temporairement bloque pendant 10 minutes ». | [ ] OK [ ] NA |
+| 1.7 | P1 | Mot de passe oublie et limitation anti-abus | 1. Aller sur https://anyilo.com/auth/forgot-password 2. Saisir l'adresse client.particulier@yahoo.fr 3. Cliquer 4 fois consecutives sur envoyer en moins de 30 secondes | Des la 4e demande, le serveur bloque la requete avec le message « Trop de tentatives depuis votre adresse IP. Veuillez patienter 15 minutes avant de reessayer ». | [ ] OK [ ] NA |
+| 1.8 | P1 | Blocage anti-brute-force code OTP | 1. Aller sur https://anyilo.com/auth/verify-otp 2. Saisir le numéro +225 0701020304 3. Saisir 5 fois de suite un code errone 000000 | Au 5e echec consecutif, le systeme affiche « Nombre maximal de tentatives atteint. Votre acces est temporairement bloque pendant 10 minutes ». | [ ] OK [ ] NA |
 
 ### Validation du Module 1
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -80,10 +80,14 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 2.1 | P2 | Affichage vitrine par catégorie | 1. Ouvrir la page d'accueil https://immofika.ci 2. Faire défiler jusqu'à la vitrine des biens | L'onglet « Toutes les catégories » est actif par défaut et présente les catégories Maisons, Résidences, Appartements, Terrains avec 3 à 6 annonces par bloc. | [ ] OK [ ] NA |
-| 2.2 | P2 | Navigation « Voir plus » par univers | 1. Sur la page d'accueil https://immofika.ci, faire défiler jusqu'au bloc Appartements 2. Cliquer sur le bouton « Voir plus » | Redirection immédiate vers le catalogue complet /biens filtré sur la catégorie choisie. | [ ] OK [ ] NA |
-| 2.3 | P1 | Recherche géolocalisée « Près de chez vous » | 1. Sur la vitrine https://immofika.ci, cliquer sur l'onglet « Près de chez vous » 2. Autoriser la localisation du navigateur | Les annonces sont réorganisées par ordre de proximité kilométrique par rapport à votre position actuelle. | [ ] OK [ ] NA |
-| 2.4 | P1 | Recherche infructueuse avec critères inexistants | 1. Aller sur le catalogue https://immofika.ci/biens 2. Taper dans la barre de recherche « VilleInexistante999 » et valider | Aucun bien ne s'affiche et le message « Aucun bien ne correspond à vos critères de recherche » est visible. | [ ] OK [ ] NA |
+| 2.1 | P2 | Affichage vitrine par catégorie | 1. Ouvrir la page d'accueil https://anyilo.com 2. Faire défiler jusqu'à la vitrine des biens | L'onglet « Toutes les catégories » est actif par défaut et présente les catégories Maisons, Résidences, Appartements, Terrains avec 3 à 6 annonces par bloc. | [ ] OK [ ] NA |
+| 2.2 | P2 | Navigation « Voir plus » par univers | 1. Sur la page d'accueil https://anyilo.com, faire défiler jusqu'au bloc Appartements 2. Cliquer sur le bouton « Voir plus » | Redirection immédiate vers le catalogue complet /biens filtré sur la catégorie choisie. | [ ] OK [ ] NA |
+| 2.3 | P1 | Recherche géolocalisée « Près de chez vous » | 1. Sur la vitrine https://anyilo.com, cliquer sur l'onglet « Près de chez vous » 2. Autoriser la localisation du navigateur | Les annonces sont réorganisées par ordre de proximité kilométrique par rapport à votre position actuelle. | [ ] OK [ ] NA |
+| 2.4 | P1 | Recherche infructueuse avec critères inexistants | 1. Aller sur le catalogue https://anyilo.com/biens 2. Taper dans la barre de recherche « VilleInexistante999 » et valider | Aucun bien ne s'affiche et le message « Aucun bien ne correspond à vos critères de recherche » est visible. | [ ] OK [ ] NA |
+| 2.5 | P1 | Recherche depuis l accueil avec les bons filtres | 1. Ouvrir https://anyilo.com 2. Choisir « Louer », la commune « Cocody », le type « Appartement » et le budget « Jusqu à 300 000 FCFA/mois » 3. Cliquer sur « Rechercher » | Ouverture de « /biens?transaction=location&commune=Cocody&type=appartement&prixMax=300000 » et seules les annonces correspondantes sont listées. | [ ] OK [ ] NA |
+| 2.6 | P1 | Cas limite : aucune preuve inventée sur l accueil | 1. Ouvrir https://anyilo.com avec une base sans avis de visite 2. Parcourir toute la page | Aucune section « À propos », aucun avis, aucun chiffre de clients, aucun partenaire fictif ; la section « Avis après visite » n apparaît pas tant qu aucun avis réel n existe. | [ ] OK [ ] NA |
+| 2.7 | P2 | Avis réels après visite sans données personnelles | 1. Laisser un avis 5 étoiles avec commentaire après une visite effectuée 2. Ouvrir https://anyilo.com | L avis apparaît dans « Avis après visite » avec le prénom et l initiale du nom, sans photo ni adresse e-mail. | [ ] OK [ ] NA |
+| 2.8 | P2 | Section « Comment ça marche » et règle anti-arnaque | 1. Sur https://anyilo.com, cliquer sur « Comment ça marche » dans le menu 2. Lire l encadré | La page défile jusqu aux 3 étapes et l encadré indique « Anyilo ne vous demande jamais d argent ». | [ ] OK [ ] NA |
 
 ### Validation du Module 2
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -97,7 +101,7 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 3.1 | P1 | Dépôt d'annonce par un propriétaire | 1. Se connecter avec manager.cocody@immofika.ci 2. Aller sur /dashboard/bailleur/nouveau 3. Renseigner le titre « Villa Duplex 5 Pièces Cocody Angré » 4. Fixer le loyer à 850 000 FCFA et valider | L'annonce est enregistrée avec le statut « En attente de modération » et visible dans l'espace bailleur. | [ ] OK [ ] NA |
+| 3.1 | P1 | Dépôt d'annonce par un propriétaire | 1. Se connecter avec manager.cocody@anyilo.com 2. Aller sur /dashboard/bailleur/nouveau 3. Renseigner le titre « Villa Duplex 5 Pièces Cocody Angré » 4. Fixer le loyer à 850 000 FCFA et valider | L'annonce est enregistrée avec le statut « En attente de modération » et visible dans l'espace bailleur. | [ ] OK [ ] NA |
 | 3.2 | P2 | Modification de sa propre annonce (:own) | 1. Dans /dashboard/bailleur, ouvrir la villa créée 2. Modifier le prix à 900 000 FCFA 3. Cliquer sur « Enregistrer les modifications » | Les modifications sont enregistrées immédiatement pour le propriétaire du bien. | [ ] OK [ ] NA |
 | 3.3 | P1 | Rejet de formulaire d'annonce incomplet | 1. Aller sur /dashboard/bailleur/nouveau 2. Laisser le titre et le prix vides 3. Cliquer sur le bouton « Publier l'annonce » | Le formulaire bloque la soumission et surligne en rouge les champs obligatoires manquants. | [ ] OK [ ] NA |
 
@@ -113,9 +117,9 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 4.1 | P1 | Approbation d'une annonce soumise | 1. Se connecter avec admin.juridique@immofika.ci 2. Aller sur /admin/moderation 3. Sélectionner une annonce en attente 4. Cliquer sur « Approuver et publier » | Le statut passe à « Publié » et le bien devient immédiatement visible sur le catalogue public. | [ ] OK [ ] NA |
+| 4.1 | P1 | Approbation d'une annonce soumise | 1. Se connecter avec admin.juridique@anyilo.com 2. Aller sur /admin/moderation 3. Sélectionner une annonce en attente 4. Cliquer sur « Approuver et publier » | Le statut passe à « Publié » et le bien devient immédiatement visible sur le catalogue public. | [ ] OK [ ] NA |
 | 4.2 | P1 | Rejet motivé d'une annonce non conforme | 1. Dans /admin/moderation, sélectionner une annonce sans photo légale 2. Cliquer sur « Rejeter » 3. Saisir le motif « Photos non conformes ou floues » et valider | L'annonce est rejetée et un email explicatif automatique est envoyé au bailleur. | [ ] OK [ ] NA |
-| 4.3 | P1 | Refus d'accès à la modération pour un client | 1. Se connecter avec client.particulier@yahoo.fr 2. Tenter d'ouvrir directement l'adresse https://immofika.ci/admin/moderation | Redirection immédiate vers /unauthorized avec journalisation de l'accès refusé dans la table audit_logs. | [ ] OK [ ] NA |
+| 4.3 | P1 | Refus d'accès à la modération pour un client | 1. Se connecter avec client.particulier@yahoo.fr 2. Tenter d'ouvrir directement l'adresse https://anyilo.com/admin/moderation | Redirection immédiate vers /unauthorized avec journalisation de l'accès refusé dans la table audit_logs. | [ ] OK [ ] NA |
 
 ### Validation du Module 4
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -129,9 +133,9 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 5.1 | P1 | Consultation de la matrice /admin/roles | 1. Se connecter avec admin.general@immofika.ci 2. Naviguer vers /admin/roles | Affichage de la matrice complète des 7 rôles et des 34 permissions officielles avec filtres par catégorie. | [ ] OK [ ] NA |
+| 5.1 | P1 | Consultation de la matrice /admin/roles | 1. Se connecter avec admin.general@anyilo.com 2. Naviguer vers /admin/roles | Affichage de la matrice complète des 7 rôles et des 34 permissions officielles avec filtres par catégorie. | [ ] OK [ ] NA |
 | 5.2 | P1 | Réinitialisation par défaut d'un rôle | 1. Sur la colonne du rôle SUPPORT, cliquer sur le bouton circulaire « Réinitialiser par défaut » 2. Confirmer dans la boîte de dialogue | Les permissions du rôle SUPPORT sont immédiatement restaurées à leurs valeurs minimales d'origine. | [ ] OK [ ] NA |
-| 5.3 | P1 | Refus de modification de son propre rôle | 1. Se connecter avec admin.general@immofika.ci 2. Tenter de décocher une case sur la colonne « SUPER_ADMIN » | La case est cadenassée et inactive. Une tentative forcée renvoie l'erreur « Vous ne pouvez pas modifier les permissions de votre propre rôle ». | [ ] OK [ ] NA |
+| 5.3 | P1 | Refus de modification de son propre rôle | 1. Se connecter avec admin.general@anyilo.com 2. Tenter de décocher une case sur la colonne « SUPER_ADMIN » | La case est cadenassée et inactive. Une tentative forcée renvoie l'erreur « Vous ne pouvez pas modifier les permissions de votre propre rôle ». | [ ] OK [ ] NA |
 
 ### Validation du Module 5
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -141,14 +145,13 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 ---
 
-## Module 6 : Paiements Paystack, Acomptes et KYC
+## Module 6 : Acomptes (reglés hors plateforme) et KYC
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 6.1 | P1 | Initialisation d'acompte légal Paystack | 1. Connecté en client, choisir un appartement disponible 2. Cliquer sur « Réserver ce bien » 3. Valider le versement de l'acompte de 100 000 FCFA | Redirection vers la passerelle sécurisée Paystack CI avec choix Mobile Money (Wave, Orange, MTN) ou Carte. | [ ] OK [ ] NA |
-| 6.2 | P1 | Échec ou annulation de paiement Paystack | 1. Sur le guichet de paiement Paystack, observer les options 2. Cliquer sur « Annuler la transaction » | Retour automatique sur /client/reservations avec affichage du message « Le paiement a été interrompu ». | [ ] OK [ ] NA |
-| 6.3 | P1 | Validation de paiement et webhook serveur | 1. Depuis la console de test Paystack, déclencher l'événement « charge.success » 2. Vérifier la réception sur /api/webhooks/paystack | Le statut de la réservation passe à « Payé / Confirmé » et la facture PDF est générée automatiquement. | [ ] OK [ ] NA |
-| 6.4 | P2 | Dépôt de pièce d'identité KYC | 1. Dans /client/profil, section « Vérification KYC » 2. Téléverser une copie de Carte Nationale d'Identité au format JPEG 3. Cliquer sur le bouton « Transmettre mon dossier » | Le document est transmis avec succès et le statut du dossier passe à « En cours de vérification ». | [ ] OK [ ] NA |
+| 6.1 | P1 | Aucun paiement en ligne proposé au client | 1. Connecté avec client.particulier@yahoo.fr, ouvrir « /client/dashboard » 2. Repérer une réservation au statut « en attente » | Le montant d acompte restant est affiché avec le message « Le règlement de l acompte se fait directement avec l annonceur » ; aucun formulaire ni bouton de paiement n est présent. | [ ] OK [ ] NA |
+| 6.2 | P2 | Dépôt de pièce d'identité KYC | 1. Dans /client/profil, section « Vérification KYC » 2. Téléverser une copie de Carte Nationale d'Identité au format JPEG 3. Cliquer sur le bouton « Transmettre mon dossier » | Le document est transmis avec succès et le statut du dossier passe à « En cours de vérification ». | [ ] OK [ ] NA |
+| 6.3 | P1 | Cas limite : paiement impossible via Anyilo, demande frauduleuse signalée | 1. Sur la fiche d un bien, ouvrir « Signaler cette annonce » 2. Choisir le motif « Arnaque / demande de paiement » 3. Décrire « l annonceur demande un paiement Mobile Money via Anyilo » et envoyer | Le signalement est enregistré au statut « en_attente » et apparaît dans « /admin/moderation » ; aucun paiement n est possible sur la plateforme. | [ ] OK [ ] NA |
 
 ### Validation du Module 6
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -162,13 +165,13 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 7.1 | P1 | Consultation du registre d'audit /admin/audit | 1. Se connecter avec admin.general@immofika.ci 2. Ouvrir la page https://immofika.ci/admin/audit | Le registre immuable liste les événements horodatés à la seconde près avec adresse IP, acteur et action. | [ ] OK [ ] NA |
-| 7.2 | P1 | Traçabilité des alertes de sécurité | 1. Sur https://immofika.ci/admin/audit, observer le filtre 2. Filtrer sur les actions « security. » | Présence des événements de sécurité bloqués comme security.rate_limit_exceeded ou security.login_brute_force_blocked. | [ ] OK [ ] NA |
-| 7.3 | P1 | Interception Middleware et callbackUrl | 1. Sans être connecté, ouvrir l'URL directe https://immofika.ci/admin 2. Observer l'adresse dans la barre du navigateur | Redirection immédiate vers /auth/login?callbackUrl=%2Fadmin par le middleware sans afficher le contenu privé. | [ ] OK [ ] NA |
+| 7.1 | P1 | Consultation du registre d'audit /admin/audit | 1. Se connecter avec admin.general@anyilo.com 2. Ouvrir la page https://anyilo.com/admin/audit | Le registre immuable liste les événements horodatés à la seconde près avec adresse IP, acteur et action. | [ ] OK [ ] NA |
+| 7.2 | P1 | Traçabilité des alertes de sécurité | 1. Sur https://anyilo.com/admin/audit, observer le filtre 2. Filtrer sur les actions « security. » | Présence des événements de sécurité bloqués comme security.rate_limit_exceeded ou security.login_brute_force_blocked. | [ ] OK [ ] NA |
+| 7.3 | P1 | Interception Middleware et callbackUrl | 1. Sans être connecté, ouvrir l'URL directe https://anyilo.com/admin 2. Observer l'adresse dans la barre du navigateur | Redirection immédiate vers /auth/login?callbackUrl=%2Fadmin par le middleware sans afficher le contenu privé. | [ ] OK [ ] NA |
 | 7.4 | P1 | Rate Limiting serveur de connexion | 1. Sur /auth/login, saisir 5 faux mots de passe consécutifs pour le même compte 2. Cliquer une 6e fois sur connexion | Blocage serveur de 15 minutes avec affichage du message « Trop de tentatives. Compte temporairement verrouillé ». | [ ] OK [ ] NA |
 | 7.5 | P1 | Politique de mot de passe à l'inscription | 1. Aller sur /auth/register 2. Saisir le mot de passe simple « 12345 » | Rejet par le validateur serveur avec affichage des critères requis : 10 caractères, majuscule, chiffre et symbole. | [ ] OK [ ] NA |
 | 7.6 | P1 | Sécurité binaire de l'avatar | 1. Dans /client/profil, ouvrir le sélecteur d'avatar 2. Tenter d'envoyer un faux fichier image (fichier texte nommé « image.png ») | Rejet immédiat par contrôle binaire des magic bytes avec message « Format d'image invalide ou corrompu ». | [ ] OK [ ] NA |
-| 7.7 | P1 | Audit des accès refusés et Cache no-store | 1. Connecté en client, tenter d'ouvrir https://immofika.ci/admin 2. Vérifier les en-têtes réseau du navigateur | Redirection vers /unauthorized, journalisation de access.denied et présence de l'en-tête Cache-Control: no-store. | [ ] OK [ ] NA |
+| 7.7 | P1 | Audit des accès refusés et Cache no-store | 1. Connecté en client, tenter d'ouvrir https://anyilo.com/admin 2. Vérifier les en-têtes réseau du navigateur | Redirection vers /unauthorized, journalisation de access.denied et présence de l'en-tête Cache-Control: no-store. | [ ] OK [ ] NA |
 
 ### Validation du Module 7
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -182,11 +185,11 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 8.1 | P1 | Blocage permission sensible pour ADMIN | 1. Se connecter avec admin.juridique@immofika.ci 2. Tenter d'accorder la permission sensible paiement:configurer à un rôle inférieur | La case est grisée dans l'interface et le serveur lève une exception 403 « Seul un Super Administrateur peut accorder une permission sensible ». | [ ] OK [ ] NA |
-| 8.2 | P1 | Règle du miroir pour l'administrateur | 1. Se connecter avec l'administrateur admin.juridique@immofika.ci 2. Tenter d'accorder au rôle « LOGISTIQUE » une permission non possédée | Blocage serveur par assertActorPossessesPermission avec le message « Un Administrateur ne peut accorder que des permissions qu'il possède lui-même ». | [ ] OK [ ] NA |
-| 8.3 | P1 | Interdiction d'auto-modification de droits | 1. Connecté avec admin.juridique@immofika.ci, ouvrir /admin/roles 2. Tenter de modifier les privilèges de son propre compte | Blocage strict côté serveur par assertNotModifyingSelf avec le message « Il est strictement interdit de modifier ses propres rôles ou privilèges ». | [ ] OK [ ] NA |
+| 8.1 | P1 | Blocage permission sensible pour ADMIN | 1. Se connecter avec admin.juridique@anyilo.com 2. Tenter d'accorder la permission sensible paiement:configurer à un rôle inférieur | La case est grisée dans l'interface et le serveur lève une exception 403 « Seul un Super Administrateur peut accorder une permission sensible ». | [ ] OK [ ] NA |
+| 8.2 | P1 | Règle du miroir pour l'administrateur | 1. Se connecter avec l'administrateur admin.juridique@anyilo.com 2. Tenter d'accorder au rôle « LOGISTIQUE » une permission non possédée | Blocage serveur par assertActorPossessesPermission avec le message « Un Administrateur ne peut accorder que des permissions qu'il possède lui-même ». | [ ] OK [ ] NA |
+| 8.3 | P1 | Interdiction d'auto-modification de droits | 1. Connecté avec admin.juridique@anyilo.com, ouvrir /admin/roles 2. Tenter de modifier les privilèges de son propre compte | Blocage strict côté serveur par assertNotModifyingSelf avec le message « Il est strictement interdit de modifier ses propres rôles ou privilèges ». | [ ] OK [ ] NA |
 | 8.4 | P1 | Verrouillage absolu du rôle SUPER_ADMIN | 1. Connecté en administrateur, cibler le rôle « SUPER_ADMIN » 2. Tenter de modifier ses attributions par une requête directe | Rejet immédiat avec le message « Le rôle SUPER_ADMIN est strictement verrouillé. Ses permissions ne peuvent pas être modifiées ». | [ ] OK [ ] NA |
-| 8.5 | P1 | Protection du Dernier SUPER_ADMIN | 1. Dans /admin/utilisateurs, sélectionner l'utilisateur unique admin.general@immofika.ci 2. Cliquer sur « Désactiver le compte » | Rejet strict par assertNotLastSuperAdmin avec le message « Impossible de supprimer, suspendre ou rétrograder le DERNIER Super Administrateur ». | [ ] OK [ ] NA |
+| 8.5 | P1 | Protection du Dernier SUPER_ADMIN | 1. Dans /admin/utilisateurs, sélectionner l'utilisateur unique admin.general@anyilo.com 2. Cliquer sur « Désactiver le compte » | Rejet strict par assertNotLastSuperAdmin avec le message « Impossible de supprimer, suspendre ou rétrograder le DERNIER Super Administrateur ». | [ ] OK [ ] NA |
 | 8.6 | P1 | Plafond Multi-Rôles limité à 2 | 1. Dans /admin/roles, onglet Attribution, sélectionner un utilisateur ayant déjà 2 rôles 2. Tenter de lui assigner un 3e rôle | Blocage immédiat dans le formulaire avec le message « Plafond atteint : un utilisateur ne peut pas cumuler plus de 2 rôles actifs ». | [ ] OK [ ] NA |
 | 8.7 | P1 | Séparation des tâches et rôles incompatibles | 1. Dans /admin/roles, sélectionner un utilisateur ayant le rôle « COMPTA » 2. Tenter de lui ajouter le rôle « LOGISTIQUE » | Rejet immédiat par checkRoleCompatibility avec le message « Incompatibilité de fonctions. Les rôles COMPTA et LOGISTIQUE ne peuvent pas être cumulés ». | [ ] OK [ ] NA |
 | 8.8 | P1 | Contrôle de portée :own anti-IDOR | 1. Connecté avec client.particulier@yahoo.fr, appeler la fonction exiger 2. Tenter de lire le profil privé d'un autre utilisateur | Blocage 403 immédiat avec le message « Vous ne pouvez agir que sur vos propres ressources (:own) » et journalisation anti-IDOR. | [ ] OK [ ] NA |
@@ -199,17 +202,16 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 ---
 
-## Module 9 : Facturation Normalisée Électronique (FNE) et DGI Côte d'Ivoire
+## Module 9 : Retrait des fonctions hors cœur (FNE, contrats, tâches, agenda, offres)
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 9.1 | P1 | Certification automatique FNE d'un paiement | 1. Valider le règlement d'un acompte Paystack de 1 180 000 FCFA 2. Vérifier la ligne correspondante dans la table paiements | Génération automatique d'un numéro officiel FNE au format 2034567A260000000001 (Art. 5) et statut fne_statut passé à « certifie ». | [ ] OK [ ] NA |
-| 9.2 | P1 | Présence du Sticker Électronique officiel sur la facture | 1. Télécharger la facture PDF « FNE_2034567A260000000001.pdf » sur https://immofika.ci 2. Ouvrir le document PDF | Présence simultanée des 3 éléments officiels (Art. 4) : visuel officiel FNE DGI, QR Code scannable de certification et numéro de série ininterrompu. | [ ] OK [ ] NA |
-| 9.3 | P1 | Scannabilité du QR Code de contrôle DGI | 1. Scanner le QR Code de la facture avec l'application appareil photo d'un smartphone 2. Ouvrir l'URL détectée « https://fne.dgi.gouv.ci/v/2034567A260000000001 » | Le lien pointe vers l'URL officielle https://fne.dgi.gouv.ci/v/2034567A260000000001 avec l'empreinte cryptographique de vérification. | [ ] OK [ ] NA |
-| 9.4 | P1 | Mentions fiscales obligatoires de l'Arrêté 0337 | 1. Ouvrir le document PDF « FNE_2034567A260000000001.pdf » 2. Examiner l'en-tête de l'émetteur « ImmOfika » et le décompte | Présence obligatoire du NCC 2034567A, du Régime fiscal RNI, du Centre des Impôts de Cocody, du RCCM, de la ventilation HT (1 000 000 FCFA) et de la TVA 18% (180 000 FCFA). | [ ] OK [ ] NA |
-| 9.5 | P1 | Émission d'une Facture d'Avoir FNE avec préfixe A | 1. Dans /admin/paiements, cliquer sur le bouton « Avoir » pour un paiement payé 2. Saisir le motif « Remboursement d'acompte suite désistement » et valider | Émission immédiate d'une facture d'avoir officielle préfixée A (ex: A2034567A260000000001), liée à la facture d'origine et statut passé à « rembourse ». | [ ] OK [ ] NA |
-| 9.6 | P1 | Scellement et signature électronique SHA-256 | 1. Ouvrir la table paiements dans la base de données 2. Examiner la colonne « fne_signature » pour la facture certifiée | Présence d'une empreinte hexadécimale SHA-256 de 64 caractères garantissant l'intégrité et la non-répudiation des données fiscales. | [ ] OK [ ] NA |
-| 9.7 | P1 | Rejet de certification sur paiement inexistant | 1. Appeler l'action serveur certifierPaiementManuelAction 2. Fournir un identifiant aléatoire de paiement inexistant « 00000000-0000-0000-0000-000000000000 » | Rejet immédiat avec levée d'exception « Paiement introuvable pour certification FNE » sans incrément de la séquence fiscale. | [ ] OK [ ] NA |
+| 9.1 | P1 | Menu administrateur sans « Candidatures & Dossiers » ni « Mon Agenda » | 1. Se connecter avec admin.general@anyilo.com 2. Ouvrir le menu latéral de « /admin » | Les entrées « Candidatures & Dossiers » et « Mon Agenda » n apparaissent plus ; « Visites » et « Réservations » sont toujours présentes. | [ ] OK [ ] NA |
+| 9.2 | P1 | Cas limite : anciennes pages inexistantes | 1. Connecté en administrateur, ouvrir « /admin/agenda », « /admin/dossiers » et « /admin/parametres/templates » 2. Connecté en client, ouvrir « /client/offres » et « /client/communaute » | Chaque adresse affiche la page « introuvable » (404). | [ ] OK [ ] NA |
+| 9.3 | P1 | Cas limite : anciennes routes techniques inexistantes | 1. Appeler « /api/test-facture » puis « /api/test-ical » 2. Appeler « /api/agenda/[agentId]/export.ics » avec un identifiant d agent existant | Chaque route répond 404 (introuvable) et aucun fichier de facture ni de calendrier n est généré. | [ ] OK [ ] NA |
+| 9.4 | P1 | Paiements administrateur sans facturation électronique | 1. Ouvrir « /admin/paiements » 2. Observer les colonnes et les boutons | Plus de colonne « Certification FNE », plus de boutons « Certifier » ni « Avoir » ; seul le téléchargement du reçu ou de la facture existante reste. | [ ] OK [ ] NA |
+| 9.5 | P1 | Réservations sans gestion de contrat | 1. Ouvrir « /admin/reservations » 2. Passer une réservation « En attente » à « Confirmée » avec le sélecteur de statut | Aucun bouton de contrat ; le statut passe à « Confirmée » et le bien associé passe à « reserve ». | [ ] OK [ ] NA |
+| 9.6 | P2 | Prise de rendez-vous de visite sans agenda d agent | 1. Sur la fiche d un bien, cliquer sur « Planifier une visite » 2. Choisir un créneau libre un mardi à « 10:00 » et valider | La visite est enregistrée ; les créneaux déjà pris par toutes les visites des agents sont grisés ; le dimanche est fermé. | [ ] OK [ ] NA |
 
 ### Validation du Module 9
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -223,9 +225,9 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 10.1 | P1 | Parcours complet Acquéreur Particulier à Facture FNE | 1. Se connecter avec client.investisseur@gmail.com 2. Sélectionner une villa dans le catalogue 3. Réserver avec acompte Paystack 4. Télécharger la facture FNE certifiée | Réservation confirmée, paiement encaissé, FNE certifiée avec QR Code scannable et email de confirmation reçu avec pièce jointe. | [ ] OK [ ] NA |
-| 10.2 | P1 | Parcours Annulation et Génération d'Avoir FNE | 1. Se connecter avec admin.general@immofika.ci 2. Aller dans /admin/paiements 3. Cliquer sur « Avoir » sur la réservation précédente 4. Télécharger la facture d'avoir | Facture d'avoir préfixée A générée, statut passé à remboursé et audit tracé dans fne.credit_note_generated. | [ ] OK [ ] NA |
-| 10.3 | P1 | Parcours Entreprise B2B avec numéro de compte contribuable | 1. Se connecter avec client.societe@afrique-invest.com 2. Réserver un local commercial en renseignant le NCC client « 9876543Z » 3. Télécharger la facture FNE générée | La facture FNE certifiée mentionne expressément le NCC du client professionnel conformément à l'article 6-3 de l'Arrêté 0337. | [ ] OK [ ] NA |
+| 10.1 | P1 | Parcours complet Acquéreur Particulier jusqu à la réservation confirmée | 1. Se connecter avec client.investisseur@gmail.com 2. Sélectionner une villa dans le catalogue « /biens » 3. Réserver la villa 4. Avec admin.general@anyilo.com, passer la réservation à « Confirmée » dans « /admin/reservations » | La réservation est « Confirmée » sur « /client/dashboard », le bien passe en « Réservé » et le message indique que les documents sont remis par l annonceur. | [ ] OK [ ] NA |
+| 10.2 | P1 | Parcours Annulation d une réservation | 1. Se connecter avec admin.general@anyilo.com 2. Aller dans « /admin/reservations » 3. Passer la réservation précédente à « Annulée » | Le statut passe à « Annulée » et le bien redevient « disponible » dans « /biens ». | [ ] OK [ ] NA |
+| 10.3 | P1 | Cas limite : réservation expirée | 1. Avec admin.general@anyilo.com, passer une réservation « En attente » à « Expirée » dans « /admin/reservations » 2. Ouvrir la fiche du bien | Le statut passe à « Expirée » et le bien redevient « disponible ». | [ ] OK [ ] NA |
 
 ### Validation du Module 10
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -239,10 +241,9 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 11.1 | P1 | Désactivation et réactivation du module par le Super Admin | 1. Se connecter avec l'e-mail « admin.general@immofika.ci » 2. Naviguer vers l'URL « /admin/configuration » puis ouvrir l'onglet « Promoteurs Vedettes » 3. Désactiver le switch maître et cliquer sur « Enregistrer » 4. Vérifier la page d'accueil « / » et l'URL « /admin/vitrine » 5. Réactiver le switch maître et cliquer sur « Enregistrer » | Lorsque désactivé, la section disparaît totalement de la page d'accueil et la route « /admin/vitrine » affiche un bandeau d'alerte « Module Vitrine & En Vedette Désactivé ». À la réactivation, la section réapparaît immédiatement sur la page d'accueil. | [ ] OK [ ] NA |
-| 11.2 | P1 | Mise en relation directe WhatsApp et Appel téléphonique | 1. Se rendre sur la page d'accueil « / » 2. Repérer la carte du promoteur certifié « SCPI Riviera Standing » 3. Cliquer sur le bouton vert « WhatsApp » 4. Cliquer sur le bouton noir « Appeler » | Le clic WhatsApp ouvre « https://wa.me/2250701020304 » avec le texte pré-rempli « Bonjour, je vous contacte depuis la plateforme ImmOfika ». Le clic appel déclenche le protocole « tel:+2250701020304 ». | [ ] OK [ ] NA |
-| 11.3 | P2 | Configuration de la vitrine et coordonnées par l'Agent / Promoteur | 1. Se connecter avec l'e-mail « manager.cocody@immofika.ci » 2. Cliquer sur « Ma Vitrine en Vedette » dans la barre latérale vers « /admin/vitrine » 3. Renseigner le numéro WhatsApp « 2250501020304 » et cliquer sur « Enregistrer mes coordonnées » 4. Cliquer sur « Tester mon WhatsApp » | Notification toast « Coordonnées de vitrine enregistrées avec succès ! » affichée et redirection directe vers l'URL WhatsApp de test avec les nouvelles coordonnées. | [ ] OK [ ] NA |
-| 11.4 | P1 | Cas limite : Tentative d'enregistrement avec numéro WhatsApp invalide | 1. Se connecter avec « manager.cocody@immofika.ci » sur « /admin/vitrine » 2. Vider le champ « Numéro WhatsApp » ou saisir des caractères alphabétiques invalides 3. Vérifier le bouton de test direct | Le système nettoie automatiquement la saisie pour ne conserver que les chiffres et empêche la génération d'un lien brisé vers l'API WhatsApp. | [ ] OK [ ] NA |
+| 11.1 | P1 | Désactivation et réactivation du module par le Super Admin | 1. Se connecter avec l'e-mail « admin.general@anyilo.com » 2. Désactiver le module « Promoteurs Vedettes » dans « /admin/configuration » et cliquer sur « Enregistrer » 3. Ouvrir « /admin/vitrine » 4. Réactiver le module | Lorsque désactivé, « /admin/vitrine » affiche le bandeau « Module Vitrine & En Vedette Désactivé » ; il disparaît à la réactivation. La page d accueil n affiche plus de section partenaires. | [ ] OK [ ] NA |
+| 11.2 | P2 | Configuration de la vitrine et coordonnées par l'Agent / Promoteur | 1. Se connecter avec l'e-mail « manager.cocody@anyilo.com » 2. Cliquer sur « Ma Vitrine en Vedette » dans la barre latérale vers « /admin/vitrine » 3. Renseigner le numéro WhatsApp « 2250501020304 » et cliquer sur « Enregistrer mes coordonnées » 4. Cliquer sur « Tester mon WhatsApp » | Notification toast « Coordonnées de vitrine enregistrées avec succès ! » affichée et redirection directe vers l'URL WhatsApp de test avec les nouvelles coordonnées. | [ ] OK [ ] NA |
+| 11.3 | P1 | Cas limite : Tentative d'enregistrement avec numéro WhatsApp invalide | 1. Se connecter avec « manager.cocody@anyilo.com » sur « /admin/vitrine » 2. Vider le champ « Numéro WhatsApp » ou saisir des caractères alphabétiques invalides 3. Vérifier le bouton de test direct | Le système nettoie automatiquement la saisie pour ne conserver que les chiffres et empêche la génération d'un lien brisé vers l'API WhatsApp. | [ ] OK [ ] NA |
 
 ### Validation du Module 11
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -273,7 +274,7 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
-| 13.1 | P1 | Création et vérification d une organisation agence ou promoteur | 1. Se connecter avec le compte Super Admin « admin.general@immofika.ci » 2. Créer une organisation « Agence Cocody Prestige » avec son RCCM et numéro d agrément 3. Vérifier la lecture publique de l organisation | L organisation est enregistrée dans la table « organizations », son statut est vérifié et les internautes peuvent consulter sa fiche publique. | [ ] OK [ ] NA |
+| 13.1 | P1 | Création et vérification d une organisation agence ou promoteur | 1. Se connecter avec le compte Super Admin « admin.general@anyilo.com » 2. Créer une organisation « Agence Cocody Prestige » avec son RCCM et numéro d agrément 3. Vérifier la lecture publique de l organisation | L organisation est enregistrée dans la table « organizations », son statut est vérifié et les internautes peuvent consulter sa fiche publique. | [ ] OK [ ] NA |
 | 13.2 | P1 | Enregistrement d une alerte de recherche avec filtres Abidjan | 1. Se connecter avec le compte client « client.investisseur@gmail.com » 2. Enregistrer une alerte sur « Cocody Riviera » pour une villa 4 pièces avec budget 150 000 000 FCFA 3. Vérifier la table « recherches_alertes » | L alerte est enregistrée avec les critères JSON conformes, active, et strictement isolée au compte client connecté par la politique RLS. | [ ] OK [ ] NA |
 | 13.3 | P1 | Dépôt sécurisé d un dossier candidat locataire | 1. Se connecter avec le compte client « client.particulier@yahoo.fr » 2. Soumettre un dossier candidat avec profession et justificatif d identité 3. Vérifier le stockage du chemin du document | Le dossier passe au statut « soumis » avec les métadonnées de revenu, et le document est stocké dans le répertoire sécurisé « private/dossiers/ ». | [ ] OK [ ] NA |
 | 13.4 | P1 | Cas limite : Tentative de signalement abusif sans authentification | 1. Déconnecter la session utilisateur 2. Tenter d envoyer un signalement d annonce sur la table « signalements » sans session valide 3. Observer la réponse de la base de données | L insertion est rejetée par la politique RLS « signalements_create_connected » imposant obligatoirement un utilisateur connecté pour déposer un signalement. | [ ] OK [ ] NA |
@@ -291,9 +292,9 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
 | 14.1 | P1 | Rejet d accès à la création d annonce pour un client | 1. Se connecter avec le compte client « client.investisseur@gmail.com » 2. Tenter d accéder à la route « /admin/biens/new » ou d exécuter « createBienAction » 3. Vérifier le blocage serveur | L accès est immédiatement rejeté par une redirection « /unauthorized » ou une exception serveur « Action non autorisée pour ce profil ». | [ ] OK [ ] NA |
-| 14.2 | P1 | Autorisation de publication d annonce pour un propriétaire | 1. Se connecter avec le compte propriétaire « manager.cocody@immofika.ci » 2. Créer une nouvelle annonce sur « /admin/biens/new » 3. Vérifier le statut de l annonce créée | L annonce est enregistrée avec succès avec « owner_id » rattaché et le statut « en_attente » prêt pour examen par la modération. | [ ] OK [ ] NA |
-| 14.3 | P1 | Accès restreint à la file de modération des annonces | 1. Se connecter avec le compte « admin.general@immofika.ci » 2. Naviguer vers « /admin/moderation » 3. Examiner la liste des annonces en attente et valider une annonce | La file des annonces en attente s affiche, le modérateur peut approuver ou rejeter avec motif obligatoire et persistance instantanée. | [ ] OK [ ] NA |
-| 14.4 | P1 | Cas limite : Tentative d accès aux réglages système sensibles par un Admin | 1. Se connecter avec le compte « admin.juridique@immofika.ci » (niveau 7) 2. Tenter de modifier la permission sensible « reglages:systeme » ou « paiement:configurer » 3. Observer le refus d autorisation | L opération est bloquée avec le message « Seul un Super Administrateur peut accorder ou révoquer une permission sensible ». | [ ] OK [ ] NA |
+| 14.2 | P1 | Autorisation de publication d annonce pour un propriétaire | 1. Se connecter avec le compte propriétaire « manager.cocody@anyilo.com » 2. Créer une nouvelle annonce sur « /admin/biens/new » 3. Vérifier le statut de l annonce créée | L annonce est enregistrée avec succès avec « owner_id » rattaché et le statut « en_attente » prêt pour examen par la modération. | [ ] OK [ ] NA |
+| 14.3 | P1 | Accès restreint à la file de modération des annonces | 1. Se connecter avec le compte « admin.general@anyilo.com » 2. Naviguer vers « /admin/moderation » 3. Examiner la liste des annonces en attente et valider une annonce | La file des annonces en attente s affiche, le modérateur peut approuver ou rejeter avec motif obligatoire et persistance instantanée. | [ ] OK [ ] NA |
+| 14.4 | P1 | Cas limite : Tentative d accès aux réglages système sensibles par un Admin | 1. Se connecter avec le compte « admin.juridique@anyilo.com » (niveau 7) 2. Tenter de modifier la permission sensible « reglages:systeme » ou « paiement:configurer » 3. Observer le refus d autorisation | L opération est bloquée avec le message « Seul un Super Administrateur peut accorder ou révoquer une permission sensible ». | [ ] OK [ ] NA |
 
 ### Validation du Module 14
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -405,16 +406,34 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 
 ---
 
-## Module 21 : Paiements Paystack, Acomptes Légaux & Notifications Multi-Canaux (Étape 10 Marketplace)
+## Module 21 : Acomptes Légaux & Notifications Multi-Canaux (Étape 10 Marketplace)
 
 | N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
 | :---: | :---: | :--- | :--- | :--- | :---: |
 | 21.1 | P1 | Calcul et exigibilité de l acompte légal de réservation selon la transaction | 1. Initier une réservation sur un bien en vente à 100M FCFA sur « /biens » 2. Vérifier le montant d acompte calculé 3. Réitérer sur une location à 500k FCFA par mois | Le serveur calcule rigoureusement 10% d acompte légal en vente (10M FCFA) et 1 mois de caution en location (500k FCFA) sans permettre de saisie arbitraire inférieure. | [ ] OK [ ] NA |
-| 21.2 | P1 | Sécurité Webhook Paystack avec contrôle de signature HMAC-SHA512 | 1. Émettre un webhook simulé vers « /api/webhooks/paystack » avec signature HMAC-SHA512 valide 2. Vérifier la prise en compte 3. Émettre un webhook avec signature falsifiée | La transaction valide met à jour le statut du paiement en « paye », tandis que la requête falsifiée est immédiatement bloquée avec un code HTTP 401 et consigne une alerte de falsification. | [ ] OK [ ] NA |
-| 21.3 | P1 | Verrouillage automatique du bien et notification séquestre au propriétaire | 1. Confirmer le paiement intégral de l acompte légal via le webhook Paystack 2. Consulter le statut de l annonce dans « /biens » 3. Consulter les notifications du compte propriétaire dans « /dashboard/bailleur » | L annonce bascule automatiquement au statut « reserve », la réservation passe à « confirme » et le propriétaire reçoit une notification de consignation de l acompte. | [ ] OK [ ] NA |
-| 21.4 | P1 | Cas limite : Diffusion ciblée des alertes lors de la validation d un bien | 1. Avec un compte client, créer une alerte active pour « Cocody » et type « villa » 2. Avec un modérateur, valider une nouvelle annonce correspondant exactement à ces critères 3. Consulter le centre de notifications de l acquéreur sur « /client/dashboard » | L usager reçoit une alerte in-app immédiate l informant qu un nouveau bien à Cocody correspond à sa veille sauvegardée avec lien direct vers la fiche de l annonce. | [ ] OK [ ] NA |
+| 21.2 | P1 | Verrouillage automatique du bien et notification séquestre au propriétaire | 1. Confirmer la réservation dans « /admin/reservations » après règlement de l acompte hors plateforme 2. Consulter le statut de l annonce dans « /biens » 3. Consulter les notifications du compte propriétaire dans « /dashboard/bailleur » | L annonce bascule automatiquement au statut « reserve », la réservation passe à « confirme » et le propriétaire reçoit une notification de consignation de l acompte. | [ ] OK [ ] NA |
+| 21.3 | P1 | Cas limite : Diffusion ciblée des alertes lors de la validation d un bien | 1. Avec un compte client, créer une alerte active pour « Cocody » et type « villa » 2. Avec un modérateur, valider une nouvelle annonce correspondant exactement à ces critères 3. Consulter le centre de notifications de l acquéreur sur « /client/dashboard » | L usager reçoit une alerte in-app immédiate l informant qu un nouveau bien à Cocody correspond à sa veille sauvegardée avec lien direct vers la fiche de l annonce. ATTENTION, connu KO au 2026-11-22 : l envoi des alertes n est pas implémenté (voir plan P1-02). | [ ] OK [ ] NA |
 
 ### Validation du Module 21
+| Nom du Testeur | Date du Test | Commentaires et Remarques |
+| :--- | :--- | :--- |
+| | | |
+| **Décision finale :** | [ ] **Conforme** | [ ] **Non Conforme** |
+
+---
+
+---
+
+## Module 22 : Marque Anyilo, Domaines, Retrait du paiement en ligne et de la connexion Google
+
+| N° | Priorité | Intitulé du Test | Scénario pas-à-pas | Résultat attendu | Validation |
+| :---: | :---: | :--- | :--- | :--- | :---: |
+| 22.1 | P1 | Règle d acompte affichée location / vente | 1. Réserver un bien en location à 300 000 FCFA/mois 2. Observer l acompte indiqué sur « /client/dashboard » 3. Réserver un bien en vente à 50 000 000 FCFA | Acompte indiqué : 300 000 FCFA (1 mois de loyer) pour la location et 5 000 000 FCFA (10 %) pour la vente. | [ ] OK [ ] NA |
+| 22.2 | P1 | Cas limite : anciennes routes de paiement inexistantes, aucun agrégateur | 1. Appeler « /api/webhooks/paiement » et « /paiement/confirmation » 2. Rechercher un nom d agrégateur de paiement dans le code source 3. Inspecter l en-tête Content-Security-Policy | Les deux routes renvoient 404 ; aucun module de paiement ; la CSP n autorise aucun domaine de paiement. | [ ] OK [ ] NA |
+| 22.3 | P2 | Marque Anyilo et non-indexation de la préproduction | 1. Ouvrir « https://anyilo.com » puis « https://anyilo.com/robots.txt » 2. Ouvrir « https://preprod.anyilo.com/robots.txt » | Le nom « Anyilo » et le nouveau logo apparaissent partout ; robots.txt de production autorise l indexation avec sitemap, celui de préproduction contient « Disallow: / ». | [ ] OK [ ] NA |
+| 22.4 | P1 | Connexion Google retirée | 1. Ouvrir « /auth/login » 2. Ouvrir « /auth/register » 3. Tenter une connexion avec un compte email + mot de passe | Aucun bouton « Se connecter avec Google » ni « Continuer avec Google » ; la connexion par email fonctionne. | [ ] OK [ ] NA |
+
+### Validation du Module 22
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
 | :--- | :--- | :--- |
 | | | |
@@ -427,16 +446,16 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | Réf. Module | Périmètre Fonctionnel | Total Tests | Dont Priorité P1 | Dont Priorité P2 | Taux de Couverture |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | Module 1 | Authentification, Sécurité et OTP | 8 | 6 | 2 | 100% |
-| Module 2 | Vitrine Publique, Recherche et GPS | 4 | 2 | 2 | 100% |
+| Module 2 | Vitrine Publique, Recherche et GPS | 8 | 4 | 4 | 100% |
 | Module 3 | Espace Bailleur et Publication d'Annonces | 3 | 2 | 1 | 100% |
 | Module 4 | Modération et Back-Office Admin | 3 | 3 | 0 | 100% |
-| Module 5 | Matrice des Rôles et Permissions RBAC | 3 | 2 | 1 | 100% |
-| Module 6 | Paiements Paystack, Acomptes et KYC | 4 | 4 | 0 | 100% |
+| Module 5 | Matrice des Rôles et Permissions RBAC | 3 | 3 | 0 | 100% |
+| Module 6 | Acomptes (reglés hors plateforme) et KYC | 3 | 2 | 1 | 100% |
 | Module 7 | Journal d'Audit et Sécurité Avancée | 7 | 7 | 0 | 100% |
 | Module 8 | Garde-fous RBAC Hybride et Moindre Privilège | 8 | 8 | 0 | 100% |
-| Module 9 | Facturation Normalisée Électronique (FNE - DGI) | 7 | 7 | 0 | 100% |
+| Module 9 | Retrait des fonctions hors cœur (FNE, contrats, tâches, agenda, offres) | 6 | 5 | 1 | 100% |
 | Module 10 | Parcours de Bout en Bout Multi-Rôles | 3 | 3 | 0 | 100% |
-| Module 11 | Promoteurs & Agences en Vedette (Sponsoring & Kill Switch) | 4 | 3 | 1 | 100% |
+| Module 11 | Promoteurs & Agences en Vedette (Sponsoring & Kill Switch) | 3 | 2 | 1 | 100% |
 | Module 12 | Sécurité Fondations & Protection RLS (Étape 1 Marketplace) | 4 | 4 | 0 | 100% |
 | Module 13 | Modèle de Données Marketplace (Organisations, Alertes, Dossiers & Signalements) | 4 | 4 | 0 | 100% |
 | Module 14 | Matrice RBAC Immobilière Pure & Moindre Privilège (Étape 3 Marketplace) | 4 | 4 | 0 | 100% |
@@ -446,14 +465,15 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | Module 18 | Espaces Clients Connectés : Alertes Sauvegardées & Dossier Candidat (Étape 7 Marketplace) | 4 | 4 | 0 | 100% |
 | Module 19 | Tableaux de Bord Annonceurs : Propriétaires, Agences & Promoteurs (Étape 8 Marketplace) | 4 | 4 | 0 | 100% |
 | Module 20 | Console de Modération & Bouclier Anti-Fraude Abidjan (Étape 9 Marketplace) | 4 | 4 | 0 | 100% |
-| Module 21 | Paiements Paystack, Acomptes Légaux & Notifications Multi-Canaux (Étape 10 Marketplace) | 4 | 4 | 0 | 100% |
-| TOTAL | Ensemble de la Plateforme ImmOfika | 94 | 87 | 7 | 100% |
+| Module 21 | Acomptes Légaux & Notifications Multi-Canaux (Étape 10 Marketplace) | 3 | 3 | 0 | 100% |
+| Module 22 | Marque Anyilo, Domaines, Retrait paiement en ligne & Google | 4 | 3 | 1 | 100% |
+| TOTAL | Ensemble de la Plateforme Anyilo | 98 | 87 | 11 | 100% |
 
 ---
 
 ## 5. Annexe : Écarts et Recommandations Sectorielles (Informatif)
 
 Cette annexe liste les fonctionnalités standards de l'immobilier haut de gamme qui ne sont pas encore présentes dans la version courante (v2.2) et qui sont recommandées pour la roadmap future :
-1. Signature électronique certifiée des baux : Intégrer un tiers certificateur qualifié (eIDAS / norme locale) pour signer les contrats de location directement en ligne.
+1. Comptage des clients par annonceur et relevé mensuel (base de la facturation des annonceurs).
 2. Visites virtuelles 360° / 3D : Intégrer un lecteur Matterport ou WebGL pour la visite immersive des biens sans déplacement physique.
-3. Quittance automatique mensuelle : Génération et expédition automatique par email de la quittance de loyer dès validation du paiement récurrent Paystack.
+3. Alertes WhatsApp sur les nouvelles annonces correspondant aux recherches sauvegardées.

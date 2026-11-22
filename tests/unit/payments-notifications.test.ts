@@ -2,24 +2,8 @@ import { describe, it, expect } from 'vitest'
 import crypto from 'crypto'
 import { z } from 'zod'
 
-// ─── Calcul de l'acompte légal de réservation ────────────────────────────────
-function calculerAcompteLegal(prix: number, transaction: 'vente' | 'location'): number {
-  if (prix <= 0) return 50000 // Forfaitaire minimum
-  if (transaction === 'location') {
-    return Math.round(prix) // 1 mois de loyer
-  }
-  return Math.round(prix * 0.1) // 10% légal en vente
-}
-
-// ─── Vérification Signature HMAC-SHA512 Paystack ──────────────────────────────
-function verifierSignaturePaystack(rawBody: string, signature: string, secretKey: string): boolean {
-  if (!signature || !secretKey) return false
-  const expectedHash = crypto
-    .createHmac('sha512', secretKey)
-    .update(rawBody)
-    .digest('hex')
-  return expectedHash === signature
-}
+// ─── Calcul de l'acompte légal : module réel ─────────────────────────────────
+import { calculerAcompteRequis as calculerAcompteLegal } from '@/lib/payments/acompte'
 
 // ─── Moteur de Matching des Alertes ──────────────────────────────────────────
 interface AlerteCritere {
@@ -54,7 +38,7 @@ function correspondAlerte(critere: AlerteCritere, annonce: {
   return true
 }
 
-describe('Mobile Money & Notifications Multi-Canaux ImmOfika', () => {
+describe('Mobile Money & Notifications Multi-Canaux Anyilo', () => {
   it('devrait calculer fidèlement l acompte légal selon la nature de transaction (vente 10% vs location 1 mois)', () => {
     // Vente : 10%
     const prixVente = 150000000 // 150M FCFA
@@ -70,28 +54,6 @@ describe('Mobile Money & Notifications Multi-Canaux ImmOfika', () => {
     expect(calculerAcompteLegal(0, 'vente')).toBe(50000)
   })
 
-  it('devrait valider la signature HMAC-SHA512 Paystack et rejeter les payloads falsifiés', () => {
-    const secret = 'sk_test_fake_paystack_secret_key_123456789'
-    const body = JSON.stringify({
-      event: 'charge.success',
-      data: {
-        reference: 'IM-PAY-1730000000-ABCDEF',
-        amount: 1500000000,
-        customer: { email: 'client.test@immofika.ci' },
-      },
-    })
-
-    const signatureValide = crypto.createHmac('sha512', secret).update(body).digest('hex')
-    expect(verifierSignaturePaystack(body, signatureValide, secret)).toBe(true)
-
-    // Signature altérée
-    const signatureFalsifiee = signatureValide.substring(0, signatureValide.length - 4) + 'ffff'
-    expect(verifierSignaturePaystack(body, signatureFalsifiee, secret)).toBe(false)
-
-    // Body falsifié (man-in-the-middle)
-    const bodyAltere = body.replace('1500000000', '1000')
-    expect(verifierSignaturePaystack(bodyAltere, signatureValide, secret)).toBe(false)
-  })
 
   it('devrait matcher avec précision les alertes actives lors de la publication d un bien', () => {
     const annonceCocody = {

@@ -3,7 +3,7 @@ import { DataViewContainer } from "@/components/admin/DataView"
 import { Database } from "lucide-react"
 
 export const metadata = {
-  title: "Base de Données Visuelle | Admin ImmOfika",
+  title: "Base de Données Visuelle | Admin Anyilo",
   description: "Vue centralisée avec édition en direct, Kanban, Calendrier, Galerie et Graphiques.",
 }
 
@@ -27,7 +27,7 @@ export default async function AdminDatabasePage() {
             Base de Données Visuelle
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Éditez en direct, filtrez et explorez les données ImmOfika sous forme de Tableau, Kanban, Calendrier, Galerie ou Graphiques.
+            Éditez en direct, filtrez et explorez les données Anyilo sous forme de Tableau, Kanban, Calendrier, Galerie ou Graphiques.
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 # 02 — Sécurité, RLS et Modèle de Permissions
 
-> **Projet** : ImmOfika  
+> **Projet** : Anyilo  
 > **Type d'audit** : Phase 1 — Audit en lecture seule pour transformation en Marketplace Immobilière (Abidjan)  
 > **Date** : 31 Octobre 2026  
 > **Sources examinées** : `supabase/migrations/enable_rls.sql`, `supabase/migrations/0015_complete_rbac_system.sql`, `src/lib/auth/permissions.ts`, `src/proxy.ts`, `src/lib/r2/client.ts`, et catalogue système PostgreSQL (`pg_class`, `pg_policies`).

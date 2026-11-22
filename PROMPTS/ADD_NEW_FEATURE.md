@@ -1,5 +1,8 @@
 # ADD_NEW_FEATURE.md — Protocole d'Ajout de Feature
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Règle absolue :** Suivre ces étapes dans l'ordre pour ne jamais casser le projet existant.
 
@@ -88,7 +91,7 @@ Stack : Next.js 15 App Router + React 19 + TypeScript strict
 Backend : Supabase (PostgreSQL + Auth + Storage + RLS)
 ORM : Drizzle
 Styling : Tailwind CSS v4 + shadcn/ui
-Paiement : Paystack
+Paiement : aucun paiement en ligne (retiré)
 Stockage : Cloudflare R2
 Pays : Côte d'Ivoire, devise XOF
 
@@ -300,7 +303,7 @@ Si l'IA invente une API, vérifier dans la doc officielle :
 - Supabase : https://supabase.com/docs
 - Next.js : https://nextjs.org/docs
 - Drizzle : https://orm.drizzle.team/docs
-- Paystack : https://paystack.com/docs/api/
+- passerelle de paiement (retirée) : (lien retiré)
 
 **Étape 4 — Isoler le problème**
 

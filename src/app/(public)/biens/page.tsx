@@ -768,7 +768,7 @@ export default function Catalogue() {
       fallback={
         <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-4">
           <div className="h-10 w-10 rounded-full border-4 border-emerald-500/20 border-t-emerald-500 animate-spin" />
-          <span className="text-xs font-bold text-slate-700">Chargement de la marketplace ImmOfika...</span>
+          <span className="text-xs font-bold text-slate-700">Chargement de la marketplace Anyilo...</span>
         </div>
       }
     >

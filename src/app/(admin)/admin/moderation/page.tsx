@@ -5,7 +5,7 @@ import { getSignalementsAction } from '@/app/actions/signalementsActions'
 import SuperAdminModerationHub from '@/components/admin/SuperAdminModerationHub'
 
 export const metadata = {
-  title: 'Supervision, Modération & Sécurité LBC-FT — Admin ImmOfika',
+  title: 'Supervision, Modération & Sécurité LBC-FT — Admin Anyilo',
   description: 'Centre de contrôle d\'État pour les Administrateurs & Modérateurs : modération des signalements, diagnostic de santé serveur et prévention LBC-FT.',
 }
 

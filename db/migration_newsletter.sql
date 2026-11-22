@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration — Table d'Abonnement Newsletter
--- ImmOfika
+-- Anyilo
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
 

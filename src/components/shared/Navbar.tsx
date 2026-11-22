@@ -9,7 +9,6 @@ import Logo from "@/components/shared/Logo"
 import { 
   Menu, 
   X, 
-  ChevronDown, 
   ArrowRight,
   Home,
   Building2,
@@ -19,16 +18,9 @@ import {
   PlusCircle
 } from "lucide-react"
 
-const dropdownServices = [
-  { name: "Achat & Vente de Biens", href: "/biens", icon: Building2 },
-  { name: "Gestion Locative", href: "#services", icon: Key },
-  { name: "Promotion Immobilière & Foncier", href: "#services", icon: Layers },
-]
-
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = React.useState(false)
   const pathname = usePathname()
 
   React.useEffect(() => {
@@ -48,7 +40,7 @@ export default function Navbar() {
         )}
       >
         <div className="flex items-center justify-between">
-          {/* Logo ImmOfika */}
+          {/* Logo Anyilo */}
           <Logo />
 
           {/* Navigation Desktop */}
@@ -77,37 +69,11 @@ export default function Navbar() {
               Catalogue Biens
             </Link>
 
-            {/* Services Dropdown */}
-            <div className="relative group py-2 cursor-pointer">
-              <button className="flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-slate-600 group-hover:text-emerald-600 transition-colors focus:outline-none">
-                <span>Services</span>
-                <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180 text-slate-400 group-hover:text-emerald-500" />
-              </button>
-
-              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 w-[260px] bg-white backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 transition-all duration-200 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
-                <p className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest px-3 py-1.5 border-b border-slate-100">
-                  Expertises ImmOfika
-                </p>
-                {dropdownServices.map((svc) => (
-                  <Link
-                    key={svc.name}
-                    href={pathname === "/" ? svc.href : `/${svc.href}`}
-                    className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all mt-1"
-                  >
-                    <div className="h-7 w-7 rounded-lg bg-emerald-100/70 text-emerald-600 flex items-center justify-center shrink-0">
-                      <svc.icon className="h-3.5 w-3.5" />
-                    </div>
-                    <span>{svc.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
             <Link
-              href={pathname === "/" ? "#about" : "/#about"}
+              href={pathname === "/" ? "#comment-ca-marche" : "/#comment-ca-marche"}
               className="text-xs uppercase font-bold tracking-wider text-slate-600 hover:text-emerald-600 transition-colors"
             >
-              À propos
+              Comment ça marche
             </Link>
 
             <Link
@@ -135,7 +101,7 @@ export default function Navbar() {
             {/* Bouton Publier une Annonce */}
             <Link
               href="/biens/publier"
-              className="inline-flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 shadow-2xs transition-all duration-200 hover:scale-[1.02] active:scale-98"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full px-3.5 sm:px-4 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 shadow-2xs transition-all duration-200 hover:scale-[1.02] active:scale-98"
             >
               <PlusCircle className="h-3.5 w-3.5 text-emerald-600" />
               <span className="hidden sm:inline">Publier une annonce</span>
@@ -190,42 +156,13 @@ export default function Navbar() {
             <span>Biens Immobiliers</span>
           </Link>
 
-          {/* Accordéon Mobile Services */}
-          <div>
-            <button
-              onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-              className="flex items-center justify-between w-full text-sm font-bold p-2.5 text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Layers className="h-4 w-4 text-emerald-500" />
-                <span>Nos Services</span>
-              </div>
-              <ChevronDown className={cn("h-4 w-4 text-slate-400 transition-transform", isMobileServicesOpen && "rotate-180")} />
-            </button>
-
-            {isMobileServicesOpen && (
-              <div className="pl-9 space-y-1.5 py-1">
-                {dropdownServices.map((svc) => (
-                  <Link
-                    key={svc.name}
-                    href={pathname === "/" ? svc.href : `/${svc.href}`}
-                    className="block text-xs font-semibold text-slate-600 hover:text-emerald-600 py-1.5"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {svc.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
           <Link
-            href={pathname === "/" ? "#about" : "/#about"}
+            href={pathname === "/" ? "#comment-ca-marche" : "/#comment-ca-marche"}
             className="flex items-center gap-3 text-sm font-bold p-2.5 text-slate-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <Key className="h-4 w-4 text-emerald-500" />
-            <span>À propos</span>
+            <span>Comment ça marche</span>
           </Link>
 
           <Link

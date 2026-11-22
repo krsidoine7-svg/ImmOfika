@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ShieldX, Home, LogIn, ArrowLeft } from 'lucide-react'
 
 export const metadata = {
-  title: 'Accès Non Autorisé (403) — ImmOfika',
+  title: 'Accès Non Autorisé (403) — Anyilo',
   description: "Vous n'avez pas les autorisations nécessaires pour accéder à cette section.",
 }
 
@@ -18,7 +18,7 @@ export default function UnauthorizedPage() {
         {/* Branding header */}
         <div className="space-y-1">
           <span className="text-xs font-bold tracking-[0.25em] text-[#10B981] uppercase block">
-            ImmOfika — Sécurité & Contrôle
+            Anyilo — Sécurité & Contrôle
           </span>
           <div className="h-[2px] w-12 bg-[#10B981]/30 mx-auto" />
         </div>

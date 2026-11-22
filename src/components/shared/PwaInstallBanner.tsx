@@ -21,7 +21,7 @@ export default function PwaInstallBanner() {
     if (isStandalone) return
 
     // Vérifier si l'utilisateur a masqué l'invitation récemment
-    const dismissedAt = localStorage.getItem("immofika_pwa_dismissed_time")
+    const dismissedAt = localStorage.getItem("anyilo_pwa_dismissed_time")
     if (dismissedAt) {
       const hoursSinceDismissed = (Date.now() - parseInt(dismissedAt, 10)) / (1000 * 60 * 60)
       // Ne ré-afficher qu'après 48 heures si masqué
@@ -82,7 +82,7 @@ export default function PwaInstallBanner() {
 
   const handleDismiss = () => {
     setIsVisible(false)
-    localStorage.setItem("immofika_pwa_dismissed_time", Date.now().toString())
+    localStorage.setItem("anyilo_pwa_dismissed_time", Date.now().toString())
   }
 
   if (!isVisible) return null
@@ -119,7 +119,7 @@ export default function PwaInstallBanner() {
         </div>
 
         <p className="text-xs text-slate-300 font-medium leading-relaxed">
-          Accédez à vos parcelles, contrats et reçus de paiement en 1 clic directement depuis votre écran d&apos;accueil.
+          Accédez à vos recherches, alertes et favoris en 1 clic directement depuis votre écran d&apos;accueil.
         </p>
 
         {/* Instructions spécifiques iOS Safari */}

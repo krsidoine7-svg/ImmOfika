@@ -127,7 +127,7 @@ export async function getBiensByCategoryAction(
         mainImageUrl: imageUrl,
         vues: row.vues || 0,
         advertiser: {
-          name: row.agentName || 'ImmOfika Partenaire',
+          name: row.agentName || 'Anyilo Partenaire',
           type: advertiserType,
           phone: row.agentPhone,
         },

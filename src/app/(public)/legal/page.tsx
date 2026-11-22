@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { ScaleIcon, BuildingIcon, ShieldCheckIcon, GlobeIcon } from 'lucide-react'
 
 export const metadata = {
-  title: "Mentions Légales - ImmOfika",
-  description: "Consultez les mentions légales d'ImmOfika, plateforme immobilière et promotion agréée en Côte d'Ivoire.",
+  title: "Mentions Légales - Anyilo",
+  description: "Consultez les mentions légales d'Anyilo, plateforme immobilière et promotion agréée en Côte d'Ivoire.",
 }
 
 export default function LegalPage() {
@@ -24,7 +24,7 @@ export default function LegalPage() {
               Mentions <span className="text-emerald-400">Légales</span>
             </h1>
             <p className="text-slate-300 text-base md:text-lg font-medium">
-              Cadre juridique et informations réglementaires d&apos;ImmOfika
+              Cadre juridique et informations réglementaires d&apos;Anyilo
             </p>
           </div>
         </section>
@@ -41,16 +41,16 @@ export default function LegalPage() {
               </div>
               <div className="text-slate-600 space-y-2 text-sm md:text-base leading-relaxed">
                 <p>
-                  La plateforme internet <strong>ImmOfika</strong> (accessible à l&apos;adresse <a href="https://immofika.ci" className="text-emerald-600 font-bold hover:underline">https://immofika.ci</a>) est éditée par :
+                  La plateforme internet <strong>Anyilo</strong> (accessible à l&apos;adresse <a href="https://anyilo.com" className="text-emerald-600 font-bold hover:underline">https://anyilo.com</a>) est éditée par :
                 </p>
                 <ul className="list-disc pl-5 space-y-1 mt-2">
-                  <li><strong>Dénomination sociale :</strong> ImmOfika S.A.S.</li>
+                  <li><strong>Dénomination sociale :</strong> Anyilo S.A.S.</li>
                   <li><strong>Forme juridique :</strong> Société par Actions Simplifiée (S.A.S.) de droit ivoirien.</li>
                   <li><strong>Siège social :</strong> Abidjan, Côte d&apos;Ivoire.</li>
                   <li><strong>Registre du Commerce et du Crédit Mobilier (RCCM) :</strong> CI-ABJ-03-2026-B16-00482.</li>
                   <li><strong>Numéro de Compte Contribuable (NPI) :</strong> 2605959 Z.</li>
                   <li><strong>Capital Social :</strong> 50 000 000 FCFA.</li>
-                  <li><strong>Adresse e-mail :</strong> <a href="mailto:contact@immofika.ci" className="text-emerald-600 font-bold hover:underline">contact@immofika.ci</a></li>
+                  <li><strong>Adresse e-mail :</strong> <a href="mailto:contact@anyilo.com" className="text-emerald-600 font-bold hover:underline">contact@anyilo.com</a></li>
                   <li><strong>Téléphone :</strong> +225 07 47 63 17 06</li>
                 </ul>
               </div>
@@ -64,7 +64,7 @@ export default function LegalPage() {
               </div>
               <div className="text-slate-600 text-sm md:text-base leading-relaxed">
                 <p>
-                  Le Directeur de la publication et responsable éditorial de la plateforme est la Direction Générale d&apos;<strong>ImmOfika</strong>.
+                  Le Directeur de la publication et responsable éditorial de la plateforme est la Direction Générale d&apos;<strong>Anyilo</strong>.
                 </p>
               </div>
             </article>
@@ -95,10 +95,10 @@ export default function LegalPage() {
               </div>
               <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed">
                 <p>
-                  L&apos;ensemble de cette plateforme, y compris les textes, photographies, illustrations, logos, icônes, séquences animées ou non, bases de données et codes sources, est la propriété exclusive d&apos;<strong>ImmOfika</strong> ou fait l&apos;objet d&apos;une autorisation d&apos;utilisation spécifique.
+                  L&apos;ensemble de cette plateforme, y compris les textes, photographies, illustrations, logos, icônes, séquences animées ou non, bases de données et codes sources, est la propriété exclusive d&apos;<strong>Anyilo</strong> ou fait l&apos;objet d&apos;une autorisation d&apos;utilisation spécifique.
                 </p>
                 <p>
-                  Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments de la plateforme, quel que soit le moyen ou le procédé utilisé, est strictement interdite sans l&apos;accord écrit préalable d&apos;ImmOfika.
+                  Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments de la plateforme, quel que soit le moyen ou le procédé utilisé, est strictement interdite sans l&apos;accord écrit préalable d&apos;Anyilo.
                 </p>
                 <p>
                   Toute exploitation non autorisée de la plateforme ou de l&apos;un quelconque des éléments qu&apos;elle contient sera considérée comme constitutive d&apos;une contrefaçon et poursuivie conformément aux dispositions des articles du Code de la Propriété Intellectuelle en vigueur et des lois applicables en Côte d&apos;Ivoire (Loi n° 2016-555 relative au droit d&apos;auteur).
@@ -114,10 +114,10 @@ export default function LegalPage() {
               </div>
               <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed">
                 <p>
-                  ImmOfika exerce en qualité d&apos;agent immobilier et de promoteur agréé en Côte d&apos;Ivoire, sous le contrôle du <strong>Ministère de la Construction, du Logement et de l&apos;Urbanisme (MCLU)</strong>.
+                  Anyilo exerce en qualité d&apos;agent immobilier et de promoteur agréé en Côte d&apos;Ivoire, sous le contrôle du <strong>Ministère de la Construction, du Logement et de l&apos;Urbanisme (MCLU)</strong>.
                 </p>
                 <p>
-                  Toutes les transactions financières et réservations effectuées sur la plateforme sont encadrées par la réglementation de la zone UEMOA (Union Économique et Monétaire Ouest-Africaine) et le droit OHADA. Le traitement des paiements par carte bancaire et Mobile Money (Orange, MTN, Wave) est opéré de manière sécurisée par Paystack, intermédiaire de paiement agréé par la Banque Centrale des États de l&apos;Afrique de l&apos;Ouest (BCEAO).
+                  Toutes les transactions financières et réservations effectuées sur la plateforme sont encadrées par la réglementation de la zone UEMOA (Union Économique et Monétaire Ouest-Africaine) et le droit OHADA. Aucun paiement n&apos;est encaissé sur la plateforme : les acomptes et loyers sont réglés directement entre le client et l&apos;annonceur.
                 </p>
               </div>
             </article>

@@ -1,4 +1,4 @@
-# 📦 INFO_MOCKER — Données de Test ImmOfika
+# 📦 INFO_MOCKER — Données de Test Anyilo
 
 > Données mockées réalistes pour le développement et les tests de l'application CRM immobilier.
 

@@ -158,7 +158,7 @@ export default function KycModerationHub({ pendingUsers: initialUsers }: KycMode
             Modération des Pièces d&apos;Identité (KYC)
           </h1>
           <p className="text-xs text-slate-500 font-medium mt-0.5">
-            Examinez les documents d&apos;identité téléversés par les clients avant de valider la signature des contrats de réservation ImmOfika.
+            Examinez les documents d&apos;identité téléversés par les clients avant de valider la signature des contrats de réservation Anyilo.
           </p>
         </div>
 

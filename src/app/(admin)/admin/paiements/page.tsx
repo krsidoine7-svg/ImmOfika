@@ -5,7 +5,7 @@ import { requirePermission } from "@/lib/auth/permissions"
 import { AdminPaiementsClient } from "@/components/admin/AdminPaiementsClient"
 
 export const metadata = {
-  title: "Historique des Paiements & FNE - Admin ImmOfika",
+  title: "Historique des paiements - Admin Anyilo",
 }
 
 export default async function AdminPaiementsPage() {
@@ -18,15 +18,10 @@ export default async function AdminPaiementsPage() {
       statut: paiements.statut,
       factureNumero: paiements.factureNumero,
       factureUrl: paiements.factureUrl,
-      paystackChannel: paiements.paystackChannel,
+      transactionChannel: paiements.transactionChannel,
       paidAt: paiements.paidAt,
       clientName: profiles.fullName,
       clientEmail: profiles.email,
-      fneNumero: paiements.fneNumero,
-      fneType: paiements.fneType,
-      fneStatut: paiements.fneStatut,
-      fneQrData: paiements.fneQrData,
-      fneCertifieLe: paiements.fneCertifieLe,
     })
     .from(paiements)
     .leftJoin(profiles, eq(paiements.clientId, profiles.id))

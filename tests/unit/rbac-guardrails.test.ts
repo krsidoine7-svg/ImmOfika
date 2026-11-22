@@ -33,7 +33,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait interdire à un ADMIN d\'accorder ou manipuler une permission sensible', () => {
       const adminActor: AuthUserContext = {
         id: 'admin-user-id',
-        email: 'admin@immofika.ci',
+        email: 'admin@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7, // Admin standard
@@ -49,7 +49,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait autoriser le SUPER_ADMIN (niveau 8) à gérer les permissions sensibles', () => {
       const superAdminActor: AuthUserContext = {
         id: 'superadmin-user-id',
-        email: 'root@immofika.ci',
+        email: 'root@anyilo.com',
         role: 'super_admin',
         roles: ['SUPER_ADMIN'],
         hierarchyLevel: 8,
@@ -66,7 +66,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait refuser qu\'un ADMIN accorde une permission qu\'il ne possède pas lui-même', async () => {
       const adminActor: AuthUserContext = {
         id: 'admin-actor-id',
-        email: 'admin@immofika.ci',
+        email: 'admin@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7,
@@ -92,7 +92,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait refuser qu\'un utilisateur modifie ses propres rôles', () => {
       const actor: AuthUserContext = {
         id: 'user-123',
-        email: 'actor@immofika.ci',
+        email: 'actor@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7,
@@ -106,7 +106,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait autoriser l\'action si la cible est un utilisateur distinct', () => {
       const actor: AuthUserContext = {
         id: 'user-123',
-        email: 'actor@immofika.ci',
+        email: 'actor@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7,
@@ -123,7 +123,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait interdire toute modification des permissions du rôle SUPER_ADMIN (Verrouillé)', async () => {
       const superAdminActor: AuthUserContext = {
         id: 'sa-id',
-        email: 'sa@immofika.ci',
+        email: 'sa@anyilo.com',
         role: 'super_admin',
         roles: ['SUPER_ADMIN'],
         hierarchyLevel: 8,
@@ -137,7 +137,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait interdire à un ADMIN (niv. 7) de modifier un rôle de niveau égal ou supérieur', async () => {
       const adminActor: AuthUserContext = {
         id: 'admin-id',
-        email: 'admin@immofika.ci',
+        email: 'admin@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7,
@@ -160,7 +160,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
     it('devrait autoriser un ADMIN (niv. 7) à modifier un rôle de niveau strictement inférieur (ex: SUPPORT niv. 3)', async () => {
       const adminActor: AuthUserContext = {
         id: 'admin-id',
-        email: 'admin@immofika.ci',
+        email: 'admin@anyilo.com',
         role: 'admin',
         roles: ['ADMIN'],
         hierarchyLevel: 7,
@@ -252,7 +252,7 @@ describe('🛡️ RBAC Guardrails & Least Privilege Suite', () => {
   describe('Garde-fou #7 : Portée :own (Anti-IDOR) & Moindre Privilège', () => {
     const clientUser: AuthUserContext = {
       id: 'client-user-1',
-      email: 'client1@immofika.ci',
+      email: 'client1@anyilo.com',
       role: 'client',
       roles: ['CLIENT'],
       hierarchyLevel: 1,

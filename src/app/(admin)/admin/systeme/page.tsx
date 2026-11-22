@@ -4,7 +4,7 @@ import SupabaseHealthClient from "@/components/admin/SupabaseHealthClient"
 import { Activity } from "lucide-react"
 
 export const metadata = {
-  title: "Santé Supabase & Keep-Alive | Admin ImmOfika",
+  title: "Santé Supabase & Keep-Alive | Admin Anyilo",
   description: "Surveillance et maintien actif automatique de la base de données Supabase anti-mise en veille.",
 }
 

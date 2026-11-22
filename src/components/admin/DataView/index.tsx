@@ -66,7 +66,7 @@ const DEFAULT_COLUMNS: Record<TableType, ColumnDef[]> = {
     { key: "dateExpiration", label: "Date Expiration", type: "date" },
   ],
   paiements: [
-    { key: "referencePaystack", label: "Réf. Paystack", type: "text" },
+    { key: "referenceTransaction", label: "Réf. transaction", type: "text" },
     { key: "montant", label: "Montant (FCFA)", type: "number" },
     { key: "statut", label: "Statut Paiement", type: "tag", options: ["succes", "en_attente", "echec"] },
     { key: "moyenPaiement", label: "Moyen", type: "text" },

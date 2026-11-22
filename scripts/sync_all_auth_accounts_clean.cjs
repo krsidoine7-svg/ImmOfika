@@ -8,7 +8,7 @@ const allAccounts = [
   {
     id: '7639417c-c2dc-4334-8a45-300c8a0913fd',
     email: 'client.investisseur@gmail.com',
-    password: 'ImmOfikaClient2026!#1',
+    password: 'AnyiloClient2026!#1',
     fullName: 'Diop Aboubacar',
     phone: '+33 601020304',
     role: 'client'
@@ -16,7 +16,7 @@ const allAccounts = [
   {
     id: '05064991-3f27-4cd1-8f97-93c7c6d7968f',
     email: 'client.particulier@yahoo.fr',
-    password: 'ImmOfikaClient2026!#2',
+    password: 'AnyiloClient2026!#2',
     fullName: 'Kassi Marie-Laure',
     phone: '+225 0101020304',
     role: 'client'
@@ -24,7 +24,7 @@ const allAccounts = [
   {
     id: '41997fd5-6524-4b8c-9d28-cefe3bda8b65',
     email: 'client.societe@afrique-invest.com',
-    password: 'ImmOfikaClient2026!#3',
+    password: 'AnyiloClient2026!#3',
     fullName: 'Société Afrique Invest SARL',
     phone: '+225 0105060708',
     role: 'client'
@@ -33,40 +33,40 @@ const allAccounts = [
   // Managers / Agents
   {
     id: 'c1e9e40e-b814-49c1-826c-2d2955e7e2e0',
-    email: 'manager.cocody@immofika.ci',
-    password: 'ImmOfikaManager2026!#1',
+    email: 'manager.cocody@anyilo.com',
+    password: 'AnyiloManager2026!#1',
     fullName: 'Bamba Sékou',
     phone: '+225 0501020304',
     role: 'agent'
   },
   {
     id: 'c96b33e0-9f5d-48d1-aa4f-0902ce9ea6f8',
-    email: 'manager.zone4@immofika.ci',
-    password: 'ImmOfikaManager2026!#2',
+    email: 'manager.zone4@anyilo.com',
+    password: 'AnyiloManager2026!#2',
     fullName: 'Diallo Fatou',
     phone: '+225 0505060708',
     role: 'agent'
   },
   {
     id: '3c1c8119-c4fb-46d7-9f95-801e52e6b343',
-    email: 'manager.assinie@immofika.ci',
-    password: 'ImmOfikaManager2026!#3',
+    email: 'manager.assinie@anyilo.com',
+    password: 'AnyiloManager2026!#3',
     fullName: 'Touré Yacouba',
     phone: '+225 0509101112',
     role: 'agent'
   },
   {
     id: 'd1365437-8d06-418c-8e4d-a39b7d5e1dfe',
-    email: 'manager.bingerville@immofika.ci',
-    password: 'ImmOfikaManager2026!#4',
+    email: 'manager.bingerville@anyilo.com',
+    password: 'AnyiloManager2026!#4',
     fullName: "N'Guessan Aya",
     phone: '+225 0513141516',
     role: 'agent'
   },
   {
     id: '7697d561-f1b4-4cca-9c3a-eb96154de53a',
-    email: 'manager.yamoussoukro@immofika.ci',
-    password: 'ImmOfikaManager2026!#5',
+    email: 'manager.yamoussoukro@anyilo.com',
+    password: 'AnyiloManager2026!#5',
     fullName: 'Yao Koffi',
     phone: '+225 0517181920',
     role: 'agent'

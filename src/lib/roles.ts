@@ -1,5 +1,5 @@
 /**
- * IMMOFIKA - Centralisation des Rôles et Autorisations de Navigation
+ * ANYILO - Centralisation des Rôles et Autorisations de Navigation
  * 
  * Définit la cartographie officielle des rôles, leurs pages d'atterrissage
  * par défaut et les sections autorisées, avec validation stricte anti-détournement
@@ -63,13 +63,13 @@ export const ROLE_DEFAULT_DASHBOARDS: Record<PlatformRole, string> = {
 // 2. Préfixes de sections autorisées par rôle
 export const ROLE_ALLOWED_PREFIXES: Record<PlatformRole, string[]> = {
   client: ['/client', '/compte', '/mon-compte', '/biens', '/contact', '/paiement'],
-  support: ['/admin/visites', '/admin/dossiers', '/admin/moderation', '/admin/notifications', '/client'],
+  support: ['/admin/visites', '/admin/moderation', '/admin/notifications', '/client'],
   catalogue: ['/admin/biens', '/admin/moderation', '/biens'],
   moderateur: ['/admin/biens', '/admin/moderation', '/biens'],
   compta: ['/admin/paiements', '/admin/reservations', '/admin/analytics'],
   proprietaire: ['/dashboard/bailleur', '/biens', '/client'],
-  agence: ['/dashboard/bailleur', '/admin/visites', '/admin/agenda', '/biens', '/client'],
-  agent: ['/admin/visites', '/admin/agenda', '/admin/biens', '/biens', '/client'],
+  agence: ['/dashboard/bailleur', '/admin/visites', '/biens', '/client'],
+  agent: ['/admin/visites', '/admin/biens', '/biens', '/client'],
   promoteur: ['/dashboard/bailleur', '/admin/visites', '/biens', '/client'],
   admin: ['/admin', '/client', '/dashboard', '/biens'],
   super_admin: ['/admin', '/client', '/dashboard', '/biens'],

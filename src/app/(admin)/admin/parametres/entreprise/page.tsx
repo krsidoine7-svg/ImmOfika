@@ -3,7 +3,7 @@ import { getSystemSettingsAction } from "@/app/actions/settings"
 import EntrepriseClient from "./EntrepriseClient"
 
 export const metadata = {
-  title: "Paramètres Entreprise - ImmOfika Admin",
+  title: "Paramètres Entreprise - Anyilo Admin",
 }
 
 export default async function EntrepriseSettingsPage() {
@@ -19,7 +19,7 @@ export default async function EntrepriseSettingsPage() {
           Paramètres Entreprise
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-          Gérez l&apos;identité légale et les coordonnées de l&apos;entité promotrice agréée ImmOfika.
+          Gérez l&apos;identité légale et les coordonnées de l&apos;entité promotrice agréée Anyilo.
         </p>
       </div>
       

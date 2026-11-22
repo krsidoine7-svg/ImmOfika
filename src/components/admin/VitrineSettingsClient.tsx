@@ -54,7 +54,7 @@ export default function VitrineSettingsClient({ moduleEnabled, user, profile, bi
   }
 
   const cleanWhatsapp = whatsapp.replace(/[^0-9]/g, "")
-  const testWhatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent("Bonjour, je vous contacte depuis la plateforme ImmOfika.")}`
+  const testWhatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent("Bonjour, je vous contacte depuis la plateforme Anyilo.")}`
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 py-4">
@@ -64,7 +64,7 @@ export default function VitrineSettingsClient({ moduleEnabled, user, profile, bi
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider">
               <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              <span>Partenaire Agréé & Certifié ImmOfika</span>
+              <span>Partenaire Agréé & Certifié Anyilo</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight">
               Ma Vitrine & Contact Direct

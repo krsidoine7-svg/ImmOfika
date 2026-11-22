@@ -1,10 +1,10 @@
-https://immofika.ci
-https://immofika.ci/biens
-https://immofika.ci/biens/publier
-https://immofika.ci/contact
-https://immofika.ci/auth/login
-https://immofika.ci/auth/register
-https://immofika.ci/legal
-https://immofika.ci/confidentiality
-https://immofika.ci/cookies
+https://anyilo.com
+https://anyilo.com/biens
+https://anyilo.com/biens/publier
+https://anyilo.com/contact
+https://anyilo.com/auth/login
+https://anyilo.com/auth/register
+https://anyilo.com/legal
+https://anyilo.com/confidentiality
+https://anyilo.com/cookies
 

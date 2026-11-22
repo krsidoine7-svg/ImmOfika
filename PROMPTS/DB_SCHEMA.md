@@ -1,5 +1,8 @@
 # DB_SCHEMA.md — Schéma de Base de Données
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Base :** PostgreSQL (via Supabase)  
 > **ORM :** Drizzle ORM  
@@ -221,7 +224,7 @@ CREATE TABLE visites (
 -- Paiements
 CREATE TABLE paiements (
   id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  reference           TEXT UNIQUE NOT NULL,    -- Référence Paystack
+  reference           TEXT UNIQUE NOT NULL,    -- Référence passerelle de paiement (retirée)
   client_id           UUID NOT NULL REFERENCES users(id),
   bien_id             UUID REFERENCES biens(id),
   reservation_id      UUID REFERENCES reservations(id),
@@ -232,8 +235,8 @@ CREATE TABLE paiements (
   statut              TEXT DEFAULT 'en_attente',
   -- en_attente, succès, échoué, remboursé
   methode             TEXT,  -- card, mobile_money, orange_money, mtn_momo, wave
-  paystack_reference  TEXT,
-  paystack_response   JSONB,
+  transaction_reference  TEXT,
+  passerelle de paiement (retirée)_response   JSONB,
   type_paiement       TEXT, -- acompte, partiel, total, remboursement
   echeance            TIMESTAMPTZ,
   notes               TEXT,
@@ -478,7 +481,7 @@ CREATE INDEX idx_reservations_expiration ON reservations(date_expiration);
 CREATE INDEX idx_paiements_client_id ON paiements(client_id);
 CREATE INDEX idx_paiements_reference ON paiements(reference);
 CREATE INDEX idx_paiements_echeance ON paiements(echeance);
-CREATE INDEX idx_paiements_paystack_ref ON paiements(paystack_reference);
+CREATE INDEX idx_paiements_passerelle de paiement (retirée)_ref ON paiements(transaction_reference);
 CREATE INDEX idx_paiements_statut ON paiements(statut);
 CREATE INDEX idx_paiements_reservation_id ON paiements(reservation_id);
 

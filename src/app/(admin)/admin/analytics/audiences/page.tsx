@@ -9,7 +9,7 @@ import {
 import AnalyticsDashboardClient from '@/components/admin/analytics/AnalyticsDashboardClient'
 
 export const metadata = {
-  title: 'Audiences & Pixels — ImmOfika',
+  title: 'Audiences & Pixels — Anyilo',
 }
 
 export default async function AudiencesPage() {

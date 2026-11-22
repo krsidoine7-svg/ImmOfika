@@ -8,7 +8,7 @@ import AdvertiserDashboardClient from '@/components/dashboard/AdvertiserDashboar
 import { getAdvertiserDashboardDataAction } from '@/app/actions/advertiserActions'
 
 export const metadata = {
-  title: 'Espace Annonceur & Partenaire — ImmOfika',
+  title: 'Espace Annonceur & Partenaire — Anyilo',
   description: 'Gérez votre parc immobilier, vos candidatures et votre organisation.',
 }
 

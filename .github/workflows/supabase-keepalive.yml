@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Ping Keep-Alive Endpoint
         run: |
-          TARGET_URL="${{ secrets.APP_URL || 'https://immofika.ci' }}"
+          TARGET_URL="${{ secrets.APP_URL || 'https://anyilo.com' }}"
           echo "Pinging $TARGET_URL/api/cron/keepalive..."
           RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}\nTIME_TOTAL:%{time_total}" -X GET "$TARGET_URL/api/cron/keepalive")
           echo "$RESPONSE"

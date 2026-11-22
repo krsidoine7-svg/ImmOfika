@@ -1,5 +1,8 @@
 # MASTER_CHECKLIST.md — Contrôle Qualité Global
-## ImmOfika — chefsFavor
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo — chefsFavor
 
 > Ce document est utilisé par chefsFavor pour valider chaque livraison avant merge.
 
@@ -20,11 +23,11 @@
 
 ### Sécurité
 ```
-□ grep -r "PAYSTACK_SECRET" ./src → 0 résultat
+□ grep -riE "paystack|passerelle de paiement (retirée)|stripe" ./src → 0 résultat
 □ grep -r "SERVICE_ROLE" ./src → 0 résultat
 □ grep -r "ENCRYPTION_KEY" ./src/app → 0 résultat
 □ npm audit --audit-level=high → 0 vulnérabilité haute/critique
-□ Webhook Paystack : signature validée (si feature de paiement)
+□ Webhook passerelle de paiement (retirée) : signature validée (si feature de paiement)
 □ Données sensibles chiffrées (si nouvelle colonne téléphone/CNI/finances)
 □ RLS policy créée (si nouvelle table)
 ```

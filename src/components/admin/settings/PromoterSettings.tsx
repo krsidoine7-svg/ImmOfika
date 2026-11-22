@@ -41,7 +41,7 @@ export default function PromoterSettings({ values, onChange }: PromoterSettingsP
               value={values.legalName || ''}
               onChange={handleChange}
               className="w-full h-11 pl-11 pr-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-sm font-bold text-slate-900"
-              placeholder="ex: ImmOfika Immobilier International"
+              placeholder="ex: Anyilo Immobilier International"
             />
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function PromoterSettings({ values, onChange }: PromoterSettingsP
       {/* Téléphone WhatsApp */}
       <div className={styles.row}>
         <div className={styles.info}>
-          <span className={styles.label}>Numéro WhatsApp ImmOfika</span>
+          <span className={styles.label}>Numéro WhatsApp Anyilo</span>
           <span className={styles.desc}>Numéro utilisé pour la redirection et le chat direct avec le client.</span>
         </div>
         <div className={styles.control}>
@@ -145,7 +145,7 @@ export default function PromoterSettings({ values, onChange }: PromoterSettingsP
               onChange={handleChange}
               rows={3}
               className="w-full p-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-sm font-medium text-slate-900"
-              placeholder="Bonjour ImmOfika, je suis {name}. Je souhaite échanger concernant mon projet."
+              placeholder="Bonjour Anyilo, je suis {name}. Je souhaite échanger concernant mon projet."
             />
           </div>
         </div>
@@ -166,7 +166,7 @@ export default function PromoterSettings({ values, onChange }: PromoterSettingsP
               value={values.email || ''}
               onChange={handleChange}
               className="w-full h-11 pl-11 pr-4 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-sm font-bold text-slate-900"
-              placeholder="ex: contact@immofika.ci"
+              placeholder="ex: contact@anyilo.com"
             />
           </div>
         </div>

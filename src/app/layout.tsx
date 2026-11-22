@@ -23,14 +23,18 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://immofika.ci"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://anyilo.com"),
+  // Préproduction (preprod.anyilo.com) : jamais indexée
+  ...((process.env.NEXT_PUBLIC_APP_URL || '').includes('preprod.')
+    ? { robots: { index: false, follow: false } }
+    : {}),
   title: {
-    default: "ImmOfika — Plateforme Immobilière & Promotion Agréée",
-    template: "%s | ImmOfika",
+    default: "Anyilo — Plateforme Immobilière & Promotion Agréée",
+    template: "%s | Anyilo",
   },
-  description: "ImmOfika — Solution complète d'achat, de vente, de location et de promotion immobilière agréée. Parcelles sécurisées avec ACD et biens immobiliers certifiés.",
+  description: "Anyilo — Solution complète d'achat, de vente, de location et de promotion immobilière agréée. Parcelles sécurisées avec ACD et biens immobiliers certifiés.",
   keywords: [
-    "ImmOfika",
+    "Anyilo",
     "Promoteur Immobilier Agréé",
     "Gestion Immobilière",
     "Terrain ACD Côte d'Ivoire",
@@ -38,27 +42,27 @@ export const metadata: Metadata = {
     "Promotion immobilière agréée",
     "Location immobilière"
   ],
-  authors: [{ name: "ImmOfika International" }],
-  creator: "ImmOfika International",
+  authors: [{ name: "Anyilo International" }],
+  creator: "Anyilo International",
   openGraph: {
     type: "website",
     locale: "fr_CI",
-    url: "https://immofika.ci",
-    siteName: "ImmOfika — Plateforme Immobilière & Promotion",
-    title: "ImmOfika — Plateforme Immobilière & Promotion Agréée",
-    description: "ImmOfika — Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
+    url: "https://anyilo.com",
+    siteName: "Anyilo — Plateforme Immobilière & Promotion",
+    title: "Anyilo — Plateforme Immobilière & Promotion Agréée",
+    description: "Anyilo — Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
     images: [
       {
         url: "/icon-512.png",
         width: 512,
         height: 512,
-        alt: "ImmOfika — Plateforme Immobilière & Promotion",
+        alt: "Anyilo — Plateforme Immobilière & Promotion",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ImmOfika — Plateforme Immobilière & Promotion Agréée",
+    title: "Anyilo — Plateforme Immobilière & Promotion Agréée",
     description: "Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
     images: ["/icon-512.png"],
   },
@@ -66,7 +70,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "ImmOfika",
+    title: "Anyilo",
   },
   icons: {
     icon: [

@@ -34,7 +34,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
 
-const immofikaData = {
+const anyiloData = {
   navMain: [
     {
       title: "Tableau de Bord & Stats",
@@ -72,21 +72,9 @@ const immofikaData = {
       icon: <ShieldCheckIcon className="text-emerald-500" />,
     },
     {
-      title: "Candidatures & Dossiers",
-      url: "/admin/dossiers",
-      icon: <BookOpenIcon />,
-      permission: "view:dossiers",
-    },
-    {
       title: "Visites",
       url: "/admin/visites",
       icon: <MapPinIcon />,
-      permission: "view:visites",
-    },
-    {
-      title: "Mon Agenda",
-      url: "/admin/agenda",
-      icon: <CalendarIcon />,
       permission: "view:visites",
     },
     {
@@ -162,7 +150,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function AppSidebar({ user, ...props }: AppSidebarProps) {
-  const filteredNavMain = immofikaData.navMain
+  const filteredNavMain = anyiloData.navMain
     .filter(item => {
       const isSuperRole = user.role === "super_admin" || user.role === "tech_super_admin" || user.role === "admin"
       if (item.title === "Analytiques & Rôles") return isSuperRole
@@ -193,7 +181,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
               <div className="flex aspect-square size-8 items-center justify-center shrink-0">
                 <Image
                   src="/logo-immo.svg"
-                  alt="ImmOfika"
+                  alt="Anyilo"
                   width={32}
                   height={38}
                   className="h-8 w-auto object-contain"
@@ -201,7 +189,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
                 />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-extrabold text-slate-900">ImmOfika</span>
+                <span className="truncate font-extrabold text-slate-900">Anyilo</span>
                 <span className="truncate text-xs font-semibold text-emerald-600">Console Admin</span>
               </div>
             </SidebarMenuButton>

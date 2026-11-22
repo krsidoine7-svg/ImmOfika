@@ -22,7 +22,7 @@ export default function SettingsHeader() {
         </span>
       </div>
 
-      {/* Paystack CI Gateway */}
+      {/* Paiement */}
       <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between hover:shadow-md transition-shadow">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-100">
@@ -30,7 +30,7 @@ export default function SettingsHeader() {
           </div>
           <div>
             <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Passerelle de paiement</p>
-            <p className="text-sm font-extrabold text-slate-900 mt-0.5">Paystack CI API</p>
+            <p className="text-sm font-extrabold text-slate-900 mt-0.5">Aucun paiement en ligne</p>
           </div>
         </div>
         <div className="flex items-center gap-1.5 px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-extrabold border border-indigo-100 uppercase tracking-wider">

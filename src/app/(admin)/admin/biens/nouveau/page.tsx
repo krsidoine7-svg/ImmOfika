@@ -4,7 +4,7 @@ import Link from "next/link"
 import { NouveauBienForm } from "@/components/admin/NouveauBienForm"
 
 export const metadata = {
-  title: "Nouveau Bien - Admin ImmOfika",
+  title: "Nouveau Bien - Admin Anyilo",
 }
 
 export default function NouveauBienPage() {
@@ -16,7 +16,7 @@ export default function NouveauBienPage() {
         </Button>
         <div>
           <h1 className="text-2xl font-black text-slate-900">Ajouter un Bien</h1>
-          <p className="text-slate-500 text-sm font-medium">Publiez un nouveau bien immobilier sur la plateforme ImmOfika.</p>
+          <p className="text-slate-500 text-sm font-medium">Publiez un nouveau bien immobilier sur la plateforme Anyilo.</p>
         </div>
       </div>
 

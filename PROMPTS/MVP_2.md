@@ -1,5 +1,8 @@
 # MVP_2.md — CRM, Pipeline & Agents
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Durée :** Semaines 6–10  
 > **Prérequis :** MVP_1 entièrement terminé et testé  
@@ -290,7 +293,7 @@ export async function creerDossier(input: z.infer<typeof DossierSchema>) {
 - [ ] Attribution d'un agent pour la visite
 - [ ] Confirmation automatique client (email + notification)
 - [ ] Rappel automatique 24h avant la visite
-- [ ] Visites payantes : intégration paiement Paystack
+- [ ] Visites payantes : intégration paiement passerelle de paiement (retirée)
 - [ ] Suivi : planifiée → confirmée → effectuée → annulée
 - [ ] Notes post-visite par l'agent
 
@@ -298,7 +301,7 @@ export async function creerDossier(input: z.infer<typeof DossierSchema>) {
 ```
 Client choisit un bien → Clique "Réserver une visite"
 → Choisit une date/heure disponible
-→ Si visite payante → Paiement Paystack
+→ Si visite payante → Paiement passerelle de paiement (retirée)
 → Confirmation automatique (email)
 → Notification à l'admin et l'agent
 → Agent confirme ou propose un autre créneau

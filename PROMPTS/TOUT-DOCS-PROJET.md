@@ -1,5 +1,8 @@
 # TOUT-DOCS-PROJET.md — Index de la Documentation
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Ce fichier regroupe tous les liens, ressources, packages, et documentations utilisées dans le projet.**
 
@@ -19,7 +22,7 @@
 | **GITHUB.md** | Workflow Git et CI/CD | `docs/GITHUB.md` |
 | **KPI.md** | Indicateurs de performance | `docs/KPI.md` |
 | **LEGAL_WORLD_CI.md** | Conformité légale (CI + international) | `docs/LEGAL_WORLD_CI.md` |
-| **INTÉGRATION_PAYSTACK.md** | Intégration paiement Paystack | `docs/INTÉGRATION_PAYSTACK.md` |
+| **INTÉGRATION_passerelle de paiement (retirée).md** | Intégration paiement passerelle de paiement (retirée) | `docs/INTÉGRATION_passerelle de paiement (retirée).md` |
 | **MCP_FAVOR.md** | Model Context Protocol | `docs/MCP_FAVOR.md` |
 | **MVP_1.md** | Détail features MVP 1 | `docs/MVP_1.md` |
 | **MVP_2.md** | Détail features MVP 2 | `docs/MVP_2.md` |
@@ -63,9 +66,9 @@
 
 | Service | Documentation |
 |---|---|
-| **Paystack** | https://paystack.com/docs/api |
-| **Paystack Webhooks** | https://paystack.com/docs/payments/webhooks |
-| **Paystack Test** | https://paystack.com/docs/payments/test-payments |
+| **passerelle de paiement (retirée)** | (lien retiré) |
+| **passerelle de paiement (retirée) Webhooks** | (lien retiré) |
+| **passerelle de paiement (retirée) Test** | (lien retiré) |
 
 ### Stockage & CDN
 
@@ -219,7 +222,7 @@
 # Frontend (NEXT_PUBLIC_ = exposé côté client, ok)
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=
+(variable de paiement retirée)=
 NEXT_PUBLIC_APP_URL=
 NEXT_PUBLIC_POSTHOG_KEY=
 NEXT_PUBLIC_GA_ID=
@@ -228,8 +231,8 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
 # Backend (JAMAIS côté client)
 SUPABASE_SERVICE_ROLE_KEY=
 DATABASE_URL=
-PAYSTACK_SECRET_KEY=
-PAYSTACK_WEBHOOK_SECRET=
+(variable de paiement retirée)=
+(variable de paiement retirée)=
 RESEND_API_KEY=
 CLOUDFLARE_R2_ACCOUNT_ID=
 CLOUDFLARE_R2_ACCESS_KEY_ID=

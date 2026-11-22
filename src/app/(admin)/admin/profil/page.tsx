@@ -6,8 +6,8 @@ import Link from 'next/link'
 import ProfileSettingsClient from '@/components/shared/ProfileSettingsClient'
 
 export const metadata = {
-  title: 'Mon Profil — Administration ImmOfika',
-  description: 'Gérez vos informations de compte administrateur ou agent ImmOfika.',
+  title: 'Mon Profil — Administration Anyilo',
+  description: 'Gérez vos informations de compte administrateur ou agent Anyilo.',
 }
 
 export default async function AdminProfilPage() {

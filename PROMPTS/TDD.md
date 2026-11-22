@@ -1,9 +1,12 @@
 # TDD — Technical Design Document
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Version :** 1.0  
 > **Date :** Mai 2026  
-> **Stack :** Next.js 15 + Supabase + Tailwind CSS v4 + shadcn/ui + Paystack
+> **Stack :** Next.js 15 + Supabase + Tailwind CSS v4 + shadcn/ui + passerelle de paiement (retirée)
 
 ---
 
@@ -35,7 +38,7 @@
 | Service | Usage |
 |---|---|
 | **Cloudflare R2** | Stockage images, vidéos, documents |
-| **Paystack** | Paiements (carte, Mobile Money) |
+| **passerelle de paiement (retirée)** | Paiements (carte, Mobile Money) |
 | **Resend** | Emails transactionnels |
 | **Vercel** | Déploiement et hosting |
 
@@ -97,7 +100,7 @@
           │                    │
 ┌─────────▼──────┐   ┌─────────▼──────────────────────────┐
 │ Cloudflare R2  │   │      Services Externes              │
-│ (Images/Docs)  │   │  Paystack │ Resend │ Maps │ n8n    │
+│ (Images/Docs)  │   │  passerelle de paiement (retirée) │ Resend │ Maps │ n8n    │
 └────────────────┘   └────────────────────────────────────┘
 ```
 
@@ -155,7 +158,7 @@ favor-company/
 │   │   └── api-docs/page.tsx
 │   └── api/                      # API Routes
 │       ├── webhooks/
-│       │   └── paystack/route.ts
+│       │   └── (module de paiement retiré)/route.ts
 │       ├── biens/route.ts
 │       ├── reservations/route.ts
 │       ├── paiements/route.ts
@@ -202,7 +205,7 @@ favor-company/
 │   │   ├── crypto.ts             # AES-256-GCM encrypt/decrypt
 │   │   ├── format.ts
 │   │   └── validators.ts
-│   ├── paystack/
+│   ├── (module de paiement retiré)/
 │   │   └── client.ts
 │   ├── resend/
 │   │   └── client.ts
@@ -299,8 +302,8 @@ export function decrypt(hash: string): string {
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=       # Jamais côté client
-PAYSTACK_SECRET_KEY=             # Jamais côté client
-PAYSTACK_WEBHOOK_SECRET=
+(variable de paiement retirée)=             # Jamais côté client
+(variable de paiement retirée)=
 RESEND_API_KEY=
 CLOUDFLARE_R2_ACCESS_KEY=
 CLOUDFLARE_R2_SECRET_KEY=
@@ -330,17 +333,17 @@ USING (
 );
 ```
 
-### Validation Webhook Paystack
+### Validation Webhook passerelle de paiement (retirée)
 ```typescript
-// app/api/webhooks/paystack/route.ts
+// app/api/webhooks/paiement/route.ts
 import crypto from 'crypto'
 
 export async function POST(request: Request) {
   const body = await request.text()
-  const signature = request.headers.get('x-paystack-signature')
+  const signature = request.headers.get('x-token')
   
   const hash = crypto
-    .createHmac('sha512', process.env.PAYSTACK_WEBHOOK_SECRET!)
+    .createHmac('sha512', process.env.(variable de paiement retirée)!)
     .update(body)
     .digest('hex')
   
@@ -477,7 +480,7 @@ E2E (Playwright)      → Parcours utilisateur critiques
 1. Inscription / Connexion
 2. Recherche et filtrage des biens
 3. Réservation d'un bien (flux complet)
-4. Paiement Paystack
+4. Paiement passerelle de paiement (retirée)
 5. Génération et envoi d'un contrat
 6. Attribution lead → agent
 7. Gestion des permissions RBAC

@@ -48,7 +48,7 @@ export const FormulaireNotificationEmail = ({
           <hr style={styles.divider} />
 
           <p style={styles.footer}>
-            <strong>{siteConfig.company.name}</strong> — Notification automatique ImmOfika<br />
+            <strong>{siteConfig.company.name}</strong> — Notification automatique Anyilo<br />
             {siteConfig.company.address}
           </p>
         </div>

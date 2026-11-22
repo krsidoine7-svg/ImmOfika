@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F04 — Catalogue & Détail Biens
--- ImmOfika
+-- Anyilo
 -- Date: 2026-05-17
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS "paiements" (
   "montant"              NUMERIC(14, 2) NOT NULL,
   "devise"               TEXT NOT NULL DEFAULT 'XOF',
   "statut"               TEXT NOT NULL DEFAULT 'en_attente', -- en_attente, paye, rembourse, echoue
-  "paystack_reference"   TEXT UNIQUE,
-  "paystack_channel"     TEXT,          -- mobile_money, card, bank_transfer
+  "transaction_reference" TEXT UNIQUE,
+  "transaction_channel"   TEXT,          -- moyen de paiement renvoyé par l agrégateur
   "facture_numero"       TEXT UNIQUE,
   "facture_url"          TEXT,
   "paid_at"              TIMESTAMPTZ,

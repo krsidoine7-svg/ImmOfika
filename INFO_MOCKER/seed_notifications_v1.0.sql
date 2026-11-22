@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 SEED NOTIFICATIONS — Données Mockées pour la Gestion des Notifications (F15)
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : ImmOfika
+-- Projet  : Anyilo
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-04
 -- Version : v1.0

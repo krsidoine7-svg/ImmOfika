@@ -4,7 +4,7 @@ import crypto from 'crypto'
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID || ''
 const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID || ''
 const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY || ''
-export const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'immofika-documents'
+export const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'anyilo-documents'
 export const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || ''
 
 // Initialize the S3 Client for Cloudflare R2

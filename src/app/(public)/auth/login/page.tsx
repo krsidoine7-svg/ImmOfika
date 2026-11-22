@@ -13,7 +13,6 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { createClient } from "@/utils/supabase/client"
@@ -42,7 +41,6 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [googleLoading, setGoogleLoading] = useState(false)
 
   // Rate Limiting anti-force brute (5 échecs consécutifs = 60 secondes de verrouillage)
   const [failedAttempts, setFailedAttempts] = useState(0)
@@ -142,20 +140,6 @@ function LoginForm() {
     }
   }
 
-  const handleGoogleLogin = async () => {
-    setGoogleLoading(true)
-    const callbackTarget = safeCallback
-      ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeCallback)}`
-      : `${window.location.origin}/auth/callback`
-
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: callbackTarget,
-      },
-    })
-  }
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6 md:p-10">
       <motion.div
@@ -173,7 +157,7 @@ function LoginForm() {
           <CardHeader className="text-center pb-4">
             <CardTitle className="text-2xl font-extrabold tracking-tight text-slate-900">Connexion</CardTitle>
             <CardDescription className="text-xs text-slate-500 font-medium">
-              Heureux de vous revoir. Connectez-vous à votre espace ImmOfika.
+              Heureux de vous revoir. Connectez-vous à votre espace Anyilo.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -198,32 +182,7 @@ function LoginForm() {
                   </Alert>
                 )}
 
-                {/* Google SSO Button */}
-                <Field>
-                  <Button
-                    variant="outline"
-                    type="button"
-                    onClick={handleGoogleLogin}
-                    disabled={googleLoading || loading || lockoutRemaining > 0}
-                    className="w-full h-12 rounded-xl border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-3 font-semibold text-sm cursor-pointer"
-                  >
-                    {googleLoading ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-emerald-600" />
-                    ) : (
-                      <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                          d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    )}
-                    Se connecter avec Google
-                  </Button>
-                </Field>
 
-                <FieldSeparator className="text-gray-400 my-1">
-                  Ou continuer avec
-                </FieldSeparator>
 
                 {/* Method Toggle */}
                 <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
@@ -256,7 +215,7 @@ function LoginForm() {
                     onChange={(e) => setIdentifier(e.target.value)}
                     required
                     autoComplete="username"
-                    disabled={loading || googleLoading || lockoutRemaining > 0}
+                    disabled={loading || lockoutRemaining > 0}
                     className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 placeholder:text-slate-400"
                   />
                 </Field>
@@ -288,14 +247,14 @@ function LoginForm() {
                             onChange={(e) => setPassword(e.target.value)}
                             required={loginMethod === "password"}
                             autoComplete="new-password"
-                            disabled={loading || googleLoading || lockoutRemaining > 0}
+                            disabled={loading || lockoutRemaining > 0}
                             className="h-12 rounded-xl bg-slate-50 border-slate-200 focus-visible:ring-emerald-500 text-slate-900 pr-10"
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors focus:outline-none cursor-pointer"
-                            disabled={loading || googleLoading || lockoutRemaining > 0}
+                            disabled={loading || lockoutRemaining > 0}
                           >
                             {showPassword ? (
                               <EyeOff className="h-5 w-5" />
@@ -313,7 +272,7 @@ function LoginForm() {
                 <Field>
                   <Button
                     type="submit"
-                    disabled={loading || googleLoading || lockoutRemaining > 0}
+                    disabled={loading || lockoutRemaining > 0}
                     className="w-full h-12 rounded-xl font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {loading ? (

@@ -1,4 +1,4 @@
-# Procès-Verbal de Recette Finale & Clôture de Transformation Marketplace — ImmOfika
+# Procès-Verbal de Recette Finale & Clôture de Transformation Marketplace — Anyilo
 
 * **Date** : 01 Novembre 2026
 * **Version de la Plateforme** : 2.5.0 (Marketplace Immobilière Publique & Promotion Agréée)
@@ -20,7 +20,7 @@
 | 7 | **Espaces Clients Connectés** | Gestion d'alertes dynamiques géolocalisées, passeport de solvabilité numérique chiffré (0-100%) | **CONFORME** |
 | 8 | **Dashboards Annonceurs** | Espaces dédiés Bailleurs, Agences et Promoteurs Agréés, gestion d'équipe et candidatures reçues | **CONFORME** |
 | 9 | **Modération & Anti-Fraude** | Signalements d'abus, arbitrage motivé, visa foncier MCLU et détecteur de démarquage pirate (>25%) | **CONFORME** |
-| 10 | **Mobile Money & Notifications** | Séquestre d'acompte légal (10% vente / 1 mois location), signature HMAC-SHA512, notifications temps réel | **CONFORME** |
+| 10 | **Mobile Money & Notifications** | Séquestre d'acompte légal (10% vente / 1 mois location), signature HMAC-SHA256, notifications temps réel | **CONFORME** |
 | 11 | **Recette Finale & Build** | Validation complète des 21 modules (94 tests), TypeScript (0 erreur), Next.js Build 36/36 pages | **CONFORME** |
 
 ---
@@ -38,5 +38,5 @@
 
 ## 3. Décision du Tech Lead & Clôture
 
-Toutes les exigences architecturales, légales (OHADA / MCLU) et fonctionnelles ont été satisfaites sans régression. La plateforme ImmOfika est certifiée prête pour le lancement officiel.
+Toutes les exigences architecturales, légales (OHADA / MCLU) et fonctionnelles ont été satisfaites sans régression. La plateforme Anyilo est certifiée prête pour le lancement officiel.
 

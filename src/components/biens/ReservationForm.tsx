@@ -228,7 +228,7 @@ export default function ReservationForm({
           <span className="text-xs text-slate-500 leading-relaxed font-medium">
             J&apos;accepte les{' '}
             <a href="/legal" className="text-emerald-600 underline font-bold">conditions générales</a>
-            {' '}d&apos;ImmOfika et je comprends que la réservation 
+            {' '}d&apos;Anyilo et je comprends que la réservation 
             sera valable 3 mois avec paiement d&apos;un acompte requis sous 7 jours.
           </span>
         </label>

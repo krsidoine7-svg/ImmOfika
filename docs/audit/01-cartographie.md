@@ -1,6 +1,9 @@
 # 01 — Cartographie Technique de l'Existant
 
-> **Projet** : ImmOfika  
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+
+> **Projet** : Anyilo  
 > **Type d'audit** : Phase 1 — Audit en lecture seule pour transformation en Marketplace Immobilière (Abidjan)  
 > **Date** : 31 Octobre 2026  
 > **Source de vérité** : Arborescence réelle du dépôt, `package.json`, `src/` et `supabase/migrations/`  
@@ -23,7 +26,7 @@ Les versions exactes extraites de `package.json` sont :
 | **Validation** | `zod: ^4.4.3` | Schémas de validation serveur et formulaires. | `package.json:61` |
 | **ORM / BDD** | `drizzle-orm: ^0.45.2`, `postgres: ^3.4.9` | Client direct PostgreSQL et ORM Drizzle cohabitant avec le client Supabase JS. | `package.json:39,49` |
 | **Stockage Fichiers** | `@aws-sdk/client-s3: ^3.1053.0` | Stockage sur **Cloudflare R2** (S3 compatible) et non Supabase Storage. | `package.json:18` |
-| **Paiements** | Paystack (via SDK HTTP interne) | Mobile Money (Wave, Orange, MTN) et Cartes bancaires en XOF. | `src/lib/paystack/client.ts:1-50` |
+| **Paiements** | passerelle de paiement (retirée) (via SDK HTTP interne) | Mobile Money (Wave, Orange, MTN) et Cartes bancaires en XOF. | `src/lib/payments/client.ts:1-50` |
 
 ---
 
@@ -56,7 +59,7 @@ src/
 │   ├── crm/                    # Scoring des prospects et attribution
 │   ├── db/                     # Drizzle ORM (schema.ts, index.ts)
 │   ├── fne/                    # Facture Normalisée Électronique (DGI Côte d'Ivoire)
-│   ├── paystack/               # Intégration passerelle Paystack
+│   ├── (module de paiement retiré)/               # Intégration passerelle passerelle de paiement (retirée)
 │   ├── r2/                     # Client S3 Cloudflare R2 (documents et photos)
 │   └── supabase/               # Instances du client Supabase
 └── types/                      # Types TypeScript (marketplace.ts, crm.ts, formulaire.ts)
@@ -127,7 +130,7 @@ src/
 | `/api/biens` | `src/app/api/biens/route.ts:5-59` | `GET` | Public. ⚠️ Ne filtre pas `statut_moderation = 'valide'` |
 | `/api/favoris` | `src/app/api/favoris/route.ts` | `GET, POST, DELETE` | Connecté. Filtre par `auth.uid() = client_id` |
 | `/api/kyc/[userId]/document` | `src/app/api/kyc/[userId]/document/route.ts:9-114` | `GET` | Connecté. Vérifie `isOwner` ou `isStaff` |
-| `/api/webhooks/paystack` | `src/app/api/webhooks/paystack/route.ts` | `POST` | Signature HMAC SHA-512 Paystack vérifiée |
+| `/api/webhooks/paiement` | `src/app/api/webhooks/paiement/route.ts` | `POST` | Signature HMAC SHA-512 passerelle de paiement (retirée) vérifiée |
 | `/api/agenda/[id]/export.ics` | `src/app/api/agenda/[id]/export.ics/route.ts` | `GET` | Protégé par token HMAC signé dans l'URL |
 | `/api/me/permissions` | `src/app/api/me/permissions/route.ts` | `GET` | Retourne le contexte et les droits de l'utilisateur connecté |
 | `/api/health/supabase` | `src/app/api/health/supabase/route.ts` | `GET` | Sonde de disponibilité de la BDD |
@@ -156,7 +159,7 @@ Le modèle de données défini dans `src/lib/db/schema.ts` comprend 24 tables re
    - `reservation_relances` (`src/lib/db/schema.ts:244-250`) : Historique des relances d'acompte.
 
 3. **Finances & Facturation Légale** :
-   - `paiements` (`src/lib/db/schema.ts:209-241`) : Transactions Paystack, acomptes, reçus et mentions FNE.
+   - `paiements` (`src/lib/db/schema.ts:209-241`) : Transactions passerelle de paiement (retirée), acomptes, reçus et mentions FNE.
    - `fne_sequences` (`src/lib/db/schema.ts:545-551`) : Compteur séquentiel ininterrompu DGI Côte d'Ivoire.
 
 4. **Visites & Calendriers** :
@@ -190,9 +193,9 @@ Le modèle de données défini dans `src/lib/db/schema.ts` comprend 24 tables re
 - `NEXT_PUBLIC_SUPABASE_URL` : URL de l'instance Supabase.
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` : Clé publique anonyme Supabase.
 - `DATABASE_URL` : Chaîne de connexion PostgreSQL directe (utilisée par Drizzle et migrations).
-- `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` : Clé publique du widget de paiement Paystack.
-- `PAYSTACK_SECRET_KEY` : Clé serveur d'initialisation et remboursement Paystack.
-- `PAYSTACK_WEBHOOK_SECRET` : Signature secrète de validation du webhook Paystack.
+- `(variable de paiement retirée)` : Clé publique du widget de paiement passerelle de paiement (retirée).
+- `(variable de paiement retirée)` : Clé serveur d'initialisation et remboursement passerelle de paiement (retirée).
+- `(variable de paiement retirée)` : Signature secrète de validation du webhook passerelle de paiement (retirée).
 - `NEXT_PUBLIC_APP_URL` : URL canonique de l'application (redirections Auth).
 - `RESEND_API_KEY` : Clé API du service d'expédition d'emails Resend.
 - `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL` : Identifiants Cloudflare R2 (stockage S3).

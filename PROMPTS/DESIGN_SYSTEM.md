@@ -1,5 +1,5 @@
 # DESIGN_SYSTEM.md — Système de Design
-## ImmOfika
+## Anyilo
 
 > **Framework :** Tailwind CSS v4 + shadcn/ui  
 > **Philosophie :** Moderne, professionnel, prestigieux — Or et Bleu Nuit
@@ -9,7 +9,7 @@
 ## 1. Identité de Marque
 
 ### Nom
-**ImmOfika**
+**Anyilo**
 
 ### Positionnement
 SaaS Immobilier Africain Premium — Confiance, Prestige, Excellence

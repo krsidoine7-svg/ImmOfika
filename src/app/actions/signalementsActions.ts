@@ -74,7 +74,7 @@ export async function creerSignalementAction(formData: z.infer<typeof CreerSigna
 
     return {
       success: true,
-      message: 'Votre signalement a été transmis à l équipe de modération ImmOfika.',
+      message: 'Votre signalement a été transmis à l équipe de modération Anyilo.',
       signalementId: nouveauSignalement.id,
     }
   } catch (err: any) {

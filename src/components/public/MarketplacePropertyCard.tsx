@@ -77,7 +77,7 @@ export default function MarketplacePropertyCard({ bien, locationBadge }: Marketp
   // Numéro WhatsApp cible (annonceur ou numéro officiel de la plateforme)
   const cleanPhone = (bien.advertiser.phone || '2250747631706').replace(/[^0-9]/g, '')
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
-    `Bonjour ImmOfika, je souhaite avoir des informations sur le bien "${bien.titre}" (Réf: ${bien.slug}) au prix de ${formattedPrice} FCFA.`
+    `Bonjour Anyilo, je souhaite avoir des informations sur le bien "${bien.titre}" (Réf: ${bien.slug}) au prix de ${formattedPrice} FCFA.`
   )}`
 
   const handleContactSubmit = async (e: React.FormEvent) => {

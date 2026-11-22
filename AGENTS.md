@@ -4,18 +4,18 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# ImmOfika — Directives Globales & Plateforme Immobilière Modulaire
+# Anyilo — Directives Globales & Plateforme Immobilière Modulaire
 
 > [!IMPORTANT]
-> **Positionnement d'Élite : ImmOfika (Plateforme Immobilière & Promotion Agréée)**
-> ImmOfika est une plateforme SaaS immobilière épurée, modulaire et 100% réplicable pour les agences immobilières, les propriétaires, les gestionnaires de biens et les promoteurs agréés.
+> **Positionnement d'Élite : Anyilo (Plateforme Immobilière & Promotion Agréée)**
+> Anyilo est une plateforme SaaS immobilière épurée, modulaire et 100% réplicable pour les agences immobilières, les propriétaires, les gestionnaires de biens et les promoteurs agréés.
 > 
 > **Charte Visuelle Officielle :**
 > - **Palette** : Vert Émeraude Menthe (`#10B981`, `#059669`, `#ECFDF5`) & Blanc Pur (`#FFFFFF`).
 > - **Design** : Minimaliste, lumineux, moderne et axé sur la clarté et le taux de conversion.
 > - **Modularité** : Toutes les informations de marque (nom, contacts, legal) doivent impérativement s'appuyer sur la configuration centralisée `src/config/site.ts`.
 
-Tu te trouves dans le projet **ImmOfika**. Pour travailler efficacement ici, tu dois impérativement respecter ces deux piliers :
+Tu te trouves dans le projet **Anyilo**. Pour travailler efficacement ici, tu dois impérativement respecter ces deux piliers :
 
 ## 1. 🧠 Mémoire Persistante OBLIGATOIRE (`memoire-favor`)
 **Action systématique :** À CHAQUE début de conversation et à CHAQUE fin de session, tu DOIS interagir avec le journal du projet.

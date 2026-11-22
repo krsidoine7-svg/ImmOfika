@@ -14,11 +14,11 @@ export default function Logo({ className = '', iconOnly = false, light = false }
       href="/" 
       className={`inline-flex items-center gap-3 group transition-opacity hover:opacity-90 ${className}`}
     >
-      {/* Emblème Officiel ImmOfika */}
+      {/* Emblème Officiel Anyilo */}
       <div className="relative flex items-center justify-center h-9 sm:h-10 w-auto shrink-0 group-hover:scale-105 transition-transform duration-200">
         <Image
           src="/logo-immo.svg"
-          alt="Logo Officiel ImmOfika"
+          alt="Logo Officiel Anyilo"
           width={34}
           height={40}
           className={`h-9 sm:h-10 w-auto object-contain transition-all ${light ? 'brightness-0 invert' : ''}`}
@@ -28,7 +28,7 @@ export default function Logo({ className = '', iconOnly = false, light = false }
 
       {!iconOnly && (
         <span className={`text-xl font-black tracking-tight ${light ? 'text-white' : 'text-slate-900'}`}>
-          ImmO<span className="text-emerald-500 font-extrabold">fika</span>
+          Any<span className="text-emerald-500 font-extrabold">ilo</span>
         </span>
       )}
     </Link>

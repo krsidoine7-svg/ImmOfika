@@ -159,7 +159,7 @@ export function AdminUsersClient({ usersList, agentsList = [], currentUserRole =
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold w-fit mb-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>ImmOfika — Espace Administration</span>
+            <span>Anyilo — Espace Administration</span>
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Gestion des Utilisateurs</h1>
           <p className="text-gray-500 text-sm">Gérez les comptes clients, agents et administrateurs de la plateforme.</p>

@@ -104,7 +104,7 @@ export async function GET(
       .where(eq(profiles.id, paiement.clientId))
 
     let clientNom = client?.fullName || 'Client Acquéreur'
-    let clientEmail = client?.email || 'client@immofika.ci'
+    let clientEmail = client?.email || 'client@anyilo.com'
     let clientPhone = client?.phone || ''
 
     const recuNumero = paiement.recuNumero || `REC-FAVOR-${paiement.id.slice(0, 8).toUpperCase()}`
@@ -135,8 +135,8 @@ export async function GET(
         cumulPaye,
         resteAPayer,
         typePaiement: paiement.typePaiement || 'acompte',
-        modePaiement: paiement.paystackChannel ? paiement.paystackChannel.toUpperCase() : 'ESPÈCES / VIREMENT',
-        referenceTransaction: paiement.paystackReference || 'REGLEMENT_AGENCE',
+        modePaiement: paiement.transactionChannel ? paiement.transactionChannel.toUpperCase() : 'ESPÈCES / VIREMENT',
+        referenceTransaction: paiement.transactionReference || 'REGLEMENT_AGENCE',
       },
       agrementNumero: reservation?.agrementNumero || '049/MCU/DGUF',
       notaireNom: reservation?.notaireNom || undefined,

@@ -111,7 +111,7 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
           <div className="space-y-4 max-w-2xl">
             <h1 className="text-3xl font-black text-slate-900 tracking-tight">Espace Commercial</h1>
             <p className="text-slate-500 text-sm font-medium leading-relaxed">
-              Bienvenue sur votre espace d&apos;administration ImmOfika. Vous pouvez gérer vos prospects, vos rendez-vous de visites et configurer vos disponibilités.
+              Bienvenue sur votre espace d&apos;administration Anyilo. Vous pouvez gérer vos prospects, vos rendez-vous de visites et configurer vos disponibilités.
             </p>
             <div className="pt-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-50 border border-emerald-200 text-emerald-700 uppercase tracking-wider">
@@ -314,28 +314,6 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
             </div>
           </motion.a>
 
-          {/* Agenda */}
-          <motion.a
-            href="/admin/agenda"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-300 group flex flex-col justify-between h-[180px]"
-          >
-            <div className="space-y-2">
-              <div className="w-9 h-9 bg-emerald-50 border border-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform duration-300">
-                <CalendarDays className="w-5 h-5" />
-              </div>
-              <h4 className="text-sm font-bold text-slate-900">Mon Agenda</h4>
-              <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
-                Configurez votre lien d&apos;intégration Google Calendar (iCal), bloquez vos absences et consultez votre taux d&apos;occupation mensuel.
-              </p>
-            </div>
-            <div className="text-[10px] font-bold text-emerald-600 group-hover:translate-x-1 transition-transform duration-300 flex items-center gap-1 mt-2">
-              <span>Accéder à l&apos;Agenda</span>
-              <span>→</span>
-            </div>
-          </motion.a>
         </div>
       </div>
     )
@@ -372,7 +350,7 @@ export default function DashboardClient({ initialData, initialFilters, userRole 
           <p className="text-slate-500 mt-1 text-xs font-medium leading-relaxed">
             {userRole === 'agent' || userRole === 'commercial'
               ? "Statistiques commerciales et suivi de vos dossiers clients en temps réel." 
-              : "Statistiques commerciales, RH, et financières consolidées en temps réel sur ImmOfika."}
+              : "Statistiques commerciales, RH, et financières consolidées en temps réel sur Anyilo."}
           </p>
         </div>
 

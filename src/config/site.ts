@@ -1,27 +1,29 @@
 export const siteConfig = {
-  name: "ImmOfika",
-  shortName: "ImmOfika",
+  name: "Anyilo",
+  shortName: "Anyilo",
   tagline: "Ton chez-toi garanti, zéro palabre !",
   description: "Solution complète d'achat, de vente, de location et de promotion immobilière agréée.",
-  url: process.env.NEXT_PUBLIC_APP_URL || "https://immofika.ci",
+  url: process.env.NEXT_PUBLIC_APP_URL || "https://anyilo.com",
+  // Domaines officiels : production et préproduction (NEXT_PUBLIC_APP_URL fixe le domaine actif)
+  domains: {
+    production: "https://anyilo.com",
+    preprod: "https://preprod.anyilo.com",
+  },
   company: {
-    name: "ImmOfika",
+    name: "Anyilo",
     legalStatus: "Promoteur Immobilier Agréé",
-    email: "contact@immofika.ci",
+    email: "contact@anyilo.com",
     phone: "+225 27 24 00 00 00",
     address: "Yahou, immeuble en face de la maison blanche, au 2ie",
     commune: "Cocody, Abidjan",
     quartier: "Yahou",
     rccm: "CI-ABJ-2024-B-14285",
-    ncc: process.env.FNE_COMPANY_NCC || "2034567A", // Numéro de Compte Contribuable DGI
+    ncc: "2034567A", // Numéro de Compte Contribuable (à remplacer par le vrai)
     cc: "2034567A",
     regime: "Régime Normal d'Imposition (RNI)", // RNI obligatoire pour promotion immobilière
     centreImpots: "DGI - Centre des Impôts de Cocody",
     dran: "Direction Régionale Abidjan Nord",
     tauxTva: 0.18, // 18% TVA légale République de Côte d'Ivoire
-    fneApiUrl: process.env.FNE_API_URL || "https://fne.dgi.gouv.ci/api",
-    fneApiKey: process.env.FNE_API_KEY || "",
-    fneMode: (process.env.FNE_MODE as "sandbox" | "production") || "sandbox",
   },
   theme: {
     primaryColor: "#10B981", // Emerald 500
@@ -30,8 +32,8 @@ export const siteConfig = {
     backgroundColor: "#FFFFFF",
   },
   social: {
-    facebook: "https://facebook.com/immofika",
-    linkedin: "https://linkedin.com/company/immofika",
+    facebook: "https://facebook.com/anyilo",
+    linkedin: "https://linkedin.com/company/anyilo",
     whatsapp: "https://wa.me/2250103132878",
   }
 }

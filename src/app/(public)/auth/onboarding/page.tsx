@@ -146,7 +146,7 @@ export default function OnboardingPage() {
       <div className="flex min-h-screen items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-3 text-slate-500">
           <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
-          <p className="text-sm font-semibold">Initialisation de votre profil ImmOfika...</p>
+          <p className="text-sm font-semibold">Initialisation de votre profil Anyilo...</p>
         </div>
       </div>
     )
@@ -172,7 +172,7 @@ export default function OnboardingPage() {
             </div>
 
             <CardTitle className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-              {role === "client" && "Bienvenue sur ImmOfika"}
+              {role === "client" && "Bienvenue sur Anyilo"}
               {role === "proprietaire" && "Configurez votre espace Propriétaire"}
               {role === "agence" && "Enregistrez votre Agence Immobilière"}
               {role === "promoteur" && "Enregistrez votre Programme Promoteur"}
@@ -340,7 +340,7 @@ export default function OnboardingPage() {
                         className="mt-1 h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 accent-emerald-500 cursor-pointer"
                       />
                       <label htmlFor="accept-engagement" className="text-xs text-slate-700 leading-relaxed cursor-pointer select-none">
-                        <strong>Engagement de conformité légale :</strong> Je certifie sur l&apos;honneur être le légitime propriétaire ou le mandataire direct des biens que je publierai sur ImmOfika, et je m&apos;engage à fournir les justificatifs de titre foncier valides lors de chaque publication.
+                        <strong>Engagement de conformité légale :</strong> Je certifie sur l&apos;honneur être le légitime propriétaire ou le mandataire direct des biens que je publierai sur Anyilo, et je m&apos;engage à fournir les justificatifs de titre foncier valides lors de chaque publication.
                       </label>
                     </div>
                   </>

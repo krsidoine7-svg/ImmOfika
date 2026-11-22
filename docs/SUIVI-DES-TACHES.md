@@ -1,6 +1,9 @@
-# ImmOfika — Registre de Suivi des Tâches & Livrables de Recette
+# Anyilo — Registre de Suivi des Tâches & Livrables de Recette
 
-> **Plateforme Immobilière & Promotion Agréée ImmOfika**  
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+
+> **Plateforme Immobilière & Promotion Agréée Anyilo**  
 > **Branche Git :** `feature/securite-recette-docs`  
 > **Statut Global :** 100% Terminé & Validé en Production Turbopack (Code 0)  
 > **Date de clôture :** 25 Octobre 2026  
@@ -20,7 +23,7 @@ Niveau de criticité résiduel : 0 (Vulnérabilités traitées)
 | ID Tâche | Domaine | Intitulé de la Tâche | Risque Adressé (OWASP) | Statut | Livrable Associé |
 | :---: | :--- | :--- | :--- | :---: | :--- |
 | **TSK-01** | Git / Workflow | Création de la branche dédiée `feature/securite-recette-docs` | Régression sur branche principale | ✅ Fait | Branche Git active |
-| **TSK-02** | Cybersécurité | Signature Webhook Paystack cryptographique HMAC SHA-512 | Rejeu & Falsification de transaction | ✅ Fait | `route.ts` Paystack |
+| **TSK-02** | Cybersécurité | Signature Webhook passerelle de paiement (retirée) cryptographique HMAC SHA-512 | Rejeu & Falsification de transaction | ✅ Fait | `route.ts` passerelle de paiement (retirée) |
 | **TSK-03** | Anti-Fraude | Recalcul obligatoire de l'acompte 10% côté serveur | Falsification de prix / IDOR | ✅ Fait | `paiements.ts` |
 | **TSK-04** | Sécurité Fichiers | Contrôle binaire KYC (Magic Bytes, 5 Mo, MIME) | Exécution de code malveillant (RCE) | ✅ Fait | `client.ts` |
 | **TSK-05** | Protection Accès | Rate-limiting mot de passe oublié (3/15 min) | Déni de service / Spam SMS-Email | ✅ Fait | `authActions.ts` |
@@ -44,11 +47,11 @@ Niveau de criticité résiduel : 0 (Vulnérabilités traitées)
 
 ---
 
-### [TSK-02] Sécurisation Cryptographique du Webhook Paystack
+### [TSK-02] Sécurisation Cryptographique du Webhook passerelle de paiement (retirée)
 * **Objectif :** Empêcher tout pirate d'envoyer de faux accusés de paiement au serveur.
-* **Fichiers impactés :** `src/app/api/webhooks/paystack/route.ts`
+* **Fichiers impactés :** `src/app/api/webhooks/paiement/route.ts`
 * **Actions réalisées :**
-  1. Résolution de la faille de clé vide avec fallback prioritaire `PAYSTACK_WEBHOOK_SECRET || PAYSTACK_SECRET_KEY`.
+  1. Résolution de la faille de clé vide avec fallback prioritaire `(variable de paiement retirée) || (variable de paiement retirée)`.
   2. Calcul cryptographique HMAC SHA-512 sur le flux brut (`rawBody`).
   3. Rejet immédiat (HTTP 401) en cas d'écart de signature et journalisation automatique de l'incident `security.webhook_tampering`.
 * **Preuve de validation :** TypeScript sans erreur (code 0), rejet simulé sur fausse signature validé.

@@ -1,5 +1,8 @@
 # SECURITY.md — Politique de Sécurité
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Standard :** OWASP Top 10 + spécificités SaaS immobilier  
 > **Niveau :** Production-ready
@@ -27,7 +30,7 @@
 - [ ] Secrets Vercel configurés côté serveur uniquement
 
 ### API & Webhooks
-- [ ] Validation de la signature Paystack sur chaque webhook (HMAC-SHA512)
+- [ ] Validation de la signature passerelle de paiement (retirée) sur chaque webhook (HMAC-SHA256)
 - [ ] Jamais faire confiance au frontend pour les montants de paiement
 - [ ] Validation Zod sur tous les inputs (Server Actions + API Routes)
 - [ ] Headers CORS restrictifs (pas de `*`)
@@ -111,29 +114,29 @@ export function decrypt(hash: string): string {
 
 ---
 
-## 3. Validation Webhook Paystack
+## 3. Validation Webhook passerelle de paiement (retirée)
 
 ```typescript
-// app/api/webhooks/paystack/route.ts
+// app/api/webhooks/paiement/route.ts
 import crypto from 'crypto'
 import { NextRequest } from 'next/server'
 
 export async function POST(request: NextRequest) {
   const body = await request.text()
-  const paystackSignature = request.headers.get('x-paystack-signature')
+  const passerelle de paiement (retirée)Signature = request.headers.get('x-token')
 
-  if (!paystackSignature) {
+  if (!passerelle de paiement (retirée)Signature) {
     return Response.json({ error: 'Missing signature' }, { status: 400 })
   }
 
   // CRITIQUE : Toujours valider la signature avant de traiter
   const expectedHash = crypto
-    .createHmac('sha512', process.env.PAYSTACK_WEBHOOK_SECRET!)
+    .createHmac('sha512', process.env.(variable de paiement retirée)!)
     .update(body)
     .digest('hex')
 
-  if (expectedHash !== paystackSignature) {
-    console.error('Invalid Paystack webhook signature')
+  if (expectedHash !== passerelle de paiement (retirée)Signature) {
+    console.error('Invalid passerelle de paiement (retirée) webhook signature')
     return Response.json({ error: 'Invalid signature' }, { status: 401 })
   }
 
@@ -190,12 +193,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://js.paystack.co https://www.googletagmanager.com",
+      "script-src 'self' 'unsafe-inline' https://js.passerelle de paiement (retirée).co https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https: blob:",
       "font-src 'self'",
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.paystack.co",
-      "frame-src https://js.paystack.co",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.passerelle de paiement (retirée).co",
+      "frame-src https://js.passerelle de paiement (retirée).co",
     ].join('; ')
   }
 ]
@@ -255,7 +258,7 @@ export async function middleware(request: NextRequest) {
 
 ```bash
 # Vérifier les clés exposées côté client
-grep -r "NEXT_PUBLIC_PAYSTACK_SECRET" .
+grep -r "NEXT_PUBLIC_(variable de paiement retirée)" .
 grep -r "SUPABASE_SERVICE_ROLE_KEY" ./app  # Ne doit jamais apparaître dans /app côté client
 
 # Audit des dépendances npm
@@ -314,10 +317,10 @@ NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhb...        # Public OK
 SUPABASE_SERVICE_ROLE_KEY=eyJhb...             # JAMAIS côté client
 
-# Paystack
-PAYSTACK_SECRET_KEY=sk_live_...               # JAMAIS côté client
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_live_...   # Public OK
-PAYSTACK_WEBHOOK_SECRET=...                   # JAMAIS côté client
+# passerelle de paiement (retirée)
+(variable de paiement retirée)=sk_live_...               # JAMAIS côté client
+(variable de paiement retirée)=pk_live_...   # Public OK
+(variable de paiement retirée)=...                   # JAMAIS côté client
 
 # Chiffrement
 ENCRYPTION_KEY=<64-char hex string>           # JAMAIS exposé

@@ -15,7 +15,7 @@
   <!-- Subtle Inner Border -->
   <rect x="8" y="8" width="496" height="496" rx="112" fill="none" stroke="#FFFFFF" stroke-opacity="0.15" stroke-width="8"/>
   
-  <!-- Official ImmOfika Monogram Symbol (Centré) -->
+  <!-- Official Anyilo Monogram Symbol (Centré) -->
   <g transform="translate(118, 90) scale(1.15)">
     <g transform="matrix(1,0,0,1,-1072.914514,-193.638938)">
       <g transform="matrix(1.5,0,0,1.5,14.070253,56.280862)">

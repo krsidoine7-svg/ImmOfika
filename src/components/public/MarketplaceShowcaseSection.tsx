@@ -36,8 +36,8 @@ interface MarketplaceShowcaseSectionProps {
   initialCommune?: CommuneInfo
 }
 
-const STORAGE_COMMUNE_KEY = "immofika_user_commune"
-const STORAGE_COORDS_KEY = "immofika_user_coords"
+const STORAGE_COMMUNE_KEY = "anyilo_user_commune"
+const STORAGE_COORDS_KEY = "anyilo_user_coords"
 
 const POPULAR_COMMUNES = [
   "cocody",
@@ -194,10 +194,10 @@ export default function MarketplaceShowcaseSection({
     : currentCategory?.catalogUrl || "/biens"
 
   const activeSubtitle = isAllTab
-    ? "Explorez notre sélection de biens certifiés classés par univers immobilier."
+    ? "Les dernières annonces publiées, après relecture par notre équipe."
     : isNearMeTab
     ? `Annonces immobilières sélectionnées dans votre secteur (${currentCommune.nom}) ou à proximité immédiate.`
-    : currentCategory?.subtitle || "Explorez les meilleures opportunités certifiées."
+    : currentCategory?.subtitle || "Les dernières annonces de cette catégorie."
 
   return (
     <section id="annonces" className="relative py-16 md:py-24 bg-gradient-to-b from-white via-slate-50/70 to-white overflow-hidden border-b border-slate-100">
@@ -211,12 +211,8 @@ export default function MarketplaceShowcaseSection({
         {/* ============================================================ */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-slate-100">
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest text-emerald-800 bg-emerald-100/90 border border-emerald-200/60 mb-3">
-              <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
-              Vitrine & Marché Immobilier en Direct
-            </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Annonces & Produits <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-700">en Côte d&apos;Ivoire</span>
+              Annonces récentes
             </h2>
             <p className="mt-2 text-sm text-slate-600 max-w-2xl leading-relaxed">
               {activeSubtitle}
@@ -461,10 +457,10 @@ export default function MarketplaceShowcaseSection({
                   <MapPin className="w-7 h-7" />
                 </div>
                 <h3 className="text-lg font-extrabold text-slate-900">
-                  Catalogue en attente de synchronisation
+                  Pas encore d&apos;annonce ici
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Aucune annonce n'est encore enregistrée dans votre base de données Supabase. Injectez les données de démonstration ou publiez une annonce pour illuminer cette vitrine.
+                  Aucune annonce n&apos;est publiée dans cette catégorie pour le moment. Revenez bientôt, ou publiez la vôtre si vous avez un bien à louer ou à vendre.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
                   <Link

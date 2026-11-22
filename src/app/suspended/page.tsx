@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: 'Espace Restreint — ImmOfika International',
+  title: 'Espace Restreint — Anyilo International',
   description: 'Votre compte a été temporairement suspendu par la direction administrative.',
 }
 
@@ -47,7 +47,7 @@ export default async function SuspendedPage() {
         {/* Branding header */}
         <div className="space-y-2">
           <span className="text-sm font-bold tracking-[0.2em] text-[#10B981] uppercase block">
-            ImmOfika International
+            Anyilo International
           </span>
           <div className="h-[1px] w-12 bg-[#C9A84C]/40 mx-auto" />
         </div>
@@ -112,7 +112,7 @@ export default async function SuspendedPage() {
 
             {/* Email button */}
             <a
-              href="mailto:support@immofika.ci"
+              href="mailto:support@anyilo.com"
               className="flex items-center justify-center gap-3 w-full h-12 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-[#1A2A4A] font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-sm"
             >
               <Mail className="w-4 h-4 text-slate-400" />

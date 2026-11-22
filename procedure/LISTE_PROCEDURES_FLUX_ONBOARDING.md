@@ -1,7 +1,10 @@
 # Répertoire et Nomenclature des Procédures, Flux & Onboarding
-## ImmOfika — Promoteur Immobilier Agréé
 
-Ce document recense exclusivement la liste officielle et les intitulés des différentes procédures, des flux métiers et des parcours d'intégration (onboarding) en vigueur sur la plateforme ImmOfika.
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo — Promoteur Immobilier Agréé
+
+Ce document recense exclusivement la liste officielle et les intitulés des différentes procédures, des flux métiers et des parcours d'intégration (onboarding) en vigueur sur la plateforme Anyilo.
 
 ---
 
@@ -17,7 +20,7 @@ Ce document recense exclusivement la liste officielle et les intitulés des diff
 ### 2. 🗺️ Les Flux Métier & Parcours de Vente Client
 * **Flux de Demande et Planification de Visite** (Sélection de créneau sur agenda en ligne ➔ Routage automatique vers un agent disponible ➔ Notification Client/Agent ➔ Visite terrain ➔ Compte-rendu CRM)
 * **Flux de Réservation Atomique de Bien (`reserver_bien_atomic`)** (Soumission d'intention d'achat sur `/client/reserver/[slug]` ➔ Blocage temporaire du lot ➔ Passage en statut `en_attente`)
-* **Flux de Paiement en Ligne par Passerelle Paystack** (Règlement de l'acompte de 1/3 par Mobile Money [Wave, Orange Money, MTN MoMo] ou Carte bancaire ➔ Validation par Webhook ➔ Confirmation de réservation)
+* **Flux de Paiement en Ligne par Passerelle passerelle de paiement (retirée)** (Règlement de l'acompte de 1/3 par Mobile Money [Wave, Orange Money, MTN MoMo] ou Carte bancaire ➔ Validation par Webhook ➔ Confirmation de réservation)
 * **Flux de Paiement Hors-Ligne & Virement Bancaire** (Téléversement du bordereau de virement ou règlement espèces en agence ➔ Rapprochement et validation manuelle par l'administrateur financier)
 * **Flux de Génération Documentaire & Contrat OHADA** (Émission automatique de la facture PDF signée ➔ Édition du contrat de réservation conforme au statut de Promoteur Immobilier Agréé)
 * **Flux d'Expiration et Libération Automatique (Cron J+72h)** (Tâche planifiée de nettoyage libérant les lots non payés dans les délais impartis et réinitialisant leur statut à `disponible`)
@@ -33,7 +36,7 @@ Ce document recense exclusivement la liste officielle et les intitulés des diff
 ---
 
 ### 4. 🛡️ Les Procédures Administratives, Sécurité & Modération (Super Admin)
-* **Procédure de Supervision LBC-FT et Anti-Blanchiment (F16)** (Inspection continue des comptes, transactions Paystack, factures et documents justificatifs selon la réglementation OHADA)
+* **Procédure de Supervision LBC-FT et Anti-Blanchiment (F16)** (Inspection continue des comptes, transactions passerelle de paiement (retirée), factures et documents justificatifs selon la réglementation OHADA)
 * **Procédure de Sanction Administrative ("Bannir / Suspendre")** (Restriction d'accès avec enregistrement d'un motif légal en base et affichage transparent sur la route dédiée `/suspended`)
 * **Procédure de Diagnostic en Temps Réel & Santé Serveur (Health Check)** (Ping SQL continu, mesure de latence en millisecondes et détection d'arrêt ou de mise en pause de Supabase)
 * **Procédure de Notification et Intégration Webhook Make.com** (Transmission automatisée et instantanée des alertes de santé système et rapports d'audit LBC-FT vers les scénarios Make.com)

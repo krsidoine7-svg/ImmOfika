@@ -29,7 +29,7 @@ describe('Client Marketplace Features : Alertes & Dossiers Candidats', () => {
 
     // Ajout CNI
     const scoreAvecCNI = calculerCompletudeDossier(
-      { cniUrl: 'https://storage.immofika.ci/cni.pdf' },
+      { cniUrl: 'https://storage.anyilo.com/cni.pdf' },
       'Directeur Financier',
       2500000
     )
@@ -38,10 +38,10 @@ describe('Client Marketplace Features : Alertes & Dossiers Candidats', () => {
     // Dossier 100% complet
     const scoreComplet = calculerCompletudeDossier(
       {
-        cniUrl: 'https://storage.immofika.ci/cni.pdf',
-        bulletinsSalaireUrls: ['https://storage.immofika.ci/bulletin1.pdf'],
-        attestationTravailUrl: 'https://storage.immofika.ci/attestation.pdf',
-        quittanceUrl: 'https://storage.immofika.ci/quittance.pdf',
+        cniUrl: 'https://storage.anyilo.com/cni.pdf',
+        bulletinsSalaireUrls: ['https://storage.anyilo.com/bulletin1.pdf'],
+        attestationTravailUrl: 'https://storage.anyilo.com/attestation.pdf',
+        quittanceUrl: 'https://storage.anyilo.com/quittance.pdf',
       },
       'Avocat Associé',
       3000000

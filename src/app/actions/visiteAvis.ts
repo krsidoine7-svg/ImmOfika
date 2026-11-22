@@ -126,16 +126,19 @@ export async function soumettreAvisVisiteAction(input: SoumettreAvisInput) {
   }
 }
 
+/**
+ * Avis publics laissés après une visite réelle (table visite_avis).
+ * Ne renvoie jamais l'email ni le nom complet : prénom + initiale uniquement.
+ */
 export async function getPublicAvisTemoignages() {
   try {
-    const reviews = await db
+    const rows = await db
       .select({
         id: visiteAvis.id,
         note: visiteAvis.note,
         commentaire: visiteAvis.commentaire,
         createdAt: visiteAvis.createdAt,
         clientName: profiles.fullName,
-        clientEmail: profiles.email,
       })
       .from(visiteAvis)
       .leftJoin(profiles, eq(visiteAvis.clientId, profiles.id))
@@ -143,7 +146,17 @@ export async function getPublicAvisTemoignages() {
       .orderBy(desc(visiteAvis.createdAt))
       .limit(6)
 
-    return reviews
+    return rows
+      .filter((r) => (r.commentaire || '').trim().length > 0)
+      .map((r) => {
+        const parts = (r.clientName || '').trim().split(/\s+/).filter(Boolean)
+        const auteur = parts.length === 0
+          ? 'Client'
+          : parts.length === 1
+            ? parts[0]
+            : `${parts[0]} ${parts[parts.length - 1].charAt(0).toUpperCase()}.`
+        return { id: r.id, note: r.note, commentaire: (r.commentaire || '').trim(), createdAt: r.createdAt, auteur }
+      })
   } catch (e) {
     console.error('[getPublicAvisTemoignages Error]', e)
     return []

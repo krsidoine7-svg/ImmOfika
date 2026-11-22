@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { EyeIcon, ShieldCheckIcon, SlidersHorizontalIcon, HelpCircleIcon } from 'lucide-react'
 
 export const metadata = {
-  title: "Gestion des Cookies - ImmOfika",
-  description: "Consultez notre politique relative aux cookies et configurez vos préférences sur ImmOfika.",
+  title: "Gestion des Cookies - Anyilo",
+  description: "Consultez notre politique relative aux cookies et configurez vos préférences sur Anyilo.",
 }
 
 export default function CookiesPage() {
@@ -36,7 +36,7 @@ export default function CookiesPage() {
             {/* Introduction */}
             <div className="text-slate-600 text-sm md:text-base leading-relaxed space-y-3 font-medium">
               <p>
-                Lors de votre navigation sur la plateforme <strong>ImmOfika</strong>, des informations sont susceptibles d&apos;être enregistrées dans des fichiers « cookies » installés sur votre terminal (ordinateur, tablette ou smartphone).
+                Lors de votre navigation sur la plateforme <strong>Anyilo</strong>, des informations sont susceptibles d&apos;être enregistrées dans des fichiers « cookies » installés sur votre terminal (ordinateur, tablette ou smartphone).
               </p>
               <p>
                 La présente page vous explique ce qu&apos;est un cookie, à quoi il sert, quels types de cookies sont utilisés sur notre site et comment vous pouvez configurer vos choix de manière simple.
@@ -107,7 +107,7 @@ export default function CookiesPage() {
               </div>
               <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
-                  Lors de votre première visite sur la plateforme d&apos;ImmOfika, un bandeau d&apos;information apparaît au bas de l&apos;écran pour vous inviter à accepter ou refuser le dépôt de cookies non-essentiels.
+                  Lors de votre première visite sur la plateforme d&apos;Anyilo, un bandeau d&apos;information apparaît au bas de l&apos;écran pour vous inviter à accepter ou refuser le dépôt de cookies non-essentiels.
                 </p>
                 <p>
                   Vous pouvez également configurer directement votre navigateur internet pour accepter, rejeter ou supprimer les cookies stockés sur votre terminal à tout moment. Voici la procédure pour les principaux navigateurs :

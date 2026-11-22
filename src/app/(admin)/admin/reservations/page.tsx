@@ -5,7 +5,7 @@ import { updateReservationStatusAction } from "@/app/actions/adminReservations"
 import { AdminReservationsClient } from "@/components/admin/AdminReservationsClient"
 
 export const metadata = {
-  title: "Gestion des Réservations & Contrats - Admin ImmOfika",
+  title: "Réservations - Admin Anyilo",
 }
 
 export default async function AdminReservationsPage() {
@@ -17,11 +17,6 @@ export default async function AdminReservationsPage() {
       bienTitre: biens.titre,
       clientName: profiles.fullName,
       clientEmail: profiles.email,
-      contratStatut: reservations.contratStatut,
-      contratRejetRaison: reservations.contratRejetRaison,
-      signatureClientUrl: reservations.signatureClientUrl,
-      contratScanneUrl: reservations.contratScanneUrl,
-      contratGenereNom: reservations.contratGenereNom,
     })
     .from(reservations)
     .leftJoin(biens, eq(reservations.bienId, biens.id))

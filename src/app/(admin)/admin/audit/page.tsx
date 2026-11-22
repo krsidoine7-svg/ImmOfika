@@ -17,7 +17,7 @@ import {
 } from 'lucide-react'
 
 export const metadata = {
-  title: 'Journal d\'Audit de Sécurité — Administration ImmOfika',
+  title: 'Journal d\'Audit de Sécurité — Administration Anyilo',
   description: 'Traçabilité et surveillance des actions critiques sur la plateforme.',
 }
 

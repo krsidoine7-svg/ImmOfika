@@ -18,8 +18,8 @@ export default function Footer({ data }: FooterProps) {
 
   const newsletterTitle = data?.newsletter_title || "Restez informé des opportunités immobilières"
   const newsletterDesc = data?.newsletter_description || "Recevez en avant-première nos nouvelles annonces et opportunités d'investissement."
-  const brandDesc = data?.description || siteConfig.description
-  const brandTagline = data?.tagline || siteConfig.company.legalStatus
+  const brandDesc = "Annonces de maisons, appartements et terrains à Abidjan, relues par notre équipe avant publication."
+  const brandTagline = "Anyilo ne vous demande jamais d'argent"
 
   const contactAddress = data?.address || siteConfig.company.address
   const contactAddressLink = data?.address_link || null
@@ -137,26 +137,26 @@ export default function Footer({ data }: FooterProps) {
             <ul className="space-y-2 text-xs font-bold text-slate-700">
               <li><Link href="/" className="hover:text-emerald-700 transition-colors">Accueil</Link></li>
               <li><Link href="/biens" className="hover:text-emerald-700 transition-colors">Catalogue de biens</Link></li>
-              <li><Link href="#services" className="hover:text-emerald-700 transition-colors">Nos Services</Link></li>
-              <li><Link href="#about" className="hover:text-emerald-700 transition-colors">À propos</Link></li>
+              <li><Link href="/#comment-ca-marche" className="hover:text-emerald-700 transition-colors">Comment ça marche</Link></li>
+              <li><Link href="/#faq" className="hover:text-emerald-700 transition-colors">Questions fréquentes</Link></li>
               <li><Link href="/contact" className="hover:text-emerald-700 transition-colors">Nous contacter</Link></li>
             </ul>
           </div>
 
-          {/* Col 3 : Services */}
+          {/* Col 3 : Annonces */}
           <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-slate-900">Services</h4>
+            <h4 className="text-xs font-black uppercase tracking-wider text-slate-900">Annonces</h4>
             <ul className="space-y-2 text-xs font-bold text-slate-700">
-              <li><Link href="/biens" className="hover:text-emerald-700 transition-colors">Vente & Acquisition</Link></li>
-              <li><Link href="#services" className="hover:text-emerald-700 transition-colors">Gestion Locative</Link></li>
-              <li><Link href="#services" className="hover:text-emerald-700 transition-colors">Promotion Immobilière</Link></li>
-              <li><Link href="#services" className="hover:text-emerald-700 transition-colors">Terrains & Lotissement</Link></li>
+              <li><Link href="/biens?transaction=location" className="hover:text-emerald-700 transition-colors">Louer</Link></li>
+              <li><Link href="/biens?transaction=vente" className="hover:text-emerald-700 transition-colors">Acheter</Link></li>
+              <li><Link href="/biens?type=terrain" className="hover:text-emerald-700 transition-colors">Terrains</Link></li>
+              <li><Link href="/biens/publier" className="hover:text-emerald-700 transition-colors">Publier une annonce</Link></li>
             </ul>
           </div>
 
           {/* Col 4 : Coordonnées du Promoteur */}
           <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-slate-900">Contact Promoteur</h4>
+            <h4 className="text-xs font-black uppercase tracking-wider text-slate-900">Contact</h4>
             <ul className="space-y-2.5 text-xs text-slate-700 font-semibold">
               {/* Adresse */}
               {contactAddress && (

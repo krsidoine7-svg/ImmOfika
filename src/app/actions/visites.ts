@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from "@/lib/db/index"
-import { visites, profiles, biens, agentCalendriers, agentIndisponibilites } from "@/lib/db/schema"
+import { visites, profiles, biens } from "@/lib/db/schema"
 import { eq, and, isNull, desc, count, between, or, inArray } from "drizzle-orm"
 import { requirePermission } from "@/lib/auth/permissions"
 import { revalidatePath } from "next/cache"

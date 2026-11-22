@@ -3,7 +3,7 @@ import { getHomepageConfigsAction } from "@/app/actions/homepage"
 import HomepageConfigClient from "@/components/admin/HomepageConfigClient"
 
 export const metadata = {
-  title: "Configuration Page d'Accueil - ImmOfika Admin",
+  title: "Configuration Page d'Accueil - Anyilo Admin",
 }
 
 export default async function AdminConfigPage() {
@@ -19,7 +19,7 @@ export default async function AdminConfigPage() {
           Configuration Page d&apos;Accueil
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-          Personnalisez les textes, images, témoignages et visuels de la page d&apos;accueil ImmOfika.
+          Personnalisez les textes, images, témoignages et visuels de la page d&apos;accueil Anyilo.
         </p>
       </div>
       

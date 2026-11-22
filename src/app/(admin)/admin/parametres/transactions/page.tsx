@@ -3,7 +3,7 @@ import { getSystemSettingsAction } from "@/app/actions/settings"
 import TransactionsClient from "./TransactionsClient"
 
 export const metadata = {
-  title: "Paramètres Transactions - ImmOfika Admin",
+  title: "Paramètres Transactions - Anyilo Admin",
 }
 
 export default async function TransactionsSettingsPage() {
@@ -19,7 +19,7 @@ export default async function TransactionsSettingsPage() {
           Paramètres Transactions
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-          Gérez vos clés Paystack et vos paramètres financiers sur ImmOfika.
+          Réglez les paramètres financiers (acompte, TVA, durée de réservation). Aucun paiement n'est encaissé en ligne.
         </p>
       </div>
       

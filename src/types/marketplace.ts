@@ -1,5 +1,5 @@
 /**
- * Types et interfaces pour la marketplace ImmOfika
+ * Types et interfaces pour la marketplace Anyilo
  */
 
 export type AdvertiserType = 'particulier' | 'agence' | 'promoteur' | 'entreprise'

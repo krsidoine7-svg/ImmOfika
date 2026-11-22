@@ -8,18 +8,18 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const accounts = [
   // Admins
-  { name: 'Directeur Général', email: 'admin.general@immofika.ci', pass: 'Admin!' },
-  { name: 'Directrice Juridique', email: 'admin.juridique@immofika.ci', pass: 'Admin123!' },
+  { name: 'Directeur Général', email: 'admin.general@anyilo.com', pass: 'Admin!' },
+  { name: 'Directrice Juridique', email: 'admin.juridique@anyilo.com', pass: 'Admin123!' },
   // Managers
-  { name: 'Manager Cocody', email: 'manager.cocody@immofika.ci', pass: 'ImmOfikaManager2026!#1' },
-  { name: 'Manager Zone 4', email: 'manager.zone4@immofika.ci', pass: 'ImmOfikaManager2026!#2' },
-  { name: 'Manager Assinie', email: 'manager.assinie@immofika.ci', pass: 'ImmOfikaManager2026!#3' },
-  { name: 'Manager Bingerville', email: 'manager.bingerville@immofika.ci', pass: 'ImmOfikaManager2026!#4' },
-  { name: 'Manager Yamoussoukro', email: 'manager.yamoussoukro@immofika.ci', pass: 'ImmOfikaManager2026!#5' },
+  { name: 'Manager Cocody', email: 'manager.cocody@anyilo.com', pass: 'AnyiloManager2026!#1' },
+  { name: 'Manager Zone 4', email: 'manager.zone4@anyilo.com', pass: 'AnyiloManager2026!#2' },
+  { name: 'Manager Assinie', email: 'manager.assinie@anyilo.com', pass: 'AnyiloManager2026!#3' },
+  { name: 'Manager Bingerville', email: 'manager.bingerville@anyilo.com', pass: 'AnyiloManager2026!#4' },
+  { name: 'Manager Yamoussoukro', email: 'manager.yamoussoukro@anyilo.com', pass: 'AnyiloManager2026!#5' },
   // Clients
-  { name: 'Client Diaspora Paris', email: 'client.investisseur@gmail.com', pass: 'ImmOfikaClient2026!#1' },
-  { name: 'Client Particulier Cocody', email: 'client.particulier@yahoo.fr', pass: 'ImmOfikaClient2026!#2' },
-  { name: 'Client B2B Entreprise', email: 'client.societe@afrique-invest.com', pass: 'ImmOfikaClient2026!#3' },
+  { name: 'Client Diaspora Paris', email: 'client.investisseur@gmail.com', pass: 'AnyiloClient2026!#1' },
+  { name: 'Client Particulier Cocody', email: 'client.particulier@yahoo.fr', pass: 'AnyiloClient2026!#2' },
+  { name: 'Client B2B Entreprise', email: 'client.societe@afrique-invest.com', pass: 'AnyiloClient2026!#3' },
 ];
 
 async function testAll() {

@@ -181,11 +181,11 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
         {/* Header */}
         <View style={styles.headerContainer}>
           <View style={styles.logoSection}>
-            <Text style={styles.companyName}>IMMOFIKA</Text>
+            <Text style={styles.companyName}>ANYILO</Text>
             <Text style={styles.companyBadge}>PROMOTEUR IMMOBILIER AGRÉÉ PAR L'ÉTAT</Text>
             <Text style={styles.companyDetails}>Agrément Ministériel | Droit OHADA</Text>
             <Text style={styles.companyDetails}>Siège Social : Abidjan, Côte d'Ivoire | Tél : +225 27 24 00 00 00</Text>
-            <Text style={styles.companyDetails}>Email : contact@immofika.ci | Web : www.immofika.ci</Text>
+            <Text style={styles.companyDetails}>Email : contact@anyilo.com | Web : www.anyilo.com</Text>
           </View>
           <View style={styles.titleSection}>
             <Text style={styles.receiptTitle}>REÇU DE PAIEMENT</Text>
@@ -239,7 +239,7 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
         <View style={styles.card}>
           <Text style={styles.sectionHeader}>RÉCAPITULATIF DE LA TRANSACTION & ÉCHÉANCIER</Text>
           <View style={styles.row}>
-            <Text style={styles.label}>Référence Règlement / Paystack :</Text>
+            <Text style={styles.label}>Référence Règlement / Transaction :</Text>
             <Text style={styles.value}>{data.paiement.referenceTransaction}</Text>
           </View>
           <View style={styles.row}>
@@ -269,7 +269,7 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
             <View style={styles.signatureLine} />
           </View>
           <View style={styles.signatureBox}>
-            <Text style={styles.signatureTitle}>POUR IMMOFIKA (PROMOTEUR AGRÉÉ)</Text>
+            <Text style={styles.signatureTitle}>POUR ANYILO (PROMOTEUR AGRÉÉ)</Text>
             <View style={styles.signatureLine} />
           </View>
         </View>
@@ -277,7 +277,7 @@ export const RecuPDF = ({ data }: { data: RecuData }) => {
         {/* Legal Footer */}
         <View style={styles.footer}>
           <Text>
-            IMMOFIKA — SA au Capital de 50 000 000 FCFA — RCCM: CI-ABJ-202X-B-XXXX — CC: 0000000X.
+            ANYILO — SA au Capital de 50 000 000 FCFA — RCCM: CI-ABJ-202X-B-XXXX — CC: 0000000X.
           </Text>
           <Text>
             Document certifié conforme émis sous le contrôle d'un Promoteur Immobilier Agréé par l'État. Toute contrefaçon est passible de poursuites.

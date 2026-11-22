@@ -1,4 +1,7 @@
-# PROJET_CONTEXT.md — Contexte Permanent ImmOfika
+# PROJET_CONTEXT.md — Contexte Permanent Anyilo
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
 
 > Ce fichier est le contexte à coller en début de conversation avec l'IA.
 > Copier-coller au début de chaque nouvelle session de développement.
@@ -8,20 +11,20 @@
 ## Template de Contexte Permanent
 
 ```
-# Contexte Projet — ImmOfika
+# Contexte Projet — Anyilo
 
 ## Identité
-Promoteur immobilier agréé : ImmOfika
+Promoteur immobilier agréé : Anyilo
 Localisation : Yaho, Abidjan, Côte d'Ivoire
 Secteur : Immobilier & Lotissement
-Email : contact@immofika.ci
+Email : contact@anyilo.com
 
 ## Stack Technique
 - Next.js 15 (App Router) + React 19 + TypeScript strict
 - Tailwind CSS v4 + shadcn/ui + lucide-react + Framer Motion
 - Supabase (PostgreSQL + Auth + Storage + Realtime + RLS)
 - Drizzle ORM
-- Paystack (paiements CI : Orange Money, MTN MoMo, Wave, Carte)
+- Aucun paiement en ligne (retiré le 2026-11-22) ; facturation des annonceurs au nombre de clients obtenus, sans abonnement
 - Cloudflare R2 (stockage images, vidéos, documents, contrats)
 - Resend (emails transactionnels)
 - Vercel (déploiement)
@@ -32,7 +35,7 @@ Email : contact@immofika.ci
 - JAMAIS de clé API dans NEXT_PUBLIC_ (sauf clés publiques autorisées)
 - JAMAIS de pages/ directory — uniquement App Router
 - JAMAIS de mutations côté client — Server Actions uniquement ('use server')
-- JAMAIS traiter un webhook sans valider la signature HMAC-SHA512
+- JAMAIS traiter un webhook sans valider la signature HMAC-SHA256
 - JAMAIS de code directement sur la branche main
 - TOUJOURS Zod sur tous les inputs côté serveur
 - TOUJOURS RLS activé sur toutes les tables Supabase

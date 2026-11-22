@@ -179,7 +179,7 @@ export async function getModerationFeedAction() {
       montant: paiements.montant,
       statut: paiements.statut,
       typePaiement: paiements.typePaiement,
-      paystackReference: paiements.paystackReference,
+      transactionReference: paiements.transactionReference,
       factureUrl: paiements.factureUrl,
       createdAt: paiements.createdAt,
     })

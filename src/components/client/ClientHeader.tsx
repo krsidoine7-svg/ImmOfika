@@ -48,7 +48,7 @@ export default function ClientHeader({ userId, fullName, email, avatarUrl }: Cli
             </Button>
           } />
           <SheetContent side="left" className="p-0 w-80">
-            <SheetTitle className="sr-only">Menu de Navigation ImmOfika</SheetTitle>
+            <SheetTitle className="sr-only">Menu de Navigation Anyilo</SheetTitle>
             <SidebarContent pathname={pathname} onNavigate={() => setIsMobileMenuOpen(false)} />
           </SheetContent>
         </Sheet>

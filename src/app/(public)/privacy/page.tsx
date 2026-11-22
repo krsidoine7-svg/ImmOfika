@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { ShieldCheckIcon, EyeIcon, UserCheckIcon, LockIcon } from 'lucide-react'
 
 export const metadata = {
-  title: "Politique de Confidentialité - ImmOfika",
-  description: "Consultez la politique de protection des données personnelles de la plateforme immobilière ImmOfika.",
+  title: "Politique de Confidentialité - Anyilo",
+  description: "Consultez la politique de protection des données personnelles de la plateforme immobilière Anyilo.",
 }
 
 export default function PrivacyPage() {
@@ -24,7 +24,7 @@ export default function PrivacyPage() {
               Politique de <span className="text-emerald-400">Confidentialité</span>
             </h1>
             <p className="text-slate-300 text-base md:text-lg font-medium">
-              Votre confiance est notre priorité. Engagement de protection des données personnelles d&apos;ImmOfika.
+              Votre confiance est notre priorité. Engagement de protection des données personnelles d&apos;Anyilo.
             </p>
           </div>
         </section>
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             {/* Introduction */}
             <div className="text-slate-600 text-sm md:text-base leading-relaxed space-y-3 font-medium">
               <p>
-                Chez <strong>ImmOfika</strong>, nous accordons une importance primordiale à la confidentialité et à la sécurité de vos données à caractère personnel.
+                Chez <strong>Anyilo</strong>, nous accordons une importance primordiale à la confidentialité et à la sécurité de vos données à caractère personnel.
               </p>
               <p>
                 La présente Politique de Confidentialité a pour but de vous informer en toute transparence sur la nature des données que nous collectons, la raison de leur collecte, la manière dont elles sont traitées, sécurisées et conservées, ainsi que sur les droits dont vous disposez en vertu de la <strong>loi ivoirienne n° 2013-450 du 19 juin 2013</strong> relative à la protection des données à caractère personnel et, le cas échéant, du Règlement Général sur la Protection des Données (RGPD).
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
                 <ul className="list-disc pl-5 space-y-2 mt-2">
                   <li><strong>Informations d&apos;identité :</strong> nom complet, adresse e-mail, numéro de téléphone, pièce d&apos;identité nationale ou passeport (requis pour la génération des contrats de réservation officiels).</li>
                   <li><strong>Informations de profil :</strong> mot de passe (haché de manière sécurisée en base), photo de profil.</li>
-                  <li><strong>Données relatives aux transactions :</strong> historique de vos réservations, montants des acomptes, reçus de transaction Paystack, références de paiement, canal de paiement utilisé. <em>Aucune donnée bancaire (numéro de carte ou code secret Mobile Money) n&apos;est stockée sur nos serveurs ; elles sont entièrement traitées par l&apos;intermédiaire sécurisé Paystack.</em></li>
+                  <li><strong>Données relatives aux transactions :</strong> historique de vos réservations, montants des acomptes, reçus de transaction, références de paiement, canal de paiement utilisé. <em>Aucun paiement n&apos;est effectué sur la plateforme : aucune donnée bancaire ni Mobile Money n&apos;est collectée.</em></li>
                   <li><strong>Données de navigation et techniques :</strong> adresse IP, logs de connexion, type de navigateur, données géographiques de recherche de biens (ville, quartier).</li>
                 </ul>
               </div>
@@ -89,13 +89,12 @@ export default function PrivacyPage() {
               </div>
               <div className="text-slate-600 space-y-3 text-sm md:text-base leading-relaxed font-medium">
                 <p>
-                  ImmOfika applique des mesures de sécurité techniques et organisationnelles d&apos;une exigence absolue pour préserver l&apos;intégrité, la confidentialité et la disponibilité de vos informations personnelles :
+                  Anyilo applique des mesures de sécurité techniques et organisationnelles d&apos;une exigence absolue pour préserver l&apos;intégrité, la confidentialité et la disponibilité de vos informations personnelles :
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li><strong>Chiffrement en transit :</strong> Toutes les communications entre votre navigateur et nos serveurs sont cryptées via le protocole HTTPS / TLS 1.3.</li>
                   <li><strong>Sécurité d&apos;accès base de données :</strong> Notre base de données PostgreSQL hébergée sur Supabase applique des politiques de sécurité au niveau des lignes (Row Level Security - RLS). Chaque client a l&apos;assurance technique de ne pouvoir accéder qu&apos;à ses propres données personnelles, réservations et transactions.</li>
                   <li><strong>Chiffrement des données sensibles :</strong> Les données personnelles hautement critiques (telles que les coordonnées téléphoniques ou les numéros de CNI/Passeports pour la génération de contrats) sont stockées avec un haut niveau de cryptage de bout en bout.</li>
-                  <li><strong>Passerelle de paiement sécurisée :</strong> Les transactions sont opérées par l&apos;API sécurisée de Paystack qui respecte les normes de sécurité de l&apos;industrie des cartes de paiement (PCI-DSS niveau 1).</li>
                 </ul>
               </div>
             </article>
@@ -134,7 +133,7 @@ export default function PrivacyPage() {
                   <li><strong>Droit d&apos;opposition :</strong> Le droit de vous opposer à tout moment, pour des motifs légitimes, au traitement de vos données ou à leur utilisation à des fins de prospection commerciale.</li>
                 </ul>
                 <p>
-                  Pour exercer l&apos;un de ces droits, vous pouvez contacter notre Délégué à la Protection des Données (DPO) par e-mail à l&apos;adresse suivante : <a href="mailto:contact@immofika.ci" className="text-emerald-600 font-bold hover:underline">contact@immofika.ci</a> ou par courrier à notre siège social.
+                  Pour exercer l&apos;un de ces droits, vous pouvez contacter notre Délégué à la Protection des Données (DPO) par e-mail à l&apos;adresse suivante : <a href="mailto:contact@anyilo.com" className="text-emerald-600 font-bold hover:underline">contact@anyilo.com</a> ou par courrier à notre siège social.
                 </p>
               </div>
             </article>

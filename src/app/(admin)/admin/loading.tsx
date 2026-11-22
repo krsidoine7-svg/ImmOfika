@@ -9,7 +9,7 @@ export default function AdminLoading() {
       </div>
       <div className="text-center space-y-1">
         <h3 className="text-sm font-extrabold text-slate-900 tracking-tight">Chargement en cours...</h3>
-        <p className="text-xs text-slate-500 font-medium">ImmOfika — Espace Administration & Promotion Agréée</p>
+        <p className="text-xs text-slate-500 font-medium">Anyilo — Espace Administration & Promotion Agréée</p>
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ import { eq, desc } from "drizzle-orm"
 import { checkAdminAccess } from "@/lib/auth/permissions"
 import ExcelJS from 'exceljs'
 
-// ─── Palette de couleurs ImmOfika ───────────────────────────────────────────
+// ─── Palette de couleurs Anyilo ───────────────────────────────────────────
 const BLEU_NUIT   = '1A2A4A'   // Bleu nuit (branding principal)
 const OR          = 'C9A84C'   // Or Favor
 const OR_CLAIR    = 'FDF6DC'   // Or clair (lignes alternées)
@@ -103,8 +103,8 @@ export async function GET() {
       devise: paiements.devise,
       statut: paiements.statut,
       typePaiement: paiements.typePaiement,
-      paystackReference: paiements.paystackReference,
-      paystackChannel: paiements.paystackChannel,
+      transactionReference: paiements.transactionReference,
+      transactionChannel: paiements.transactionChannel,
       paidAt: paiements.paidAt,
       createdAt: paiements.createdAt,
       clientName: profiles.fullName,
@@ -121,8 +121,8 @@ export async function GET() {
     .orderBy(desc(paiements.createdAt))
 
   const workbook = new ExcelJS.Workbook()
-  workbook.creator = 'ImmOfika'
-  workbook.lastModifiedBy = 'Système ImmOfika'
+  workbook.creator = 'Anyilo'
+  workbook.lastModifiedBy = 'Système Anyilo'
   workbook.created = new Date()
   workbook.modified = new Date()
 
@@ -230,7 +230,7 @@ export async function GET() {
   // En-têtes de titre
   wsSummary.mergeCells('B1:O1')
   const titleCell = wsSummary.getCell('B1')
-  titleCell.value = 'IMMOFIKA — TABLEAU DE BORD DES PAIEMENTS'
+  titleCell.value = 'ANYILO — TABLEAU DE BORD DES PAIEMENTS'
   titleCell.font = { name: 'Calibri', size: 14, bold: true, color: { argb: BLANC } }
   titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
   titleCell.alignment = { horizontal: 'center', vertical: 'middle' }
@@ -500,7 +500,7 @@ export async function GET() {
   // ── Titre de la feuille ──
   ws.mergeCells('A1:P1')
   const mainTitle = ws.getCell('A1')
-  mainTitle.value = 'HISTORIQUE COMPLET DES PAIEMENTS — IMMOFIKA'
+  mainTitle.value = 'HISTORIQUE COMPLET DES PAIEMENTS — ANYILO'
   mainTitle.font = { name: 'Calibri', size: 13, bold: true, color: { argb: BLANC } }
   mainTitle.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
   mainTitle.alignment = { horizontal: 'center', vertical: 'middle' }
@@ -520,8 +520,8 @@ export async function GET() {
     { key: 'devise',      header: 'Devise',              width: 9 },
     { key: 'typePaie',    header: 'Type Paiement',        width: 18 },
     { key: 'statut',      header: 'Statut',              width: 16 },
-    { key: 'canal',       header: 'Canal Paystack',      width: 17 },
-    { key: 'reference',   header: 'Référence Paystack',  width: 30 },
+    { key: 'canal',       header: 'Moyen de paiement',      width: 17 },
+    { key: 'reference',   header: 'Référence transaction',  width: 30 },
     { key: 'datePaie',    header: 'Date de Paiement',    width: 22 },
     { key: 'dateCreation',header: 'Date de Création',    width: 22 },
   ]
@@ -531,8 +531,8 @@ export async function GET() {
   const headerLabels: string[] = [
     '#', 'N° Facture', 'Client', 'Email', 'Téléphone',
     'Bien Immobilier', 'Ville', 'Type de Bien', 'Montant (FCFA)',
-    'Devise', 'Type Paiement', 'Statut', 'Canal Paystack',
-    'Référence Paystack', 'Date de Paiement', 'Date de Création',
+    'Devise', 'Type Paiement', 'Statut', 'Moyen de paiement',
+    'Référence transaction', 'Date de Paiement', 'Date de Création',
   ]
   headerRowDetail.values = headerLabels
   headerRowDetail.eachCell((cell) => {
@@ -579,8 +579,8 @@ export async function GET() {
       devise:       p.devise || 'FCFA',
       typePaie:     p.typePaiement === 'acompte' ? 'Acompte (10%)' : (p.typePaiement || '—'),
       statut:       statutLabel,
-      canal:        p.paystackChannel ? p.paystackChannel.replace('_', ' ') : '—',
-      reference:    p.paystackReference || '—',
+      canal:        p.transactionChannel ? p.transactionChannel.replace('_', ' ') : '—',
+      reference:    p.transactionReference || '—',
       datePaie:     p.paidAt ? new Date(p.paidAt).toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '—',
       dateCreation: p.createdAt ? new Date(p.createdAt).toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '—',
     })
@@ -641,7 +641,7 @@ export async function GET() {
   return new NextResponse(Buffer.from(buffer), {
     headers: {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': `attachment; filename="Paiements_ImmOfika_${today}.xlsx"`,
+      'Content-Disposition': `attachment; filename="Paiements_Anyilo_${today}.xlsx"`,
     },
   })
 }

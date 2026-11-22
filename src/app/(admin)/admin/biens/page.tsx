@@ -9,7 +9,7 @@ import { DeleteConfirmDialog } from "@/components/admin/DeleteConfirmDialog"
 import { requirePermission } from "@/lib/auth/permissions"
 
 export const metadata = {
-  title: "Gestion des Biens - Admin ImmOfika",
+  title: "Gestion des Biens - Admin Anyilo",
 }
 
 export default async function AdminBiensPage({
@@ -45,7 +45,7 @@ export default async function AdminBiensPage({
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-black text-slate-900">Biens Immobiliers</h1>
-          <p className="text-slate-500 text-sm font-medium">Gérez le catalogue des biens disponibles sur la plateforme ImmOfika.</p>
+          <p className="text-slate-500 text-sm font-medium">Gérez le catalogue des biens disponibles sur la plateforme Anyilo.</p>
         </div>
         <Button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-md shadow-emerald-500/20" render={<Link href="/admin/biens/nouveau" />}>
           <PlusIcon className="h-4 w-4 mr-2" /> Ajouter un Bien

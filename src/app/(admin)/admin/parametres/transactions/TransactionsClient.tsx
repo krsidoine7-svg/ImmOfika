@@ -8,8 +8,6 @@ import { Button } from "@/components/ui/button"
 
 export default function TransactionsClient({ initialConfigs }: { initialConfigs: Record<string, any> }) {
   const [formData, setFormData] = React.useState({
-    paystackPublicKey: initialConfigs.finance?.paystackPublicKey || '',
-    paystackSecretKey: initialConfigs.finance?.paystackSecretKey || '',
     acomptePercent: initialConfigs.finance?.acomptePercent ?? 10,
     tvaPercent: initialConfigs.finance?.tvaPercent ?? 18,
     currency: initialConfigs.finance?.currency || 'XOF',

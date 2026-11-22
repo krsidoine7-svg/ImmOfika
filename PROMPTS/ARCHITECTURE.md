@@ -1,5 +1,8 @@
 # ARCHITECTURE.md — Carte du Projet
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Ce document est la source de vérité de l'architecture.**  
 > Mettre à jour après chaque nouvelle feature implémentée.
@@ -10,7 +13,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    IMMOFIKA PLATFORM                        │
+│                    ANYILO PLATFORM                        │
 ├─────────────────┬──────────────────────┬────────────────────────┤
 │   SITE PUBLIC   │   ESPACE CLIENT      │   BACKOFFICE ADMIN     │
 │   (Marketing)   │   (Authentifié)      │   (Multi-rôles)        │
@@ -40,7 +43,7 @@
 | **Drizzle ORM** | Type-safe, léger, génère les migrations depuis le code TypeScript |
 | **Tailwind CSS v4** | Utility-first, performant, pas de CSS-in-JS overhead |
 | **shadcn/ui** | Composants accessibles, personnalisables, pas de dépendance externe |
-| **Paystack** | Meilleure intégration Mobile Money Afrique de l'Ouest (Orange, MTN, Wave) |
+| **passerelle de paiement (retirée)** | Meilleure intégration Mobile Money Afrique de l'Ouest (Orange, MTN, Wave) |
 | **Cloudflare R2** | Stockage d'objets compatible S3, pas d'egress fees |
 | **Resend** | Email transactionnel fiable avec React Email templates |
 | **Vercel** | Déploiement zero-config Next.js, edge network global |
@@ -52,7 +55,7 @@
 ### Réservation d'un Bien
 
 ```
-Client                    Next.js               Supabase              Paystack
+Client                    Next.js               Supabase              passerelle de paiement (retirée)
   │                          │                     │                      │
   │──── Clique Réserver ────▶│                     │                      │
   │                          │──── Vérifie auth ──▶│                      │
@@ -66,7 +69,7 @@ Client                    Next.js               Supabase              Paystack
   │                          │                     │                      │
   │                          │──────────────────────────── Init paiement ─▶│
   │                          │                                             │
-  │◀──── Redirect Paystack ──│                                             │
+  │◀──── Redirect passerelle de paiement (retirée) ──│                                             │
   │                                                                        │
   │──────────────────────────────────────── Paiement ──────────────────────│
   │                                                                        │
@@ -139,10 +142,10 @@ app/actions/
 ### Module Paiements
 ```
 app/
-  api/webhooks/paystack/route.ts  → Webhook handler (signé)
+  api/webhooks/(retiré)/route.ts  → Webhook handler (signé)
   (admin)/paiements/page.tsx      → Dashboard paiements
 lib/
-  paystack/client.ts              → Client Paystack
+  (module de paiement retiré)/client.ts              → Client passerelle de paiement (retirée)
 app/actions/
   paiements.ts                    → Server Actions paiement
 ```
@@ -307,7 +310,7 @@ Cloudflare R2 : Bucket faveur-company-prod
 |---|---|---|
 | Mai 2026 | Next.js 15 App Router | Abandonne Pages Router pour les Server Actions |
 | Mai 2026 | Drizzle ORM | Plus léger et type-safe que Prisma |
-| Mai 2026 | Paystack | Meilleure couverture CI Mobile Money |
+| Mai 2026 | passerelle de paiement (retirée) | Meilleure couverture CI Mobile Money |
 | Mai 2026 | Cloudflare R2 | Pas de frais d'egress vs AWS S3 |
 | Mai 2026 | Soft Delete | Sécurisation des données et préservation de l'historique comptable |
 | Mai 2026 | Radiographie d'Impact 3D | Analyse 360° (Tech, Métier, UX) pour réduire la dette technique |

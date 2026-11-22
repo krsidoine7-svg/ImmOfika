@@ -1,7 +1,7 @@
-# Suivi des Bugs & Points à Améliorer — ImmOfika
+# Suivi des Bugs & Points à Améliorer — Anyilo
 
-**Plateforme :** ImmOfika  
-**Environnement :** Production / Staging (https://immofika.ci)  
+**Plateforme :** Anyilo  
+**Environnement :** Production / Staging (https://anyilo.com)  
 **Date :** 25 Octobre 2026  
 
 ---

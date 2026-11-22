@@ -1,5 +1,8 @@
 # ROADMAP.md — Plan de Bataille
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Approche :** Feature by feature — Tester chaque feature avant de passer à la suivante  
 > **Principe :** Build → Test → Commit → Next Feature
@@ -87,12 +90,12 @@ Avoir un site fonctionnel avec : catalogue de biens, réservation, paiement, et 
 - [ ] Remboursement 87% si dépassement (après 2 relances espacées de 2 semaines)
 - **Test :** Deux utilisateurs tentent de réserver le même bien simultanément → seul le premier réussit
 
-#### F06 — Paiements Paystack
-- [ ] Intégration Paystack SDK
+#### F06 — Paiements passerelle de paiement (retirée)
+- [ ] Intégration passerelle de paiement (retirée) SDK
 - [ ] Paiement en une fois (lien de paiement)
 - [ ] Paiement acompte (réservation)
 - [ ] Paiement mobile money (Orange Money, MTN MoMo, Wave)
-- [ ] Webhook Paystack (validation de signature côté serveur)
+- [ ] Webhook passerelle de paiement (retirée) (validation de signature côté serveur)
 - [ ] Mise à jour automatique des statuts après paiement
 - [ ] Génération automatique de facture après paiement
 - [ ] Envoi facture par email (Resend)
@@ -173,7 +176,7 @@ Avoir un site fonctionnel avec : catalogue de biens, réservation, paiement, et 
 - [ ] Attribution d'un agent pour la visite
 - [ ] Confirmation automatique (email + WhatsApp)
 - [ ] Suivi automatique des rendez-vous
-- [ ] Visites payantes (intégration Paystack)
+- [ ] Visites payantes (intégration passerelle de paiement (retirée))
 - **Test :** Client réserve une visite → Agent reçoit une notification → Confirme → Client reçoit confirmation
 
 #### F15 — Notifications & Communication
@@ -237,7 +240,7 @@ Avoir un site fonctionnel avec : catalogue de biens, réservation, paiement, et 
 
 #### F20 — Chatbot IA (Agent RAG)
 - [ ] Widget chatbot sur toutes les pages
-- [ ] Base de connaissances (biens, services, FAQ, processus ImmOfika)
+- [ ] Base de connaissances (biens, services, FAQ, processus Anyilo)
 - [ ] Réponses contextuelles (RAG)
 - [ ] Escalade vers agent humain
 - [ ] Historique des conversations

@@ -18,7 +18,7 @@ const MOTIFS = [
   { value: 'faux_prix', label: 'Prix manifestement trompeur ou non conforme' },
   { value: 'photos_trompeuses', label: 'Photos non authentiques ou volées sur un autre site' },
   { value: 'bien_deja_vendu', label: 'Bien déjà vendu / indisponible' },
-  { value: 'autre', label: 'Autre infraction aux règles ImmOfika' },
+  { value: 'autre', label: 'Autre infraction aux règles Anyilo' },
 ]
 
 export default function SignalerBienModal({
@@ -83,7 +83,7 @@ export default function SignalerBienModal({
               </div>
               <div>
                 <h3 className="font-extrabold text-base text-slate-900">Signaler cette annonce</h3>
-                <p className="text-[11px] text-slate-400">Protection de la communauté ImmOfika</p>
+                <p className="text-[11px] text-slate-400">Protection de la communauté Anyilo</p>
               </div>
             </div>
 
@@ -103,7 +103,7 @@ export default function SignalerBienModal({
               </div>
               <h4 className="font-extrabold text-base text-slate-900">Signalement bien reçu</h4>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                Notre équipe de modération juridique examine votre signalement pour garantir l&apos;authenticité des biens sur ImmOfika.
+                Notre équipe de modération juridique examine votre signalement pour garantir l&apos;authenticité des biens sur Anyilo.
               </p>
             </div>
           ) : (

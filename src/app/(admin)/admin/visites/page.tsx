@@ -9,7 +9,7 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
 export const metadata = {
-  title: 'Planification & Gestion des Visites - Admin ImmOfika',
+  title: 'Planification & Gestion des Visites - Admin Anyilo',
 }
 
 export default async function AdminVisitesPage() {

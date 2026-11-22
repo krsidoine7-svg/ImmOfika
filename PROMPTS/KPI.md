@@ -1,5 +1,5 @@
 # KPI.md — Indicateurs de Performance
-## ImmOfika International
+## Anyilo International
 
 ---
 
@@ -104,7 +104,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  IMMOFIKA — TABLEAU DE BORD                    │
+│  ANYILO — TABLEAU DE BORD                    │
 │                                  Période: [Mois]    │
 ├────────────┬─────────────┬────────────┬─────────────┤
 │  CA Total  │  Nb Ventes  │  Leads     │  Visites    │

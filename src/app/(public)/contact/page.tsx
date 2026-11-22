@@ -10,11 +10,11 @@ import type { Metadata } from 'next'
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: 'Contactez-nous — ImmOfika',
-  description: "Prenez contact avec l'équipe ImmOfika pour concrétiser votre projet d'acquisition, de vente, de location ou de promotion immobilière à Abidjan.",
+  title: 'Contactez-nous — Anyilo',
+  description: "Prenez contact avec l'équipe Anyilo pour concrétiser votre projet d'acquisition, de vente, de location ou de promotion immobilière à Abidjan.",
   openGraph: {
-    title: 'Contactez-nous — ImmOfika',
-    description: "Prenez contact avec l'équipe ImmOfika pour concrétiser votre projet d'acquisition, de vente, de location ou de promotion immobilière à Abidjan.",
+    title: 'Contactez-nous — Anyilo',
+    description: "Prenez contact avec l'équipe Anyilo pour concrétiser votre projet d'acquisition, de vente, de location ou de promotion immobilière à Abidjan.",
   },
 }
 

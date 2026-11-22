@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🧹 ROLLBACK HOMEPAGE CONFIGS — Annulation des Données par Défaut de l'Accueil
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : ImmOfika
+-- Projet  : Anyilo
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-10
 -- Version : v1.0

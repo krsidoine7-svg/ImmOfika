@@ -1,7 +1,7 @@
 'use server'
 
 import { db } from "@/lib/db/index"
-import { profiles, biens, reservations, paiements, visites, agentCalendriers, agentIndisponibilites, systemSettings } from "@/lib/db/schema"
+import { profiles, biens, reservations, paiements, visites, systemSettings } from "@/lib/db/schema"
 import { eq, and, gte, lte, isNull, sql, inArray } from "drizzle-orm"
 import { requirePermission } from "@/lib/auth/permissions"
 import { 
@@ -93,39 +93,6 @@ async function getAgentKPIsForPeriod(agentId: string, from: Date | null, to: Dat
   const totalAnnulees = agentVisits.filter(v => v.statut === 'annulee').length
   const totalHoursField = totalHonorees // 1h par visite honorée
 
-  // 2. Charger les indisponibilités locales sur la période calc
-  const localAbsences = await db
-    .select()
-    .from(agentIndisponibilites)
-    .where(and(
-      eq(agentIndisponibilites.agentId, agentId),
-      isNull(agentIndisponibilites.deletedAt),
-      gte(agentIndisponibilites.dateFin, calcFrom),
-      lte(agentIndisponibilites.dateDebut, calcTo)
-    ))
-
-  // 3. Charger le calendrier iCal
-  const listCal = await db
-    .select()
-    .from(agentCalendriers)
-    .where(and(
-      eq(agentCalendriers.agentId, agentId),
-      isNull(agentCalendriers.deletedAt)
-    ))
-    .limit(1)
-
-  const cal = listCal[0]
-  let googleEvents: any[] = []
-  if (cal?.icalUrl) {
-    try {
-      const { fetchAgentICalEvents } = await import("./disponibilites")
-      const events = await fetchAgentICalEvents(cal.icalUrl)
-      googleEvents = events.filter(e => e.end > calcFrom && e.start < calcTo)
-    } catch (e) {
-      console.warn(`[Agent ${agentId}] Erreur fetch iCal :`, e)
-    }
-  }
-
   // 4. Générer les slots de travail
   const workingSlots: { start: Date; end: Date }[] = []
   const cursor = new Date(calcFrom)
@@ -164,22 +131,6 @@ async function getAgentKPIsForPeriod(agentId: string, from: Date | null, to: Dat
     })
     if (hasVisit) occupied = true
 
-    if (!occupied) {
-      const hasAbsence = localAbsences.some(abs => {
-        const absStart = new Date(abs.dateDebut)
-        const absFin = new Date(abs.dateFin)
-        return absStart < slot.end && absFin > slot.start
-      })
-      if (hasAbsence) occupied = true
-    }
-
-    if (!occupied) {
-      const hasGoogle = googleEvents.some(ge => {
-        return ge.start < slot.end && ge.end > slot.start
-      })
-      if (hasGoogle) occupied = true
-    }
-
     if (occupied) {
       occupiedHours++
     }
@@ -204,12 +155,15 @@ export async function getDashboardKPIsAction(params: KPIParams) {
   const canView = await hasPermission('view:paiements')
   
   if (!canView) {
-    const { getAgentKPIsAction } = await import("./disponibilites")
-    const agentKpisRes = await getAgentKPIsAction()
+    const { createClient } = await import('@/utils/supabase/server')
+    const { cookies } = await import('next/headers')
+    const supabase = createClient(await cookies())
+    const { data: { user } } = await supabase.auth.getUser()
+    const agentKpis = user ? await getAgentKPIsForPeriod(user.id, null, null) : null
     
     return {
       notAuthorized: true,
-      agentKPIs: agentKpisRes.success ? agentKpisRes.kpis : null,
+      agentKPIs: agentKpis,
       kpis: {
         totalRevenue: 0,
         periodRevenue: 0,
@@ -495,14 +449,14 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
 
     return {
       success: true,
-      filename: `Rapport_CRM_ImmOfika_${new Date().toISOString().split('T')[0]}.csv`,
+      filename: `Rapport_CRM_Anyilo_${new Date().toISOString().split('T')[0]}.csv`,
       data: Buffer.from(csvContent).toString('base64'),
       mimeType: 'text/csv;charset=utf-8;'
     }
   } else {
     const ExcelJS = await import('exceljs')
     const workbook = new ExcelJS.Workbook()
-    workbook.creator = 'ImmOfika'
+    workbook.creator = 'Anyilo'
     workbook.created = new Date()
 
     const ws = workbook.addWorksheet('Rapport CRM', {
@@ -528,7 +482,7 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
 
     ws.mergeCells('A1:I1')
     const titleCell = ws.getCell('A1')
-    titleCell.value = 'IMMOFIKA — RAPPORT CRM & KPIs'
+    titleCell.value = 'ANYILO — RAPPORT CRM & KPIs'
     titleCell.font = { name: 'Calibri', size: 14, bold: true, color: { argb: BLANC } }
     titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: BLEU_NUIT } }
     titleCell.alignment = { horizontal: 'center', vertical: 'middle' }
@@ -633,7 +587,7 @@ export async function exportDashboardDataAction(params: KPIParams, formatType: '
     const buffer = await workbook.xlsx.writeBuffer()
     return {
       success: true,
-      filename: `Rapport_CRM_ImmOfika_${new Date().toISOString().split('T')[0]}.xlsx`,
+      filename: `Rapport_CRM_Anyilo_${new Date().toISOString().split('T')[0]}.xlsx`,
       data: Buffer.from(buffer).toString('base64'),
       mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     }

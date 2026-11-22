@@ -1,4 +1,7 @@
-# ImmOfika — Rapport d'Audit, Sécurisation & Guide Déploiement VPS
+# Anyilo — Rapport d'Audit, Sécurisation & Guide Déploiement VPS
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
 
 > **Plateforme Immobilière & Promotion Agréée**  
 > **Version :** 2.0  
@@ -10,10 +13,10 @@
 
 ## 1. Synthèse Exécutive
 
-La plateforme **ImmOfika** a fait l'objet d'un audit de sécurité approfondi (OWASP Top 10), d'une refonte complète du contrôle d'accès basé sur les rôles (RBAC) et d'un durcissement de l'ensemble de ses points d'entrée critiques :
+La plateforme **Anyilo** a fait l'objet d'un audit de sécurité approfondi (OWASP Top 10), d'une refonte complète du contrôle d'accès basé sur les rôles (RBAC) et d'un durcissement de l'ensemble de ses points d'entrée critiques :
 1. **Contrôle d'accès & Rôles (RBAC)** : Déploiement du modèle complet sur PostgreSQL Supabase (tables `roles`, `permissions`, `role_permissions`, `default_role_permissions`, `user_roles`).
 2. **Garde-fous serveur** : 12 protections actives empêchant l'escalade de privilèges, le verrouillage des permissions sensibles 🔒 (`roles:manage`, `system:config`) et la sanctuarisation du dernier Super Administrateur.
-3. **Paiements certifiés** : Signature cryptographique stricte HMAC SHA-512 pour les webhooks Paystack et recalcul obligatoire de l'acompte légal de 10% côté serveur.
+3. **Paiements certifiés** : Signature cryptographique stricte HMAC SHA-512 pour les webhooks passerelle de paiement (retirée) et recalcul obligatoire de l'acompte légal de 10% côté serveur.
 4. **Vérification d'identité (KYC)** : Filtrage strict (5 Mo max, formats PDF/JPG/PNG) avec analyse binaire des en-têtes (« magic bytes ») pour neutraliser les fichiers malveillants.
 5. **Protection des comptes** : Rate-limiting sur la réinitialisation de mot de passe (3/15 min) et blocage anti-brute-force sur les codes OTP (5 essais max, blocage 10 min).
 6. **En-têtes HTTP de sécurité** : Activation de `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Permissions-Policy` et `Strict-Transport-Security`.
@@ -26,7 +29,7 @@ La plateforme **ImmOfika** a fait l'objet d'un audit de sécurité approfondi (O
 | Module | Intitulé de la Tâche | Fichiers Impactés | Statut de Validation |
 | :--- | :--- | :--- | :---: |
 | **Branche Git** | Isolation propre des développements | `feature/securite-recette-docs` | Conforme |
-| **A.1** | Signature Webhook HMAC SHA512 | `src/app/api/webhooks/paystack/route.ts` | Conforme |
+| **A.1** | Signature Webhook HMAC SHA512 | `src/app/api/webhooks/paiement/route.ts` | Conforme |
 | **A.2** | Recalcul Obligatoire Acompte 10% | `src/app/actions/paiements.ts` | Conforme |
 | **A.3** | Sécurité Upload KYC (Magic Bytes, 5 Mo) | `src/app/actions/client.ts` | Conforme |
 | **A.4** | Rate-Limiting & Anti-Brute-Force OTP | `src/app/actions/authActions.ts` | Conforme |
@@ -61,8 +64,8 @@ sudo npm install -g pm2
 ```bash
 # Cloner le dépôt dans /var/www
 cd /var/www
-git clone https://github.com/votre-compte/immofika.git
-cd immofika
+git clone https://github.com/votre-compte/anyilo.git
+cd anyilo
 
 # Se positionner sur la branche sécurisée
 git checkout feature/securite-recette-docs
@@ -80,7 +83,7 @@ nano .env.local
 npm run build
 
 # Démarrer le serveur Next.js avec PM2
-pm2 start npm --name "immofika-app" -- start -- -p 3000
+pm2 start npm --name "anyilo-app" -- start -- -p 3000
 
 # Sauvegarder pour redémarrage automatique après reboot serveur
 pm2 startup
@@ -90,7 +93,7 @@ pm2 save
 ### Étape 4 : Configuration Nginx & Certificat SSL Gratuit
 1. Éditer le fichier virtuel Nginx :
 ```bash
-sudo nano /etc/nginx/sites-available/immofika
+sudo nano /etc/nginx/sites-available/anyilo
 ```
 2. Configuration recommandée :
 ```nginx
@@ -115,7 +118,7 @@ server {
 ```
 3. Activer le site et sécuriser en HTTPS :
 ```bash
-sudo ln -s /etc/nginx/sites-available/immofika /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/anyilo /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl reload nginx
 

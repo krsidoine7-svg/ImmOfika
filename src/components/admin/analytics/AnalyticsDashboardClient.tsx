@@ -185,7 +185,7 @@ export default function AnalyticsDashboardClient({ currentUserRole, initialAnaly
     const encodedUri = encodeURI(csvContent)
     const link = document.createElement("a")
     link.setAttribute("href", encodedUri)
-    link.setAttribute("download", `analytics_immofika_${new Date().toISOString().split('T')[0]}.csv`)
+    link.setAttribute("download", `analytics_anyilo_${new Date().toISOString().split('T')[0]}.csv`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

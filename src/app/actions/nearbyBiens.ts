@@ -171,7 +171,7 @@ export async function getNearbyBiensAction({
         latitude: bLat,
         longitude: bLng,
         advertiser: {
-          name: row.agentName || 'ImmOfika Partenaire',
+          name: row.agentName || 'Anyilo Partenaire',
           type: advertiserType,
           phone: row.agentPhone,
         },

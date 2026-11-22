@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     .is('deleted_at', null)
     .single()
 
-  if (!bien) return { title: 'Bien introuvable — ImmOfika' }
+  if (!bien) return { title: 'Bien introuvable — Anyilo' }
 
   const formattedPrix =
     typeof bien.prix === 'number'
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const titreBadge = bien.type_titre_propriete ? `[${bien.type_titre_propriete.toUpperCase()}] ` : ''
 
   const seoTitle = `${titreBadge}${bien.titre} à ${localisation} (${formattedPrix} FCFA)`
-  const seoDescription = `${bien.titre} — ${bien.transaction === 'location' ? 'À louer' : 'À vendre'} à ${localisation}. Prix : ${formattedPrix} FCFA. Annonce vérifiée sur ImmOfika, marketplace immobilière sécurisée à Abidjan.`
+  const seoDescription = `${bien.titre} — ${bien.transaction === 'location' ? 'À louer' : 'À vendre'} à ${localisation}. Prix : ${formattedPrix} FCFA. Annonce vérifiée sur Anyilo, marketplace immobilière sécurisée à Abidjan.`
 
   return {
     title: seoTitle,
@@ -49,13 +49,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       'immobilier Abidjan',
       'ACD',
       'titre foncier',
-      'ImmOfika',
+      'Anyilo',
     ].filter(Boolean) as string[],
     openGraph: {
-      title: `${seoTitle} | ImmOfika`,
+      title: `${seoTitle} | Anyilo`,
       description: seoDescription,
-      url: `https://immofika.ci/biens/${slug}`,
-      siteName: 'ImmOfika',
+      url: `https://anyilo.com/biens/${slug}`,
+      siteName: 'Anyilo',
       locale: 'fr_CI',
       type: 'article',
       images: bien.main_image_url
@@ -145,7 +145,7 @@ export default async function BienDetailPage({ params }: PageProps) {
     '@type': 'RealEstateListing',
     name: bien.titre,
     description: bien.description,
-    url: `https://immofika.ci/biens/${bien.slug}`,
+    url: `https://anyilo.com/biens/${bien.slug}`,
     image: bien.main_image_url ? [bien.main_image_url] : [],
     offers: {
       '@type': 'Offer',

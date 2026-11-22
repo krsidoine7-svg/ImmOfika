@@ -5,7 +5,7 @@ import { RolesManagementMatrix } from "@/components/admin/RolesManagementMatrix"
 import { asc, desc, or, like } from "drizzle-orm"
 
 export const metadata = {
-  title: "Gestion des Rôles & Permissions - Admin ImmOfika",
+  title: "Gestion des Rôles & Permissions - Admin Anyilo",
 }
 
 export default async function AdminRolesPage() {

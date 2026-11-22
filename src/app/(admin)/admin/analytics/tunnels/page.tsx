@@ -9,7 +9,7 @@ import {
 import AnalyticsDashboardClient from '@/components/admin/analytics/AnalyticsDashboardClient'
 
 export const metadata = {
-  title: 'Tunnels & Kanban — ImmOfika',
+  title: 'Tunnels & Kanban — Anyilo',
 }
 
 export default async function TunnelsPage() {

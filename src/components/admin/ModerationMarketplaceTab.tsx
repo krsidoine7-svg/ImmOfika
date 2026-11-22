@@ -324,7 +324,7 @@ export default function ModerationMarketplaceTab({ initialSignalements }: Modera
                           &laquo; {s.description} &raquo;
                         </p>
                         <p className="text-[10px] text-slate-400">
-                          Auteur : {s.auteur?.fullName || 'Utilisateur ImmOfika'} ({s.auteur?.email || 'Non renseigné'})
+                          Auteur : {s.auteur?.fullName || 'Utilisateur Anyilo'} ({s.auteur?.email || 'Non renseigné'})
                         </p>
                         {s.decisionCommentaire && (
                           <p className="text-[11px] font-bold text-slate-800 pt-1">

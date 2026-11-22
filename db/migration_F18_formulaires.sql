@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F18 — Générateur de Formulaires (style Tally)
--- ImmOfika Platform
+-- Anyilo Platform
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
 

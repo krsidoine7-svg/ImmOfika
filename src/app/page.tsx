@@ -1,102 +1,54 @@
 import * as React from "react"
 import Navbar from "@/components/shared/Navbar"
 import HeroSection from "@/components/public/HeroSection"
-import ExplainerVideoSection from "@/components/public/ExplainerVideoSection"
-import AboutSection from "@/components/public/AboutSection"
-import ServicesSection from "@/components/public/ServicesSection"
-import FaqSection from "@/components/public/FaqSection"
-import TestimonialsSection from "@/components/public/TestimonialsSection"
+import MarketplaceShowcaseSection from "@/components/public/MarketplaceShowcaseSection"
+import HowItWorksSection from "@/components/public/HowItWorksSection"
+import AvisVisitesSection from "@/components/public/AvisVisitesSection"
 import CtaSection from "@/components/public/CtaSection"
+import FaqSection from "@/components/public/FaqSection"
 import Footer from "@/components/public/Footer"
-import { Reveal } from "@/components/shared/Reveal"
 import { getHomepageConfigsAction } from "@/app/actions/homepage"
-import { getPublishedBiensAction } from "@/app/actions/publicBiens"
 import { getMarketplaceShowcaseAction } from "@/app/actions/marketplaceCategories"
 import { getNearbyBiensAction } from "@/app/actions/nearbyBiens"
-import { mapDBBienToProperty } from "@/data/properties"
-import Preloader3D from "@/components/public/Preloader3D"
-import MarketplaceShowcaseSection from "@/components/public/MarketplaceShowcaseSection"
-import FeaturedPartnersSection from "@/components/public/FeaturedPartnersSection"
 
+/**
+ * Accueil Anyilo — l'essentiel, dans l'ordre où le visiteur en a besoin :
+ * 1. Chercher (commune, type, budget)      — HeroSection
+ * 2. Voir les vraies annonces               — MarketplaceShowcaseSection
+ * 3. Comprendre comment ça marche + anti-arnaque — HowItWorksSection
+ * 4. Avis réels après visite (si présents)  — AvisVisitesSection
+ * 5. Annonceurs : publier                   — CtaSection
+ * 6. Questions fréquentes                   — FaqSection
+ * Aucun contenu de preuve (avis, chiffres, partenaires) n'est écrit en dur.
+ */
 export default async function Home() {
-  const [res, biensRes, showcaseRes, nearbyRes] = await Promise.all([
+  const [res, showcaseRes, nearbyRes] = await Promise.all([
     getHomepageConfigsAction(),
-    getPublishedBiensAction(100),
     getMarketplaceShowcaseAction(6),
-    getNearbyBiensAction({ limit: 6 })
+    getNearbyBiensAction({ limit: 6 }),
   ])
-  
-  const configs = res.configs || {}
-  const dbBiens = biensRes.success ? (biensRes.biens || []) : []
-  const properties = dbBiens.map(mapDBBienToProperty)
+
+  const footerData = res.configs?.footer || {}
   const categoriesData = showcaseRes.success ? showcaseRes.categories : {}
   const nearbyBiens = nearbyRes.success ? nearbyRes.biens : []
   const initialCommune = nearbyRes.success ? nearbyRes.commune : undefined
 
-  const heroData = configs.hero || {}
-  const explainerVideoData = configs.explainer_video || {}
-  const aboutData = configs.about || {}
-  const expertiseData = configs.expertise || {}
-  const testimonialsData = configs.testimonials || {}
-  const faqData = configs.faq || {}
-  const ctaData = configs.cta || {}
-  const footerData = configs.footer || {}
-  const featuredPartnersData = configs.featured_partners || {}
-
   return (
-    <div className="relative flex flex-col min-h-screen">
-      <Preloader3D />
+    <div className="relative flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1">
-        {heroData.enabled !== false && <HeroSection data={heroData} properties={properties} />}
-
-        {/* Vitrine Unique et Unifiée : Géolocalisation & Catégories Marketplace */}
-        <MarketplaceShowcaseSection 
+        <HeroSection />
+        <MarketplaceShowcaseSection
           categoriesData={categoriesData}
-          initialNearbyBiens={nearbyBiens} 
-          initialCommune={initialCommune} 
+          initialNearbyBiens={nearbyBiens}
+          initialCommune={initialCommune}
         />
-
-        {expertiseData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <ServicesSection data={expertiseData} />
-          </Reveal>
-        )}
-
-
-        {/* Section Promoteurs & Agences d'Élite en Vedette (Interrupteur Super Admin) */}
-        {featuredPartnersData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <FeaturedPartnersSection data={featuredPartnersData} />
-          </Reveal>
-        )}
-
-        {aboutData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <AboutSection data={aboutData} />
-          </Reveal>
-        )}
-
-        {testimonialsData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <TestimonialsSection data={testimonialsData} />
-          </Reveal>
-        )}
-
-        {faqData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <FaqSection data={faqData} />
-          </Reveal>
-        )}
-
-        {ctaData.enabled !== false && (
-          <Reveal width="100%" y={60}>
-            <CtaSection data={ctaData} />
-          </Reveal>
-        )}
+        <HowItWorksSection />
+        <AvisVisitesSection />
+        <CtaSection />
+        <FaqSection />
       </main>
       <Footer data={footerData} />
     </div>
   )
 }
-

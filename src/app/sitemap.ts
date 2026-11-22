@@ -7,7 +7,7 @@ import { eq, and, isNull } from 'drizzle-orm'
 export const revalidate = 3600 // Revalidation horaire du sitemap
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || siteConfig.url || 'https://immofika.ci').replace(/\/$/, '')
+  const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || siteConfig.url || 'https://anyilo.com').replace(/\/$/, '')
 
   // 1. Pages publiques statiques
   const staticRoutes: MetadataRoute.Sitemap = [

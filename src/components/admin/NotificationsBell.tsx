@@ -222,7 +222,7 @@ export function NotificationsBell({ userId }: NotificationsBellProps) {
                 <BellIcon className="h-6 w-6" />
               </div>
               <p className="mt-3 text-sm font-bold text-slate-700">Aucune notification</p>
-              <p className="mt-1 text-xs text-slate-400 font-medium">Vous serez notifié des événements clés d&apos;ImmOfika.</p>
+              <p className="mt-1 text-xs text-slate-400 font-medium">Vous serez notifié des événements clés d&apos;Anyilo.</p>
             </div>
           ) : (
             notifications.map((notif) => (

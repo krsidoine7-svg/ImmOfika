@@ -1,18 +1,21 @@
 # PRD — Product Requirements Document
-## ImmOfika — Plateforme Immobilière SaaS
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo — Plateforme Immobilière SaaS
 
 > **Version :** 1.0  
 > **Date :** Mai 2026  
 > **Statut :** Draft  
-> **Auteur :** ImmOfika  
-> **Contact :** contact@immofika.ci | +225 2724370155
+> **Auteur :** Anyilo  
+> **Contact :** contact@anyilo.com | +225 2724370155
 
 ---
 
 ## 1. Vision Produit
 
 ### 1.1 Résumé Exécutif
-ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble face à la Maison Blanche, 2ème étage, Côte d'Ivoire). La plateforme est un **SaaS immobilier africain tout-en-un** couvrant : site vitrine e-commerce, CRM intégré, gestion des biens, paiements en ligne (Paystack / Mobile Money), génération de contrats, pipeline de vente, et administration multi-rôles.
+Anyilo est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble face à la Maison Blanche, 2ème étage, Côte d'Ivoire). La plateforme est un **SaaS immobilier africain tout-en-un** couvrant : site vitrine e-commerce, CRM intégré, gestion des biens, paiements en ligne (passerelle de paiement (retirée) / Mobile Money), génération de contrats, pipeline de vente, et administration multi-rôles.
 
 ### 1.2 Objectifs Business
 - Générer de la notoriété et inspirer confiance auprès des prospects
@@ -26,11 +29,11 @@ ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble fa
 | Particuliers | Personnes physiques souhaitant se loger, acheter un terrain ou une maison |
 | Personnes morales | Entreprises souhaitant acquérir des biens immobiliers |
 | Agences/Promoteurs partenaires | Autres agences/promoteurs immobiliers partenaires |
-| Agents internes | Équipe ImmOfika (agents, admins, RH, tech) |
+| Agents internes | Équipe Anyilo (agents, admins, RH, tech) |
 
 ---
 
-## 2. Services ImmOfika
+## 2. Services Anyilo
 
 - Lotissement & aménagement foncier
 - Études et travaux de topographie
@@ -81,7 +84,7 @@ ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble fa
 ### 3.6 ADMIN TECHNIQUE (tech_super_admin)
 - Gère l'infrastructure, les webhooks, l'API
 - Accède à la documentation technique et aux logs
-- Configure les intégrations (Paystack, Resend, etc.)
+- Configure les intégrations (passerelle de paiement (retirée), Resend, etc.)
 
 ### 3.7 ADMIN RH (admin_rh)
 - Gère les profils des collaborateurs
@@ -202,7 +205,7 @@ ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble fa
 - Si non finalisé : statut → Disponible
 - Si +1 mois après les 3 mois : remboursement de 87% de l'acompte (après 2 relances espacées de 2 semaines)
 
-### 4.5 Paiements (Paystack)
+### 4.5 Paiements (passerelle de paiement (retirée))
 
 #### Modalités
 - Paiement en une fois (lien de paiement direct)
@@ -271,7 +274,7 @@ ImmOfika est un promoteur immobilier agréé basé à Abidjan (Yaho, Immeuble fa
 
 ### 4.10 Chatbot IA (Agent RAG)
 - Présent sur toutes les pages du site
-- Base de connaissances alimentée par les données ImmOfika
+- Base de connaissances alimentée par les données Anyilo
 - Répond à toutes les questions utilisateur (biens, services, prix, processus, etc.)
 - Disponible 24h/24
 - Escalade vers un agent humain si nécessaire
@@ -385,7 +388,7 @@ Les droits sont attribués **élément par élément** (jamais en bloc). Pour ch
 
 | Service | Usage |
 |---|---|
-| **Paystack** | Paiements en ligne (carte, Mobile Money) |
+| **passerelle de paiement (retirée)** | Paiements en ligne (carte, Mobile Money) |
 | **Supabase** | Base de données, auth, storage, RLS |
 | **Cloudflare** | Stockage d'images et fichiers |
 | **Resend** | Envoi d'emails transactionnels |

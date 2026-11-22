@@ -156,7 +156,7 @@ export default function NotificationService() {
         </div>
         <div className="flex-1 space-y-1">
           <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">
-            ImmOfika
+            Anyilo
           </span>
           <h4 className="text-xs font-bold tracking-tight text-white">{title}</h4>
           <p className="text-[11px] text-slate-300 font-medium leading-snug">{message}</p>

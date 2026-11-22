@@ -8,7 +8,7 @@ import { Home, Briefcase, PlusCircle, CheckCircle, Sparkles } from 'lucide-react
 import ConfierFormClient from '@/components/client/ConfierFormClient'
 
 export const metadata = {
-  title: 'Confier un Bien — ImmOfika',
+  title: 'Confier un Bien — Anyilo',
   description: 'Confiez votre terrain ou votre projet immobilier à un promoteur agréé.',
 }
 
@@ -44,7 +44,7 @@ export default async function ConfierBienPage() {
           Confiez-nous Vos Biens
         </h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">
-          Bénéficiez de l&apos;expertise légale et technique d&apos;ImmOfika International pour l&apos;aménagement, la construction ou la gestion de votre patrimoine.
+          Bénéficiez de l&apos;expertise légale et technique d&apos;Anyilo International pour l&apos;aménagement, la construction ou la gestion de votre patrimoine.
         </p>
       </div>
 

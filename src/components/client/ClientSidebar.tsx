@@ -10,7 +10,6 @@ import {
   User, 
   HelpCircle, 
   Share2, 
-  Crown,
   Bell,
   FileText
 } from "lucide-react"
@@ -28,7 +27,6 @@ export const menuItems: MenuItem[] = [
   { name: "Dossier Candidat", href: "/client/dossier", icon: FileText },
   { name: "Paiements & Factures", href: "/client/paiements", icon: CreditCard },
   { name: "Mon Profil & KYC", href: "/client/profil", icon: User },
-  { name: "Niveau d'Offre", href: "/client/offres", icon: Crown },
   { name: "Suggestions & Retours", href: "/client/suggestions", icon: HelpCircle },
   { name: "Contacter l'Agent", href: "/client/contact", icon: Share2 }
 ]

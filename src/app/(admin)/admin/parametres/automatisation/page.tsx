@@ -3,7 +3,7 @@ import { getSystemSettingsAction } from "@/app/actions/settings"
 import AutomatisationClient from "./AutomatisationClient"
 
 export const metadata = {
-  title: "Paramètres Automatisation - ImmOfika Admin",
+  title: "Paramètres Automatisation - Anyilo Admin",
 }
 
 export default async function AutomatisationSettingsPage() {
@@ -19,7 +19,7 @@ export default async function AutomatisationSettingsPage() {
           Paramètres Automatisation
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-          Gérez vos Webhooks, et paramètres de notification (Email, SMS, WhatsApp) ImmOfika.
+          Gérez vos Webhooks, et paramètres de notification (Email, SMS, WhatsApp) Anyilo.
         </p>
       </div>
       

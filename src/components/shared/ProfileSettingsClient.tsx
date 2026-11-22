@@ -161,7 +161,7 @@ export default function ProfileSettingsClient({
           Mon Profil & Paramètres
         </h1>
         <p className="text-sm text-slate-500 mt-1 font-medium">
-          Gérez vos coordonnées, vérifiez vos pièces d&apos;identité et sécurisez votre compte ImmOfika.
+          Gérez vos coordonnées, vérifiez vos pièces d&apos;identité et sécurisez votre compte Anyilo.
         </p>
       </div>
 
@@ -342,7 +342,7 @@ export default function ProfileSettingsClient({
                   <CheckCircle className="h-4.5 w-4.5 text-emerald-500" />
                   Vos informations KYC ont été validées officiellement.
                 </p>
-                Vous êtes certifié pour signer des contrats électroniques juridiquement valides avec ImmOfika.
+                Votre identité est vérifiée : les annonceurs voient que votre profil est authentique.
               </div>
             ) : profile.kyc_status === 'pending' ? (
               <div className="p-4 bg-amber-50/50 text-amber-800 border border-amber-100 rounded-2xl text-xs sm:text-sm font-light leading-relaxed">

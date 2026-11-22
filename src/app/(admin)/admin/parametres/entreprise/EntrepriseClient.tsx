@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
 
 export default function EntrepriseClient({ initialConfigs }: { initialConfigs: Record<string, any> }) {
   const [formData, setFormData] = React.useState({
-    legalName: initialConfigs.promoter?.legalName || 'ImmOfika Immobilier International',
+    legalName: initialConfigs.promoter?.legalName || 'Anyilo Immobilier International',
     agrement: initialConfigs.promoter?.agrement || '',
     ncc: initialConfigs.promoter?.ncc || '',
     phone: initialConfigs.promoter?.phone || '+225 0701020304',
     address: initialConfigs.promoter?.address || 'Cocody Mermoz, Abidjan, Côte d\'Ivoire',
-    email: initialConfigs.promoter?.email || 'contact@immofika.ci',
+    email: initialConfigs.promoter?.email || 'contact@anyilo.com',
     whatsappPhone: initialConfigs.promoter?.whatsappPhone || '2250707070707',
-    whatsappTemplate: initialConfigs.promoter?.whatsappTemplate || 'Bonjour ImmOfika, je suis {name}. Je souhaite échanger concernant mes projets immobiliers.',
+    whatsappTemplate: initialConfigs.promoter?.whatsappTemplate || 'Bonjour Anyilo, je suis {name}. Je souhaite échanger concernant mes projets immobiliers.',
   })
 
   const [initialState, setInitialState] = React.useState(JSON.parse(JSON.stringify(formData)))

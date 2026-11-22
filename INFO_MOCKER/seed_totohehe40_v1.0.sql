@@ -1,7 +1,7 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
 -- 🌱 SEED TOTOHEHE40 — Données Mockées d'Agenda & Visites pour totohehe40@gmail.com
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Projet  : ImmOfika
+-- Projet  : Anyilo
 -- Auteur  : IA Antigravity (Session Dev)
 -- Date    : 2026-06-05
 -- Version : v1.0

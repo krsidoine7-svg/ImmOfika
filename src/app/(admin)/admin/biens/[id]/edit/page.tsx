@@ -8,7 +8,7 @@ import { notFound } from "next/navigation"
 import { EditBienForm } from "@/components/admin/EditBienForm"
 
 export const metadata = {
-  title: "Modifier un Bien - Admin ImmOfika",
+  title: "Modifier un Bien - Admin Anyilo",
 }
 
 export default async function EditBienPage({ params }: { params: Promise<{ id: string }> }) {
@@ -30,7 +30,7 @@ export default async function EditBienPage({ params }: { params: Promise<{ id: s
         </Button>
         <div>
           <h1 className="text-2xl font-black text-slate-900">Modifier le Bien</h1>
-          <p className="text-slate-500 text-sm font-medium">Modifiez les informations de ce bien immobilier sur ImmOfika.</p>
+          <p className="text-slate-500 text-sm font-medium">Modifiez les informations de ce bien immobilier sur Anyilo.</p>
         </div>
       </div>
 

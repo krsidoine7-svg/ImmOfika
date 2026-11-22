@@ -1,5 +1,5 @@
 /**
- * Validation stricte et sécurisée des fichiers téléversés pour ImmOfika
+ * Validation stricte et sécurisée des fichiers téléversés pour Anyilo
  */
 
 export const ALLOWED_MIME_TYPES = new Set([

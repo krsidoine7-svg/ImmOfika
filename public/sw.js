@@ -1,8 +1,8 @@
-const CACHE_NAME = "immofika-cache-v1";
+const CACHE_NAME = "anyilo-cache-v2";
 const ASSETS_TO_CACHE = [
   "/",
   "/manifest.json",
-  "/logo-immofika.jpeg",
+  "/logo-anyilo.jpeg",
   "/icon-192.png",
   "/icon-512.png",
   "/favicon.svg"
@@ -43,7 +43,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   const url = new URL(event.request.url);
-  const isPageOrApi = !url.pathname.includes(".") || url.pathname.startsWith("/api/");
+  const isPageOrApi = !url.pathname.includes(".") || url.pathname.startsWith("/api/") || url.pathname.startsWith("/_next/");
   
   if (isPageOrApi) {
     return;
@@ -70,17 +70,17 @@ self.addEventListener("push", function (event) {
   try {
     payload = event.data.json();
   } catch (err) {
-    payload = { title: "ImmOfika", body: event.data.text() };
+    payload = { title: "Anyilo", body: event.data.text() };
   }
 
-  const title = payload.title || "ImmOfika — Plateforme Immobilière";
+  const title = payload.title || "Anyilo — Plateforme Immobilière";
   const options = {
     body: payload.body || "Nouvelle alerte immobilière",
-    icon: "/logo-immofika.jpeg",
-    badge: "/logo-immofika.jpeg",
+    icon: "/logo-anyilo.jpeg",
+    badge: "/logo-anyilo.jpeg",
     image: payload.image || undefined,
     vibrate: [200, 100, 200, 100, 300],
-    tag: payload.tag || "immofika-notification",
+    tag: payload.tag || "anyilo-notification",
     renotify: true,
     requireInteraction: true,
     data: {

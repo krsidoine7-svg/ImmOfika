@@ -1,5 +1,8 @@
 # MVP_1.md — Fondations & Core
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Durée :** Semaines 1–5  
 > **Objectif :** Site fonctionnel avec catalogue, réservation, paiement, et backoffice admin de base  
@@ -16,7 +19,7 @@
 | F03 | Page d'accueil | 🔴 Critique | ✅ Terminé |
 | F04 | Catalogue & Détail Biens | 🔴 Critique | ⬜ Todo |
 | F05 | Réservation de biens | 🔴 Critique | ⬜ Todo |
-| F06 | Paiements Paystack | 🔴 Critique | ⬜ Todo |
+| F06 | Paiements passerelle de paiement (retirée) | 🔴 Critique | ⬜ Todo |
 | F07 | Génération de Factures | 🟠 Important | ⬜ Todo |
 | F08 | Admin Dashboard (base) | 🔴 Critique | ⬜ Todo |
 | F09 | Espace Client | 🟠 Important | ⬜ Todo |
@@ -77,9 +80,9 @@ mkdir -p src/{app,components,lib,hooks,types,constants}
 mkdir -p src/app/\(public\)
 mkdir -p src/app/\(client\)
 mkdir -p src/app/\(admin\)
-mkdir -p src/app/api/webhooks/paystack
+mkdir -p src/app/api/webhooks/paiement
 mkdir -p src/components/{ui,shared,biens,admin,payment}
-mkdir -p src/lib/{supabase,db,utils,paystack,resend,cloudflare}
+mkdir -p src/lib/{supabase,db,utils,passerelle de paiement (retirée),resend,cloudflare}
 mkdir -p src/lib/db/queries
 mkdir -p src/app/actions
 mkdir -p docs
@@ -415,11 +418,11 @@ $$;
 
 ---
 
-## F06 — Paiements Paystack
+## F06 — Paiements passerelle de paiement (retirée)
 
 ### Critères d'acceptance
 - [x] Lien de paiement généré côté serveur
-- [x] Redirection vers Paystack pour paiement
+- [x] Redirection vers passerelle de paiement (retirée) pour paiement
 - [x] Webhook reçu et signature validée
 - [x] Statut paiement mis à jour en DB
 - [x] Facture générée automatiquement
@@ -427,7 +430,7 @@ $$;
 - [x] Relances automatiques planifiées
 - [x] Remboursement 87% fonctionne
 
-> Voir `INTÉGRATION_PAYSTACK.md` pour le code complet.
+> Voir `INTÉGRATION_passerelle de paiement (retirée).md` pour le code complet.
 
 ---
 
@@ -468,7 +471,7 @@ export function FactureEmail({
       <Head />
       <Body>
         <Container>
-          <Heading>ImmOfika</Heading>
+          <Heading>Anyilo</Heading>
           <Text>Bonjour {clientNom},</Text>
           <Text>
             Votre paiement pour le bien "{bienNom}" a été confirmé.
@@ -480,7 +483,7 @@ export function FactureEmail({
             <a href={factureUrl}>Télécharger ma facture</a>
           </Text>
           <Text>
-            ImmOfika<br />
+            Anyilo<br />
             Yaho, Abidjan - Côte d'Ivoire<br />
             +225 2724370155
           </Text>
@@ -647,7 +650,7 @@ Avant de passer à MVP_2, valider les scénarios suivants :
 ### Scénario 4 — Sécurité
 1. Tenter d'accéder à `/admin/biens` sans être connecté → Redirection login
 2. Tenter un paiement avec un montant modifié côté client → Rejeté
-3. Envoyer un webhook Paystack avec signature invalide → HTTP 401
+3. Envoyer un webhook passerelle de paiement (retirée) avec signature invalide → HTTP 401
 
 ---
 

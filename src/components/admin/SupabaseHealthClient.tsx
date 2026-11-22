@@ -43,11 +43,11 @@ export default function SupabaseHealthClient({ initialData, appUrl }: SupabaseHe
   const [secondsRemaining, setSecondsRemaining] = React.useState<number>(2880 * 60)
 
   // Détection de l'environnement et gestion du domaine (Production vs Local)
-  const rawBaseUrl = appUrl || (typeof window !== "undefined" ? window.location.origin : "https://immofika.ci")
+  const rawBaseUrl = appUrl || (typeof window !== "undefined" ? window.location.origin : "https://anyilo.com")
   const isLocalEnv = rawBaseUrl.includes("localhost") || rawBaseUrl.includes("127.0.0.1")
   
   const [selectedEnv, setSelectedEnv] = React.useState<"prod" | "local">(isLocalEnv ? "prod" : "local")
-  const [productionDomain, setProductionDomain] = React.useState<string>("https://immofika-psi.vercel.app")
+  const [productionDomain, setProductionDomain] = React.useState<string>(process.env.NEXT_PUBLIC_APP_URL || "https://anyilo.com")
 
   const currentBase = selectedEnv === "prod" ? productionDomain : rawBaseUrl
   const webhookUrl = `${currentBase.replace(/\/$/, "")}/api/cron/keepalive`
@@ -55,8 +55,8 @@ export default function SupabaseHealthClient({ initialData, appUrl }: SupabaseHe
   // Initialisation avec persistance localStorage
   React.useEffect(() => {
     try {
-      const savedInterval = localStorage.getItem("immofika_keepalive_interval")
-      const savedLastPing = localStorage.getItem("immofika_keepalive_last_ping")
+      const savedInterval = localStorage.getItem("anyilo_keepalive_interval")
+      const savedLastPing = localStorage.getItem("anyilo_keepalive_last_ping")
       const intervalVal = savedInterval ? parseInt(savedInterval, 10) : 2880
       setIntervalMinutes(intervalVal)
 
@@ -83,7 +83,7 @@ export default function SupabaseHealthClient({ initialData, appUrl }: SupabaseHe
         setStats(res.stats)
         setHistory(res.history)
         try {
-          localStorage.setItem("immofika_keepalive_last_ping", Date.now().toString())
+          localStorage.setItem("anyilo_keepalive_last_ping", Date.now().toString())
         } catch {}
 
         if (!isAuto) {
@@ -122,8 +122,8 @@ export default function SupabaseHealthClient({ initialData, appUrl }: SupabaseHe
     setIntervalMinutes(minutes)
     setSecondsRemaining(minutes * 60)
     try {
-      localStorage.setItem("immofika_keepalive_interval", minutes.toString())
-      localStorage.setItem("immofika_keepalive_last_ping", Date.now().toString())
+      localStorage.setItem("anyilo_keepalive_interval", minutes.toString())
+      localStorage.setItem("anyilo_keepalive_last_ping", Date.now().toString())
     } catch {}
 
     const label = minutes >= 1440 ? `${minutes / 1440} jour(s)` : minutes >= 60 ? `${minutes / 60} heure(s)` : `${minutes} minute(s)`

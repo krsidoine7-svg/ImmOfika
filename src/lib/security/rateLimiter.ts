@@ -1,5 +1,5 @@
 /**
- * Rate Limiter intelligent pour ImmOfika
+ * Rate Limiter intelligent pour Anyilo
  * Supporte Upstash Redis si configuré en production, avec repli automatique (fallback)
  * sur un cache glissant en mémoire vive (in-memory sliding window).
  */
@@ -58,7 +58,7 @@ export async function checkRateLimit(
       const ratelimit = new Ratelimit({
         redis,
         limiter: Ratelimit.slidingWindow(limit, `${windowSeconds} s`),
-        prefix: 'immofika:ratelimit',
+        prefix: 'anyilo:ratelimit',
       })
 
       const res = await ratelimit.limit(identifier)

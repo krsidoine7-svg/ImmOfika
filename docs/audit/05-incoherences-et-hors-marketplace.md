@@ -1,6 +1,6 @@
 # 05 — Incohérences, Modules Hors Marketplace & Spécificités Mono-Client
 
-> **Projet** : ImmOfika  
+> **Projet** : Anyilo  
 > **Type d'audit** : Phase 1 — Audit en lecture seule pour transformation en Marketplace Immobilière (Abidjan)  
 > **Date** : 31 Octobre 2026  
 > **Objectif** : Identifier exhaustivement les modules internes de l'ancien client unique qui doivent être isolés ou retirés, les incohérences architecturales et le code mort ou décalé.
@@ -35,7 +35,7 @@ Le projet a été développé initialement pour gérer les opérations internes 
 ### 1.4 La Gestion des Mandats Fonciers Dédiés (`bien_confies` & `suggestions`)
 - **Fichiers sources** : `src/lib/db/schema.ts:441-464`.
 - **Nature du problème** :
-  - Formulaires spécifiques invitant les propriétaires villageois ou particuliers à « Confier leur terrain ou parcelle à ImmOfika » pour aménagement foncier ou lotissement.
+  - Formulaires spécifiques invitant les propriétaires villageois ou particuliers à « Confier leur terrain ou parcelle à Anyilo » pour aménagement foncier ou lotissement.
   - Sur une marketplace, ce besoin est remplacé par le formulaire standard de dépôt d'annonce (Vente de terrain).
 
 ### 1.5 La Vue Tableur Interne sans Validation (`/admin/database`)
@@ -56,7 +56,7 @@ La plateforme contient des ancrages sémantiques forts limitant l'application à
    - Sur une marketplace, `siteConfig.company` doit représenter l'**Opérateur de la Plateforme Marketplace**, tandis que les statuts juridiques, RCCM et agréments doivent être portés par chaque annonceur (agence ou promoteur partenaire).
 2. **Métadonnées SEO & Textes de Fiches Biens** :
    - Source : `src/app/(public)/biens/[slug]/page.tsx:33`
-   - Mention en dur : *« Offre certifiée par ImmOfika, Promoteur Immobilier Agréé pour l'aménagement foncier et la construction. »*
+   - Mention en dur : *« Offre certifiée par Anyilo, Promoteur Immobilier Agréé pour l'aménagement foncier et la construction. »*
    - Doit être remplacé par le nom dynamique et l'agrément certifié de l'annonceur réel (ex: *« SCPI Riviera »*, *« Agence Cocody Prestige »*, etc.).
 
 ---

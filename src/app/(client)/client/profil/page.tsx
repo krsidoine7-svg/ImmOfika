@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import ProfileSettingsClient from '@/components/shared/ProfileSettingsClient'
 
 export const metadata = {
-  title: 'Mon Profil — ImmOfika',
+  title: 'Mon Profil — Anyilo',
 }
 
 export default async function ProfilPage() {

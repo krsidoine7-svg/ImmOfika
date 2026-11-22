@@ -14,7 +14,7 @@ export function getSupabaseUrl(): string {
   url = url.trim()
 
   // Détection si le domaine de la plateforme a été configuré par erreur
-  if (url.includes('vercel.app') || url.includes('immofika.ci')) {
+  if (url.includes('vercel.app') || url.includes('anyilo.com')) {
     return FALLBACK_SUPABASE_URL
   }
 
@@ -38,3 +38,4 @@ export function getSupabaseAnonKey(): string {
   }
   return key.trim()
 }
+

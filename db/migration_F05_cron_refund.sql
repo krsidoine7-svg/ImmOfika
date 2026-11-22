@@ -1,6 +1,6 @@
 -- ============================================================
 -- Migration F05 — Relances & Remboursements 87%
--- ImmOfika
+-- Anyilo
 -- Date: 2026-05-18
 -- À exécuter dans le SQL Editor de Supabase
 -- ============================================================
@@ -45,7 +45,7 @@ BEGIN
 
     -- Si pas d'email, utiliser une valeur par défaut
     IF v_client_email IS NULL THEN
-      v_client_email := 'client@immofika.ci';
+      v_client_email := 'client@anyilo.com';
     END IF;
 
     -- ─── CAS 1 : Relance N°1 (30 jours ou moins avant expiration) ───
@@ -100,7 +100,7 @@ BEGIN
           v_refund_amount := v_paid_amount * 0.87;
 
           -- Créer un enregistrement de paiement de type remboursement
-          INSERT INTO paiements (reservation_id, client_id, montant, devise, statut, paystack_reference)
+          INSERT INTO paiements (reservation_id, client_id, montant, devise, statut, transaction_reference)
           VALUES (
             v_res.id,
             v_res.client_id,

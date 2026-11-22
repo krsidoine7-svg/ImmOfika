@@ -1,5 +1,8 @@
 # GITHUB.md — Workflow Git & CI/CD
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 ---
 
@@ -46,7 +49,7 @@ security: Correctif de sécurité
 feat(biens): add property reservation modal with payment integration
 fix(auth): correct OTP expiration handling
 docs(readme): update installation instructions
-security(webhook): add Paystack signature validation
+security(webhook): add passerelle de paiement (retirée) signature validation
 feat(crm): implement kanban pipeline with drag and drop
 fix(payments): handle failed payment webhook correctly
 ```
@@ -131,7 +134,7 @@ jobs:
       - name: Scan for exposed secrets
         run: |
           # Vérifier qu'aucune clé API n'est exposée côté client
-          grep -r "PAYSTACK_SECRET_KEY" ./app --include="*.ts" --include="*.tsx" && exit 1 || echo "OK"
+          grep -r "(variable de paiement retirée)" ./app --include="*.ts" --include="*.tsx" && exit 1 || echo "OK"
           grep -r "SUPABASE_SERVICE_ROLE_KEY" ./app --include="*.ts" --include="*.tsx" && exit 1 || echo "OK"
 
   build:
@@ -160,9 +163,9 @@ Aller dans `Settings > Secrets and variables > Actions` et ajouter :
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 SUPABASE_SERVICE_ROLE_KEY
-PAYSTACK_SECRET_KEY
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
-PAYSTACK_WEBHOOK_SECRET
+(variable de paiement retirée)
+(variable de paiement retirée)
+(variable de paiement retirée)
 RESEND_API_KEY
 ENCRYPTION_KEY
 CLOUDFLARE_R2_ACCESS_KEY_ID
@@ -248,7 +251,7 @@ test-results/
 ```bash
 # Setup initial
 git clone https://github.com/krsidoine7-svg/ImmOfika.git
-cd ImmOfika
+cd Anyilo
 npm install
 cp .env.example .env.local
 # Remplir .env.local avec les vraies valeurs
@@ -280,7 +283,7 @@ git cherry-pick <commit-hash>  # Appliquer un commit spécifique
 ## 9. README.md du Projet
 
 ```markdown
-# ImmOfika — Plateforme Immobilière
+# Anyilo — Plateforme Immobilière
 
 Plateforme SaaS immobilière pour le marché ivoirien.
 
@@ -290,7 +293,7 @@ Plateforme SaaS immobilière pour le marché ivoirien.
 - Tailwind CSS v4 + shadcn/ui
 - Supabase (PostgreSQL + Auth + Storage)
 - Drizzle ORM
-- Paystack (paiements)
+- passerelle de paiement (retirée) (paiements)
 - Cloudflare R2 (stockage)
 - Resend (emails)
 - Vercel (déploiement)
@@ -299,7 +302,7 @@ Plateforme SaaS immobilière pour le marché ivoirien.
 
 ```bash
 git clone https://github.com/krsidoine7-svg/ImmOfika.git
-cd ImmOfika
+cd Anyilo
 ```
 npm install
 cp .env.example .env.local

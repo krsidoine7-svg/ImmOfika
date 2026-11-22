@@ -1,6 +1,9 @@
 # 06 — Plan de Transformation en Marketplace Immobilière (Abidjan)
 
-> **Projet** : ImmOfika  
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+
+> **Projet** : Anyilo  
 > **Type d'audit** : Phase 1 — Audit en lecture seule pour transformation en Marketplace Immobilière (Abidjan)  
 > **Date** : 31 Octobre 2026  
 > **Méthodologie** : Découpage en 11 étapes séquentielles, autonomes, testables et réversibles. Chaque étape fait l'objet d'une validation explicite avant tout passage à la suivante.
@@ -170,7 +173,7 @@
 ---
 
 ### Étape 9 : Console d'Administration, Modération & Anti-Fraude
-- **Objectif** : Doter l'équipe ImmOfika d'un bouclier opérationnel contre les arnaques et démarcheurs non habilités.
+- **Objectif** : Doter l'équipe Anyilo d'un bouclier opérationnel contre les arnaques et démarcheurs non habilités.
 - **Actions techniques** :
   1. File de modération enrichie (`/admin/moderation`) :
      - Visualisation côte à côte de l'annonce et du titre de propriété ou mandat fourni.
@@ -188,13 +191,13 @@
 ### Étape 10 : Paiements, Notifications & Mobile First
 - **Objectif** : Monétiser la plateforme et optimiser la réactivité sur mobile (canal roi à Abidjan).
 - **Actions techniques** :
-  1. Abonnements B2B & Sponsoring Paystack :
+  1. Abonnements B2B & Sponsoring passerelle de paiement (retirée) :
      - Souscription d'abonnements mensuels pour les agences (pack 20 annonces, pack illimité).
      - Achat d'options de mise en avant « En Vedette » avec règlement direct Mobile Money (Wave, Orange, MTN).
   2. Intégration des notifications automatiques (SMS / WhatsApp) pour les confirmations de rendez-vous de visite.
   3. Optimisation mobile irréprochable (temps de chargement < 2s sur réseau mobile 4G, navigation fluide au pouce).
-- **Fichiers touchés** : `src/lib/paystack/`, `src/app/actions/abonnements.ts`, `src/components/public/`.
-- **Critères d'acceptation** : Encaissement Paystack validé par webhook avec scellement de transaction.
+- **Fichiers touchés** : `src/lib/payments/`, `src/app/actions/abonnements.ts`, `src/components/public/`.
+- **Critères d'acceptation** : Encaissement passerelle de paiement (retirée) validé par webhook avec scellement de transaction.
 - **Estimation d'effort** : **M** (Moyen — 1 jour)
 
 ---

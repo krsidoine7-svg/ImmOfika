@@ -1,64 +1,31 @@
-"use client"
-
-import * as React from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { ArrowRight, PhoneCall, Building2 } from "lucide-react"
 
 interface CtaSectionProps {
-  data?: any
+  data?: { title?: string; description?: string; button_label?: string; button_link?: string }
 }
 
+/** Appel aux annonceurs : propriétaires, agences et promoteurs. */
 export default function CtaSection({ data }: CtaSectionProps) {
-  const tag = data?.tag || "Contactez ImmOfika"
-  const title = data?.title || "Prêt à concrétiser votre projet immobilier ?"
-  const description = data?.description || "Bénéficiez de l'accompagnement d'experts agréés pour l'achat, la vente ou la mise en gestion de vos biens."
-  const button_label = data?.button_label || "Explorer nos biens disponibles"
-  const button_link = data?.button_link || "/biens"
+  const title = data?.title || "Vous louez ou vendez un bien ?"
+  const description =
+    data?.description ||
+    "Publiez votre annonce. Notre équipe la vérifie avant sa mise en ligne, puis les personnes intéressées vous contactent directement par WhatsApp ou par téléphone."
+  const buttonLabel = data?.button_label || "Publier une annonce"
+  const buttonLink = data?.button_link || "/biens/publier"
 
   return (
-    <section className="py-20 md:py-24 bg-gradient-to-br from-emerald-500 to-emerald-700 text-white relative overflow-hidden">
-      {/* Motifs décoratifs */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-black/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center space-y-6"
+    <section className="bg-slate-900 py-20 md:py-24">
+      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 sm:px-6 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">{title}</h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-slate-300">{description}</p>
+        </div>
+        <Link
+          href={buttonLink}
+          className="inline-flex h-12 shrink-0 items-center justify-center rounded-lg bg-emerald-500 px-6 text-[15px] font-semibold text-white hover:bg-emerald-400 active:scale-[0.98] transition"
         >
-          <span className="inline-block px-4 py-1 rounded-full bg-white/20 text-white text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-            {tag}
-          </span>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-            {title}
-          </h2>
-
-          <p className="text-base sm:text-lg text-emerald-50 font-medium leading-relaxed max-w-2xl mx-auto">
-            {description}
-          </p>
-
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href={button_link}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-white text-emerald-700 hover:bg-emerald-50 font-bold text-sm sm:text-base shadow-xl transition-all hover:scale-105 group"
-            >
-              <span>{button_label}</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-emerald-600/60 hover:bg-emerald-600 text-white font-bold text-sm sm:text-base border border-white/20 backdrop-blur-md transition-all"
-            >
-              <PhoneCall className="w-4 h-4" />
-              <span>Contacter un Conseiller</span>
-            </Link>
-          </div>
-        </motion.div>
+          {buttonLabel}
+        </Link>
       </div>
     </section>
   )

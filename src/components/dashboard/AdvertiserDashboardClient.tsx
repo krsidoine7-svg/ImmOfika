@@ -219,7 +219,7 @@ export default function AdvertiserDashboardClient({ initialData }: Props) {
                 <div>
                   <h3 className="text-base font-extrabold text-slate-900">Aucune annonce enregistrée</h3>
                   <p className="text-xs text-slate-500 max-w-sm mx-auto mt-1">
-                    Publiez dès maintenant votre premier bien (villa, terrain avec ACD, appartement) sur ImmOfika.
+                    Publiez dès maintenant votre premier bien (villa, terrain avec ACD, appartement) sur Anyilo.
                   </p>
                 </div>
                 <Link
@@ -558,7 +558,7 @@ export default function AdvertiserDashboardClient({ initialData }: Props) {
                     onChange={(e) => setInviteEmail(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold focus:border-emerald-500 outline-none"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Le collaborateur doit avoir créé un compte sur ImmOfika.</p>
+                  <p className="text-[10px] text-slate-400 mt-1">Le collaborateur doit avoir créé un compte sur Anyilo.</p>
                 </div>
 
                 <div>

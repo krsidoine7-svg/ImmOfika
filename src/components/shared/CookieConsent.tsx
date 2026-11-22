@@ -12,7 +12,7 @@ export default function CookieConsent() {
 
   React.useEffect(() => {
     // Vérifier si le consentement a déjà été donné
-    const consent = localStorage.getItem("immofika_cookie_consent")
+    const consent = localStorage.getItem("anyilo_cookie_consent")
     if (!consent) {
       // Afficher le bandeau après un court délai (1.5s) pour une entrée fluide
       const timer = setTimeout(() => {
@@ -23,14 +23,14 @@ export default function CookieConsent() {
   }, [])
 
   const handleAccept = () => {
-    localStorage.setItem("immofika_cookie_consent", "accepted")
+    localStorage.setItem("anyilo_cookie_consent", "accepted")
     logCookieConsentAction("accepted").catch(console.error)
     window.dispatchEvent(new Event("cookie-consent-changed"))
     setIsVisible(false)
   }
 
   const handleDecline = () => {
-    localStorage.setItem("immofika_cookie_consent", "declined")
+    localStorage.setItem("anyilo_cookie_consent", "declined")
     logCookieConsentAction("declined").catch(console.error)
     window.dispatchEvent(new Event("cookie-consent-changed"))
     setIsVisible(false)
@@ -53,7 +53,7 @@ export default function CookieConsent() {
             <div className="space-y-1.5">
               <h4 className="text-sm font-bold text-emerald-400">Respect de votre vie privée</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                {siteConfig.name} utilise des cookies pour optimiser les performances techniques, mémoriser vos préférences et analyser la navigation sur notre catalogue de promoteur immobilier agréé.
+                {siteConfig.name} utilise des cookies pour optimiser les performances techniques, mémoriser vos préférences et analyser la navigation sur nos annonces.
               </p>
             </div>
           </div>

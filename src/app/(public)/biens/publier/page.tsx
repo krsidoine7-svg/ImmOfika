@@ -20,9 +20,9 @@ import { profiles } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 
 export const metadata = {
-  title: 'Publier une Annonce Immobilière — ImmOfika',
+  title: 'Publier une Annonce Immobilière — Anyilo',
   description:
-    'Déposez votre annonce de vente ou location de maison, appartement, résidence ou terrain sur ImmOfika. Visibilité garantie auprès de milliers d\'acheteurs solvables.',
+    'Déposez votre annonce de vente ou location de maison, appartement, résidence ou terrain sur Anyilo. Visibilité garantie auprès de milliers d\'acheteurs solvables.',
 }
 
 export default async function PublierAnnoncePage() {
@@ -125,7 +125,7 @@ export default async function PublierAnnoncePage() {
             </div>
           </div>
 
-          {/* Option 2 : Délégation Clé en Main à ImmOfika */}
+          {/* Option 2 : Délégation Clé en Main à Anyilo */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-emerald-500/30 transition-all flex flex-col justify-between space-y-6">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
@@ -137,7 +137,7 @@ export default async function PublierAnnoncePage() {
                   Option 2 — Gestion Déléguée
                 </span>
                 <h3 className="text-xl font-bold text-slate-900 mt-1">
-                  Je confie la gestion à ImmOfika
+                  Je confie la gestion à Anyilo
                 </h3>
               </div>
 

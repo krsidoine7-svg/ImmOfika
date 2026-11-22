@@ -438,7 +438,7 @@ export default function BienDetailClient({ bien, images, isFavori: initialFavori
                 <p className="text-xs text-slate-600 leading-relaxed mb-3">
                   {titreInfo
                     ? `${titreInfo.label} — ${titreInfo.description}`
-                    : 'Bien immobilier soumis aux contrôles juridiques préalables de la plateforme ImmOfika selon les règles de conformité OHADA et MCLU.'}
+                    : 'Bien immobilier soumis aux contrôles juridiques préalables de la plateforme Anyilo selon les règles de conformité OHADA et MCLU.'}
                 </p>
                 <div className="flex items-center gap-2 text-[11px] text-emerald-800 font-bold">
                   <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />

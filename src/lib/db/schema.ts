@@ -263,8 +263,8 @@ export const paiements = pgTable('paiements', {
   devise: text('devise').default('XOF').notNull(),
   statut: text('statut').default('en_attente').notNull(), // en_attente, paye, rembourse, echoue
   typePaiement: text('type_paiement').default('acompte').notNull(), // acompte, partiel, total
-  paystackReference: text('paystack_reference').unique(),
-  paystackChannel: text('paystack_channel'), // mobile_money, card, bank_transfer
+  transactionReference: text('transaction_reference').unique(),
+  transactionChannel: text('transaction_channel'), // moyen de paiement renvoyé par l'agrégateur (OM, MOMO, FLOOZ, WAVECI, CARD...)
   factureNumero: text('facture_numero').unique(),
   factureUrl: text('facture_url'),
   paidAt: timestamp('paid_at'),

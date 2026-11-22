@@ -100,7 +100,7 @@ export default function ChatBot() {
     const mainMessage: Message = {
       id: "msg-main-" + Date.now(),
       sender: "bot",
-      text: "Bonjour ! Je suis l'assistant virtuel ImmOfika. Que souhaitez-vous rechercher ou consulter aujourd'hui ?",
+      text: "Bonjour ! Je suis l'assistant virtuel Anyilo. Que souhaitez-vous rechercher ou consulter aujourd'hui ?",
     }
     setMessages([mainMessage])
   }, [])
@@ -223,12 +223,12 @@ export default function ChatBot() {
               <div className="h-10 w-10 rounded-full bg-white/20 p-0.5 flex items-center justify-center backdrop-blur-sm border border-white/30 shrink-0">
                 <img
                   src="/logo-icon-badge.png"
-                  alt="ImmOfika"
+                  alt="Anyilo"
                   className="h-full w-full rounded-full object-cover"
                 />
               </div>
               <div>
-                <p className="font-bold text-sm leading-tight">Assistant ImmOfika</p>
+                <p className="font-bold text-sm leading-tight">Assistant Anyilo</p>
                 <p className="text-[11px] text-emerald-100 flex items-center gap-1.5 mt-0.5 font-medium">
                   <span className="h-2 w-2 bg-emerald-300 rounded-full animate-pulse shadow-sm" />
                   Guide interactif

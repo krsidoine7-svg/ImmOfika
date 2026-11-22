@@ -1,5 +1,8 @@
 # TASKS.md — Backlog des Tâches
-## ImmOfika
+
+> **Note 2026-11-22** : le paiement en ligne a été entièrement retiré d'Anyilo (aucune passerelle ni agrégateur). Les passages qui le décrivent sont historiques. Revenus : facturation des annonceurs au nombre de clients obtenus (voir `docs/PLAN-CORRECTIONS-AUDIT.md`).
+
+## Anyilo
 
 > **Usage :** Ce fichier est la source de vérité des tâches en cours et à venir.  
 > Mettre à jour avant de coder une feature et après l'avoir terminée.
@@ -90,8 +93,8 @@
 
 ---
 
-### ✅ F06 — Paiements Paystack
-**Sprint :** Semaine 3–4 | **Estimé :** 2 jours | **Branche :** `feature/F06-paystack`
+### ✅ F06 — Paiements passerelle de paiement (retirée)
+**Sprint :** Semaine 3–4 | **Estimé :** 2 jours | **Branche :** `feature/F06-passerelle de paiement (retirée)`
 
 **Critères d'acceptance :**
 - [x] Init paiement côté serveur

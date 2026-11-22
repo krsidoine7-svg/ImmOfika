@@ -99,7 +99,7 @@ export async function toggleRolePermissionAction(formData: FormData) {
       for (const email of recipientEmails) {
         await envoyerEmailHelper(
           email,
-          `⚠️ [SÉCURITÉ IMMOFIKA] Modification de droit sensible : ${permissionCode}`,
+          `⚠️ [SÉCURITÉ ANYILO] Modification de droit sensible : ${permissionCode}`,
           `<div style="font-family: sans-serif; line-height: 1.6; color: #1e293b;">
             <h2 style="color: #dc2626;">Alerte Sécurité — Modification de droit sensible</h2>
             <p>Une modification de permission sensible a été effectuée sur la plateforme :</p>
@@ -110,7 +110,7 @@ export async function toggleRolePermissionAction(formData: FormData) {
               <li><strong>Rôle cible :</strong> <strong>${roleName}</strong></li>
               <li><strong>Date & Heure :</strong> ${new Date().toISOString()}</li>
             </ul>
-            <p style="font-size: 13px; color: #64748b;">Ceci est un message de sécurité automatique généré par le moteur RBAC ImmOfika.</p>
+            <p style="font-size: 13px; color: #64748b;">Ceci est un message de sécurité automatique généré par le moteur RBAC Anyilo.</p>
           </div>`
         )
       }

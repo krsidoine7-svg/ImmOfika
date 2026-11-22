@@ -2,7 +2,12 @@ import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config/site'
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || siteConfig.url || 'https://immofika.ci').replace(/\/$/, '')
+  const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || siteConfig.url || 'https://anyilo.com').replace(/\/$/, '')
+
+  // La préproduction ne doit jamais être indexée par les moteurs de recherche
+  if (baseUrl.includes('preprod.')) {
+    return { rules: [{ userAgent: '*', disallow: '/' }] }
+  }
 
   return {
     rules: [

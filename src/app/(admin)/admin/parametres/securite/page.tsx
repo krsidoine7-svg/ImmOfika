@@ -3,7 +3,7 @@ import { getSystemSettingsAction } from "@/app/actions/settings"
 import SecuriteClient from "./SecuriteClient"
 
 export const metadata = {
-  title: "Paramètres Sécurité - ImmOfika Admin",
+  title: "Paramètres Sécurité - Anyilo Admin",
 }
 
 export default async function SecuriteSettingsPage() {
@@ -19,7 +19,7 @@ export default async function SecuriteSettingsPage() {
           Paramètres Sécurité
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-          Gérez la politique de sécurité, les sessions et le mode maintenance ImmOfika.
+          Gérez la politique de sécurité, les sessions et le mode maintenance Anyilo.
         </p>
       </div>
       

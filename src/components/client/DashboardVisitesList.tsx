@@ -43,7 +43,7 @@ export default function DashboardVisitesList({ visites }: DashboardVisitesListPr
             Mes Visites de Biens
           </h3>
           <p className="text-xs text-slate-400 font-medium mt-0.5">
-            Retrouvez vos rendez-vous de visite guidée ImmOfika.
+            Retrouvez vos rendez-vous de visite guidée Anyilo.
           </p>
         </div>
         <button
