@@ -88,6 +88,7 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | 2.6 | P1 | Cas limite : aucune preuve inventée sur l accueil | 1. Ouvrir https://anyilo.com avec une base sans avis de visite 2. Parcourir toute la page | Aucune section « À propos », aucun avis, aucun chiffre de clients, aucun partenaire fictif ; la section « Avis après visite » n apparaît pas tant qu aucun avis réel n existe. | [ ] OK [ ] NA |
 | 2.7 | P2 | Avis réels après visite sans données personnelles | 1. Laisser un avis 5 étoiles avec commentaire après une visite effectuée 2. Ouvrir https://anyilo.com | L avis apparaît dans « Avis après visite » avec le prénom et l initiale du nom, sans photo ni adresse e-mail. | [ ] OK [ ] NA |
 | 2.8 | P2 | Section « Comment ça marche » et règle anti-arnaque | 1. Sur https://anyilo.com, cliquer sur « Comment ça marche » dans le menu 2. Lire l encadré | La page défile jusqu aux 3 étapes et l encadré indique « Anyilo ne vous demande jamais d argent ». | [ ] OK [ ] NA |
+| 2.9 | P2 | Photos d Abidjan derrière le titre avec crédits | 1. Ouvrir https://anyilo.com et attendre 7 secondes 2. Lire la ligne « Photos d Abidjan » sous la recherche 3. Cliquer sur le nom d un auteur | Les photos changent en fondu, le titre reste lisible, et chaque auteur renvoie vers la page Wikimedia Commons de sa photo avec sa licence. | [ ] OK [ ] NA |
 
 ### Validation du Module 2
 | Nom du Testeur | Date du Test | Commentaires et Remarques |
@@ -446,7 +447,7 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | Réf. Module | Périmètre Fonctionnel | Total Tests | Dont Priorité P1 | Dont Priorité P2 | Taux de Couverture |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | Module 1 | Authentification, Sécurité et OTP | 8 | 6 | 2 | 100% |
-| Module 2 | Vitrine Publique, Recherche et GPS | 8 | 4 | 4 | 100% |
+| Module 2 | Vitrine Publique, Recherche et GPS | 9 | 4 | 5 | 100% |
 | Module 3 | Espace Bailleur et Publication d'Annonces | 3 | 2 | 1 | 100% |
 | Module 4 | Modération et Back-Office Admin | 3 | 3 | 0 | 100% |
 | Module 5 | Matrice des Rôles et Permissions RBAC | 3 | 3 | 0 | 100% |
@@ -467,7 +468,7 @@ Ce tableau unifie presente chaque profil d'utilisateur avec ses identifiants ree
 | Module 20 | Console de Modération & Bouclier Anti-Fraude Abidjan (Étape 9 Marketplace) | 4 | 4 | 0 | 100% |
 | Module 21 | Acomptes Légaux & Notifications Multi-Canaux (Étape 10 Marketplace) | 3 | 3 | 0 | 100% |
 | Module 22 | Marque Anyilo, Domaines, Retrait paiement en ligne & Google | 4 | 3 | 1 | 100% |
-| TOTAL | Ensemble de la Plateforme Anyilo | 98 | 87 | 11 | 100% |
+| TOTAL | Ensemble de la Plateforme Anyilo | 99 | 87 | 12 | 100% |
 
 ---
 

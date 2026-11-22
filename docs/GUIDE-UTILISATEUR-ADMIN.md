@@ -108,6 +108,7 @@ Lorsque vous saisissez un code de validation SMS/Email :
 ### 4.0 La page d'accueil (refonte du 2026-11-22)
 L'accueil va à l'essentiel, dans cet ordre :
 1. **Recherche** : « Louer » ou « Acheter », commune, type de bien, budget maximum, puis « Rechercher » (ouvre `/biens` avec ces filtres). Fonctionne même sur un téléphone lent.
+   En arrière-plan, trois vraies photos d'Abidjan défilent en fondu (le Plateau vu du pont Alassane-Ouattara, la Riviera Golf, un coucher de soleil sur la Riviera). Elles viennent de Wikimedia Commons sous licence libre : les auteurs et licences sont cités en bas de l'en-tête, mention obligatoire à ne pas retirer. Elles montrent la ville, pas des biens à vendre. Le fondu est désactivé si l'appareil demande moins d'animations.
 2. **Annonces récentes** par catégorie et « Près de vous ».
 3. **Comment ça marche** en 3 étapes, avec la règle : *Anyilo ne vous demande jamais d'argent*.
 4. **Avis après visite** : uniquement des avis réels laissés après une visite (prénom et initiale, sans photo ni email). La section est masquée tant qu'il n'y en a aucun.

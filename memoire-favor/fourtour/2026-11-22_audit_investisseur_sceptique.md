@@ -54,3 +54,8 @@ Réponse livrée en conversation, pas de fichier de rapport créé.
 - Migration 0027_homepage_essentiel.sql (non appliquée : base injoignable).
 - Validation : tsc 0, vitest 56/56, cahier 98 tests lint 0/0, captures 390/820/1440 sans débordement horizontal.
 - Pré-existant non corrigé : 2 erreurs ESLint react-hooks dans MarketplaceShowcaseSection.
+
+## Suite 5 — Photos derrière le titre de l'accueil
+- 3 vraies photos d'Abidjan trouvées via taste-skill/assets.mjs (Wikimedia Commons) : Plateau depuis le pont ADO (CC BY 4.0, E. McCullen), Riviera Golf (CC BY 2.0, W. S. Awaho), coucher de soleil Riviera (CC BY-SA 4.0, G. H. Njiale Njiale).
+- Converties en WebP dans public/hero/ (85–218 Ko), fondu CSS 18 s (globals.css), désactivé si prefers-reduced-motion, voile sombre, crédits avec liens sous la recherche.
+- Docs : guide §4.0, cahier test 2.9.
